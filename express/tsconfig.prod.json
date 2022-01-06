@@ -1,0 +1,13 @@
+{
+  "extends": "../tsconfig.json",
+  "compilerOptions": {
+    "outDir": "./dist/",
+    "rootDir": "./src",
+    "baseUrl": "./src",
+    "paths": {
+      "@zup-it/ds-schema-core": ["../../core/dist"],
+      "@zup-it/ds-schema-core/*": ["../../core/dist/*"]
+    }
+  },
+  "include": ["src/**/*"]
+}

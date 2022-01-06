@@ -1,0 +1,12 @@
+{
+  "private": true,
+  "name": "@zup-it/beagle-backend-sample",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "dependencies": {
+    "@zup-it/beagle-backend-core": "1.0.0",
+    "@zup-it/beagle-backend-express": "1.0.0",
+    "@zup-it/beagle-backend-components": "1.0.0"
+  }
+}

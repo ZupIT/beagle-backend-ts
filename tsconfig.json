@@ -1,0 +1,21 @@
+
+{
+  "compilerOptions": {
+    "experimentalDecorators": true,
+    "allowSyntheticDefaultImports": true,
+    "module": "commonjs",
+    "preserveConstEnums": true,
+    "target": "esnext",
+    "moduleResolution": "node",
+    "strict": true,
+    "skipLibCheck": true,
+    "esModuleInterop": true,
+    "declaration": true,
+    "baseUrl": "./",
+    "paths": {
+      "@zup-it/ds-schema-core": ["./core/src"],
+      "@zup-it/ds-schema-core/*": ["./core/src/*"]
+    }
+  },
+  "exclude": ["**/node_modules"]
+}
