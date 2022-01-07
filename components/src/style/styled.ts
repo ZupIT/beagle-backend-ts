@@ -1,4 +1,4 @@
-import { Component, ComponentConstructor } from '@zup-it/ds-schema-core'
+import { Component, ComponentConstructor } from '@zup-it/beagle-backend-core'
 import { HasContext, MaybeContext } from '../types'
 import { fromSimpleStyle } from './converter'
 import { Style } from './original-styles'

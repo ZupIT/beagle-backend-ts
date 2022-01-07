@@ -8,5 +8,5 @@ export abstract class CoreAction<Params> extends Action<Params> {
     this.namespace ??= coreNamespace
   }
 
-  namespace
+  override namespace
 }

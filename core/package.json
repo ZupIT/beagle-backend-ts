@@ -10,5 +10,8 @@
     "build": "yarn tsc --project tsconfig.prod.json && node ../scripts/build-package.js",
     "clean": "yarn del dist",
     "test": "yarn jest"
+  },
+  "dependencies": {
+    "lodash": "4.17.21"
   }
 }

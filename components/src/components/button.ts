@@ -1,4 +1,4 @@
-import { Actions } from '@zup-it/ds-schema-core'
+import { Actions } from '@zup-it/beagle-backend-core'
 import { StyledComponent } from '../style/styled'
 import { Accessibility, Theme } from '../types'
 

@@ -11,10 +11,11 @@
     "skipLibCheck": true,
     "esModuleInterop": true,
     "declaration": true,
+    "noImplicitOverride": true,
     "baseUrl": "./",
     "paths": {
-      "@zup-it/ds-schema-core": ["./core/src"],
-      "@zup-it/ds-schema-core/*": ["./core/src/*"]
+      "@zup-it/beagle-backend-core": ["./core/src"],
+      "@zup-it/beagle-backend-core/*": ["./core/src/*"]
     }
   },
   "exclude": ["**/node_modules"]

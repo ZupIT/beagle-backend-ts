@@ -1,4 +1,4 @@
-import { Component, coreNamespace, ComponentConstructor } from '@zup-it/ds-schema-core'
+import { Component, coreNamespace, ComponentConstructor } from '@zup-it/beagle-backend-core'
 import { StyledComponent } from './style/styled'
 import { HasContext, MaybeContext } from './types'
 
@@ -9,9 +9,9 @@ export abstract class DefaultComponent<Props, AcceptsContext extends HasContext 
     super(args as any)
   }
 
-  namespace = coreNamespace
+  override namespace = coreNamespace
 }
 
 export abstract class DefaultStyledComponent<Props> extends StyledComponent<Props> {
-  namespace = coreNamespace
+  override namespace = coreNamespace
 }

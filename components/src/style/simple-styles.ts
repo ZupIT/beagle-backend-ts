@@ -1,4 +1,4 @@
-import { Expression } from '@zup-it/ds-schema-core'
+import { Expression } from '@zup-it/beagle-backend-core'
 import { Flex, Style } from './original-styles'
 import { CornerRadius, EdgeValue, Position, Size, UnitValue } from './original-styles'
 

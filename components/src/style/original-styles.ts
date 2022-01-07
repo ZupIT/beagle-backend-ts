@@ -1,4 +1,4 @@
-import { Expression } from '@zup-it/ds-schema-core'
+import { Expression } from '@zup-it/beagle-backend-core'
 
 type FlexDirection = 'COLUMN' | 'ROW' | 'COLUMN_REVERSE' | 'ROW_REVERSE'
 

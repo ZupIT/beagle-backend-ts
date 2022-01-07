@@ -1,4 +1,4 @@
-import { RootContext } from '@zup-it/ds-schema-core'
+import { RootContext } from '@zup-it/beagle-backend-core'
 import { mapValues } from 'lodash'
 import { hasAnyValue } from '../utils/map'
 import { CornerRadius, EdgeValue, Flex, Position, Size, Style, UnitValue } from './original-styles'

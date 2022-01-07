@@ -5,8 +5,8 @@
     "rootDir": "./src",
     "baseUrl": "./src",
     "paths": {
-      "@zup-it/ds-schema-core": ["../../core/dist"],
-      "@zup-it/ds-schema-core/*": ["../../core/dist/*"]
+      "@zup-it/beagle-backend-core": ["../../core/dist"],
+      "@zup-it/beagle-backend-core/*": ["../../core/dist/*"]
     }
   },
   "include": ["src/**/*"]
