@@ -6,8 +6,8 @@ export const condition = (
   premise: Expression<boolean>,
   ifTrue: ValidOperationAttribute,
   otherwise: ValidOperationAttribute,
-) => new Operation('condition', [premise, ifTrue, otherwise])
+) => new Operation<boolean>('condition', [premise, ifTrue, otherwise])
 
-export const not = (value: Expression<boolean>) => new Operation('not', [value])
-export const and = (...values: Expression<boolean>[]) => new Operation('and', values)
-export const or = (...values: Expression<boolean>[]) => new Operation('or', values)
+export const not = (value: Expression<boolean>) => new Operation<boolean>('not', [value])
+export const and = (...values: Expression<boolean>[]) => new Operation<boolean>('and', values)
+export const or = (...values: Expression<boolean>[]) => new Operation<boolean>('or', values)

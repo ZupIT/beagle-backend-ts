@@ -1,16 +1,23 @@
-import { Component, coreNamespace } from '@zup-it/ds-schema-core'
+import { Component, ComponentConstructor } from '@zup-it/ds-schema-core'
+import { HasContext, MaybeContext } from '../types'
 import { fromSimpleStyle } from './converter'
 import { Style } from './original-styles'
 import { SimpleStyle } from './simple-styles'
 
-type StyledParams<T> = T & { style?: Style }
-type SimpleStyledParams<T> = T & { style?: SimpleStyle, id: string }
+type StyledProps<T> = T & { style?: Style }
+type StyledConstructor<Props> = ComponentConstructor<Props> & { style?: SimpleStyle }
 
-export abstract class StyledComponent<Params> extends Component<StyledParams<Params>> {
-  constructor({ style: simpleStyle, id, ...other }: SimpleStyledParams<Params>, children?: Component<any>[]) {
-    const style = fromSimpleStyle(simpleStyle)
-    super({ style, id, ...(other as any) }, children)
+export abstract class StyledComponent<Props, AcceptsContext extends HasContext = 'with-context'>
+  extends Component<StyledProps<Props>> {
+  constructor(args: MaybeContext<StyledConstructor<StyledProps<Props>>, AcceptsContext>) {
+    const style = fromSimpleStyle(args.style)
+    const allProperties = { style, ...args.properties }
+    // as any: the type is correct, I don't understand why TS complains
+    super({
+      id: args.id,
+      properties: allProperties,
+      children: args.children,
+      context: (args as StyledConstructor<Props>).context,
+    } as any)
   }
-
-  namespace = coreNamespace
 }

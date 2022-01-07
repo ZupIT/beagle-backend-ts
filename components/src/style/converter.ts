@@ -1,4 +1,4 @@
-import { Context } from '@zup-it/ds-schema-core'
+import { RootContext } from '@zup-it/ds-schema-core'
 import { mapValues } from 'lodash'
 import { hasAnyValue } from '../utils/map'
 import { CornerRadius, EdgeValue, Flex, Position, Size, Style, UnitValue } from './original-styles'
@@ -10,7 +10,7 @@ import {
 function fromSimpleCornerRadius(cornerRadius?: SimpleCornerRadius): CornerRadius | undefined {
   if (cornerRadius === undefined) return
   const each = cornerRadius as EachCornerRadius
-  const isSingleRadius = typeof cornerRadius === 'number' || cornerRadius instanceof Context
+  const isSingleRadius = typeof cornerRadius === 'number' || cornerRadius instanceof RootContext
   return {
     radius: isSingleRadius ? cornerRadius : undefined,
     bottomLeft: each.bottomLeft,
@@ -22,7 +22,7 @@ function fromSimpleCornerRadius(cornerRadius?: SimpleCornerRadius): CornerRadius
 
 function fromSimpleUnitValue(value?: SimpleUnitValue): UnitValue | undefined {
   if (value === undefined) return
-  if (typeof value === 'number' || value instanceof Context) return { type: 'REAL', value }
+  if (typeof value === 'number' || value instanceof RootContext) return { type: 'REAL', value }
   if (typeof value === 'string') return { type: 'PERCENT', value: parseFloat(value.replace('%', '')) }
   return value as UnitValue
 }

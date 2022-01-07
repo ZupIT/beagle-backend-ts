@@ -16,10 +16,4 @@ module.exports = {
       tsconfig: '__tests__/tsconfig.json',
     },
   },
-  coverageDirectory: './test-reports/coverage',
-  coverageReporters: ['lcov', 'text-summary'],
-  reporters: [
-    'default',
-    ['jest-html-reporters', { publicPath: './test-reports/result', filename: 'index.html' }],
-  ],
 }

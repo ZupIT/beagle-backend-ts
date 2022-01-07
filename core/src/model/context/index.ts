@@ -1,6 +1,6 @@
-import { AnyContext } from './types'
-import { Context } from './context'
+import { AnyRootContext } from './types'
+import { RootContext } from './root-context'
 
-export function createContext<T>(path: string, value?: T): AnyContext<T> {
-  return new Context<T>(path, value) as any
+export function createContext<T>(id: string, value?: T): AnyRootContext<T> {
+  return new RootContext<T>(id, value) as any
 }

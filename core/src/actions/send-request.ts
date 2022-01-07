@@ -1,5 +1,5 @@
 import { Expression, Actions } from '..'
-import { AnyContext } from '../model/context/types'
+import { AnyContextNode } from '../model/context/types'
 import { HttpMethod } from '../types'
 import { CoreAction } from './core-action'
 
@@ -18,8 +18,8 @@ interface SendRequestParams<SuccessResponse, ErrorResponse> {
   method?: Expression<HttpMethod>,
   headers?: Expression<Record<string, string>>,
   data?: any,
-  onSuccess?: (response: AnyContext<ResponseContext<SuccessResponse>>) => Actions,
-  onError?: (response: AnyContext<ErrorContext<ErrorResponse>>) => Actions,
+  onSuccess?: (response: AnyContextNode<ResponseContext<SuccessResponse>>) => Actions,
+  onError?: (response: AnyContextNode<ErrorContext<ErrorResponse>>) => Actions,
   onFinish?: Actions,
 }
 

@@ -1,3 +1,3 @@
-import { AnyContext } from '../context/types'
+import { DynamicExpression } from '../../types'
 
-export type ValidOperationAttribute = AnyContext<any> | number | string | boolean | undefined | null
+export type ValidOperationAttribute = DynamicExpression<any> | number | string | boolean | undefined | null

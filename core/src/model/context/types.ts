@@ -1,18 +1,36 @@
+import { RootContext } from './root-context'
+import { ContextNode } from './context-node'
+
 type Primitive = string | boolean | number
 
-export type AnyContext<T> = T extends Primitive ? PrimitiveContext<T> : (
-  T extends any[] ? ArrayContext<T> : MapContext<T>
+// any node
+
+export type PrimitiveContextNode<T> = Omit<ContextNode<T>, 'get' | 'at'>
+
+export type MapContextNode<T> = PrimitiveContextNode<T> & {
+  get<K extends keyof T>(key: K): AnyContextNode<T[K]>,
+}
+
+export type ArrayContextNode<T> = PrimitiveContextNode<T> & {
+  at<I extends number>(index: I): T extends any[] ? AnyContextNode<T[I]> : never,
+}
+
+export type AnyContextNode<T> = T extends Primitive ? PrimitiveContextNode<T> : (
+  T extends any[] ? ArrayContextNode<T> : MapContextNode<T>
 )
 
-export interface PrimitiveContext<T> {
-  toString(): string,
-  set(value: T): void,
+// root node
+
+type PrimitiveRootContext<T> = Omit<RootContext<T>, 'get' | 'at'>
+
+type MapRootContext<T> = PrimitiveRootContext<T> & {
+  get: MapContextNode<T>['get'],
 }
 
-export interface MapContext<T> extends PrimitiveContext<T> {
-  get<K extends keyof T>(key: K): AnyContext<T[K]>,
+type ArrayRootContext<T> = PrimitiveRootContext<T> & {
+  at: ArrayContextNode<T>['at'],
 }
 
-export interface ArrayContext<T> extends PrimitiveContext<T> {
-  at<I extends number>(index: I): T extends any[] ? AnyContext<T[I]> : never,
-}
+export type AnyRootContext<T> = T extends Primitive ? PrimitiveRootContext<T> : (
+  T extends any[] ? ArrayRootContext<T> : MapRootContext<T>
+)

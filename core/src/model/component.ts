@@ -1,16 +1,34 @@
 import { lowerFirst } from 'lodash'
+import { genericNamespace } from '../constants'
+import { AnyRootContext } from './context/types'
 
-export abstract class Component<Params> {
-  constructor({ id, ...other }: Params & { id?: string }, children?: Component<any>[]) {
-    this.id = id
-    this.parameters = other as Params
-    this.children = children
+interface BaseConstructorArgs {
+  id?: string,
+  children?: Component<any>[],
+  context?: AnyRootContext<any>,
+}
+
+interface ConstructorArgsWithProperties<Props> extends BaseConstructorArgs {
+  properties: Props,
+}
+
+export type ComponentConstructor<Props> = Props extends void
+  ? BaseConstructorArgs
+  : ConstructorArgsWithProperties<Props>
+
+export abstract class Component<Props = void> {
+  constructor(data: ComponentConstructor<Props>) {
+    this.id = data.id
+    this.children = data.children
+    this.context = data.context
+    this.properties = (data as ConstructorArgsWithProperties<Props>).properties
     this.name ??= lowerFirst(this.constructor.name)
   }
 
-  abstract namespace: string
+  namespace = genericNamespace
   id?: string
   name: string
   children?: Component<any>[]
-  parameters: Params
+  context?: AnyRootContext<any>
+  properties: Props
 }
