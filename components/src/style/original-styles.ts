@@ -1,4 +1,5 @@
 import { Expression } from '@zup-it/beagle-backend-core'
+import { Color } from '../types'
 
 type FlexDirection = 'COLUMN' | 'ROW' | 'COLUMN_REVERSE' | 'ROW_REVERSE'
 
@@ -88,7 +89,7 @@ export interface CornerRadius{
 }
 
 export interface Style {
-  backgroundColor?: Expression<string>,
+  backgroundColor?: Expression<Color>,
   cornerRadius?: CornerRadius,
   flex?: Flex,
   positionType?: FlexPosition,

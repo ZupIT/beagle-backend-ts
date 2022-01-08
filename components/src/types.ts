@@ -17,3 +17,5 @@ export type HasContext = 'with-context' | 'without-context'
 export type MaybeContext<T, AcceptsContext extends HasContext> = AcceptsContext extends 'with-context'
   ? T
   : Contextless<T>
+
+export type Color = `#${string}`

@@ -1,4 +1,4 @@
-export { Component } from './model/component'
+export { Component, LeafComponent } from './model/component'
 export { Expression, HttpMethod } from './types'
 export { RootContext } from './model/context/root-context'
 export { coreNamespace } from './constants'
