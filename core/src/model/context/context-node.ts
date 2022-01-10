@@ -1,6 +1,6 @@
 import { isEmpty } from 'lodash'
-import { SetContext } from '../../actions/set-context'
-import { AnalyticsConfig } from '../action/types'
+import { setContext } from '../../actions/set-context'
+import { AnalyticsConfig, ActionInterface } from '../action'
 
 export class ContextNode<T> {
   constructor(readonly path: string) {}
@@ -9,10 +9,10 @@ export class ContextNode<T> {
     return `@{${this.path}}`
   }
 
-  set(value: T, analytics?: AnalyticsConfig<T>): SetContext<T> {
+  set(value: T, analytics?: AnalyticsConfig<T>): ActionInterface {
     const [, id, path] = this.path.match(/(\w+)\.?(.*)/) ?? []
     if (isEmpty(id)) throw new Error("Can't set context because context path is empty.")
-    return new SetContext({ id, path, analytics, value })
+    return setContext({ id, path, analytics, value })
   }
 
   at(index: number): ContextNode<any> {

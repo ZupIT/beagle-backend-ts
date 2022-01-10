@@ -9,7 +9,7 @@ import { ActionCall, BeagleNode, ContextDeclaration } from './types'
 const asActionCall = (action: Action<any>): ActionCall => ({
   _beagleAction_: `${action.namespace}:'${action.name}`,
   analytics: transformExpressionsAndActions(action.analytics),
-  ...transformExpressionsAndActions(action.parameters),
+  ...transformExpressionsAndActions(action.properties),
 })
 
 const asActionCalls = (actions: Action<any> | Action<any>[]): ActionCall[] => (

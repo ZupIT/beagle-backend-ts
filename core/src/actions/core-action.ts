@@ -1,12 +1,8 @@
-import { coreNamespace } from '..'
-import { Action } from '../model/action'
-import { ActionConstructor } from '../model/action/types'
+import { coreNamespace } from '../constants'
+import { Action, ActionInterface } from '../model/action'
 
-export abstract class CoreAction<Params> extends Action<Params> {
-  constructor(params: ActionConstructor<Params>) {
-    super(params)
-    this.namespace ??= coreNamespace
+export class CoreAction<Props> extends Action<Props> {
+  constructor(args: Omit<ActionInterface, 'namespace'>) {
+    super({ ...args, namespace: coreNamespace })
   }
-
-  override namespace
 }

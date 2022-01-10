@@ -1,4 +1,4 @@
-import { Expression, Actions } from '..'
+import { Expression, Actions, Analytics } from '..'
 import { AnyContextNode } from '../model/context/types'
 import { HttpMethod } from '../types'
 import { CoreAction } from './core-action'
@@ -23,5 +23,6 @@ interface SendRequestParams<SuccessResponse, ErrorResponse> {
   onFinish?: Actions,
 }
 
-export class SendRequest<SuccessResponse, ErrorResponse = SuccessResponse>
-  extends CoreAction<SendRequestParams<SuccessResponse, ErrorResponse>> {}
+export const sendRequest = <SuccessResponse, ErrorResponse>(
+  { analytics, ...properties }: SendRequestParams<SuccessResponse, ErrorResponse> & Analytics,
+) => new CoreAction({ name: 'sendRequest', properties, analytics })

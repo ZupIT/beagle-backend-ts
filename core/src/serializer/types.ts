@@ -1,4 +1,4 @@
-import { AnalyticsConfig } from '../model/action/types'
+import { AnalyticsConfig } from '../model/action'
 
 export interface ContextDeclaration {
   id: string,
