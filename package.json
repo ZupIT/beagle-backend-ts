@@ -3,7 +3,7 @@
   "workspaces": [
     "core",
     "components",
-    "express",
+    "express-client",
     "sample"
   ],
   "engines": {
