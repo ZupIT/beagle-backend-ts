@@ -31,6 +31,7 @@ module.exports = {
       'newlines-between': 'ignore',
     }],
     'filenames/match-regex': [2, /^[a-z-\.]+$/, true],
+    'no-console': 'error',
     '@typescript-eslint/no-non-null-assertion': 'off',
     '@typescript-eslint/explicit-function-return-type': 'off',
 		'@typescript-eslint/explicit-module-boundary-types': 'off',

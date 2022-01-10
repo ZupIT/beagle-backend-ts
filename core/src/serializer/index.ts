@@ -30,7 +30,7 @@ const transformExpressionsAndActions = (value: any): any => {
   return value
 }
 
-const asBeagleNode = (component: Component<any>): BeagleNode => ({
+const asBeagleNode = (component: Component): BeagleNode => ({
   _beagleComponent_: `${component.namespace}:${component.name}`,
   context: component.context ? asContextDeclaration(component.context) : undefined,
   id: component.id,
@@ -38,4 +38,4 @@ const asBeagleNode = (component: Component<any>): BeagleNode => ({
   children: isEmpty(component.children) ? undefined : component.children!.map(asBeagleNode),
 })
 
-export const serialize = (componentTree: Component<any>): string => JSON.stringify(asBeagleNode(componentTree))
+export const serialize = (componentTree: Component): string => JSON.stringify(asBeagleNode(componentTree))

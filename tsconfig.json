@@ -12,6 +12,8 @@
     "esModuleInterop": true,
     "declaration": true,
     "noImplicitOverride": true,
+    "jsx": "react",
+    "lib": ["es6"],
     "baseUrl": "./",
     "paths": {
       "@zup-it/beagle-backend-core": ["./core/src"],
