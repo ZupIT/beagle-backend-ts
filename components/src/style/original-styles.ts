@@ -1,5 +1,5 @@
 import { Expression } from '@zup-it/beagle-backend-core'
-import { Color } from '../types'
+import { Color } from '../color'
 
 type FlexDirection = 'COLUMN' | 'ROW' | 'COLUMN_REVERSE' | 'ROW_REVERSE'
 

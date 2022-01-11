@@ -1,12 +1,13 @@
 import { React, FC } from '@zup-it/beagle-backend-core'
+import { Color } from '../color'
 import { StyledDefaultComponent, Style } from '../style/styled'
-import { Accessibility, Color, Theme } from '../types'
+import { Accessibility, Theme } from '../types'
 import { validateColor } from '../validations'
 
 interface SpecificTextProps {
   text: string,
-  textColor: Color,
-  alignment: 'LEFT' | 'CENTER' | 'RIGHT',
+  textColor?: Color,
+  alignment?: 'LEFT' | 'CENTER' | 'RIGHT',
   context: never,
   children: never,
 }

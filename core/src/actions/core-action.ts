@@ -1,8 +1,8 @@
 import { coreNamespace } from '../constants'
-import { Action, ActionInterface } from '../model/action'
+import { Action, ActionFunction } from '../model/action'
+import { ToExpressions } from '../types'
 
-export class CoreAction<Props> extends Action<Props> {
-  constructor(args: Omit<ActionInterface, 'namespace'>) {
-    super({ ...args, namespace: coreNamespace })
-  }
-}
+export const createCoreAction = <Props = any>(name: string): ActionFunction<Props> => (
+  { analytics, ...properties },
+  // fixme: the casting below should not be necessary
+) => new Action({ name, namespace: coreNamespace, analytics, properties: properties as ToExpressions<Props> })

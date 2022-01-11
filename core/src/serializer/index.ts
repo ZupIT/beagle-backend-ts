@@ -1,5 +1,5 @@
 import { isEmpty, mapValues } from 'lodash'
-import { Component } from '../model/component'
+import { ComponentInterface } from '../model/component'
 import { Action } from '../model/action'
 import { AnyRootContext } from '../model/context/types'
 import { ContextNode } from '../model/context/context-node'
@@ -30,7 +30,7 @@ const transformExpressionsAndActions = (value: any): any => {
   return value
 }
 
-const asBeagleNode = (component: Component): BeagleNode => ({
+const asBeagleNode = (component: ComponentInterface): BeagleNode => ({
   _beagleComponent_: `${component.namespace}:${component.name}`,
   context: component.context ? asContextDeclaration(component.context) : undefined,
   id: component.id,
@@ -38,4 +38,4 @@ const asBeagleNode = (component: Component): BeagleNode => ({
   children: isEmpty(component.children) ? undefined : component.children!.map(asBeagleNode),
 })
 
-export const serialize = (componentTree: Component): string => JSON.stringify(asBeagleNode(componentTree))
+export const serialize = (componentTree: ComponentInterface): string => JSON.stringify(asBeagleNode(componentTree))

@@ -1,25 +1,39 @@
-import { IncomingHttpHeaders } from 'http'
 import { Request, Response } from 'express'
+import { Analytics, AnyContextNode } from '@zup-it/beagle-backend-core'
 import { Component } from '@zup-it/beagle-backend-core'
-import { NavigationContext } from './navigation-context'
 
-interface BuildParams<Headers, Body, Query> {
-  headers: Headers,
-  body: Body,
-  query: Query,
-  request: Request<any, any, any>,
-  response: Response,
+export interface RequestWithCustomHeaders<RouteParams = any, Headers = any, Body = any, Query = any>
+  extends Request<RouteParams, any, Body, Query> {
+  headers: Request['headers'] & Headers,
 }
 
-export abstract class Screen<
-  Headers extends Record<string, any> = Record<string, any>,
+export type Dictionary<T> = {
+  [K in keyof T]: string
+}
+
+export interface Screen<
+  RouteParams extends Dictionary<RouteParams> = any,
+  Headers extends Dictionary<Headers> = any,
   Body = any,
-  Query extends Record<string, any> = Record<string, any>,
+  Query extends Dictionary<Query> = any,
   NavigationContextType = any,
 > {
-  protected readonly navigationContext = new NavigationContext<NavigationContextType>()
-
-  abstract build(buildParams: BuildParams<Headers & IncomingHttpHeaders, Body, Query>): Component
+  navigationContext: AnyContextNode<NavigationContextType>,
+  request: RequestWithCustomHeaders<RouteParams, Headers, Body, Query>,
+  response: Response,
+  context: never,
+  id: never,
 }
 
-export type ScreenClass = { new(): Screen }
+export interface LocalScreenNavigation<T extends Screen> extends Analytics {
+  navigationContext?: T extends Screen<any, any, any, any, infer R> ? R : never,
+}
+
+export interface ScreenNavigation<T extends Screen> extends LocalScreenNavigation<T> {
+  routeParams?: T extends Screen<infer R> ? R : never,
+  headers?: T extends Screen<any, infer R> ? R : never,
+  body?: T extends Screen<any, any, infer R> ? R : never,
+  query?: T extends Screen<any, any, any, infer R> ? R : never,
+  shouldPrefetch?: boolean,
+  fallback?: Component,
+}

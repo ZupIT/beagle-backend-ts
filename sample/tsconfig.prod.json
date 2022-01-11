@@ -1,0 +1,17 @@
+{
+  "extends": "../tsconfig.json",
+  "compilerOptions": {
+    "outDir": "./dist/",
+    "rootDir": "./src",
+    "baseUrl": "./src",
+    "paths": {
+      "@zup-it/beagle-backend-express": ["../../express-client/dist"],
+      "@zup-it/beagle-backend-express/*": ["../../express-client/dist/*"],
+      "@zup-it/beagle-backend-components": ["../../components/dist"],
+      "@zup-it/beagle-backend-components/*": ["../../components/dist/*"],
+      "@zup-it/beagle-backend-core": ["../../core/dist"],
+      "@zup-it/beagle-backend-core/*": ["../../core/dist/*"]
+    }
+  },
+  "include": ["src/**/*"]
+}

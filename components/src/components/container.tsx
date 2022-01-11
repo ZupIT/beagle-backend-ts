@@ -3,7 +3,7 @@ import { StyledDefaultComponent, Style } from '../style/styled'
 import { Theme } from '../types'
 
 interface SpecificContainerProps {
-  onInit: Actions,
+  onInit?: Actions,
 }
 
 type ContainerProps = SpecificContainerProps & Theme & Style

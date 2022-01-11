@@ -1,7 +1,9 @@
-import { Expression, Actions, Analytics } from '..'
+import { Expression, Actions } from '..'
+import { ActionInterface, ActionProps } from '../model/action'
 import { AnyContextNode } from '../model/context/types'
 import { HttpMethod } from '../types'
-import { CoreAction } from './core-action'
+import { createCoreAction } from './core-action'
+
 
 interface ResponseContext<T> {
   status: number,
@@ -13,7 +15,7 @@ interface ErrorContext<T> extends ResponseContext<T> {
   message: string,
 }
 
-interface SendRequestParams<SuccessResponse, ErrorResponse> {
+interface SpecificSendRequestParams<SuccessResponse, ErrorResponse> {
   url: Expression<string>,
   method?: Expression<HttpMethod>,
   headers?: Expression<Record<string, string>>,
@@ -23,6 +25,12 @@ interface SendRequestParams<SuccessResponse, ErrorResponse> {
   onFinish?: Actions,
 }
 
-export const sendRequest = <SuccessResponse, ErrorResponse>(
-  { analytics, ...properties }: SendRequestParams<SuccessResponse, ErrorResponse> & Analytics,
-) => new CoreAction({ name: 'sendRequest', properties, analytics })
+export type SendRequestParams<SuccessResponse = any, ErrorResponse = any> = (
+  ActionProps<SpecificSendRequestParams<SuccessResponse, ErrorResponse>>
+)
+
+type SendRequestFn = <SuccessResponse = any, ErrorResponse = any>(
+  props: SendRequestParams<SuccessResponse, ErrorResponse>,
+) => ActionInterface
+
+export const sendRequest = createCoreAction('sendRequest') as SendRequestFn

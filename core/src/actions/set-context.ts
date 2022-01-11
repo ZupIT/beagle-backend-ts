@@ -1,12 +1,9 @@
-import { Analytics } from '../model/action'
-import { CoreAction } from './core-action'
+import { createCoreAction } from './core-action'
 
-interface SetContextParams<T> {
+interface SetContextParams {
   id: string,
   path?: string,
-  value: T,
+  value: any,
 }
 
-export const setContext = <T>({ analytics, ...properties }: SetContextParams<T> & Analytics) => (
-  new CoreAction({ name: 'setContext', properties, analytics })
-)
+export const setContext = createCoreAction<SetContextParams>('setContext')

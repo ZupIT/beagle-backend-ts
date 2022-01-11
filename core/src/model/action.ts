@@ -1,8 +1,9 @@
 import { genericNamespace } from '../constants'
+import { ToExpressions } from '../types'
 
 export type AnalyticsConfig<Props> = false | {
   additionalEntries?: Record<string, any>,
-  attributes: keyof Props[],
+  attributes: (keyof Props)[],
 }
 
 export interface Analytics<Props = any> {
@@ -10,16 +11,20 @@ export interface Analytics<Props = any> {
 }
 
 export interface ActionInterface<Props = any> {
-  namespace: string | undefined,
+  namespace?: string,
   name: string,
-  properties: Props | undefined,
-  analytics: AnalyticsConfig<Props> | undefined,
+  properties?: ToExpressions<Props>,
+  analytics?: AnalyticsConfig<Props>,
 }
+
+export type ActionProps<Props> = ToExpressions<Props> & Analytics<Props>
+
+export type ActionFunction<Props> = (props: ActionProps<Props>) => ActionInterface
 
 export type Actions = ActionInterface | ActionInterface[]
 
 export class Action<Props = any> implements ActionInterface<Props> {
-  constructor({ name, analytics, namespace = genericNamespace, properties }: ActionInterface) {
+  constructor({ name, analytics, namespace = genericNamespace, properties }: ActionInterface<Props>) {
     this.name = name
     this.namespace = namespace
     this.analytics = analytics
@@ -31,3 +36,7 @@ export class Action<Props = any> implements ActionInterface<Props> {
   properties
   analytics
 }
+
+export const createAction = <Props = any>(name: string, namespace?: string): ActionFunction<Props> => (
+  { analytics, ...properties },
+) => new Action<Props>({ name, namespace, analytics, properties: properties as ToExpressions<Props> })

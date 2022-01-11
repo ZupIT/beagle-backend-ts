@@ -1,0 +1,13 @@
+{
+  "extends": "../tsconfig.json",
+  "compilerOptions": {
+    "paths": {
+      "@zup-it/beagle-backend-express": ["./express-client/src"],
+      "@zup-it/beagle-backend-express/*": ["./express-client/src/*"],
+      "@zup-it/beagle-backend-components": ["./components/src"],
+      "@zup-it/beagle-backend-components/*": ["./components/src/*"],
+      "@zup-it/beagle-backend-core": ["./core/src"],
+      "@zup-it/beagle-backend-core/*": ["./core/src/*"]
+    }
+  }
+}

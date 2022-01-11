@@ -1,5 +1,6 @@
 import { isEmpty } from 'lodash'
 import { setContext } from '../../actions/set-context'
+import { Expression } from '../../types'
 import { AnalyticsConfig, ActionInterface } from '../action'
 
 export class ContextNode<T> {
@@ -9,9 +10,10 @@ export class ContextNode<T> {
     return `@{${this.path}}`
   }
 
-  set(value: T, analytics?: AnalyticsConfig<T>): ActionInterface {
+  set(value: Expression<T>, analytics?: AnalyticsConfig<T>): ActionInterface {
     const [, id, path] = this.path.match(/(\w+)\.?(.*)/) ?? []
     if (isEmpty(id)) throw new Error("Can't set context because context path is empty.")
+    // @ts-ignore fixme: the analytics type is wrong, it wouldn't accept "route.url" for instance
     return setContext({ id, path, analytics, value })
   }
 
