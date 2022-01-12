@@ -14,7 +14,7 @@ interface SpecificTextProps {
 
 type TextProps = SpecificTextProps & Accessibility & Theme & Style
 
-export const Text: FC<TextProps> = ({ id, ...props }) => {
+export const Text: FC<TextProps> = ({ id, style, ...props }) => {
   validateColor(props.textColor)
-  return <StyledDefaultComponent name="text" id={id} properties={props} />
+  return <StyledDefaultComponent name="text" id={id} style={style} properties={props} />
 }

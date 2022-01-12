@@ -15,6 +15,7 @@ export class Operation<ReturnType = void> {
     const argumentsAsStrings = this.args.map(item => {
       if (item instanceof Operation) return item.asString(false)
       if (item instanceof ContextNode) return item.path
+      if (typeof item === 'string') return `'${item}'`
       return item ? item.toString() : 'null'
     })
     const expression = `${this.name}(${argumentsAsStrings.join(', ')})`

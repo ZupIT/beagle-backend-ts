@@ -7,7 +7,7 @@ import { Operation } from '../model/operation'
 import { ActionCall, BeagleNode, ContextDeclaration } from './types'
 
 const asActionCall = (action: Action<any>): ActionCall => ({
-  _beagleAction_: `${action.namespace}:'${action.name}`,
+  _beagleAction_: `${action.namespace}:${action.name}`,
   analytics: transformExpressionsAndActions(action.analytics),
   ...transformExpressionsAndActions(action.properties),
 })
@@ -22,15 +22,16 @@ const asContextDeclaration = (context: AnyRootContext<any>): ContextDeclaration 
 })
 
 const transformExpressionsAndActions = (value: any): any => {
-  const isActions = Array.isArray(value) && value[0] instanceof Action
+  const isActions = value instanceof Action || Array.isArray(value) && value[0] instanceof Action
   if (isActions) return asActionCalls(value)
   if (value instanceof Component) return asBeagleNode(value)
   if (value instanceof ContextNode || value instanceof Operation) return value.toString()
   if (Array.isArray(value)) return value.map(transformExpressionsAndActions)
-  if (value && typeof value === 'object') return mapValues(transformExpressionsAndActions)
+  if (value && typeof value === 'object') return mapValues(value, transformExpressionsAndActions)
   return value
 }
 
+// eslint-disable-next-line arrow-body-style
 export const asBeagleNode = (component: ComponentInterface): BeagleNode => ({
   _beagleComponent_: `${component.namespace}:${component.name}`,
   context: component.context ? asContextDeclaration(component.context) : undefined,

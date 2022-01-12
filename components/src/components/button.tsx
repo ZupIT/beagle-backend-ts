@@ -12,6 +12,6 @@ interface SpecificButtonProps {
 
 type ButtonProps = SpecificButtonProps & Accessibility & Theme & Style
 
-export const Button: FC<ButtonProps> = ({ id, ...props }) => (
-  <StyledDefaultComponent name="button" id={id} properties={props} />
+export const Button: FC<ButtonProps> = ({ id, style, ...props }) => (
+  <StyledDefaultComponent name="button" id={id} style={style} properties={props} />
 )

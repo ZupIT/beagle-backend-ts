@@ -16,7 +16,7 @@ export const UserInit: FC<{ id: string }> = ({ id, children }) => {
   const conditionalInit = conditionalAction({ condition: isNull(user), onTrue: initializeUser })
 
   return (
-    <Container onInit={conditionalInit}>
+    <Container id="userInit" onInit={conditionalInit}>
       <Text text="loading..." style={{ display: condition(isNull(user), 'FLEX', 'NONE') }} />
       <Container style={{ display: condition(isNull(user), 'NONE', 'FLEX') }}>
         {children}
