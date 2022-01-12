@@ -5,7 +5,7 @@ import { CornerRadius, EdgeValue, Position, Size, UnitValue } from './original-s
 export type SimpleUnitValue = Expression<number> | `${number}%` | UnitValue
 
 export type SimpleSize = {
-  [K in keyof Size]: Size[K] extends UnitValue ? SimpleUnitValue : Size[K]
+  [K in keyof Size]: Size[K] extends (UnitValue | undefined) ? SimpleUnitValue : Size[K]
 }
 
 export type SimplePosition = {

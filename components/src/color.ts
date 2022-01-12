@@ -1,6 +1,6 @@
 export type Color = `#${string}`
 
-export const colors = {
+const untypedColors = {
   aliceblue: '#F0F8FF',
   antiquewhite: '#FAEBD7',
   aqua: '#00FFFF',
@@ -149,3 +149,5 @@ export const colors = {
   yellow: '#FFFF00',
   yellowgreen: '#9ACD32',
 }
+
+export const colors = untypedColors as Record<keyof typeof untypedColors, Color>
