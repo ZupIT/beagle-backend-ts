@@ -7,7 +7,7 @@ export { AnyContextNode } from './model/context/types'
 export { ContextNode } from './model/context/context-node'
 export { createContext } from './model/context'
 export { serialize } from './serializer'
-export { FC } from './jsx/types'
+export { FC, ComponentProps } from './jsx/types'
 export { logger } from './logger'
 export { React } from './jsx'
 
