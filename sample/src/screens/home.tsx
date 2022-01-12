@@ -1,7 +1,7 @@
 import { Container, Text, Button } from '@zup-it/beagle-backend-components'
 import { React, FC } from '@zup-it/beagle-backend-core'
 import { Screen } from '@zup-it/beagle-backend-express'
-import { app } from '..'
+import { app } from '../app'
 import { Order } from './order'
 import { AppHeaders } from '../types'
 import { UserInit } from '../fragments/user-init'

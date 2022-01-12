@@ -25,16 +25,19 @@ export const StyledComponent: FC<StyledComponentProps> = ({
   validateColor(style?.backgroundColor)
   validateColor(style?.borderColor)
   // @ts-ignore todo: actually implement jsx and check these errors. This Error is shown only when compiling.
-  return <component
-    name={name}
-    children={children}
-    context={context}
-    id={id}
-    namespace={namespace}
-    properties={{ ...fromSimpleStyle(style), ...properties }}
-  />
+  return (
+    <component
+      name={name}
+      context={context}
+      id={id}
+      namespace={namespace}
+      properties={{ ...fromSimpleStyle(style), ...properties }}
+    >
+      {children}
+    </component>
+  )
 }
 
-export const StyledDefaultComponent: FC<Omit<StyledComponentProps, 'namespace'>> = props => (
-  <StyledComponent {...props} namespace={coreNamespace} />
+export const StyledDefaultComponent: FC<Omit<StyledComponentProps, 'namespace'>> = ({ children, ...props }) => (
+  <StyledComponent {...props} namespace={coreNamespace}>{children}</StyledComponent>
 )

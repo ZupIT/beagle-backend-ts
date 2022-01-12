@@ -1,7 +1,7 @@
 import { HttpMethod, FC } from '@zup-it/beagle-backend-core'
 import {
   pushView, pushStack, popToView, popView, resetApplication, resetStack, Route,
-} from '@zup-it/beagle-backend-core/actions'
+} from '@zup-it/beagle-backend-core/actions/index'
 import { LocalScreenNavigation, Screen, ScreenNavigation } from './screen'
 
 interface RouteConfig {

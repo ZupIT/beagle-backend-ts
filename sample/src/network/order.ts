@@ -1,5 +1,5 @@
 import { Expression } from '@zup-it/beagle-backend-core'
-import { sendRequest, SendRequestParams } from '@zup-it/beagle-backend-core/actions'
+import { sendRequest, SendRequestParams } from '@zup-it/beagle-backend-core/actions/index'
 import { baseUrl } from './constants'
 
 interface TrackingInfo {

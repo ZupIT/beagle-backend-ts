@@ -9,5 +9,7 @@ interface SpecificContainerProps {
 type ContainerProps = SpecificContainerProps & Theme & Style
 
 export const Container: FC<ContainerProps> = ({ context, children, ...props }) => (
-  <StyledDefaultComponent name="container" context={context} children={children} properties={props} />
+  <StyledDefaultComponent name="container" context={context} properties={props}>
+    {children}
+  </StyledDefaultComponent>
 )

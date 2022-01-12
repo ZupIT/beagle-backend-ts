@@ -6,6 +6,7 @@
   "license": "MIT",
   "scripts": {
     "start": "nodemon src/index.ts",
+    "start-once": "ts-node src/index.ts",
     "build": "yarn tsc --project tsconfig.prod.json",
     "clean": "yarn del dist"
   },

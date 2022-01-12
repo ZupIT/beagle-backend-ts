@@ -1,5 +1,5 @@
 import { isEmpty, mapValues } from 'lodash'
-import { ComponentInterface } from '../model/component'
+import { Component, ComponentInterface } from '../model/component'
 import { Action } from '../model/action'
 import { AnyRootContext } from '../model/context/types'
 import { ContextNode } from '../model/context/context-node'
@@ -24,13 +24,14 @@ const asContextDeclaration = (context: AnyRootContext<any>): ContextDeclaration 
 const transformExpressionsAndActions = (value: any): any => {
   const isActions = Array.isArray(value) && value[0] instanceof Action
   if (isActions) return asActionCalls(value)
+  if (value instanceof Component) return asBeagleNode(value)
   if (value instanceof ContextNode || value instanceof Operation) return value.toString()
   if (Array.isArray(value)) return value.map(transformExpressionsAndActions)
   if (value && typeof value === 'object') return mapValues(transformExpressionsAndActions)
   return value
 }
 
-const asBeagleNode = (component: ComponentInterface): BeagleNode => ({
+export const asBeagleNode = (component: ComponentInterface): BeagleNode => ({
   _beagleComponent_: `${component.namespace}:${component.name}`,
   context: component.context ? asContextDeclaration(component.context) : undefined,
   id: component.id,
