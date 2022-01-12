@@ -3,7 +3,6 @@ import { ComponentInterface } from '../model/component'
 import { createCoreAction } from './core-action'
 
 // App navigation
-
 interface OpenNativeRouteParams {
   route: string,
   shouldResetApplication?: boolean,
@@ -19,7 +18,6 @@ interface OpenExternalUrlParams {
 export const openExternalUrl = createCoreAction<OpenExternalUrlParams>('openExternalUrl')
 
 // Beagle Navigation
-
 interface IdentifiableComponent extends ComponentInterface {
   id: string,
 }
