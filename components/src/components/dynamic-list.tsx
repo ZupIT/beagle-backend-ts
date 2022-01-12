@@ -2,7 +2,7 @@ import { React, Actions, FC, Expression, Component } from '@zup-it/beagle-backen
 import { DefaultComponent } from '../default-component'
 
 interface TemplateManagerItem {
-  case: string,
+  case: Expression<boolean>,
   view: Component,
 }
 
