@@ -1,9 +1,8 @@
 import { Expression, Actions, ContextNode } from '..'
-import { ActionInterface, ActionProps } from '../model/action'
+import { ActionProps } from '../model/action'
 import { AnyContextNode } from '../model/context/types'
 import { HttpMethod } from '../types'
 import { createCoreAction } from './core-action'
-
 
 interface ResponseContext<T> {
   status: number,
