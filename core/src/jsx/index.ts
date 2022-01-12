@@ -7,6 +7,6 @@ export const React = {
     if (jsx !== 'component') {
       throw new Error(`Invalid Beagle JSX element "${jsx}". Did you mean "component"?`)
     }
-    return new Component(props)
+    return new Component({ ...props, children })
   },
 }
