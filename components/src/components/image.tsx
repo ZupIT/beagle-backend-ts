@@ -2,17 +2,17 @@ import { React, FC, Expression } from '@zup-it/beagle-backend-core'
 import { StyledDefaultComponent, Style } from '../style/styled'
 import { Accessibility, Theme } from '../types'
 
-interface Local {
+interface LocalPath {
   url: string,
   mobileId: string,
 }
 
-interface Remote {
+interface RemotePath {
   url: string,
-  placeholder?: Local,
+  placeholder?: LocalPath,
 }
 
-type ImagePath = Local | Remote
+type ImagePath = LocalPath | RemotePath
 
 interface SpecificImageProps {
   path: ImagePath | Expression<string>,
