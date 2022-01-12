@@ -1,6 +1,7 @@
-import { ComponentProps, Expression, Component } from '@zup-it/beagle-backend-core'
-import { Style } from '../../style/styled'
-import { Accessibility, Theme } from '../../types'
+import { React, ComponentProps, Expression, Component } from '@zup-it/beagle-backend-core'
+import { StyledDefaultComponent } from '../style/styled'
+import { Style } from '../style/styled'
+import { Accessibility, Theme } from '../types'
 
 interface Local {
   /**
@@ -26,3 +27,9 @@ type ImageProps<T extends 'local' | 'remote'> = SpecificImageProps<T> & Accessib
 export type AllProps<T extends 'local' | 'remote'> = ComponentProps<ImageProps<T>>
 
 export type ImageFC = <T extends 'local' | 'remote'>(props: AllProps<T>) => Component
+
+const ImageComponent = ({ id, style, type, ...props }: AllProps<'local' | 'remote'>) => (
+  <StyledDefaultComponent name="image" id={id} style={style} properties={{ ...props, '_beagleImagePath_': type }} />
+)
+
+export const Image = ImageComponent as ImageFC
