@@ -39,10 +39,15 @@ interface RemoteView {
   httpAdditionalData?: HttpAdditionalData,
 }
 
+interface NavigationContext {
+  path?: string,
+  value: any,
+}
+
 export type Route = LocalView | RemoteView
 
 interface BaseNavigationParams {
-  navigationContext?: any,
+  navigationContext?: NavigationContext,
 }
 
 interface RouteNavigationParams<T extends (Route | string) = Route> extends BaseNavigationParams {
