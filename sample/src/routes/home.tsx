@@ -1,5 +1,5 @@
 import { Container, Text, Button } from '@zup-it/beagle-backend-components'
-import { React } from '@zup-it/beagle-backend-core'
+import { BeagleJSX } from '@zup-it/beagle-backend-core'
 import { Screen } from '@zup-it/beagle-backend-express'
 import { Order } from './order'
 import { UserInit } from '../fragments/user-init'

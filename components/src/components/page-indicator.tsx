@@ -1,4 +1,4 @@
-import { React, FC, Expression } from '@zup-it/beagle-backend-core'
+import { BeagleJSX, FC, Expression } from '@zup-it/beagle-backend-core'
 import { DefaultComponent } from '../default-component'
 import { validateColor } from '../validations'
 

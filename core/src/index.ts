@@ -10,7 +10,7 @@ export { serialize } from './serializer'
 export { FC, ComponentProps } from './jsx/types'
 export { logger } from './logger'
 export { isDynamicExpression } from './utils'
-export { React } from './jsx'
+export { BeagleJSX } from './jsx'
 
 declare global {
   // eslint-disable-next-line @typescript-eslint/no-namespace

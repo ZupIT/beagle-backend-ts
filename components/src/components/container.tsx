@@ -1,4 +1,4 @@
-import { React, Actions, FC, WithChildren, WithContext } from '@zup-it/beagle-backend-core'
+import { BeagleJSX, Actions, FC, WithChildren, WithContext } from '@zup-it/beagle-backend-core'
 import { StyledDefaultComponent, WithStyle } from '../style/styled'
 import { WithAccessibility, WithTheme } from '../types'
 

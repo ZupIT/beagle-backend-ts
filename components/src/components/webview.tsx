@@ -1,4 +1,4 @@
-import { React, FC, Expression } from '@zup-it/beagle-backend-core'
+import { BeagleJSX, FC, Expression } from '@zup-it/beagle-backend-core'
 import { StyledDefaultComponent, WithStyle } from '../style/styled'
 import { WithAccessibility } from '../types'
 

@@ -1,4 +1,4 @@
-import { React, FC, Actions, WithChildren } from '@zup-it/beagle-backend-core'
+import { BeagleJSX, FC, Actions, WithChildren } from '@zup-it/beagle-backend-core'
 import { DefaultComponent } from '../default-component'
 
 interface TouchableProps extends Required<WithChildren> {
