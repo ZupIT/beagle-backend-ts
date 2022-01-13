@@ -1,11 +1,11 @@
-import { BeagleJSX, FC } from '@zup-it/beagle-backend-core'
+import { BeagleJSX, FC, Expression } from '@zup-it/beagle-backend-core'
 import { Color } from '../color'
 import { StyledDefaultComponent, WithStyle } from '../style/styled'
 import { WithAccessibility, WithTheme } from '../types'
 import { validateColor } from '../validations'
 
 interface TextProps extends WithAccessibility, WithTheme, WithStyle {
-  text: string,
+  text: Expression<string>,
   textColor?: Color,
   alignment?: 'LEFT' | 'CENTER' | 'RIGHT',
 }
