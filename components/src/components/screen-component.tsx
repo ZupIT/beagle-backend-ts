@@ -30,7 +30,7 @@ interface SpecificScreenProps {
 
 type ScreenProps = SpecificScreenProps & Theme & Style
 
-export const Screen: FC<ScreenProps> = ({ id, context, children, style, ...props }) => (
+export const ScreenComponent: FC<ScreenProps> = ({ id, context, children, style, ...props }) => (
   <StyledDefaultComponent name="screen" id={id} context={context} style={style} properties={props}>
     {children}
   </StyledDefaultComponent>

@@ -1,9 +1,9 @@
-import { BeagleJSX, FC } from '@zup-it/beagle-backend-core'
+import { BeagleJSX } from '@zup-it/beagle-backend-core'
+import { Screen } from '@zup-it/beagle-backend-express'
 import { pushView } from '@zup-it/beagle-backend-core/actions/index'
 import { Button, colors, Container, Image, Text } from '@zup-it/beagle-backend-components'
-import { app } from '../app'
 
-export const Welcome: FC = () => (
+export const Welcome: Screen = () => (
   <Container
     style={{
       flexDirection: 'COLUMN',
@@ -19,5 +19,3 @@ export const Welcome: FC = () => (
     <Button text="Access the fast guide" style={{ marginTop: 40 }} onPress={pushView('/docs.json')} />
   </Container>
 )
-
-app.addScreen({ path: '/welcome', screen: Welcome })

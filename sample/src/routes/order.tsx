@@ -1,20 +1,21 @@
 import { Container, Text, Button } from '@zup-it/beagle-backend-components'
-import { BeagleJSX, FC, createContext } from '@zup-it/beagle-backend-core'
+import { BeagleJSX, createContext } from '@zup-it/beagle-backend-core'
 import { Screen } from '@zup-it/beagle-backend-express'
 import { alert } from '@zup-it/beagle-backend-core/actions/index'
 import { condition, isNull } from '@zup-it/beagle-backend-core/operations/index'
-import { app } from '../app'
 import { getOrderById, Order as OrderType } from '../network/order'
 import { Card } from '../fragments/card'
-import { AppHeaders } from '../types'
 import { UserInit } from '../fragments/user-init'
+import { AppRequest } from './types'
 
-interface NavigationContextType {
-  orderId: string,
+interface OrderRequest extends AppRequest {
+  navigationContext: {
+    orderId: string,
+  }
 }
 
-export const Order: FC<Screen<any, AppHeaders, any, any, NavigationContextType>> = (
-  { request: { headers }, navigationContext },
+export const Order: Screen<OrderRequest> = (
+  { request: { headers }, navigationContext, navigator },
 ) => {
   const order = createContext<OrderType>('order')
   const onInit = getOrderById(navigationContext.get('orderId'), {
@@ -43,10 +44,8 @@ export const Order: FC<Screen<any, AppHeaders, any, any, NavigationContextType>>
         />
       </Card>
       <Container style={{ flex: 1, alignContent: 'CENTER', justifyContent: 'CENTER' }}>
-        <Button text='Home' onPress={app.navigator.remote.popView()} />
+        <Button text='Home' onPress={navigator.popView()} />
       </Container>
     </UserInit>
   )
 }
-
-app.addScreen({ path: '/order', screen: Order })

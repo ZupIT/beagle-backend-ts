@@ -1,39 +1,37 @@
 import { Request, Response } from 'express'
-import { Analytics, AnyContextNode } from '@zup-it/beagle-backend-core'
-import { Component } from '@zup-it/beagle-backend-core'
+import { Analytics, AnyContextNode, Component, FC } from '@zup-it/beagle-backend-core'
+import { Navigator } from './navigator'
 
 export interface RequestWithCustomHeaders<RouteParams = any, Headers = any, Body = any, Query = any>
   extends Request<RouteParams, any, Body, Query> {
   headers: Request['headers'] & Headers,
 }
 
-export type Dictionary<T> = {
-  [K in keyof T]: string
+export interface ScreenRequest {
+  headers: Record<string, string>,
+  routeParams: Record<string, string>,
+  query: Record<string, string>,
+  body: any,
+  navigationContext: any,
 }
 
-export interface Screen<
-  RouteParams extends Dictionary<RouteParams> = any,
-  Headers extends Dictionary<Headers> = any,
-  Body = any,
-  Query extends Dictionary<Query> = any,
-  NavigationContextType = any,
-> {
-  navigationContext: AnyContextNode<NavigationContextType>,
-  request: RequestWithCustomHeaders<RouteParams, Headers, Body, Query>,
+interface ScreenProps<T extends ScreenRequest> {
+  navigationContext: AnyContextNode<T['navigationContext']>,
+  request: RequestWithCustomHeaders<T['routeParams'], T['headers'], T['body'], T['query']>,
   response: Response,
+  navigator: Navigator,
   context: never,
   id: never,
 }
 
-export interface LocalScreenNavigation<T extends Screen> extends Analytics {
-  navigationContext?: T extends Screen<any, any, any, any, infer R> ? R : never,
-}
+export type Screen<T extends ScreenRequest = any> = FC<ScreenProps<T>>
 
-export interface ScreenNavigation<T extends Screen> extends LocalScreenNavigation<T> {
-  routeParams?: T extends Screen<infer R> ? R : never,
-  headers?: T extends Screen<any, infer R> ? R : never,
-  body?: T extends Screen<any, any, infer R> ? R : never,
-  query?: T extends Screen<any, any, any, infer R> ? R : never,
+export interface ScreenNavigation<T extends ScreenRequest> extends Analytics {
+  routeParams?: T['routeParams'],
+  headers?: T['headers'],
+  body?: T['body'],
+  query?: T['query'],
+  navigationContext?: T['navigationContext'],
   shouldPrefetch?: boolean,
   fallback?: Component,
 }
