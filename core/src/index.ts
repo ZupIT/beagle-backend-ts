@@ -14,7 +14,7 @@ export { BeagleJSX } from './jsx'
 
 declare global {
   // eslint-disable-next-line @typescript-eslint/no-namespace
-  namespace BeagleJSX {
+  namespace JSX {
     interface ElementChildrenAttribute {
       children: 'children',
     }
