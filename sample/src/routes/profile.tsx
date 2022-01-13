@@ -1,13 +1,13 @@
 import { Container, Text, Button } from '@zup-it/beagle-backend-components'
-import { React, FC } from '@zup-it/beagle-backend-core'
+import { React } from '@zup-it/beagle-backend-core'
 import { Screen } from '@zup-it/beagle-backend-express'
 import { UserInit } from '../../dist/fragments/user-init'
-import { app } from '../app'
 import { Card } from '../fragments/card'
+import { globalContext } from '../global-context'
 import { AppRequest } from './types'
 
-export const Profile: Screen<AppRequest> = ({ request: { headers }}) => {
-  const user = app.globalContext.get('user')
+export const Profile: Screen<AppRequest> = ({ request: { headers }, navigator }) => {
+  const user = globalContext.get('user')
   const itemStyle = { marginVertical: 3 }
 
   return (
@@ -19,7 +19,7 @@ export const Profile: Screen<AppRequest> = ({ request: { headers }}) => {
         <Text style={itemStyle} text={`Sex: \$${user.get('sex')}`} />
       </Card>
       <Container style={{ flex: 1, alignContent: 'CENTER', justifyContent: 'CENTER' }}>
-        <Button text='Home' onPress={app.navigator.remote.popView()}  />
+        <Button text='Home' onPress={navigator.popView()}  />
       </Container>
     </UserInit>
   )

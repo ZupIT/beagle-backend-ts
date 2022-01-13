@@ -1,9 +1,9 @@
-import { React, FC } from '@zup-it/beagle-backend-core'
+import { React } from '@zup-it/beagle-backend-core'
+import { Screen } from '@zup-it/beagle-backend-express'
 import { pushView } from '@zup-it/beagle-backend-core/actions/index'
 import { Button, colors, Container, Image, Text } from '@zup-it/beagle-backend-components'
-import { app } from '../app'
 
-export const Welcome: FC = () => (
+export const Welcome: Screen = () => (
   <Container
     style={{
       flexDirection: 'COLUMN',

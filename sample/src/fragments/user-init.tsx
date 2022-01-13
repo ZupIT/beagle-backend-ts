@@ -2,14 +2,14 @@ import { Container, Text } from '@zup-it/beagle-backend-components'
 import { React, FC } from '@zup-it/beagle-backend-core'
 import { alert, condition as conditionalAction } from '@zup-it/beagle-backend-core/actions/index'
 import { isNull, condition } from '@zup-it/beagle-backend-core/operations/index'
-import { app } from '../app'
+import { globalContext } from '../global-context'
 import { getUserById } from '../network/user'
 
 export const UserInit: FC<{ id: string }> = ({ id, children }) => {
-  const user = app.globalContext.get('user')
+  const user = globalContext.get('user')
 
   const initializeUser = getUserById(id, {
-    onSuccess: success => app.globalContext.get('user').set(success.get('data')),
+    onSuccess: success => globalContext.get('user').set(success.get('data')),
     onError: error => alert(error.get('message')),
   })
 

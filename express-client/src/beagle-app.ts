@@ -1,26 +1,30 @@
 import { forEach } from 'lodash'
 import { Express } from 'express'
-import { serialize, FC, ContextNode, AnyContextNode } from '@zup-it/beagle-backend-core'
-import { RouteConfig, RouteMap } from './types'
+import { serialize, ContextNode } from '@zup-it/beagle-backend-core'
+import { RouteConfig, RouteMap } from './route'
+import { Screen } from './screen'
+import { Navigator } from './navigator'
 
 interface Options {
   responseHeaders?: Record<string, string>,
   basePath?: string,
 }
 
-export class BeagleApp<GlobalContextType = any> {
+export class BeagleApp {
   constructor(private express: Express, routes: RouteMap, options: Options = {}) {
     this.responseHeaders = options.responseHeaders ?? {}
     this.basePath = options.basePath ?? ''
     this.addRouteMap(routes)
+    this.navigator = new Navigator(routes)
   }
 
   private responseHeaders: Record<string, any>
   private basePath: string
   // The casting below shouldn't be necessary. I don't know why TS complains.
-  private globalContext = new ContextNode('globalContext') as unknown as AnyContextNode<GlobalContextType>
+  private navigationContext = new ContextNode('navigationContext')
+  private navigator: Navigator
 
-  private addRoute = (screen: FC<any>, properties: RouteConfig) => {
+  private addRoute = (screen: Screen, properties: RouteConfig) => {
     const { method = 'get', path } = properties
     this.express[method](`${this.basePath}${path}`, (req, res) => {
       res.type('application/json')
@@ -28,7 +32,8 @@ export class BeagleApp<GlobalContextType = any> {
       const componentTree = screen({
         request: req,
         response: res,
-        navigationContext: new ContextNode('navigationContext'),
+        navigationContext: this.navigationContext,
+        navigator: this.navigator,
       })
       res.send(serialize(componentTree))
     })

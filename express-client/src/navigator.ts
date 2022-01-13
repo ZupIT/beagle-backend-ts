@@ -3,7 +3,7 @@ import {
   pushView, pushStack, popToView, popView, resetApplication, resetStack, Route,
 } from '@zup-it/beagle-backend-core/actions/index'
 import { forEach } from 'lodash'
-import { RouteMap, RouteConfig } from './types'
+import { RouteMap, RouteConfig } from './route'
 import { ScreenRequest, Screen, ScreenNavigation } from './screen'
 
 const navigationActions = { pushView, pushStack, popToView, popView, resetApplication, resetStack }
@@ -18,8 +18,8 @@ interface GenericRemoteNavigation {
   properties?: ScreenNavigation<any> & ControllerId,
 }
 
-export class Navigator<T extends RouteMap> {
-  constructor(routeMap: T, private basePath = '') {
+export class Navigator {
+  constructor(routeMap: RouteMap, private basePath = '') {
     this.screenMap = new Map()
     forEach(routeMap, (value, key) => this.screenMap.set(
       typeof value === 'function' ? value : value.screen,

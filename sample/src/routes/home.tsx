@@ -1,14 +1,14 @@
 import { Container, Text, Button } from '@zup-it/beagle-backend-components'
 import { React } from '@zup-it/beagle-backend-core'
 import { Screen } from '@zup-it/beagle-backend-express'
-import { navigator } from '.'
 import { Order } from './order'
 import { UserInit } from '../fragments/user-init'
 import { AppRequest } from './types'
+import { globalContext } from '../global-context'
 
-export const Home: Screen<AppRequest> = ({ request: { headers } }) => {
-  const user = app.globalContext.get('user')
-  const balance = app.globalContext.get('balance')
+export const Home: Screen<AppRequest> = ({ request: { headers }, navigator }) => {
+  const user = globalContext.get('user')
+  const balance = globalContext.get('balance')
 
   return (
     <UserInit id={headers['user-id']}>

@@ -3,7 +3,6 @@ import { React, createContext } from '@zup-it/beagle-backend-core'
 import { Screen } from '@zup-it/beagle-backend-express'
 import { alert } from '@zup-it/beagle-backend-core/actions/index'
 import { condition, isNull } from '@zup-it/beagle-backend-core/operations/index'
-import { app } from '../app'
 import { getOrderById, Order as OrderType } from '../network/order'
 import { Card } from '../fragments/card'
 import { UserInit } from '../fragments/user-init'
@@ -16,7 +15,7 @@ interface OrderRequest extends AppRequest {
 }
 
 export const Order: Screen<OrderRequest> = (
-  { request: { headers }, navigationContext },
+  { request: { headers }, navigationContext, navigator },
 ) => {
   const order = createContext<OrderType>('order')
   const onInit = getOrderById(navigationContext.get('orderId'), {
@@ -45,7 +44,7 @@ export const Order: Screen<OrderRequest> = (
         />
       </Card>
       <Container style={{ flex: 1, alignContent: 'CENTER', justifyContent: 'CENTER' }}>
-        <Button text='Home' onPress={app.navigator.remote.popView()} />
+        <Button text='Home' onPress={navigator.popView()} />
       </Container>
     </UserInit>
   )
