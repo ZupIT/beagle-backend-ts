@@ -1,4 +1,4 @@
-import { React, FC, coreNamespace } from '@zup-it/beagle-backend-core'
+import { BeagleJSX, FC, coreNamespace } from '@zup-it/beagle-backend-core'
 import { validateColor } from '../validations'
 import { fromSimpleStyle } from './converter'
 import { SimpleStyle } from './simple-styles'

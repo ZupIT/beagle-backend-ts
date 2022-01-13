@@ -1,5 +1,5 @@
 import { Container, Text } from '@zup-it/beagle-backend-components'
-import { React, FC } from '@zup-it/beagle-backend-core'
+import { BeagleJSX, FC } from '@zup-it/beagle-backend-core'
 import { Screen } from '@zup-it/beagle-backend-express'
 import { app } from '../app'
 

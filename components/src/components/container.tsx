@@ -1,4 +1,4 @@
-import { React, Actions, FC } from '@zup-it/beagle-backend-core'
+import { BeagleJSX, Actions, FC } from '@zup-it/beagle-backend-core'
 import { StyledDefaultComponent, Style } from '../style/styled'
 import { Theme } from '../types'
 

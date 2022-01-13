@@ -1,4 +1,4 @@
-import { React, FC } from '@zup-it/beagle-backend-core'
+import { BeagleJSX, FC } from '@zup-it/beagle-backend-core'
 import { pushView } from '@zup-it/beagle-backend-core/actions/index'
 import { Button, colors, Container, Image, Text } from '@zup-it/beagle-backend-components'
 import { app } from '../app'

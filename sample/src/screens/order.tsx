@@ -1,5 +1,5 @@
 import { Container, Text, Button } from '@zup-it/beagle-backend-components'
-import { React, FC, createContext } from '@zup-it/beagle-backend-core'
+import { BeagleJSX, FC, createContext } from '@zup-it/beagle-backend-core'
 import { Screen } from '@zup-it/beagle-backend-express'
 import { alert } from '@zup-it/beagle-backend-core/actions/index'
 import { condition, isNull } from '@zup-it/beagle-backend-core/operations/index'

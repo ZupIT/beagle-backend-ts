@@ -1,5 +1,5 @@
 import { Container, Text } from '@zup-it/beagle-backend-components'
-import { React, FC } from '@zup-it/beagle-backend-core'
+import { BeagleJSX, FC } from '@zup-it/beagle-backend-core'
 import { alert, condition as conditionalAction } from '@zup-it/beagle-backend-core/actions/index'
 import { isNull, condition } from '@zup-it/beagle-backend-core/operations/index'
 import { app } from '../app'

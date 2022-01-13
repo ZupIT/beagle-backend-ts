@@ -1,5 +1,5 @@
+import { BeagleJSX } from '@zup-it/beagle-backend-core'
 import { Container, colors } from '@zup-it/beagle-backend-components'
-import { React } from '@zup-it/beagle-backend-core'
 
 const cardStyle = {
   marginVertical: 20,

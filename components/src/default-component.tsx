@@ -1,4 +1,4 @@
-import { React, FC, coreNamespace } from '@zup-it/beagle-backend-core'
+import { BeagleJSX, FC, coreNamespace } from '@zup-it/beagle-backend-core'
 
 interface DefaultComponentProps {
   name: string,

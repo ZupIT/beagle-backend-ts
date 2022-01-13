@@ -13,12 +13,13 @@
     "declaration": true,
     "noImplicitOverride": true,
     "jsx": "react",
+    "reactNamespace": "BeagleJSX",
     "lib": ["es6"],
     "baseUrl": "./",
     "paths": {
       "@zup-it/beagle-backend-core": ["./core/src"],
       "@zup-it/beagle-backend-core/*": ["./core/src/*"]
-    }
+    },
   },
-  "exclude": ["**/node_modules"]
+  "exclude": ["**/node_modules"],
 }
