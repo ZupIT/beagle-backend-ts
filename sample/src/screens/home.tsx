@@ -1,12 +1,12 @@
 import { Container, Text, Button } from '@zup-it/beagle-backend-components'
-import { React, FC } from '@zup-it/beagle-backend-core'
+import { React } from '@zup-it/beagle-backend-core'
 import { Screen } from '@zup-it/beagle-backend-express'
-import { app } from '../app'
+import { navigator } from '.'
 import { Order } from './order'
-import { AppHeaders } from '../types'
 import { UserInit } from '../fragments/user-init'
+import { AppRequest } from './types'
 
-export const Home: FC<Screen<any, AppHeaders>> = ({ request: { headers } }) => {
+export const Home: Screen<AppRequest> = ({ request: { headers } }) => {
   const user = app.globalContext.get('user')
   const balance = app.globalContext.get('balance')
 
@@ -19,11 +19,9 @@ export const Home: FC<Screen<any, AppHeaders>> = ({ request: { headers } }) => {
       <Container style={{ flex: 1, alignItems: 'CENTER', justifyContent: 'CENTER' }}>
         <Button
           text="Check Order 001"
-          onPress={app.navigator.remote.pushView(Order, { navigationContext: { orderId: '001' }})}
+          onPress={navigator.pushView(Order, { navigationContext: { orderId: '001' }})}
         />
       </Container>
     </UserInit>
   )
 }
-
-app.addScreen({ path: '/home', screen: Home })

@@ -19,5 +19,3 @@ export const Welcome: FC = () => (
     <Button text="Access the fast guide" style={{ marginTop: 40 }} onPress={pushView('/docs.json')} />
   </Container>
 )
-
-app.addScreen({ path: '/welcome', screen: Welcome })

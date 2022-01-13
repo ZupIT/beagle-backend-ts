@@ -1,19 +1,21 @@
 import { Container, Text, Button } from '@zup-it/beagle-backend-components'
-import { React, FC, createContext } from '@zup-it/beagle-backend-core'
+import { React, createContext } from '@zup-it/beagle-backend-core'
 import { Screen } from '@zup-it/beagle-backend-express'
 import { alert } from '@zup-it/beagle-backend-core/actions/index'
 import { condition, isNull } from '@zup-it/beagle-backend-core/operations/index'
 import { app } from '../app'
 import { getOrderById, Order as OrderType } from '../network/order'
 import { Card } from '../fragments/card'
-import { AppHeaders } from '../types'
 import { UserInit } from '../fragments/user-init'
+import { AppRequest } from './types'
 
-interface NavigationContextType {
-  orderId: string,
+interface OrderRequest extends AppRequest {
+  navigationContext: {
+    orderId: string,
+  }
 }
 
-export const Order: FC<Screen<any, AppHeaders, any, any, NavigationContextType>> = (
+export const Order: Screen<OrderRequest> = (
   { request: { headers }, navigationContext },
 ) => {
   const order = createContext<OrderType>('order')
@@ -48,5 +50,3 @@ export const Order: FC<Screen<any, AppHeaders, any, any, NavigationContextType>>
     </UserInit>
   )
 }
-
-app.addScreen({ path: '/order', screen: Order })

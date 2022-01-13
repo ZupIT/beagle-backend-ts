@@ -1,7 +1,6 @@
 import { forEach } from 'lodash'
 import { Express } from 'express'
 import { HttpMethod, serialize, FC, ContextNode, AnyContextNode } from '@zup-it/beagle-backend-core'
-import { Screen } from './screen'
 import { Navigator } from './navigator'
 
 interface Options {
@@ -12,8 +11,10 @@ interface Options {
 interface ScreenProperties {
   method?: HttpMethod,
   path: string,
-  screen: FC<Screen>,
+  screen: FC<any>,
 }
+
+export type RouteMap = Record<string, FC<any> | Required<Omit<ScreenProperties, 'path'>>>
 
 export class BeagleApp<GlobalContextType = any> {
   constructor(private express: Express, options: Options = {}) {
@@ -28,7 +29,7 @@ export class BeagleApp<GlobalContextType = any> {
   readonly globalContext = new ContextNode('globalContext') as unknown as AnyContextNode<GlobalContextType>
   readonly navigator: Navigator
 
-  addScreen(properties: ScreenProperties): void {
+  addRoute = (properties: ScreenProperties) => {
     const { method = 'get', path, screen } = properties
     this.navigator.register(properties.screen, properties)
     this.express[method](`${this.basePath}${path}`, (req, res) => {
@@ -41,5 +42,12 @@ export class BeagleApp<GlobalContextType = any> {
       })
       res.send(serialize(componentTree))
     })
+  }
+
+  addRouteMap(routeMap: RouteMap) {
+    forEach(routeMap, (value, key) => this.addRoute({
+      path: key,
+      ...(typeof value === 'function' ? { screen: value } : value),
+    }))
   }
 }

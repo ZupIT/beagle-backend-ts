@@ -1,2 +1,4 @@
 export { BeagleApp } from './beagle-app'
-export { Screen } from './screen'
+export { Navigator } from './navigator'
+export { Screen, ScreenRequest } from './screen'
+export { RouteMap } from './types'

@@ -1,20 +1,17 @@
 import { Container, Text, Button } from '@zup-it/beagle-backend-components'
 import { React, FC } from '@zup-it/beagle-backend-core'
 import { Screen } from '@zup-it/beagle-backend-express'
+import { UserInit } from '../../dist/fragments/user-init'
 import { app } from '../app'
 import { Card } from '../fragments/card'
+import { AppRequest } from './types'
 
-interface NavigationContextType {
-  orderId: string,
-}
-
-export const Profile: FC<Screen<any, any, any, any, NavigationContextType>> = ({ navigationContext }) => {
+export const Profile: Screen<AppRequest> = ({ request: { headers }}) => {
   const user = app.globalContext.get('user')
-
   const itemStyle = { marginVertical: 3 }
 
   return (
-    <Container>
+    <UserInit id={headers['user-id']}>
       <Card>
         <Text style={itemStyle} text={`User id: ${user.get('id')}`} />
         <Text style={itemStyle} text={`Age: ${user.get('age')}`} />
@@ -24,8 +21,6 @@ export const Profile: FC<Screen<any, any, any, any, NavigationContextType>> = ({
       <Container style={{ flex: 1, alignContent: 'CENTER', justifyContent: 'CENTER' }}>
         <Button text='Home' onPress={app.navigator.remote.popView()}  />
       </Container>
-    </Container>
+    </UserInit>
   )
 }
-
-app.addScreen({ path: '/order', screen: Profile })
