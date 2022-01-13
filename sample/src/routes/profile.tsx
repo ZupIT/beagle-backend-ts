@@ -1,7 +1,7 @@
 import { Container, Text, Button } from '@zup-it/beagle-backend-components'
 import { React } from '@zup-it/beagle-backend-core'
 import { Screen } from '@zup-it/beagle-backend-express'
-import { UserInit } from '../../dist/fragments/user-init'
+import { UserInit } from '../fragments/user-init'
 import { Card } from '../fragments/card'
 import { globalContext } from '../global-context'
 import { AppRequest } from './types'
