@@ -1,6 +1,6 @@
-import { React, Actions, FC } from '@zup-it/beagle-backend-core'
-import { StyledDefaultComponent, Style } from '../style/styled'
-import { Accessibility, Theme } from '../types'
+import { React, Actions, FC, WithContext, WithChildren } from '@zup-it/beagle-backend-core'
+import { StyledDefaultComponent, WithStyle } from '../style/styled'
+import { WithAccessibility, WithTheme } from '../types'
 
 interface SafeArea {
   top?: boolean,
@@ -9,26 +9,24 @@ interface SafeArea {
   trailing?: boolean,
 }
 
-interface NavigationBarItem extends Accessibility {
+interface NavigationBarItem extends WithAccessibility {
   image?: string,
   text?: string,
   action?: Actions,
   id?: string,
 }
 
-interface NavigationBar extends Theme {
+interface NavigationBar extends WithTheme {
   title: string,
   showBackButton?: boolean,
   navigationBarItems?: NavigationBarItem[],
-  backButtonAccessibility?: Accessibility['accessibility'],
+  backButtonAccessibility?: WithAccessibility['accessibility'],
 }
 
-interface SpecificScreenProps {
+interface ScreenProps extends WithStyle, WithContext, Required<WithChildren> {
   safeArea?: SafeArea,
   navigationBar?: NavigationBar,
 }
-
-type ScreenProps = SpecificScreenProps & Theme & Style
 
 export const ScreenComponent: FC<ScreenProps> = ({ id, context, children, style, ...props }) => (
   <StyledDefaultComponent name="screen" id={id} context={context} style={style} properties={props}>

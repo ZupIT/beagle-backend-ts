@@ -26,7 +26,7 @@ export const Order: Screen<OrderRequest> = (
   const itemStyle = { marginVertical: 3 }
 
   return (
-    <UserInit id={headers['user-id']}>
+    <UserInit userId={headers['user-id']}>
       <Text text="loading..." style={{ display: condition(isNull(order), 'FLEX', 'NONE')}} />
       <Card onInit={onInit} style={{ display: condition(isNull(order), 'NONE', 'FLEX')}}>
         <Text style={itemStyle} text={`Order id: ${order.get('id')}`} />

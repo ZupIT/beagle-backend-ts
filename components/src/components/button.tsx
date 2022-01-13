@@ -1,16 +1,12 @@
 import { React, Actions, FC } from '@zup-it/beagle-backend-core'
-import { StyledDefaultComponent, Style } from '../style/styled'
-import { Accessibility, Theme } from '../types'
+import { StyledDefaultComponent, WithStyle } from '../style/styled'
+import { WithAccessibility, WithTheme } from '../types'
 
-interface SpecificButtonProps {
+interface ButtonProps extends WithAccessibility, WithTheme, WithStyle {
   text: string,
   onPress?: Actions,
   enabled?: boolean,
-  children: never,
-  context: never,
 }
-
-type ButtonProps = SpecificButtonProps & Accessibility & Theme & Style
 
 export const Button: FC<ButtonProps> = ({ id, style, ...props }) => (
   <StyledDefaultComponent name="button" id={id} style={style} properties={props} />

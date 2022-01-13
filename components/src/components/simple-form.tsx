@@ -1,15 +1,14 @@
-import { React, FC, Actions, Component } from '@zup-it/beagle-backend-core'
-import { StyledDefaultComponent, Style } from '../style/styled'
-import { Accessibility, Theme } from '../types'
+import { React, FC, Actions, WithChildren } from '@zup-it/beagle-backend-core'
+import { StyledDefaultComponent, WithStyle } from '../style/styled'
+import { WithAccessibility, WithTheme } from '../types'
 
-interface SpecificSimpleFormProps {
+interface SimpleFormProps extends WithAccessibility, WithTheme, WithStyle, Required<WithChildren> {
   ​onSubmit: Actions,
-  onValidationError: Actions,
-  children: Component[],
-  context?: never,
+  onValidationError?: Actions,
 }
 
-type SimpleFormProps = SpecificSimpleFormProps & Accessibility & Theme & Style
-
-export const SimpleForm: FC<SimpleFormProps> = ({ id, style, ...props }) =>
-  <StyledDefaultComponent name="simpleForm" id={id} style={style} properties={props} />
+export const SimpleForm: FC<SimpleFormProps> = ({ id, style, children, ...props }) => (
+  <StyledDefaultComponent name="simpleForm" id={id} style={style} properties={props}>
+    {children}
+  </StyledDefaultComponent>
+)

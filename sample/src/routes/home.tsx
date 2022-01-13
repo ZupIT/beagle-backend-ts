@@ -11,7 +11,7 @@ export const Home: Screen<AppRequest> = ({ request: { headers }, navigator }) =>
   const balance = globalContext.get('balance')
 
   return (
-    <UserInit id={headers['user-id']}>
+    <UserInit userId={headers['user-id']}>
       <Text text={`Hello ${user.get('name')}.`} />
       <Container style={{ marginTop: 10, backgroundColor: '#FF5555', paddingVertical: 5, paddingHorizontal: 10 }}>
         <Text text={`Seu saldo é de ${balance.get('currency')} ${balance.get('total')}`} textColor='#FFFFFF' />

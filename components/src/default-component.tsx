@@ -1,11 +1,11 @@
-import { React, FC, coreNamespace } from '@zup-it/beagle-backend-core'
+import { React, FC, coreNamespace, WithContext, WithChildren } from '@zup-it/beagle-backend-core'
 
-interface DefaultComponentProps {
+interface DefaultComponentProps extends WithContext, WithChildren {
   name: string,
   properties?: Record<string, any>,
 }
 
-export const DefaultComponent: FC<DefaultComponentProps> = ({ children, ...props }) => (
+export const DefaultComponent: FC<DefaultComponentProps> = ({ children, context, ...props }) => (
   // @ts-ignore todo: actually implement jsx and check these errors. This Error is shown only when compiling.
-  <component {...props} namespace={coreNamespace}>{children}</component>
+  <component {...props} context={context} namespace={coreNamespace}>{children}</component>
 )

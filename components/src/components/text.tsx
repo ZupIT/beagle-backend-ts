@@ -1,18 +1,14 @@
 import { React, FC } from '@zup-it/beagle-backend-core'
 import { Color } from '../color'
-import { StyledDefaultComponent, Style } from '../style/styled'
-import { Accessibility, Theme } from '../types'
+import { StyledDefaultComponent, WithStyle } from '../style/styled'
+import { WithAccessibility, WithTheme } from '../types'
 import { validateColor } from '../validations'
 
-interface SpecificTextProps {
+interface TextProps extends WithAccessibility, WithTheme, WithStyle {
   text: string,
   textColor?: Color,
   alignment?: 'LEFT' | 'CENTER' | 'RIGHT',
-  context: never,
-  children: never,
 }
-
-type TextProps = SpecificTextProps & Accessibility & Theme & Style
 
 export const Text: FC<TextProps> = ({ id, style, ...props }) => {
   validateColor(props.textColor)

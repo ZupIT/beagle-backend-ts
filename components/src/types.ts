@@ -1,4 +1,4 @@
-export interface Accessibility {
+export interface WithAccessibility {
   accessibility?: {
     accessible?: boolean,
     accessibilityLabel?: string,
@@ -6,14 +6,6 @@ export interface Accessibility {
   },
 }
 
-export interface Theme {
+export interface WithTheme {
   styleId?: string,
 }
-
-type Contextless<T> = Omit<T, 'context'>
-
-export type HasContext = 'with-context' | 'without-context'
-
-export type MaybeContext<T, AcceptsContext extends HasContext> = AcceptsContext extends 'with-context'
-  ? T
-  : Contextless<T>

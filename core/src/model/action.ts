@@ -5,7 +5,7 @@ export type AnalyticsConfig<Props> = false | {
   attributes: (keyof Props)[],
 }
 
-export interface Analytics<Props = any> {
+export interface WithAnalytics<Props = any> {
   analytics?: AnalyticsConfig<Props>,
 }
 
@@ -16,7 +16,7 @@ export interface ActionInterface<Props = any> {
   analytics?: AnalyticsConfig<Props>,
 }
 
-export type ActionProps<Props> = Props & Analytics<Props>
+export type ActionProps<Props> = Props & WithAnalytics<Props>
 
 export type ActionFunction<Props> = (props: ActionProps<Props>) => ActionInterface
 

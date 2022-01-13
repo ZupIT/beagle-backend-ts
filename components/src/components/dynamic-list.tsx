@@ -1,12 +1,14 @@
-import { React, Actions, FC, Expression, Component } from '@zup-it/beagle-backend-core'
+import { React, Actions, FC, Expression, Component, WithContext } from '@zup-it/beagle-backend-core'
 import { DefaultComponent } from '../default-component'
+import { WithStyle } from '../style/styled'
+import { WithAccessibility } from '../types'
 
 interface TemplateManagerItem {
   case: Expression<boolean>,
   view: Component,
 }
 
-interface ListViewProps {
+interface ListViewProps extends WithContext, WithStyle, WithAccessibility {
   direction?: 'VERTICAL' | 'HORIZONTAL',
   onInit?: Actions,
   dataSource: Expression<any[]>,
@@ -16,7 +18,6 @@ interface ListViewProps {
   scrollEndThreshold?: number,
   iteratorName?: string,
   key?: string,
-  children: never,
 }
 
 interface GridViewProps extends ListViewProps {

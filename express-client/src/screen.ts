@@ -1,5 +1,5 @@
 import { Request, Response } from 'express'
-import { Analytics, AnyContextNode, Component, FC } from '@zup-it/beagle-backend-core'
+import { WithAnalytics, AnyContextNode, Component } from '@zup-it/beagle-backend-core'
 import { Navigator } from './navigator'
 
 export interface RequestWithCustomHeaders<RouteParams = any, Headers = any, Body = any, Query = any>
@@ -20,13 +20,11 @@ interface ScreenProps<T extends ScreenRequest> {
   request: RequestWithCustomHeaders<T['routeParams'], T['headers'], T['body'], T['query']>,
   response: Response,
   navigator: Navigator,
-  context: never,
-  id: never,
 }
 
-export type Screen<T extends ScreenRequest = any> = FC<ScreenProps<T>>
+export type Screen<T extends ScreenRequest = any> = (props: ScreenProps<T>) => Component
 
-export interface ScreenNavigation<T extends ScreenRequest> extends Analytics {
+export interface ScreenNavigation<T extends ScreenRequest> extends WithAnalytics {
   routeParams?: T['routeParams'],
   headers?: T['headers'],
   body?: T['body'],

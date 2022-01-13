@@ -1,10 +1,16 @@
 import { genericNamespace } from '../constants'
 import { AnyRootContext } from './context/types'
 
-export interface ComponentInterface {
-  id?: string,
-  children?: Component[],
+export interface WithContext {
   context?: AnyRootContext<any>,
+}
+
+export interface WithChildren {
+  children?: Component[],
+}
+
+export interface ComponentInterface extends WithContext, WithChildren {
+  id?: string,
   properties?: Record<string, any>,
   name: string,
   namespace?: string,

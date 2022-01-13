@@ -1,7 +1,7 @@
-import { React, FC } from '@zup-it/beagle-backend-core'
+import { React, FC, WithChildren, WithContext } from '@zup-it/beagle-backend-core'
 import { DefaultComponent } from '../default-component'
 
-interface ScrollViewProps {
+interface ScrollViewProps extends Required<WithChildren>, WithContext {
   scrollDirection?: 'HORIZONTAL' | 'VERTICAL',
   scrollBarEnabled?: boolean,
 }

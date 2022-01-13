@@ -1,16 +1,17 @@
-import { React, FC, coreNamespace } from '@zup-it/beagle-backend-core'
+import { React, FC, coreNamespace, WithContext, WithChildren } from '@zup-it/beagle-backend-core'
 import { validateColor } from '../validations'
 import { fromSimpleStyle } from './converter'
 import { SimpleStyle } from './simple-styles'
 
-export interface Style {
+export interface WithStyle {
   style?: SimpleStyle,
 }
 
-interface StyledComponentProps extends Style {
+interface StyledComponentProps extends WithContext, WithChildren {
   name: string,
   namespace?: string,
   properties?: Record<string, any>,
+  style: WithStyle['style'],
 }
 
 export const StyledComponent: FC<StyledComponentProps> = ({

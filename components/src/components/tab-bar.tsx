@@ -1,25 +1,19 @@
 import { React, FC, Expression, Actions } from '@zup-it/beagle-backend-core'
-import { StyledDefaultComponent, Style } from '../style/styled'
-import { Accessibility, Theme } from '../types'
-
-interface Path {
-  url: string,
-  mobileId: string,
-}
+import { WithTheme } from '../types'
+import { DefaultComponent } from '../default-component'
+import { Local as LocalImagePath } from './image'
 
 interface TabBarItem {
   title?: string,
-  icon: Path,
+  icon?: LocalImagePath,
 }
 
-interface SpecificTabBarProps {
+interface TabBarProps extends WithTheme {
   items: TabBarItem[],
-  styleId?: string,
   currentTab?: Expression<number>,
   onTabSelection?: Actions,
 }
 
-type TabBarProps = SpecificTabBarProps & Accessibility & Theme & Style
-
-export const TabBar: FC<TabBarProps> = ({ id, style, ...props }) =>
-  <StyledDefaultComponent name="tabBar" id={id} style={style} properties={props} />
+export const TabBar: FC<TabBarProps> = ({ id, ...props }) => (
+  <DefaultComponent name="tabBar" id={id} properties={props} />
+)

@@ -11,7 +11,7 @@ export const Profile: Screen<AppRequest> = ({ request: { headers }, navigator })
   const itemStyle = { marginVertical: 3 }
 
   return (
-    <UserInit id={headers['user-id']}>
+    <UserInit userId={headers['user-id']}>
       <Card>
         <Text style={itemStyle} text={`User id: ${user.get('id')}`} />
         <Text style={itemStyle} text={`Age: ${user.get('age')}`} />
