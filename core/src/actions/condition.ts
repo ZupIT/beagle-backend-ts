@@ -1,8 +1,9 @@
 import { Actions } from '../model/action'
+import { Expression } from '../types'
 import { createCoreAction } from './core-action'
 
 interface ConditionParams {
-  condition: boolean,
+  condition: Expression<boolean>,
   onTrue?: Actions,
   onFalse?: Actions,
 }

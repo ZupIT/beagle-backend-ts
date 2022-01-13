@@ -1,4 +1,4 @@
-import { ContextNode, Expression } from '..'
+import { Expression, isDynamicExpression } from '..'
 import { Actions, ActionInterface, ActionProps } from '../model/action'
 import { createCoreAction } from './core-action'
 
@@ -20,6 +20,6 @@ interface AlertFunction {
   (options: ConfirmProps): ActionInterface,
 }
 
-export const confirm: AlertFunction = args => (typeof args === 'string' || args instanceof ContextNode)
-  ? confirmAction({ message: args })
+export const confirm: AlertFunction = args => (typeof args === 'string' || isDynamicExpression(args))
+  ? confirmAction({ message: args as Expression<string> })
   : confirmAction(args as ActionProps<Confirm>)

@@ -4,7 +4,7 @@ import { createCoreAction } from './core-action'
 
 interface AddChildrenParams {
   componentId: string,
-  value?: ComponentInterface[] | Expression<string>,
+  value?: Expression<ComponentInterface[]>,
   mode?: 'APPEND' | 'PREPEND' | 'REPLACE',
 }
 

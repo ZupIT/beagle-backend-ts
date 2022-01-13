@@ -35,7 +35,7 @@ interface HttpAdditionalData {
 }
 
 interface RemoteView {
-  url: string,
+  url: Expression<string>,
   shouldPrefetch?: boolean,
   fallback?: ComponentInterface,
   httpAdditionalData?: HttpAdditionalData,
