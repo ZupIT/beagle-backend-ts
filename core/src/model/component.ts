@@ -1,4 +1,3 @@
-import { genericNamespace } from '../constants'
 import { AnyRootContext } from './context/types'
 
 export interface WithContext {
@@ -6,10 +5,10 @@ export interface WithContext {
 }
 
 export interface WithChildren {
-  children?: Component[],
+  children?: Component | Component[],
 }
 
-export interface ComponentInterface extends WithContext, WithChildren {
+interface ComponentInterface extends WithContext, WithChildren {
   id?: string,
   properties?: Record<string, any>,
   name: string,
@@ -17,7 +16,7 @@ export interface ComponentInterface extends WithContext, WithChildren {
 }
 
 export class Component implements ComponentInterface {
-  constructor({ properties, children, context, id, name, namespace = genericNamespace }: ComponentInterface) {
+  constructor({ properties, children, context, id, name, namespace }: ComponentInterface) {
     this.id = id
     this.children = children
     this.context = context
@@ -26,10 +25,10 @@ export class Component implements ComponentInterface {
     this.namespace = namespace
   }
 
-  namespace
-  id
+  namespace?
+  id?
   name
-  children
-  context
-  properties
+  children?
+  context?
+  properties?
 }

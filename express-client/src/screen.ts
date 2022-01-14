@@ -22,7 +22,7 @@ interface ScreenProps<T extends ScreenRequest> {
   navigator: Navigator,
 }
 
-export type Screen<T extends ScreenRequest = any> = (props: ScreenProps<T>) => Component
+export type Screen<T extends ScreenRequest = any> = (props: ScreenProps<T>) => JSX.Element
 
 export interface ScreenNavigation<T extends ScreenRequest> extends WithAnalytics {
   routeParams?: T['routeParams'],

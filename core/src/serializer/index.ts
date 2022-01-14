@@ -1,5 +1,6 @@
 import { isEmpty, mapValues } from 'lodash'
-import { Component, ComponentInterface } from '../model/component'
+import { genericNamespace } from '../constants'
+import { Component } from '../model/component'
 import { Action } from '../model/action'
 import { AnyRootContext } from '../model/context/types'
 import { ContextNode } from '../model/context/context-node'
@@ -31,13 +32,18 @@ const transformExpressionsAndActions = (value: any): any => {
   return value
 }
 
-// eslint-disable-next-line arrow-body-style
-export const asBeagleNode = (component: ComponentInterface): BeagleNode => ({
-  _beagleComponent_: `${component.namespace}:${component.name}`,
-  context: component.context ? asContextDeclaration(component.context) : undefined,
-  id: component.id,
-  ...transformExpressionsAndActions(component.properties ?? {}),
-  children: isEmpty(component.children) ? undefined : component.children!.map(asBeagleNode),
-})
+export const asBeagleNode = (component: Component): BeagleNode => {
+  const childrenArray = Array.isArray(component.children) || !component.children
+    ? component.children
+    : [component.children]
 
-export const serialize = (componentTree: ComponentInterface): string => JSON.stringify(asBeagleNode(componentTree))
+  return {
+    _beagleComponent_: `${component.namespace ?? genericNamespace}:${component.name}`,
+    context: component.context ? asContextDeclaration(component.context) : undefined,
+    id: component.id,
+    ...transformExpressionsAndActions(component.properties ?? {}),
+    children: isEmpty(childrenArray) ? undefined : childrenArray!.map(asBeagleNode),
+  }
+}
+
+export const serialize = (componentTree: Component): string => JSON.stringify(asBeagleNode(componentTree))

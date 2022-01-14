@@ -27,24 +27,22 @@ export const Order: Screen<OrderRequest> = (
 
   return (
     <UserInit userId={headers['user-id']}>
-      <Text text="loading..." style={{ display: condition(isNull(order), 'FLEX', 'NONE')}} />
+      <Text style={{ display: condition(isNull(order), 'FLEX', 'NONE')}}>loading...</Text>
       <Card onInit={onInit} style={{ display: condition(isNull(order), 'NONE', 'FLEX')}}>
-        <Text style={itemStyle} text={`Order id: ${order.get('id')}`} />
-        <Text style={itemStyle} text={`Date: ${order.get('date')}`} />
-        <Text style={itemStyle} text={`Status: ${order.get('status')}`} />
-        <Text style={itemStyle} text={`Price: \$${order.get('price')}`} />
-        <Text
-          style={itemStyle}
-          text={`Tracking: ${order.get('tracking').get('company')} ${order.get('tracking').get('id')}`}
-        />
-        <Text style={itemStyle} text={`Estimated delivery date: ${order.get('estimatedDeliveryDate')}`} />
-        <Text
-          style={itemStyle}
-          text={`Delivery address: ${order.get('address').get('street')}, ${order.get('address').get('number')}`}
-        />
+        <Text style={itemStyle}>{`Order id: ${order.get('id')}`}</Text>
+        <Text style={itemStyle}>{`Date: ${order.get('date')}`}</Text>
+        <Text style={itemStyle}>{`Status: ${order.get('status')}`}</Text>
+        <Text style={itemStyle}>{`Price: \$${order.get('price')}`}</Text>
+        <Text style={itemStyle}>
+          {`Tracking: ${order.get('tracking').get('company')} ${order.get('tracking').get('id')}`}
+        </Text>
+        <Text style={itemStyle}>{`Estimated delivery date: ${order.get('estimatedDeliveryDate')}`}</Text>
+        <Text style={itemStyle}>
+          {`Delivery address: ${order.get('address').get('street')}, ${order.get('address').get('number')}`}
+        </Text>
       </Card>
       <Container style={{ flex: 1, alignContent: 'CENTER', justifyContent: 'CENTER' }}>
-        <Button text='Home' onPress={navigator.popView()} />
+        <Button onPress={navigator.popView()}>Home</Button>
       </Container>
     </UserInit>
   )
