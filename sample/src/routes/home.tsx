@@ -1,4 +1,4 @@
-import { Container, Text, Button } from '@zup-it/beagle-backend-components'
+import { Container, Text, Button, Fragment } from '@zup-it/beagle-backend-components'
 import { BeagleJSX } from '@zup-it/beagle-backend-core'
 import { Screen } from '@zup-it/beagle-backend-express'
 import { Order } from './order'
@@ -11,17 +11,23 @@ export const Home: Screen<AppRequest> = ({ request: { headers }, navigator }) =>
   const balance = globalContext.get('balance')
 
   return (
-    <UserInit userId={headers['user-id']}>
-      <Text text={`Hello ${user.get('name')}.`} />
-      <Container style={{ marginTop: 10, backgroundColor: '#FF5555', paddingVertical: 5, paddingHorizontal: 10 }}>
-        <Text text={`Seu saldo é de ${balance.get('currency')} ${balance.get('total')}`} textColor='#FFFFFF' />
-      </Container>
-      <Container style={{ flex: 1, alignItems: 'CENTER', justifyContent: 'CENTER' }}>
-        <Button
-          text="Check Order 001"
-          onPress={navigator.pushView(Order, { navigationContext: { orderId: '001' }})}
-        />
-      </Container>
-    </UserInit>
+    <Container>
+      <Fragment></Fragment>
+      <Fragment>Arthur Bleil</Fragment>
+    </Container>
+    // <UserInit userId={headers['user-id']}>
+    //   <Text text={`Hello ${user.get('name')}.`} />
+    //   <Container style={{ marginTop: 10, backgroundColor: '#FF5555', paddingVertical: 5, paddingHorizontal: 10 }}>
+    //     <Text text={`Seu saldo é de ${balance.get('currency')} ${balance.get('total')}`} textColor='#FFFFFF' />
+    //   </Container>
+    //   <Container style={{ flex: 1, alignItems: 'CENTER', justifyContent: 'CENTER' }}>
+    //     <Button
+    //       text="Check Order 001"
+    //       onPress={navigator.pushView(Order, { navigationContext: { orderId: '001' }})}
+    //     />
+    //   </Container>
+    //   <Fragment></Fragment>
+    //   <Fragment>Arthur Bleil</Fragment>
+    // </UserInit>
   )
 }
