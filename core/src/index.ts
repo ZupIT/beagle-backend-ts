@@ -11,9 +11,7 @@ export { FC, ComponentProps } from './jsx/types'
 export { logger } from './logger'
 export { isDynamicExpression } from './utils'
 export { BeagleJSX } from './jsx'
-
 import { Component } from './model/component'
-
 
 declare global {
   // eslint-disable-next-line @typescript-eslint/no-namespace
