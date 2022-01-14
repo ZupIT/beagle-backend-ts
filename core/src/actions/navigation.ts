@@ -1,6 +1,6 @@
 import { ContextNode, Expression, HttpMethod } from '..'
 import { ActionInterface } from '../model/action'
-import { ComponentInterface } from '../model/component'
+import { Component } from '../model/component'
 import { Operation } from '../model/operation'
 import { createCoreAction } from './core-action'
 
@@ -20,7 +20,7 @@ interface OpenExternalUrlParams {
 export const openExternalUrl = createCoreAction<OpenExternalUrlParams>('openExternalUrl')
 
 // Beagle Navigation
-interface IdentifiableComponent extends ComponentInterface {
+interface IdentifiableComponent extends Component {
   id: string,
 }
 
@@ -37,7 +37,7 @@ interface HttpAdditionalData {
 interface RemoteView {
   url: Expression<string>,
   shouldPrefetch?: boolean,
-  fallback?: ComponentInterface,
+  fallback?: Component,
   httpAdditionalData?: HttpAdditionalData,
 }
 

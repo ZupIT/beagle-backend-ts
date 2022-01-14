@@ -1,4 +1,4 @@
-export { Component, WithChildren, WithContext } from './model/component'
+export { Component, WithContext, WithChildren } from './model/component'
 export { Expression, HttpMethod } from './types'
 export { RootContext } from './model/context/root-context'
 export { coreNamespace } from './constants'
@@ -12,15 +12,20 @@ export { logger } from './logger'
 export { isDynamicExpression } from './utils'
 export { BeagleJSX } from './jsx'
 
+import { Component } from './model/component'
+
+
 declare global {
   // eslint-disable-next-line @typescript-eslint/no-namespace
   namespace JSX {
+    type Element = Component
+
     interface ElementChildrenAttribute {
       children: 'children',
     }
 
     interface IntrinsicElements {
-      component: import('./model/component').ComponentInterface,
+      component: Element,
     }
   }
 }

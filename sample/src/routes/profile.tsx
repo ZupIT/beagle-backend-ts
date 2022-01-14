@@ -13,13 +13,13 @@ export const Profile: Screen<AppRequest> = ({ request: { headers }, navigator })
   return (
     <UserInit userId={headers['user-id']}>
       <Card>
-        <Text style={itemStyle} text={`User id: ${user.get('id')}`} />
-        <Text style={itemStyle} text={`Age: ${user.get('age')}`} />
-        <Text style={itemStyle} text={`Name: ${user.get('name')}`} />
-        <Text style={itemStyle} text={`Sex: \$${user.get('sex')}`} />
+        <Text style={itemStyle}>{`User id: ${user.get('id')}`}</Text>
+        <Text style={itemStyle}>{`Age: ${user.get('age')}`}</Text>
+        <Text style={itemStyle}>{`Name: ${user.get('name')}`}</Text>
+        <Text style={itemStyle}>{`Sex: \$${user.get('sex')}`}</Text>
       </Card>
       <Container style={{ flex: 1, alignContent: 'CENTER', justifyContent: 'CENTER' }}>
-        <Button text='Home' onPress={navigator.popView()}  />
+        <Button onPress={navigator.popView()}>Home</Button>
       </Container>
     </UserInit>
   )

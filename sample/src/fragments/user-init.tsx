@@ -21,7 +21,7 @@ export const UserInit: FC<UserInitProps> = ({ children, userId }) => {
 
   return (
     <Container onInit={conditionalInit}>
-      <Text text="loading..." style={{ display: condition(isNull(user), 'FLEX', 'NONE') }} />
+      <Text style={{ display: condition(isNull(user), 'FLEX', 'NONE') }}>loading...</Text>
       <Container style={{ display: condition(isNull(user), 'NONE', 'FLEX') }}>
         {children}
       </Container>

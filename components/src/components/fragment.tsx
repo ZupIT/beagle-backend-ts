@@ -6,7 +6,7 @@ interface FragmentProps {
 }
 
 export const Fragment: FC<FragmentProps> = ({ children }) => {
-  if (typeof children === 'string') return <Container><Text text={children} /></Container>
+  if (typeof children === 'string') return <Container><Text>{children}</Text></Container>
   return (
     <Container>{children ?? []}</Container>
   )

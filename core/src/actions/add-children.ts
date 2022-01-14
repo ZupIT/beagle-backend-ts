@@ -1,10 +1,10 @@
 import { Expression } from '..'
-import { ComponentInterface } from '../model/component'
+import { Component } from '../model/component'
 import { createCoreAction } from './core-action'
 
 interface AddChildrenParams {
   componentId: string,
-  value?: Expression<ComponentInterface[]>,
+  value?: Expression<Component[]>,
   mode?: 'APPEND' | 'PREPEND' | 'REPLACE',
 }
 

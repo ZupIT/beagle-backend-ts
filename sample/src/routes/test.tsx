@@ -1,9 +1,15 @@
-import { Container, Text } from '@zup-it/beagle-backend-components'
+import { Container, Text, Button } from '@zup-it/beagle-backend-components'
 import { Screen } from '@zup-it/beagle-backend-express'
 import { BeagleJSX } from '@zup-it/beagle-backend-core'
+import { alert } from '@zup-it/beagle-backend-core/actions/index'
 
 export const Test: Screen = () => (
   <Container>
-    <Text text="Hello World!" />
+    <Text>
+      Hello World!
+      Hi
+      Again
+    </Text>
+    <Button onPress={alert("hi")}>Click me</Button>
   </Container>
 )

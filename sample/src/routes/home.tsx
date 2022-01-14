@@ -11,23 +11,15 @@ export const Home: Screen<AppRequest> = ({ request: { headers }, navigator }) =>
   const balance = globalContext.get('balance')
 
   return (
-    <Container>
-      <Fragment></Fragment>
-      <Fragment>Arthur Bleil</Fragment>
-    </Container>
     // <UserInit userId={headers['user-id']}>
-    //   <Text text={`Hello ${user.get('name')}.`} />
+    //   <Text>{`Hello ${user.get('name')}.`}</Text>
     //   <Container style={{ marginTop: 10, backgroundColor: '#FF5555', paddingVertical: 5, paddingHorizontal: 10 }}>
-    //     <Text text={`Seu saldo é de ${balance.get('currency')} ${balance.get('total')}`} textColor='#FFFFFF' />
+    //     <Text textColor='#FFFFFF'>{`Seu saldo é de ${balance.get('currency')} ${balance.get('total')}`}</Text>
     //   </Container>
     //   <Container style={{ flex: 1, alignItems: 'CENTER', justifyContent: 'CENTER' }}>
-    //     <Button
-    //       text="Check Order 001"
-    //       onPress={navigator.pushView(Order, { navigationContext: { orderId: '001' }})}
-    //     />
+    //     <Button onPress={navigator.pushView(Order, { navigationContext: { orderId: '001' }})}>Check Order 001</Button>
     //   </Container>
-    //   <Fragment></Fragment>
-    //   <Fragment>Arthur Bleil</Fragment>
     // </UserInit>
+    <Fragment>Arthur Bleil</Fragment>
   )
 }
