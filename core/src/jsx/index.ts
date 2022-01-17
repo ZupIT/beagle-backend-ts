@@ -3,6 +3,26 @@ import { FC } from './types'
 
 const intrinsicComponentName = 'component'
 
+type FragmentFactory = (children: any[]) => Component
+let fragmentFactory: FragmentFactory = (children) => {
+  if (typeof children === 'string') {
+    return new Component({
+      namespace: 'beagle',
+      name: 'container',
+      children: [
+        new Component({
+          namespace: 'beagle',
+          name: 'text',
+          children,
+        })
+      ],
+    })
+  }
+  return new Component({ namespace: 'beagle', name: 'container' })
+}
+
+export const setFragmentFactory = (factory: FragmentFactory) => fragmentFactory = factory
+
 /**
  * @param children the ...children arguments received by the createElement function
  * @returns the children formatted as expected by a functional component
@@ -47,6 +67,7 @@ export const BeagleJSX = {
     array, if multiple children exist. In the next line we transform the argument array into the type expected by a
     functional component. */
     const componentChildren = processChildrenArgs(children)
+    if (!jsx) return fragmentFactory(componentChildren)
     if (typeof jsx === 'function') return jsx({ ...props, children: componentChildren })
     if (jsx !== intrinsicComponentName) {
       throw new Error(`Invalid Beagle JSX element "${jsx}". Did you mean "<${intrinsicComponentName} />"?`)
