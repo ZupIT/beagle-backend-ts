@@ -19,8 +19,6 @@ export const Home: Screen<AppRequest> = ({ request: { headers }, navigator }) =>
       <Container style={{ flex: 1, alignItems: 'CENTER', justifyContent: 'CENTER' }}>
         <Button onPress={navigator.pushView(Order, { navigationContext: { orderId: '001' }})}>Check Order 001</Button>
       </Container>
-      <>Arthur Bleil - empty</>
-      <Fragment>Arthur Bleil - Fragment</Fragment>
     </UserInit>
   )
 }
