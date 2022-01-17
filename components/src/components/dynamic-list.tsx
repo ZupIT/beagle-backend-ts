@@ -45,12 +45,19 @@ export const Template = (props: TemplateProps) => {
 function getTemplates<T>(iteratorName = 'item', children: ListViewProps<T>['children']) {
   let templateComponents = children(new ContextNode(iteratorName ?? 'item') as any)
   if (!Array.isArray(templateComponents)) templateComponents = [templateComponents]
+  let hasDefaultTemplate = false
   return templateComponents.map((templateComponent) => {
     if (templateComponent.name !== 'template' || templateComponent.namespace !== 'pseudo') {
       throw new Error(
         `A ListView or GridView must only contain Template as children. Found ${templateComponent.namespace}:${templateComponent.name} instead.`,
       )
     }
+    if (!templateComponent.properties?.case && hasDefaultTemplate) {
+      throw new Error(
+        'A ListView or GridView must contain zero or one default Template. Did you forget to set "case" for some of the Templates?',
+      )
+    }
+    hasDefaultTemplate = hasDefaultTemplate || !templateComponent.properties?.case
     return templateComponent.properties
   })
 }
