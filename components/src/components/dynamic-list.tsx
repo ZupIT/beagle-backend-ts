@@ -1,33 +1,74 @@
-import { BeagleJSX, Actions, FC, Expression, Component, WithContext } from '@zup-it/beagle-backend-core'
+import {
+  BeagleJSX,
+  Actions,
+  Expression,
+  WithContext,
+  AnyContextNode,
+  ComponentProps,
+  ContextNode,
+  WithChildren,
+  DynamicExpression,
+} from '@zup-it/beagle-backend-core'
+import { Container } from '.'
 import { DefaultComponent } from '../default-component'
 import { WithStyle } from '../style/styled'
 import { WithAccessibility } from '../types'
 
-interface TemplateManagerItem {
-  case: Expression<boolean>,
-  view: Component,
+interface TemplateProps extends WithChildren {
+  case?: DynamicExpression<boolean>,
 }
 
-interface ListViewProps extends WithContext, WithStyle, WithAccessibility {
+interface ListViewProps<T> extends WithContext, WithStyle, WithAccessibility {
   direction?: 'VERTICAL' | 'HORIZONTAL',
   onInit?: Actions,
-  dataSource: Expression<any[]>,
-  templates: TemplateManagerItem[],
+  dataSource: Expression<T[]>,
   isScrollIndicatorVisible?: boolean,
   onScrollEnd?: Actions,
   scrollEndThreshold?: number,
   iteratorName?: string,
   key?: string,
+  children: (item: AnyContextNode<T>) => JSX.Element | JSX.Element[],
 }
 
-interface GridViewProps extends ListViewProps {
+interface GridViewProps<T> extends ListViewProps<T> {
   spanCount?: number,
 }
 
-export const ListView: FC<ListViewProps> = ({ id, context, ...props }) => (
-  <DefaultComponent name="listView" id={id} context={context} properties={props} />
+type ListFC = <T>(props: ComponentProps<ListViewProps<T>>) => JSX.Element
+type GridFC = <T>(props: ComponentProps<GridViewProps<T>>) => JSX.Element
+
+export const Template = (props: TemplateProps) => {
+  const children = Array.isArray(props.children) ? <Container>{props.children}</Container> : props.children
+  return <component name="template" namespace="pseudo" properties={{ case: props.case, view: children }} />
+}
+
+function getTemplates<T>(iteratorName = 'item', children: ListViewProps<T>['children']) {
+  let templateComponents = children(new ContextNode(iteratorName ?? 'item') as any)
+  if (!Array.isArray(templateComponents)) templateComponents = [templateComponents]
+  return templateComponents.map((templateComponent) => {
+    if (templateComponent.name !== 'template' || templateComponent.namespace !== 'pseudo') {
+      throw new Error(
+        `A ListView or GridView must only contain Template as children. Found ${templateComponent.namespace}:${templateComponent.name} instead.`,
+      )
+    }
+    return templateComponent.properties
+  })
+}
+
+export const ListView: ListFC = ({ id, context, children, ...props }) => (
+  <DefaultComponent
+    name="listView"
+    id={id}
+    context={context}
+    properties={{ ...props, templates: getTemplates(props.iteratorName, children) }}
+  />
 )
 
-export const GridView: FC<GridViewProps> = ({ id, context, ...props }) => (
-  <DefaultComponent name="gridView" id={id} context={context} properties={props} />
+export const GridView: GridFC = ({ id, context, children, ...props }) => (
+  <DefaultComponent
+    name="gridView"
+    id={id}
+    context={context}
+    properties={{ ...props, templates: getTemplates(props.iteratorName, children) }}
+  />
 )
