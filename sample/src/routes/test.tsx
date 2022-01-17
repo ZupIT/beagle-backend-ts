@@ -1,4 +1,5 @@
-import { BeagleJSX, Container, Text, Button } from '@zup-it/beagle-backend-components'
+import { BeagleJSX } from '@zup-it/beagle-backend-core'
+import { Container, Text, Button } from '@zup-it/beagle-backend-components'
 import { Screen } from '@zup-it/beagle-backend-express'
 import { alert } from '@zup-it/beagle-backend-core/actions/index'
 

@@ -1,5 +1,4 @@
-import { BeagleJSX } from '../jsx'
-import { FC, WithChildren, WithContext } from '@zup-it/beagle-backend-core'
+import { BeagleJSX, FC, WithChildren, WithContext } from '@zup-it/beagle-backend-core'
 import { DefaultComponent } from '../default-component'
 
 interface ScrollViewProps extends Required<WithChildren>, WithContext {

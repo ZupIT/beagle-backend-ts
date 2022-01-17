@@ -1,5 +1,4 @@
-import { BeagleJSX } from '../jsx'
-import { FC, Component } from '@zup-it/beagle-backend-core'
+import { BeagleJSX, FC, Component } from '@zup-it/beagle-backend-core'
 import { DefaultComponent } from '../default-component'
 
 interface LazyProps {

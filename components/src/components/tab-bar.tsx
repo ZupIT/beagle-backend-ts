@@ -1,5 +1,4 @@
-import { BeagleJSX } from '../jsx'
-import { FC, Expression, Actions } from '@zup-it/beagle-backend-core'
+import { BeagleJSX, FC, Expression, Actions } from '@zup-it/beagle-backend-core'
 import { WithTheme } from '../types'
 import { DefaultComponent } from '../default-component'
 import { Local as LocalImagePath } from './image'

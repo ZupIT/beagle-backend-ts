@@ -1,5 +1,4 @@
-import { BeagleJSX } from '../jsx'
-import { Component, FC } from '@zup-it/beagle-backend-core'
+import { BeagleJSX, Component, FC } from '@zup-it/beagle-backend-core'
 import { Container, Text } from '.'
 
 interface FragmentProps {

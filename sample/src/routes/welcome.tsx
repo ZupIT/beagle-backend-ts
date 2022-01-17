@@ -1,6 +1,7 @@
+import { BeagleJSX } from '@zup-it/beagle-backend-core'
 import { Screen } from '@zup-it/beagle-backend-express'
 import { pushView } from '@zup-it/beagle-backend-core/actions/index'
-import { BeagleJSX, Button, colors, Container, Image, Text } from '@zup-it/beagle-backend-components'
+import { Button, colors, Container, Image, Text } from '@zup-it/beagle-backend-components'
 
 export const Welcome: Screen = () => (
   <Container

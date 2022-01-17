@@ -1,5 +1,4 @@
-import { BeagleJSX } from '../jsx'
-import { FC, coreNamespace, WithContext, WithChildren } from '@zup-it/beagle-backend-core'
+import { BeagleJSX, FC, coreNamespace, WithContext, WithChildren } from '@zup-it/beagle-backend-core'
 import { validateColor } from '../validations'
 import { fromSimpleStyle } from './converter'
 import { SimpleStyle } from './simple-styles'

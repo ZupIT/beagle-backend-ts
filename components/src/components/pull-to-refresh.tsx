@@ -1,5 +1,4 @@
-import { BeagleJSX } from '../jsx'
-import { FC, Expression, Actions, WithChildren, WithContext } from '@zup-it/beagle-backend-core'
+import { BeagleJSX, FC, Expression, Actions, WithChildren, WithContext } from '@zup-it/beagle-backend-core'
 import { Color } from '../color'
 import { StyledDefaultComponent, WithStyle } from '../style/styled'
 import { WithAccessibility } from '../types'
