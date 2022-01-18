@@ -22,7 +22,20 @@ let fragmentFactory: FragmentFactory = (children) => {
   return new Component({ namespace: 'beagle', name: 'container' })
 }
 
-export const setFragmentFactory = (factory: FragmentFactory) => fragmentFactory = factory
+/**
+ * By default, Beagle interprets a fragment as the components "beagle:text" or "beagle:container" depending if the
+ * children property is a string or another JSX element.
+ *
+ * A fragment is identified by `<>` and `</>`.
+ *
+ * If the components "text" and "container" in the namespace "beagle" don't exist in your project, you won't be able
+ * to use fragments unless you use this function to set it up.
+ *
+ * @param factory a function that receives the children and returns the JSX.Element that should be used
+ */
+export const setFragmentFactory = (factory: FragmentFactory) => {
+  fragmentFactory = factory
+}
 
 /**
  * @param children the ...children arguments received by the createElement function

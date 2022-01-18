@@ -1,3 +1,3 @@
-import { ContextNode, AnyContextNode } from '@zup-it/beagle-backend-core'
+import { createContextNode } from '@zup-it/beagle-backend-core'
 
-export const getGlobalContext = <T>() => new ContextNode('globalContext') as unknown as AnyContextNode<T>
+export const getGlobalContext = <T>() => createContextNode<T>('globalContext')

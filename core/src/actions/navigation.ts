@@ -1,7 +1,7 @@
-import { ContextNode, Expression, HttpMethod } from '..'
+import { Expression, HttpMethod } from '../types'
 import { ActionInterface } from '../model/action'
 import { Component } from '../model/component'
-import { Operation } from '../model/operation'
+import { isDynamicExpression } from '../utils'
 import { createCoreAction } from './core-action'
 
 // App navigation
@@ -258,7 +258,7 @@ interface ResetApplicationFunction {
 }
 
 function getParams(options: any, isPopToView = false) {
-  return (typeof options === 'string' || options instanceof ContextNode || options instanceof Operation)
+  return (typeof options === 'string' || isDynamicExpression(options))
     ? { route: isPopToView ? options : { url: options } }
     : options
 }
