@@ -1,7 +1,7 @@
 import { FC } from '@zup-it/beagle-backend-core'
 import {
   pushView, pushStack, popToView, popView, resetApplication, resetStack, Route,
-} from '@zup-it/beagle-backend-core/actions/index'
+} from '@zup-it/beagle-backend-core/actions'
 import { forEach } from 'lodash'
 import { RouteMap, RouteConfig } from './route'
 import { ScreenRequest, Screen, ScreenNavigation } from './screen'
