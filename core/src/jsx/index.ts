@@ -4,6 +4,7 @@ import { FC } from './types'
 const intrinsicComponentName = 'component'
 
 type FragmentFactory = (children: any[]) => Component
+
 let fragmentFactory: FragmentFactory = (children) => {
   if (typeof children === 'string') {
     return new Component({
@@ -14,7 +15,7 @@ let fragmentFactory: FragmentFactory = (children) => {
           namespace: 'beagle',
           name: 'text',
           children,
-        })
+        }),
       ],
     })
   }

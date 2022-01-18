@@ -7,4 +7,4 @@ export { StyledComponent } from './style/styled'
 export { SimpleStyle as Style } from './style/simple-styles'
 export { submitForm } from './actions/submit-form'
 
-setFragmentFactory((children) => Fragment({ children}))
+setFragmentFactory((children) => Fragment({ children }))
