@@ -3,5 +3,5 @@
   "typescript.preferences.quoteStyle": "single",
   "javascript.format.semicolons": "remove",
   "typescript.format.semicolons": "remove",
-  "typescript.preferences.importModuleSpecifier": "relative"
+  "typescript.preferences.importModuleSpecifier": "project-relative"
 }
