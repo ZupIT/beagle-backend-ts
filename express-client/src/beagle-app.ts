@@ -1,6 +1,6 @@
 import { forEach } from 'lodash'
 import { Express } from 'express'
-import { serialize, ContextNode } from '@zup-it/beagle-backend-core'
+import { serialize, createContextNode } from '@zup-it/beagle-backend-core'
 import { RouteConfig, RouteMap } from './route'
 import { Screen } from './screen'
 import { Navigator } from './navigator'
@@ -20,8 +20,7 @@ export class BeagleApp {
 
   private responseHeaders: Record<string, any>
   private basePath: string
-  // The casting below shouldn't be necessary. I don't know why TS complains.
-  private navigationContext = new ContextNode('navigationContext')
+  private navigationContext = createContextNode('navigationContext')
   private navigator: Navigator
 
   private addRoute = (screen: Screen, properties: RouteConfig) => {

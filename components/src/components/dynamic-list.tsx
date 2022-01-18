@@ -5,7 +5,7 @@ import {
   WithContext,
   AnyContextNode,
   ComponentProps,
-  ContextNode,
+  createContextNode,
   WithChildren,
   DynamicExpression,
 } from '@zup-it/beagle-backend-core'
@@ -43,7 +43,7 @@ export const Template = (props: TemplateProps) => {
 }
 
 function getTemplates<T>(iteratorName = 'item', children: ListViewProps<T>['children']) {
-  let templateComponents = children(new ContextNode(iteratorName ?? 'item') as any)
+  let templateComponents = children(createContextNode(iteratorName ?? 'item'))
   if (!Array.isArray(templateComponents)) templateComponents = [templateComponents]
   let hasDefaultTemplate = false
   return templateComponents.map((templateComponent) => {
