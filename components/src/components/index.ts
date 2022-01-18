@@ -1,7 +1,6 @@
 export { Button } from './button'
 export { Container } from './container'
 export { GridView, ListView, Template } from './dynamic-list'
-export { Fragment } from './fragment'
 export { Image } from './image'
 export { Lazy } from './lazy'
 export { PageIndicator } from './page-indicator'
