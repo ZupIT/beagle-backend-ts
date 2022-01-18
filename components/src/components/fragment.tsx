@@ -2,7 +2,7 @@ import { BeagleJSX, Component, FC } from '@zup-it/beagle-backend-core'
 import { Container, Text } from '.'
 
 interface FragmentProps {
-  children?: string | Component | Component[] | undefined
+  children?: string | Component | Component[],
 }
 
 export const Fragment: FC<FragmentProps> = ({ children }) => {

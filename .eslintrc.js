@@ -43,8 +43,6 @@ module.exports = {
       singleline: { delimiter: 'comma', requireLast: false },
     }],
     '@typescript-eslint/ban-ts-comment': 'off',
-    'no-unused-vars': ['error', {
-      ignorePatterns: ['BeagleJSX'],
-    }],
+    '@typescript-eslint/no-unused-vars': ['error', { varsIgnorePattern: '^BeagleJSX$' }],
   },
 }
