@@ -3,9 +3,39 @@ import { Component } from '../model/component'
 import { createCoreAction } from './core-action'
 
 interface AddChildrenParams {
+  /**
+   * The id of the component to receive the new elements.
+   */
   componentId: string,
-  value?: Expression<Component[]>,
+  /**
+   * The array of components (nodes) to be added.
+   */
+  value: Expression<Component[]>,
+  /**
+   * The mode to attach the new nodes. The default value is APPEND.
+   * - APPEND: adds the new nodes to the end of the list of children.
+   * - PREPEND: adds the new nodes to the start of the list of children.
+   * - REPLACE: replaces the entire array of children by the new nodes.
+   */
   mode?: 'APPEND' | 'PREPEND' | 'REPLACE',
 }
 
+/**
+ * Modifies the current component tree by adding a set of elements to an existing node. A simple example would be to
+ * add a new row to the interface whenever a button is clicked:
+ *
+ * ```
+ * <>
+ *   <Container id="inputGroup">
+ *     <TextInput placeholder="name" />
+ *   </Container>
+ *   <Button onPress={addChildren({ componentId: 'inputGroup', value: [<TextInput placeholder="name" />] })}>
+ *     Add more
+ *   </Button>
+ * </>
+ * ```
+ *
+ * @param params the parameters for the action: componentId, value and mode. See {@link AddChildrenParams}.
+ * @returns an instance of Action
+ */
 export const addChildren = createCoreAction<AddChildrenParams>('addChildren')

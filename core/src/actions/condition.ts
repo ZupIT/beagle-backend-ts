@@ -1,11 +1,26 @@
 import { Actions } from '../model/action'
-import { Expression } from '../types'
+import { DynamicExpression } from '../types'
 import { createCoreAction } from './core-action'
 
 interface ConditionParams {
-  condition: Expression<boolean>,
+  /**
+   * The condition to verify.
+   */
+  condition: DynamicExpression<boolean>,
+  /**
+   * The actions to run if the condition turns out to be true.
+   */
   onTrue?: Actions,
+  /**
+   * The actions to run if the condition turns out to be false.
+   */
   onFalse?: Actions,
 }
 
+/**
+ * Runs a set of actions depending on the value of "condition", which is a value based on a Context or an Operation.
+ *
+ * @param params the action parameters: condition, onTrue and onFalse. See {@link ConditionParams}.
+ * @returns an instance of Action
+ */
 export const condition = createCoreAction<ConditionParams>('condition')
