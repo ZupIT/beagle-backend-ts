@@ -9,10 +9,10 @@ import {
   WithChildren,
   DynamicExpression,
 } from '@zup-it/beagle-backend-core'
-import { Container } from '.'
 import { DefaultComponent } from '../default-component'
 import { WithStyle } from '../style/styled'
 import { WithAccessibility } from '../types'
+import { Container } from './container'
 
 interface TemplateProps extends WithChildren {
   case?: DynamicExpression<boolean>,
