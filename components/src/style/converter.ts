@@ -1,4 +1,4 @@
-import { RootContext } from '@zup-it/beagle-backend-core'
+import { Expression, isDynamicExpression, RootContext } from '@zup-it/beagle-backend-core'
 import { mapValues } from 'lodash'
 import { hasAnyValue } from '../utils/map'
 import { CornerRadius, EdgeValue, Flex, Position, Size, Style, UnitValue } from './original-styles'
@@ -22,7 +22,9 @@ function fromSimpleCornerRadius(cornerRadius?: SimpleCornerRadius): CornerRadius
 
 function fromSimpleUnitValue(value?: SimpleUnitValue): UnitValue | undefined {
   if (value === undefined) return
-  if (typeof value === 'number' || value instanceof RootContext) return { type: 'REAL', value }
+  if (typeof value === 'number' || isDynamicExpression(value)) {
+    return { type: 'REAL', value: value as Expression<number> }
+  }
   if (typeof value === 'string') return { type: 'PERCENT', value: parseFloat(value.replace('%', '')) }
   return value as UnitValue
 }
@@ -87,6 +89,12 @@ function fromSimpleSize(size: SimpleSize): Size | undefined {
   } : undefined
 }
 
+/**
+ * Converts the simplified style of our JSX components to the style objected expected by the frontend.
+ *
+ * @param style the simplified style.
+ * @returns the style object expected by the frontend.
+ */
 export function fromSimpleStyle(style?: SimpleStyle): Style | undefined {
   if (!style) return
   const {
