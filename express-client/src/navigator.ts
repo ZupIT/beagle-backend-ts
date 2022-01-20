@@ -1,12 +1,12 @@
 import { FC } from '@zup-it/beagle-backend-core'
 import {
-  pushView, pushStack, popToView, popView, resetApplication, resetStack, Route,
+  pushView, pushStack, popToView, popView, resetApplication, resetStack, Route, popStack,
 } from '@zup-it/beagle-backend-core/actions/index'
 import { forEach } from 'lodash'
 import { RouteMap, RouteConfig } from './route'
 import { ScreenRequest, Screen, ScreenNavigation } from './screen'
 
-const navigationActions = { pushView, pushStack, popToView, popView, resetApplication, resetStack }
+const navigationActions = { pushView, pushStack, popToView, popView, resetApplication, resetStack, popStack }
 
 interface ControllerId {
   controllerId?: string,
@@ -41,7 +41,7 @@ export class Navigator {
   }
 
   private buildRoute({ type, screen, properties = {} }: GenericRemoteNavigation) {
-    if (type === 'popView') return undefined
+    if (type === 'popView' || type === 'popStack') return undefined
 
     const { routeParams, headers, body, shouldPrefetch, fallback } = properties
     const { path, method } = this.getPathAndMethod(screen!)
@@ -72,6 +72,11 @@ export class Navigator {
   pushStack = <T extends ScreenRequest>(screen: Screen<T>, properties?: ScreenNavigation<T> & ControllerId) => (
     this.navigateRemote({ type: 'pushStack', screen, properties })
   )
+
+  popStack = <T extends ScreenRequest>(
+    properties?: Pick<ScreenNavigation<T>, 'navigationContext' | 'analytics'> &
+    ControllerId
+  ) => this.navigateRemote({ type: 'popStack', properties })
 
   pushView = <T extends ScreenRequest>(screen: Screen<T>, properties?: ScreenNavigation<T>) => (
     this.navigateRemote({ type: 'pushView', screen, properties })

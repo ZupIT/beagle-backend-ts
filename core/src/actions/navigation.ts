@@ -137,6 +137,7 @@ const navigator = {
   popToView: createCoreAction<RouteNavigationParams<string>>('popToView'),
   resetStack: createCoreAction<StackNavigationParams>('resetStack'),
   resetApplication: createCoreAction<StackNavigationParams>('resetApplication'),
+  popStack: createCoreAction<StackNavigationParams>('popStack'),
 }
 
 interface PushViewFunction {
@@ -176,6 +177,23 @@ interface PushStackFunction {
    * @returns an instance of Action
    */
   (...args: Parameters<typeof navigator.pushStack>): ReturnType<typeof navigator.pushStack>,
+}
+
+interface PopStackFunction {
+  /**
+   * Goes back to the previous route in the current stack.
+   *
+   * @returns an instance of Action
+   */
+   (): ActionInterface,
+  /**
+   * Goes back to the previous route in the current stack.
+   *
+   * @param options the parameters for this navigation:
+   * - navigationContext: the Context for this navigation. See {@link BaseNavigationParams}.
+   * @returns an instance of Action
+   */
+   (...args: Parameters<typeof navigator.popStack>): ReturnType<typeof navigator.popStack>,
 }
 
 interface PopToViewFunction {
@@ -271,3 +289,4 @@ export const resetApplication: ResetApplicationFunction = (options: any) => (
 )
 export const popToView: PopToViewFunction = (options: any) => navigator.popToView(getParams(options, true))
 export const popView: PopViewFunction = (...args: any[]) => navigator.popView(args[0] ?? {})
+export const popStack: PopStackFunction = (...args: any[]) => navigator.popStack(args[0] ?? {})
