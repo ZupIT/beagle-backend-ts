@@ -13,7 +13,7 @@ module.exports = {
   plugins: ['@typescript-eslint', 'import', 'filenames'],
   ignorePatterns: ['**/node_modules/**', '**/dist/**', 'sample/**', 'scripts/**'],
   rules: {
-    'max-len': ['error', { code: 120, ignorePattern: maxLengthIgnorePattern }],
+    'max-len': ['error', { code: 120, ignorePattern: maxLengthIgnorePattern, ignoreComments: true }],
     'arrow-body-style': ['error', 'as-needed'],
     'eol-last': ['error', 'always'],
     quotes: ['error', 'single', { avoidEscape: true }],
