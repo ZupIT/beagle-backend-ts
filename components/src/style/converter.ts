@@ -1,4 +1,4 @@
-import { Expression, isDynamicExpression, RootContext } from '@zup-it/beagle-backend-core'
+import { Expression, isDynamicExpression } from '@zup-it/beagle-backend-core'
 import { mapValues } from 'lodash'
 import { hasAnyValue } from '../utils/map'
 import { CornerRadius, EdgeValue, Flex, Position, Size, Style, UnitValue } from './original-styles'
@@ -10,9 +10,9 @@ import {
 function fromSimpleCornerRadius(cornerRadius?: SimpleCornerRadius): CornerRadius | undefined {
   if (cornerRadius === undefined) return
   const each = cornerRadius as EachCornerRadius
-  const isSingleRadius = typeof cornerRadius === 'number' || cornerRadius instanceof RootContext
+  const isSingleRadius = typeof cornerRadius === 'number' || isDynamicExpression(cornerRadius)
   return {
-    radius: isSingleRadius ? cornerRadius : undefined,
+    radius: isSingleRadius ? cornerRadius as Expression<number> : undefined,
     bottomLeft: each.bottomLeft,
     bottomRight: each.bottomRight,
     topLeft: each.topLeft,
