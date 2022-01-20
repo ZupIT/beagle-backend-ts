@@ -32,7 +32,7 @@ const transformExpressionsAndActions = (value: any): any => {
   return value
 }
 
-export const asBeagleNode = (component: Component): BeagleNode => {
+const asBeagleNode = (component: Component): BeagleNode => {
   const childrenArray = Array.isArray(component.children) || !component.children
     ? component.children
     : [component.children]
@@ -46,4 +46,16 @@ export const asBeagleNode = (component: Component): BeagleNode => {
   }
 }
 
+/**
+ * Transforms the entire Component tree into the JSON format expected by Beagle.
+ *
+ * - Components become `{ _beagleComponent_: 'namespace:name', ... }`.
+ * - Actions become `{ _beagleAction_: 'namespace:name', ... }`.
+ * - Context declarations become `{ ..., context: { id: 'contextPath', value: 'rootContextValue' } }`.
+ * - References to contexts become: `"@{contextPath}"`.
+ * - Operations become: `"@{operationName(arguments)}"`.
+ *
+ * @param componentTree the component tree to serialize
+ * @returns the JSON string
+ */
 export const serialize = (componentTree: Component): string => JSON.stringify(asBeagleNode(componentTree))
