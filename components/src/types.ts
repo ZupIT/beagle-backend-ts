@@ -1,7 +1,16 @@
 export interface WithAccessibility {
   accessibility?: {
-    accessible?: boolean,
+    /**
+     * Whether this component has accessibility capabilities or not.
+     */
+    accessible: boolean,
+    /**
+     * Message that will be spoken by softwares like VoiceOver.
+     */
     accessibilityLabel?: string,
+    /**
+     * When true, the accessibility software will interpret this as a header. Defaults to false.
+     */
     isHeader?: boolean,
   },
 }

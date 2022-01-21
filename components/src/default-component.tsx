@@ -1,11 +1,11 @@
-import { BeagleJSX, FC, coreNamespace, WithContext, WithChildren } from '@zup-it/beagle-backend-core'
+import { BeagleJSX, FC, coreNamespace, Component } from '@zup-it/beagle-backend-core'
 
-interface DefaultComponentProps extends WithContext, WithChildren {
-  name: string,
-  properties?: Record<string, any>,
-}
-
-export const DefaultComponent: FC<DefaultComponentProps> = ({ children, context, ...props }) => (
-  // @ts-ignore todo: actually implement jsx and check these errors. This Error is shown only when compiling.
-  <component {...props} context={context} namespace={coreNamespace}>{children}</component>
+/**
+ * Use it to create default components (in the namespace "beagle").
+ *
+ * @param props {@link Component}.
+ * @returns JSX element, i.e an instance of Component.
+ */
+export const DefaultComponent: FC<Omit<Component, 'namespace'>> = ({ children, ...other }) => (
+  <component {...other} namespace={coreNamespace}>{children}</component>
 )
