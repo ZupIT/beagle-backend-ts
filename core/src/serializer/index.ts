@@ -8,7 +8,7 @@ import { Operation } from '../model/operation'
 import { ActionCall, BeagleNode, ContextDeclaration } from './types'
 
 const asActionCall = (action: Action<any>): ActionCall => ({
-  _beagleAction_: `${action.namespace}:${action.name}`,
+  _beagleAction_: `${action.namespace ?? genericNamespace}:${action.name}`,
   analytics: transformExpressionsAndActions(action.analytics),
   ...transformExpressionsAndActions(action.properties),
 })

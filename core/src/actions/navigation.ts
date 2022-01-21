@@ -1,5 +1,5 @@
 import { Expression, HttpMethod } from '../types'
-import { ActionInterface } from '../model/action'
+import { Action } from '../model/action'
 import { Component } from '../model/component'
 import { isDynamicExpression } from '../utils'
 import { createCoreAction } from './core-action'
@@ -173,7 +173,7 @@ interface PushViewFunction {
    * @param url the url to the screen to load
    * @returns an instance of Action
    */
-  (url: Expression<string>): ActionInterface,
+  (url: Expression<string>): Action,
   /**
    * Adds the provided route to the current navigation stack.
    *
@@ -192,7 +192,7 @@ interface PushStackFunction {
    * @param url the url to the screen to load
    * @returns an instance of Action
    */
-  (url: Expression<string>): ActionInterface,
+  (url: Expression<string>): Action,
   /**
    * Adds a new stack to the navigator with the provided route.
    *
@@ -214,7 +214,7 @@ interface PopToViewFunction {
    * LocalViews, it will the id of the root component.
    * @returns an instance of Action
    */
-  (routeId: Expression<string>): ActionInterface,
+  (routeId: Expression<string>): Action,
   /**
    * Goes back to the route identified by the options passed as parameter (route). If the route doesn't exist in the
    * current navigation stack, nothing happens.
@@ -234,7 +234,7 @@ interface ResetStackFunction {
    * @param url the url to the screen to load
    * @returns an instance of Action
    */
-  (url: Expression<string>): ActionInterface,
+  (url: Expression<string>): Action,
   /**
    * Removes the current navigation stack and adds a new one with the provided route.
    *
@@ -253,7 +253,7 @@ interface PopViewFunction {
    *
    * @returns an instance of Action
    */
-  (): ActionInterface,
+  (): Action,
   /**
    * Goes back to the previous route.
    *
@@ -271,7 +271,7 @@ interface ResetApplicationFunction {
    * @param url the url to the screen to load
    * @returns an instance of Action
    */
-  (url: Expression<string>): ActionInterface,
+  (url: Expression<string>): Action,
   /**
    * Removes all the navigation stacks and adds a new one with the provided route.
    *

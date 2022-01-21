@@ -1,5 +1,3 @@
-import { genericNamespace } from '../constants'
-
 export type AnalyticsConfig<Props> = false | {
   /**
    * Additional data to put in the analytics record. Example: `{ username: 'John', category: 'customer_level_6' }`.
@@ -28,7 +26,7 @@ export interface WithAnalytics<Props = any> {
   analytics?: AnalyticsConfig<Props>,
 }
 
-export interface ActionInterface<Props = any> extends WithAnalytics<Props> {
+interface ActionInterface<Props = any> extends WithAnalytics<Props> {
   /**
    * The namespace for this action. Actions in beagle are identified by a string in the format "$namespace:$name", e.g
    * "beagle:alert".
@@ -55,9 +53,9 @@ export type ActionProps<Props> = Props & WithAnalytics<Props>
 /**
  * An Action factory.
  */
-export type ActionFunction<Props> = (props: ActionProps<Props>) => ActionInterface
+export type ActionFunction<Props> = (props: ActionProps<Props>) => Action
 
-export type Actions = ActionInterface | ActionInterface[]
+export type Actions = Action | Action[]
 
 /**
  * An Action is a behavior to be triggered in the front-end application. Actions are always associated with events. For
@@ -105,17 +103,17 @@ export class Action<Props = any> implements ActionInterface<Props> {
   /**
    * @param options the action parameters: namespace, name, properties and analytics. See {@link ActionInterface}.
    */
-  constructor({ name, analytics, namespace = genericNamespace, properties }: ActionInterface<Props>) {
+  constructor({ name, analytics, namespace, properties }: ActionInterface<Props>) {
     this.name = name
     this.namespace = namespace
     this.analytics = analytics
     this.properties = properties
   }
 
-  namespace
+  namespace?
   name
-  properties
-  analytics
+  properties?
+  analytics?
 }
 
 /**

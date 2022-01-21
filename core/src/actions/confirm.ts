@@ -1,5 +1,5 @@
 import { Expression, isDynamicExpression } from '..'
-import { Actions, ActionInterface, ActionProps } from '../model/action'
+import { Actions, Action, ActionProps } from '../model/action'
 import { createCoreAction } from './core-action'
 
 interface Confirm {
@@ -40,7 +40,7 @@ interface ConfirmFunction {
    * @param message the text to show inside the dialog.
    * @returns an instance of Action
    */
-  (message: ConfirmProps['message']): ActionInterface,
+  (message: ConfirmProps['message']): Action,
   /**
    * Opens up a system dialog box to show a confirmation message to the user.
    *
@@ -48,7 +48,7 @@ interface ConfirmFunction {
    * See {@link Confirm}.
    * @returns an instance of Action
    */
-  (options: ConfirmProps): ActionInterface,
+  (options: ConfirmProps): Action,
 }
 
 export const confirm: ConfirmFunction = args => (typeof args === 'string' || isDynamicExpression(args))
