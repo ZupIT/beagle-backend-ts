@@ -73,10 +73,9 @@ export class Navigator {
     this.navigateRemote({ type: 'pushStack', screen, properties })
   )
 
-  popStack = <T extends ScreenRequest>(
-    properties?: Pick<ScreenNavigation<T>, 'navigationContext' | 'analytics'> &
-    ControllerId
-  ) => this.navigateRemote({ type: 'popStack', properties })
+  popStack = <T extends ScreenRequest>(properties?: Pick<ScreenNavigation<T>, 'navigationContext' | 'analytics'>) => (
+    this.navigateRemote({ type: 'popStack', properties })
+  )
 
   pushView = <T extends ScreenRequest>(screen: Screen<T>, properties?: ScreenNavigation<T>) => (
     this.navigateRemote({ type: 'pushView', screen, properties })
