@@ -141,14 +141,14 @@ const navigator = {
 
 interface PushViewFunction {
   /**
-   * Adds the provided route to the current stack.
+   * Adds the provided route to the current navigation stack.
    *
    * @param url the url to the screen to load
    * @returns an instance of Action
    */
   (url: Expression<string>): ActionInterface,
   /**
-   * Adds the provided route to the current stack.
+   * Adds the provided route to the current navigation stack.
    *
    * @param options the parameters for this navigation:
    * - route: the screen to load. A {@link LocalView} or a {@link RemoteView}.
@@ -181,7 +181,7 @@ interface PushStackFunction {
 interface PopToViewFunction {
   /**
    * Goes back to the route identified by the string passed as parameter. If the route doesn't exist in the current
-   * stack, nothing happens.
+   * navigation stack, nothing happens.
    *
    * @param routeId the identifier of the route to go back to. For RemoteViews, this identifier will be the url. For
    * LocalViews, it will the id of the root component.
@@ -190,7 +190,7 @@ interface PopToViewFunction {
   (routeId: Expression<string>): ActionInterface,
   /**
    * Goes back to the route identified by the options passed as parameter (route). If the route doesn't exist in the
-   * current stack, nothing happens.
+   * current navigation stack, nothing happens.
    *
    * @param options the parameters for this navigation:
    * - route: the identifier for the screen to go back to.
@@ -202,14 +202,14 @@ interface PopToViewFunction {
 
 interface ResetStackFunction {
   /**
-   * Removes the current stack and adds a new one with the provided route.
+   * Removes the current navigation stack and adds a new one with the provided route.
    *
    * @param url the url to the screen to load
    * @returns an instance of Action
    */
   (url: Expression<string>): ActionInterface,
   /**
-   * Removes the current stack and adds a new one with the provided route.
+   * Removes the current navigation stack and adds a new one with the provided route.
    *
    * @param options the parameters for this navigation:
    * - route: the screen to load. A {@link LocalView} or a {@link RemoteView}.
@@ -239,14 +239,14 @@ interface PopViewFunction {
 
 interface ResetApplicationFunction {
   /**
-   * Removes all the stacks and adds a new one with the provided route.
+   * Removes all the navigation stacks and adds a new one with the provided route.
    *
    * @param url the url to the screen to load
    * @returns an instance of Action
    */
   (url: Expression<string>): ActionInterface,
   /**
-   * Removes all the stack and adds a new one with the provided route.
+   * Removes all the navigation stacks and adds a new one with the provided route.
    *
    * @param options the parameters for this navigation:
    * - route: the screen to load. A {@link LocalView} or a {@link RemoteView}.
