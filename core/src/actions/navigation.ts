@@ -5,6 +5,7 @@ import { isDynamicExpression } from '../utils'
 import { createCoreAction } from './core-action'
 
 // App navigation
+
 interface OpenNativeRouteParams {
   /**
    * The identifier of the route in mobile applications or the relative URL in web apps.
@@ -45,6 +46,33 @@ interface OpenExternalUrlParams {
 export const openExternalUrl = createCoreAction<OpenExternalUrlParams>('openExternalUrl')
 
 // Beagle Navigation
+
+/**
+ * Transforms anything into the navigation context expected by the frontend, i.e. an object with `path` and `value`.
+ * `path` will be undefined if it's not possible to extract a common path from the argument `data`.
+ *
+ * Example: `{ user: { address: { position: { lat: 58.8, lng: -136.5 } } }` becomes
+ * `{ path: 'user.address.position', value: { lat: 58.8, lng: -136.5 } }`.
+ *
+ * @param data the data to transform into a navigation context
+ * @returns the navigation context
+ */
+function formatNavigationContext(data: any) {
+  if (!data) return
+  const keyParts: string[] = []
+
+  while (data && typeof data === 'object' && Object.keys(data).length === 1) {
+    const currentKey = Object.keys(data)[0]
+    keyParts.push(currentKey)
+    data = data[currentKey]
+  }
+
+  return {
+    path: keyParts.length ? keyParts.join('.') : undefined,
+    value: data,
+  }
+}
+
 interface IdentifiableComponent extends Component {
   id: string,
 }
@@ -94,7 +122,6 @@ interface RemoteView {
 export type Route = LocalView | RemoteView
 
 interface BaseNavigationParams {
-  // fixme: this might need include both the path and the value
   /**
    * The navigation context to set in this navigation. Each route (screen) can have a navigation-scoped context and
    * this is the way to set it. For instance, once we click in a "Buy now" button, we may want to send the user to
@@ -258,9 +285,10 @@ interface ResetApplicationFunction {
 }
 
 function getParams(options: any, isPopToView = false) {
-  return (typeof options === 'string' || isDynamicExpression(options))
-    ? { route: isPopToView ? options : { url: options } }
-    : options
+  const isParamASingleUrl = typeof options === 'string' || isDynamicExpression(options)
+  if (isParamASingleUrl) return { route: isPopToView ? options : { url: options } }
+  const { navigationContext, ...other } = options
+  return { navigationContext: formatNavigationContext(navigationContext), ...other }
 }
 
 export const pushView: PushViewFunction = (options: any) => navigator.pushView(getParams(options))
@@ -270,4 +298,4 @@ export const resetApplication: ResetApplicationFunction = (options: any) => (
   navigator.resetApplication(getParams(options))
 )
 export const popToView: PopToViewFunction = (options: any) => navigator.popToView(getParams(options, true))
-export const popView: PopViewFunction = (...args: any[]) => navigator.popView(args[0] ?? {})
+export const popView: PopViewFunction = (options: any = {}) => navigator.popView(getParams(options))
