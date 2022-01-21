@@ -1,19 +1,28 @@
-import { BeagleJSX, FC, coreNamespace, WithContext, WithChildren } from '@zup-it/beagle-backend-core'
+import { BeagleJSX, FC, coreNamespace, Component } from '@zup-it/beagle-backend-core'
 import { validateColor } from '../validations'
 import { fromSimpleStyle } from './converter'
 import { SimpleStyle } from './simple-styles'
 
 export interface WithStyle {
+  /**
+   * The style for this component. Use it to customize the background, layout, borders, etc.
+   */
   style?: SimpleStyle,
 }
 
-interface StyledComponentProps extends WithContext, WithChildren {
-  name: string,
-  namespace?: string,
-  properties?: Record<string, any>,
+interface StyledComponentProps extends Component {
+  /**
+   * The style for this component. Use it to customize the background, layout, borders, etc.
+   */
   style: WithStyle['style'],
 }
 
+/**
+ * Use it to create components that supports the Beagle style protocol, based on the Yoga layout.
+ *
+ * @param props {@link StyledComponentProps}.
+ * @returns JSX element, i.e an instance of Component.
+ */
 export const StyledComponent: FC<StyledComponentProps> = ({
   name,
   style,
@@ -39,6 +48,13 @@ export const StyledComponent: FC<StyledComponentProps> = ({
   )
 }
 
+/**
+ * Use it to create default components (in the namespace "beagle") that supports the Beagle style protocol, based on the
+ * Yoga layout.
+ *
+ * @param props {@link StyledComponentProps}.
+ * @returns JSX element, i.e an instance of Component.
+ */
 export const StyledDefaultComponent: FC<Omit<StyledComponentProps, 'namespace'>> = ({ children, ...props }) => (
   <StyledComponent {...props} namespace={coreNamespace}>{children}</StyledComponent>
 )
