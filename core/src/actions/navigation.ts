@@ -157,13 +157,20 @@ interface StackNavigationParams extends RouteNavigationParams {
   controllerId?: string,
 }
 
+export type PushStackParams = StackNavigationParams
+export type PushViewParams = RouteNavigationParams
+export type PopViewParams = BaseNavigationParams
+export type PopToViewParams = RouteNavigationParams<string>
+export type ResetStackParams = StackNavigationParams
+export type ResetApplicationParams = StackNavigationParams
+
 const navigator = {
-  pushStack: createCoreAction<StackNavigationParams>('pushStack'),
-  pushView: createCoreAction<RouteNavigationParams>('pushView'),
-  popView: createCoreAction<BaseNavigationParams>('popView'),
-  popToView: createCoreAction<RouteNavigationParams<string>>('popToView'),
-  resetStack: createCoreAction<StackNavigationParams>('resetStack'),
-  resetApplication: createCoreAction<StackNavigationParams>('resetApplication'),
+  pushStack: createCoreAction<PushStackParams>('pushStack'),
+  pushView: createCoreAction<PushViewParams>('pushView'),
+  popView: createCoreAction<PopViewParams>('popView'),
+  popToView: createCoreAction<PopToViewParams>('popToView'),
+  resetStack: createCoreAction<ResetStackParams>('resetStack'),
+  resetApplication: createCoreAction<ResetApplicationParams>('resetApplication'),
 }
 
 interface PushViewFunction {

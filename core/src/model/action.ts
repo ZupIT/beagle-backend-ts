@@ -1,6 +1,6 @@
 type TrueMap = true | { [K: string]: TrueMap }
 
-type AnalyticsAttributesMap<T> = T extends (number | string | boolean | any[] | null | undefined)
+export type AnalyticsAttributesMap<T> = T extends (number | string | boolean | any[] | null | undefined)
   ? true
   : (T extends Record<string, any> ? { [K in keyof T]?: true | AnalyticsAttributesMap<T[K]> } : TrueMap)
 

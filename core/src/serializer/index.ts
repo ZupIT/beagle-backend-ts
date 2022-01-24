@@ -1,15 +1,55 @@
-import { isEmpty, mapValues } from 'lodash'
+import { isEmpty, mapValues, reduce } from 'lodash'
 import { genericNamespace } from '../constants'
 import { Component } from '../model/component'
-import { Action } from '../model/action'
+import { Action, AnalyticsConfig, AnalyticsAttributesMap } from '../model/action'
 import { AnyRootContext } from '../model/context/types'
 import { ContextNode } from '../model/context/context-node'
 import { Operation } from '../model/operation'
-import { ActionCall, BeagleNode, ContextDeclaration } from './types'
+import { ActionCall, BeagleNode, ContextDeclaration, SerializedAnalyticsConfig } from './types'
+
+/**
+ * Transforms the format:
+ * ```
+ * {
+ *   route: {
+ *     url: true,
+ *     headers: {
+ *       'content-type': true,
+ *       platform: true
+ *     }
+ *   }
+ * }
+ * ```
+ *
+ * into:
+ * ```
+ * ['route.url', 'route.headers.content-type', 'route.headers.platform']
+ * ```
+ *
+ * If `undefined` is passed, `undefined` is returned.
+ *
+ * @param attributes the attributes as a map.
+ * @param prefix the current prefix for the recursion, starts with an empty string.
+ * @returns the attributes in an array format.
+ */
+const extractPaths = (attributes?: AnalyticsAttributesMap<any>, prefix = ''): string[] | undefined => (
+  attributes && typeof attributes === 'object' ? reduce(
+    attributes,
+    (paths, value, key) => value === true
+      ? [...paths, `${prefix}${key}`]
+      : [...paths, ...(extractPaths(value, `${prefix}${key}.`) ?? [])],
+    [] as string[],
+  ) : undefined
+)
+
+const asAnalyticsConfig = (analytics: AnalyticsConfig<any>): SerializedAnalyticsConfig => analytics ? ({
+  additionalEntries: analytics.additionalEntries,
+  attributes: analytics.attributes ? extractPaths(analytics.attributes) : undefined,
+}) : false
 
 const asActionCall = (action: Action<any>): ActionCall => ({
   _beagleAction_: `${action.namespace ?? genericNamespace}:${action.name}`,
-  analytics: transformExpressionsAndActions(action.analytics),
+  analytics: action.analytics === undefined ? undefined : asAnalyticsConfig(action.analytics),
   ...transformExpressionsAndActions(action.properties),
 })
 
