@@ -58,3 +58,30 @@ export const StyledComponent: FC<StyledComponentProps> = ({
 export const StyledDefaultComponent: FC<Omit<StyledComponentProps, 'namespace'>> = ({ children, ...props }) => (
   <StyledComponent {...props} namespace={coreNamespace}>{children}</StyledComponent>
 )
+
+type StyledSingleChildComponentProps =
+  Omit<StyledComponentProps, 'children'> &
+  {
+    /**
+     * This attribute will be used as children to make the usage on JSX easier, however, this attribute is for a single
+     * child that will be serialized as an structure having "child" as property for it descendent instead of "children".
+     */
+    children: Component | undefined,
+  }
+
+/**
+ * Use it to create default components (in the namespace "beagle") with a single child, that supports the Beagle style
+ * protocol, based on the Yoga layout.
+ *
+ * WARNING: This component with a single child will be serialized as an structure having "child" as property for it
+ * descendent instead of "children".
+ *
+ * @param props {@link StyledComponentProps}.
+ * @returns JSX element, i.e an instance of Component.
+ */
+export const StyledSingleChildComponent: FC<Omit<StyledSingleChildComponentProps, 'namespace'>> =
+ ({ children, ...props }) =>
+  <StyledComponent
+    {...{ ...props, properties: { ...props.properties, child: children } }}
+    namespace={coreNamespace}
+  />

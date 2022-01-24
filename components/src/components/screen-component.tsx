@@ -1,5 +1,5 @@
-import { BeagleJSX, Actions, FC, WithContext, WithChildren } from '@zup-it/beagle-backend-core'
-import { StyledDefaultComponent, WithStyle } from '../style/styled'
+import { BeagleJSX, Actions, FC, WithContext, WithChild } from '@zup-it/beagle-backend-core'
+import { StyledSingleChildComponent, WithStyle } from '../style/styled'
 import { WithAccessibility, WithTheme } from '../types'
 
 interface SafeArea {
@@ -60,7 +60,7 @@ interface NavigationBar extends WithTheme {
   backButtonAccessibility?: WithAccessibility['accessibility'],
 }
 
-interface ScreenProps extends WithStyle, WithContext, Required<WithChildren> {
+interface ScreenProps extends WithStyle, WithContext, Required<WithChild> {
   /**
    * Creates a safe area view for the contents of this screen, i.e. makes sure the content won't be rendered under
    * the display's notch. Valid only for iOS and Flutter.
@@ -87,8 +87,8 @@ export const ScreenComponent: FC<ScreenProps> = ({ id, context, children, style,
   const finalSafeArea = safeArea === true ? { top: true, bottom: true, leading: true, trailing: true } : safeArea
   const properties = { ...props, safeArea: finalSafeArea }
   return (
-    <StyledDefaultComponent name="screen" id={id} context={context} style={style} properties={properties}>
+    <StyledSingleChildComponent name="screen" id={id} context={context} style={style} properties={properties}>
       {children}
-    </StyledDefaultComponent>
+    </StyledSingleChildComponent>
   )
 }

@@ -14,6 +14,13 @@ export interface WithChildren {
   children?: Component | Component[],
 }
 
+export interface WithChild {
+  /**
+   * The child of this Component. This must be a single Component.
+   */
+  children?: Component,
+}
+
 interface ComponentInterface extends WithContext, WithChildren {
   /**
    * An id for this component. This is important for debugging or for identifying it in structures like the Action

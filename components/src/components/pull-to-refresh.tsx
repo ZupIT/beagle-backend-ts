@@ -1,10 +1,9 @@
-import { BeagleJSX, FC, Expression, Actions, WithChildren, WithContext } from '@zup-it/beagle-backend-core'
+import { BeagleJSX, FC, Expression, Actions, WithContext, WithChild } from '@zup-it/beagle-backend-core'
 import { Color } from '../color'
-import { StyledDefaultComponent, WithStyle } from '../style/styled'
+import { StyledSingleChildComponent, WithStyle } from '../style/styled'
 import { WithAccessibility } from '../types'
-import { Container } from './container'
 
-interface PullToRefreshProps extends WithAccessibility, WithStyle, Required<WithChildren>, WithContext {
+interface PullToRefreshProps extends WithAccessibility, WithStyle, Required<WithChild>, WithContext {
   /**
    * Actions to run once the user makes the gesture to scroll up the screen and the scroll bar is already at the top.
    */
@@ -64,12 +63,8 @@ interface PullToRefreshProps extends WithAccessibility, WithStyle, Required<With
  * @param props {@link PullToRefreshProps}.
  * @returns JSX element, i.e an instance of Component.
  */
-export const PullToRefresh: FC<PullToRefreshProps> = ({ id, style, children, ...props }) => {
-  // the frontend always expect a single child for the PullRoRefresh component
-  const child = Array.isArray(children) ? <Container>{children}</Container> : children
-  return (
-    <StyledDefaultComponent name="pullToRefresh" id={id} style={style} properties={props}>
-      {child}
-    </StyledDefaultComponent>
-  )
-}
+export const PullToRefresh: FC<PullToRefreshProps> = ({ id, style, children, ...props }) => (
+  <StyledSingleChildComponent name="pullToRefresh" id={id} style={style} properties={props}>
+    {children}
+  </StyledSingleChildComponent>
+)

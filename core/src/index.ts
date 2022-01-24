@@ -1,4 +1,4 @@
-export { Component, WithContext, WithChildren } from './model/component'
+export { Component, WithContext, WithChildren, WithChild } from './model/component'
 export { Expression, HttpMethod, DynamicExpression } from './types'
 export { RootContext } from './model/context/root-context'
 export { coreNamespace } from './constants'
