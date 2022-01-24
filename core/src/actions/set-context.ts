@@ -1,6 +1,6 @@
 import { createCoreAction } from './core-action'
 
-interface SetContextParams {
+export interface SetContextParams<T = any> {
   /**
    * The id of the context to change.
    */
@@ -12,7 +12,7 @@ interface SetContextParams {
   /**
    * The new value.
    */
-  value: any,
+  value: T,
 }
 
 /**

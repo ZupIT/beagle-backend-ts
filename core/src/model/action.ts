@@ -1,3 +1,9 @@
+type TrueMap = true | { [K: string]: TrueMap }
+
+type AnalyticsAttributesMap<T> = T extends (number | string | boolean | any[] | null | undefined)
+  ? true
+  : (T extends Record<string, any> ? { [K in keyof T]?: true | AnalyticsAttributesMap<T[K]> } : TrueMap)
+
 export type AnalyticsConfig<Props> = false | {
   /**
    * Additional data to put in the analytics record. Example: `{ username: 'John', category: 'customer_level_6' }`.
@@ -5,11 +11,38 @@ export type AnalyticsConfig<Props> = false | {
   additionalEntries?: Record<string, any>,
   /**
    * Properties of this action to expose in the analytics record. Example, if this is a navigation action and we want
-   * to expose the url and method, attributes world be: `['route.url', 'httpAdditionalData.method']`.
+   * to expose the url and headers, `attributes` would be:
+   * ```
+   * {
+   *   route: {
+   *     url: true,
+   *     headers: true,
+   *   }
+   * }
+   * ```
    *
-   * fixme: the type is wrong here. Depending on the solution, this description might have to change.
+   * If you wanted to expose some particular headers:
+   * ```
+   * {
+   *   route: {
+   *     url: true,
+   *     headers: {
+   *       'content-type': true,
+   *       'my-header': true,
+   *     },
+   *   }
+   * }
+   * ```
+   *
+   * If you wanted to expose all the properties under `route`:
+   * ```
+   * { route: true }
+   * ```
+   *
+   * The default behavior is to follow the configuration in the front-end set up by the AnalyticsProvider. The
+   * attributes specified here replaces the ones in the config. This is not a merge.
    */
-  attributes: (keyof Props)[],
+  attributes?: AnalyticsAttributesMap<Props>,
 }
 
 export interface WithAnalytics<Props = any> {
