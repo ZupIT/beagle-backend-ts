@@ -34,7 +34,7 @@ interface NavigationBarItem extends WithAccessibility {
   /**
    * The actions to run when the menu item is pressed.
    */
-  action?: Actions,
+  onPress?: Actions,
   /**
    * An id for this menu item.
    */
@@ -87,7 +87,7 @@ export const ScreenComponent: FC<ScreenProps> = ({ id, context, children, style,
   const finalSafeArea = safeArea === true ? { top: true, bottom: true, leading: true, trailing: true } : safeArea
   const properties = { ...props, safeArea: finalSafeArea }
   return (
-    <StyledDefaultComponent name="screen" id={id} context={context} style={style} properties={properties}>
+    <StyledDefaultComponent name="screencomponent" id={id} context={context} style={style} properties={properties}>
       {children}
     </StyledDefaultComponent>
   )
