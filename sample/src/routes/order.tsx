@@ -29,17 +29,13 @@ export const Order: Screen<OrderRequest> = (
     <UserInit userId={headers['user-id']}>
       <Text style={{ display: condition(isNull(order), 'FLEX', 'NONE')}}>loading...</Text>
       <Card onInit={onInit} style={{ display: condition(isNull(order), 'NONE', 'FLEX')}}>
-        <Text style={itemStyle}>{`Order id: ${order.get('id')}`}</Text>
-        <Text style={itemStyle}>{`Date: ${order.get('date')}`}</Text>
-        <Text style={itemStyle}>{`Status: ${order.get('status')}`}</Text>
-        <Text style={itemStyle}>{`Price: \$${order.get('price')}`}</Text>
-        <Text style={itemStyle}>
-          {`Tracking: ${order.get('tracking').get('company')} ${order.get('tracking').get('id')}`}
-        </Text>
-        <Text style={itemStyle}>{`Estimated delivery date: ${order.get('estimatedDeliveryDate')}`}</Text>
-        <Text style={itemStyle}>
-          {`Delivery address: ${order.get('address').get('street')}, ${order.get('address').get('number')}`}
-        </Text>
+        <Text style={itemStyle}>Order id: {order.get('id')}</Text>
+        <Text style={itemStyle}>Date: {order.get('date')}</Text>
+        <Text style={itemStyle}>Status: {order.get('status')}</Text>
+        <Text style={itemStyle}>Price: {order.get('price')}</Text>
+        <Text style={itemStyle}>Tracking: {order.get('tracking').get('company')} {order.get('tracking').get('id')}</Text>
+        <Text style={itemStyle}>Estimated delivery date: {order.get('estimatedDeliveryDate')}</Text>
+        <Text style={itemStyle}>Delivery address: {order.get('address').get('street')}, {order.get('address').get('number')}</Text>
       </Card>
       <Container style={{ flex: 1, alignContent: 'CENTER', justifyContent: 'CENTER' }}>
         <Button onPress={navigator.popView()}>Home</Button>

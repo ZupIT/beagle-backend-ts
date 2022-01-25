@@ -17,7 +17,7 @@ interface TextProps extends WithAccessibility, WithTheme, WithStyle {
   /**
    * The text to print.
    */
-  children: Expression<string>,
+  children: Expression<string | number | boolean> | Expression<string | number | boolean>[],
 }
 
 /**
@@ -30,5 +30,6 @@ interface TextProps extends WithAccessibility, WithTheme, WithStyle {
  */
 export const Text: FC<TextProps> = ({ id, style, children, ...props }) => {
   validateColor(props.textColor)
-  return <StyledDefaultComponent name="text" id={id} style={style} properties={{ ...props, text: children }} />
+  const text = Array.isArray(children) ? children.join('') : children
+  return <StyledDefaultComponent name="text" id={id} style={style} properties={{ ...props, text }} />
 }

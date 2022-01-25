@@ -5,8 +5,12 @@ const intrinsicComponentName = 'component'
 
 type FragmentFactory = (children: any[]) => Component
 
+const isStringArray = (array: any[]): boolean =>
+  Array.isArray(array) &&
+  !array.some((value) => typeof value !== 'string' && typeof value !== 'number' && typeof value !== 'boolean')
+
 let fragmentFactory: FragmentFactory = (children) => {
-  if (typeof children === 'string') {
+  if (typeof children === 'string' || isStringArray(children)) {
     return new Component({
       namespace: 'beagle',
       name: 'container',
@@ -14,7 +18,9 @@ let fragmentFactory: FragmentFactory = (children) => {
         new Component({
           namespace: 'beagle',
           name: 'text',
-          children,
+          properties: {
+            text: Array.isArray(children) ? children.join('') : children,
+          },
         }),
       ],
     })

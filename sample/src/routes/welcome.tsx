@@ -3,6 +3,9 @@ import { Screen } from '@zup-it/beagle-backend-express'
 import { pushView } from '@zup-it/beagle-backend-core/actions'
 import { Button, colors, Container, Image, Text } from '@zup-it/beagle-backend-components'
 
+const myVar = 'Arthur'
+const myVar2 = 'Bleil'
+
 export const Welcome: Screen = () => (
   <Container
     style={{
