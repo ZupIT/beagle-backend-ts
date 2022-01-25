@@ -1,7 +1,8 @@
-import { BeagleJSX, FC, Actions, WithChild } from '@zup-it/beagle-backend-core'
-import { SingleChildComponent } from '../default-component'
+import { BeagleJSX, FC, Actions, WithChildren } from '@zup-it/beagle-backend-core'
+import { DefaultComponent } from '../default-component'
+import { Container } from './container'
 
-interface TouchableProps extends Required<WithChild> {
+interface TouchableProps extends Required<WithChildren> {
   /**
    * The actions to run when any of the child components are pressed or clicked.
    */
@@ -14,6 +15,8 @@ interface TouchableProps extends Required<WithChild> {
  * @param props {@link TouchableProps}.
  * @returns JSX element, i.e an instance of Component.
  */
-export const Touchable: FC<TouchableProps> = ({ id, children, ...props }) => (
-  <SingleChildComponent name="touchable" id={id} properties={props}>{children}</SingleChildComponent>
-)
+export const Touchable: FC<TouchableProps> = ({ id, children, ...props }) => {
+  // the frontend always expect a single child for the Touchable component
+  const child = Array.isArray(children) ? <Container>{children}</Container> : children
+  return <DefaultComponent name="touchable" id={id} properties={{ ...props, child }} />
+}
