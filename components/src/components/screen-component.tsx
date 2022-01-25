@@ -1,7 +1,7 @@
 import { BeagleJSX, Actions, FC, WithContext, WithChildren } from '@zup-it/beagle-backend-core'
-import { Container } from '.'
 import { StyledDefaultComponent, WithStyle } from '../style/styled'
 import { WithAccessibility, WithTheme } from '../types'
+import { Container } from '.'
 
 interface SafeArea {
   /**
