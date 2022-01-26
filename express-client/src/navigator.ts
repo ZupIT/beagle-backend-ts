@@ -1,7 +1,7 @@
 import { FC } from '@zup-it/beagle-backend-core'
 import {
-  pushView, pushStack, popToView, popView, resetApplication, resetStack, Route, PushStackParams, PushViewParams,
-  PopToViewParams, PopViewParams, ResetApplicationParams, ResetStackParams, popStack, PopStackParams,
+  pushView, pushStack, popToView, popView, popStack, resetApplication, resetStack, Route, PushStackParams,
+  PushViewParams, PopToViewParams, PopViewParams, ResetApplicationParams, ResetStackParams, PopStackParams,
 } from '@zup-it/beagle-backend-core/actions'
 import { forEach } from 'lodash'
 import { RouteMap, RouteConfig } from './route'
