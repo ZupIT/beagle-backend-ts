@@ -1,5 +1,5 @@
 import { BeagleJSX } from '@zup-it/beagle-backend-core'
-import { Container, Text, Button, Fragment } from '@zup-it/beagle-backend-components'
+import { Container, Text, Button } from '@zup-it/beagle-backend-components'
 import { Screen } from '@zup-it/beagle-backend-express'
 import { Order } from './order'
 import { UserInit } from '../fragments/user-init'
@@ -17,7 +17,17 @@ export const Home: Screen<AppRequest> = ({ request: { headers }, navigator }) =>
         <Text textColor='#FFFFFF'>{`Seu saldo é de ${balance.get('currency')} ${balance.get('total')}`}</Text>
       </Container>
       <Container style={{ flex: 1, alignItems: 'CENTER', justifyContent: 'CENTER' }}>
-        <Button onPress={navigator.pushView(Order, { navigationContext: { orderId: '001' }})}>Check Order 001</Button>
+        <Button
+          onPress={navigator.pushView(
+            Order,
+            {
+              navigationContext: { orderId: '001' },
+              analytics: { attributes: { route: { url: true, httpAdditionalData: { headers: true } } } },
+            }
+          )}
+        >
+          Check Order 001
+        </Button>
       </Container>
     </UserInit>
   )

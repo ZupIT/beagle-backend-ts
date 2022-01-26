@@ -1,5 +1,5 @@
 import { isDynamicExpression } from '../utils'
-import { Actions, ActionInterface, ActionProps } from '../model/action'
+import { Actions, Action, ActionProps } from '../model/action'
 import { Expression } from '../types'
 import { createCoreAction } from './core-action'
 
@@ -33,14 +33,14 @@ interface AlertFunction {
    * @param message the text to show inside the dialog.
    * @returns an instance of Action
    */
-  (message: AlertProps['message']): ActionInterface,
+  (message: AlertProps['message']): Action,
   /**
    * Opens up a system dialog box to show an alert message to the user.
    *
    * @param options the options for the dialog box: title, message, labelOk and onPressOk. See {@link Alert}.
    * @returns an instance of Action
    */
-  (options: AlertProps): ActionInterface,
+  (options: AlertProps): Action,
 }
 
 export const alert: AlertFunction = args => (typeof args === 'string' || isDynamicExpression(args))

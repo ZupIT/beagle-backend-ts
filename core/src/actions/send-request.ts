@@ -1,5 +1,6 @@
-import { Expression, Actions, ContextNode } from '..'
-import { ActionProps } from '../model/action'
+import { Expression } from '../types'
+import { Actions, ActionProps } from '../model/action'
+import { createContextNode } from '../model/context/context-node'
 import { AnyContextNode } from '../model/context/types'
 import { HttpMethod } from '../types'
 import { createCoreAction } from './core-action'
@@ -12,9 +13,9 @@ interface ResponseContext<T> {
 
 interface ErrorContext<T> extends ResponseContext<T> {
   /**
-   * If an exception is thrown, this contains the error message.
+   * The message in the exception thrown.
    */
-  message?: string,
+  message: string,
 }
 
 interface BaseSendRequestParams {
@@ -132,7 +133,7 @@ export function sendRequest <SuccessResponse = any, ErrorResponse = any>(
   { onError, onSuccess, ...other }: SendRequestParams<SuccessResponse, ErrorResponse>,
 ) {
   // fixme: remove as any and fix type
-  const onErrorResult = onError ? onError(new ContextNode('onError') as any) : undefined
-  const onSuccessResult = onSuccess ? onSuccess(new ContextNode('onSuccess') as any) : undefined
+  const onErrorResult = onError ? onError(createContextNode('onError')) : undefined
+  const onSuccessResult = onSuccess ? onSuccess(createContextNode('onSuccess')) : undefined
   return sendRequestAction({ onError: onErrorResult, onSuccess: onSuccessResult, ...other })
 }

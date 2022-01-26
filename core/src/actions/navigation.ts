@@ -1,10 +1,11 @@
-import { ContextNode, Expression, HttpMethod } from '..'
-import { ActionInterface } from '../model/action'
+import { Expression, HttpMethod } from '../types'
+import { Action } from '../model/action'
 import { Component } from '../model/component'
-import { Operation } from '../model/operation'
+import { isDynamicExpression } from '../utils'
 import { createCoreAction } from './core-action'
 
 // App navigation
+
 interface OpenNativeRouteParams {
   /**
    * The identifier of the route in mobile applications or the relative URL in web apps.
@@ -45,6 +46,33 @@ interface OpenExternalUrlParams {
 export const openExternalUrl = createCoreAction<OpenExternalUrlParams>('openExternalUrl')
 
 // Beagle Navigation
+
+/**
+ * Transforms anything into the navigation context expected by the frontend, i.e. an object with `path` and `value`.
+ * `path` will be undefined if it's not possible to extract a common path from the argument `data`.
+ *
+ * Example: `{ user: { address: { position: { lat: 58.8, lng: -136.5 } } }` becomes
+ * `{ path: 'user.address.position', value: { lat: 58.8, lng: -136.5 } }`.
+ *
+ * @param data the data to transform into a navigation context
+ * @returns the navigation context
+ */
+function formatNavigationContext(data: any) {
+  if (!data) return
+  const keyParts: string[] = []
+
+  while (data && typeof data === 'object' && Object.keys(data).length === 1) {
+    const currentKey = Object.keys(data)[0]
+    keyParts.push(currentKey)
+    data = data[currentKey]
+  }
+
+  return {
+    path: keyParts.length ? keyParts.join('.') : undefined,
+    value: data,
+  }
+}
+
 interface IdentifiableComponent extends Component {
   id: string,
 }
@@ -94,7 +122,6 @@ interface RemoteView {
 export type Route = LocalView | RemoteView
 
 interface BaseNavigationParams {
-  // fixme: this might need include both the path and the value
   /**
    * The navigation context to set in this navigation. Each route (screen) can have a navigation-scoped context and
    * this is the way to set it. For instance, once we click in a "Buy now" button, we may want to send the user to
@@ -130,26 +157,34 @@ interface StackNavigationParams extends RouteNavigationParams {
   controllerId?: string,
 }
 
+export type PushStackParams = StackNavigationParams
+export type PushViewParams = RouteNavigationParams
+export type PopViewParams = BaseNavigationParams
+export type PopToViewParams = RouteNavigationParams<string>
+export type ResetStackParams = StackNavigationParams
+export type PopStackParams = BaseNavigationParams
+export type ResetApplicationParams = StackNavigationParams
+
 const navigator = {
-  pushStack: createCoreAction<StackNavigationParams>('pushStack'),
-  pushView: createCoreAction<RouteNavigationParams>('pushView'),
-  popView: createCoreAction<BaseNavigationParams>('popView'),
-  popToView: createCoreAction<RouteNavigationParams<string>>('popToView'),
-  resetStack: createCoreAction<StackNavigationParams>('resetStack'),
-  resetApplication: createCoreAction<StackNavigationParams>('resetApplication'),
+  pushStack: createCoreAction<PushStackParams>('pushStack'),
+  pushView: createCoreAction<PushViewParams>('pushView'),
+  popView: createCoreAction<PopViewParams>('popView'),
+  popToView: createCoreAction<PopToViewParams>('popToView'),
   popStack: createCoreAction<BaseNavigationParams>('popStack'),
+  resetStack: createCoreAction<ResetStackParams>('resetStack'),
+  resetApplication: createCoreAction<ResetApplicationParams>('resetApplication'),
 }
 
 interface PushViewFunction {
   /**
-   * Adds the provided route to the current stack.
+   * Adds the provided route to the current navigation stack.
    *
    * @param url the url to the screen to load
    * @returns an instance of Action
    */
-  (url: Expression<string>): ActionInterface,
+  (url: Expression<string>): Action,
   /**
-   * Adds the provided route to the current stack.
+   * Adds the provided route to the current navigation stack.
    *
    * @param options the parameters for this navigation:
    * - route: the screen to load. A {@link LocalView} or a {@link RemoteView}.
@@ -166,7 +201,7 @@ interface PushStackFunction {
    * @param url the url to the screen to load
    * @returns an instance of Action
    */
-  (url: Expression<string>): ActionInterface,
+  (url: Expression<string>): Action,
   /**
    * Adds a new stack to the navigator with the provided route.
    *
@@ -185,7 +220,7 @@ interface PopStackFunction {
    *
    * @returns an instance of Action
    */
-   (): ActionInterface,
+   (): Action,
   /**
    * Pops the current stack, going back to the last route of the previous stack.
    *
@@ -199,16 +234,16 @@ interface PopStackFunction {
 interface PopToViewFunction {
   /**
    * Goes back to the route identified by the string passed as parameter. If the route doesn't exist in the current
-   * stack, nothing happens.
+   * navigation stack, nothing happens.
    *
    * @param routeId the identifier of the route to go back to. For RemoteViews, this identifier will be the url. For
    * LocalViews, it will the id of the root component.
    * @returns an instance of Action
    */
-  (routeId: Expression<string>): ActionInterface,
+  (routeId: Expression<string>): Action,
   /**
    * Goes back to the route identified by the options passed as parameter (route). If the route doesn't exist in the
-   * current stack, nothing happens.
+   * current navigation stack, nothing happens.
    *
    * @param options the parameters for this navigation:
    * - route: the identifier for the screen to go back to.
@@ -220,14 +255,14 @@ interface PopToViewFunction {
 
 interface ResetStackFunction {
   /**
-   * Removes the current stack and adds a new one with the provided route.
+   * Removes the current navigation stack and adds a new one with the provided route.
    *
    * @param url the url to the screen to load
    * @returns an instance of Action
    */
-  (url: Expression<string>): ActionInterface,
+  (url: Expression<string>): Action,
   /**
-   * Removes the current stack and adds a new one with the provided route.
+   * Removes the current navigation stack and adds a new one with the provided route.
    *
    * @param options the parameters for this navigation:
    * - route: the screen to load. A {@link LocalView} or a {@link RemoteView}.
@@ -244,7 +279,7 @@ interface PopViewFunction {
    *
    * @returns an instance of Action
    */
-  (): ActionInterface,
+  (): Action,
   /**
    * Goes back to the previous route.
    *
@@ -257,14 +292,14 @@ interface PopViewFunction {
 
 interface ResetApplicationFunction {
   /**
-   * Removes all the stacks and adds a new one with the provided route.
+   * Removes all the navigation stacks and adds a new one with the provided route.
    *
    * @param url the url to the screen to load
    * @returns an instance of Action
    */
-  (url: Expression<string>): ActionInterface,
+  (url: Expression<string>): Action,
   /**
-   * Removes all the stack and adds a new one with the provided route.
+   * Removes all the navigation stacks and adds a new one with the provided route.
    *
    * @param options the parameters for this navigation:
    * - route: the screen to load. A {@link LocalView} or a {@link RemoteView}.
@@ -276,9 +311,10 @@ interface ResetApplicationFunction {
 }
 
 function getParams(options: any, isPopToView = false) {
-  return (typeof options === 'string' || options instanceof ContextNode || options instanceof Operation)
-    ? { route: isPopToView ? options : { url: options } }
-    : options
+  const isParamASingleUrl = typeof options === 'string' || isDynamicExpression(options)
+  if (isParamASingleUrl) return { route: isPopToView ? options : { url: options } }
+  const { navigationContext, ...other } = options
+  return { navigationContext: formatNavigationContext(navigationContext), ...other }
 }
 
 export const pushView: PushViewFunction = (options: any) => navigator.pushView(getParams(options))
@@ -288,5 +324,5 @@ export const resetApplication: ResetApplicationFunction = (options: any) => (
   navigator.resetApplication(getParams(options))
 )
 export const popToView: PopToViewFunction = (options: any) => navigator.popToView(getParams(options, true))
-export const popView: PopViewFunction = (...args: any[]) => navigator.popView(args[0] ?? {})
-export const popStack: PopStackFunction = (...args: any[]) => navigator.popStack(args[0] ?? {})
+export const popView: PopViewFunction = (options: any = {}) => navigator.popView(getParams(options))
+export const popStack: PopStackFunction = (options: any = {}) => navigator.popStack(getParams(options))
