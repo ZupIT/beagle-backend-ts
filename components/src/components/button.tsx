@@ -14,7 +14,7 @@ interface ButtonProps extends WithAccessibility, WithTheme, WithStyle {
   /**
    * The text that goes inside the button. This gets converted to the property "text" when serialized.
    */
-  children: Expression<string>,
+  children: Expression<string | number | boolean> | Expression<string | number | boolean>[],
 }
 
 /**
@@ -25,6 +25,7 @@ interface ButtonProps extends WithAccessibility, WithTheme, WithStyle {
  * @param props {@link ButtonProps}.
  * @returns a JSX element, i.e an instance of Component.
  */
-export const Button: FC<ButtonProps> = ({ id, style, children, ...props }) => (
-  <StyledDefaultComponent name="button" id={id} style={style} properties={{ ...props, text: children }} />
-)
+export const Button: FC<ButtonProps> = ({ id, style, children, ...props }) => {
+  const text = Array.isArray(children) ? children.join('') : children
+  return <StyledDefaultComponent name="button" id={id} style={style} properties={{ ...props, text }} />
+}
