@@ -27,3 +27,9 @@ export interface BeagleNode {
   children?: BeagleNode[],
   [key: string]: any,
 }
+
+
+export type SerializedAnalyticsConfig = false | {
+  additionalEntries?: Record<string, any>,
+  attributes?: string[],
+}

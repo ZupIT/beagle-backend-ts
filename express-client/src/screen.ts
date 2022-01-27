@@ -134,7 +134,7 @@ export type Screen<T extends ScreenRequest = any> = (props: ScreenProps<T>) => J
 /**
  * Type of the navigation parameters in the Navigator.
  */
-export interface ScreenNavigation<T extends ScreenRequest> extends WithAnalytics {
+export interface ScreenNavigation<T extends ScreenRequest, Props> extends WithAnalytics<Props> {
   /**
    * The parameters for the url.
    *

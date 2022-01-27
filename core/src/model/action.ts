@@ -1,4 +1,8 @@
-import { genericNamespace } from '../constants'
+type TrueMap = true | { [K: string]: TrueMap }
+
+export type AnalyticsAttributesMap<T> = T extends (number | string | boolean | any[] | null | undefined)
+  ? true
+  : (T extends Record<string, any> ? { [K in keyof T]?: true | AnalyticsAttributesMap<T[K]> } : TrueMap)
 
 export type AnalyticsConfig<Props> = false | {
   /**
@@ -7,11 +11,38 @@ export type AnalyticsConfig<Props> = false | {
   additionalEntries?: Record<string, any>,
   /**
    * Properties of this action to expose in the analytics record. Example, if this is a navigation action and we want
-   * to expose the url and method, attributes world be: `['route.url', 'httpAdditionalData.method']`.
+   * to expose the url and headers, `attributes` would be:
+   * ```
+   * {
+   *   route: {
+   *     url: true,
+   *     headers: true,
+   *   }
+   * }
+   * ```
    *
-   * fixme: the type is wrong here. Depending on the solution, this description might have to change.
+   * If you wanted to expose some particular headers:
+   * ```
+   * {
+   *   route: {
+   *     url: true,
+   *     headers: {
+   *       'content-type': true,
+   *       'my-header': true,
+   *     },
+   *   }
+   * }
+   * ```
+   *
+   * If you wanted to expose all the properties under `route`:
+   * ```
+   * { route: true }
+   * ```
+   *
+   * The default behavior is to follow the configuration in the front-end set up by the AnalyticsProvider. The
+   * attributes specified here replaces the ones in the config. This is not a merge.
    */
-  attributes: (keyof Props)[],
+  attributes?: AnalyticsAttributesMap<Props>,
 }
 
 export interface WithAnalytics<Props = any> {
@@ -28,7 +59,7 @@ export interface WithAnalytics<Props = any> {
   analytics?: AnalyticsConfig<Props>,
 }
 
-export interface ActionInterface<Props = any> extends WithAnalytics<Props> {
+interface ActionInterface<Props = any> extends WithAnalytics<Props> {
   /**
    * The namespace for this action. Actions in beagle are identified by a string in the format "$namespace:$name", e.g
    * "beagle:alert".
@@ -55,9 +86,9 @@ export type ActionProps<Props> = Props & WithAnalytics<Props>
 /**
  * An Action factory.
  */
-export type ActionFunction<Props> = (props: ActionProps<Props>) => ActionInterface
+export type ActionFunction<Props> = (props: ActionProps<Props>) => Action
 
-export type Actions = ActionInterface | ActionInterface[]
+export type Actions = Action | Action[]
 
 /**
  * An Action is a behavior to be triggered in the front-end application. Actions are always associated with events. For
@@ -105,17 +136,17 @@ export class Action<Props = any> implements ActionInterface<Props> {
   /**
    * @param options the action parameters: namespace, name, properties and analytics. See {@link ActionInterface}.
    */
-  constructor({ name, analytics, namespace = genericNamespace, properties }: ActionInterface<Props>) {
+  constructor({ name, analytics, namespace, properties }: ActionInterface<Props>) {
     this.name = name
     this.namespace = namespace
     this.analytics = analytics
     this.properties = properties
   }
 
-  namespace
+  namespace?
   name
-  properties
-  analytics
+  properties?
+  analytics?
 }
 
 /**
