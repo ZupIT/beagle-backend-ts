@@ -1,6 +1,7 @@
 import { BeagleJSX, Actions, FC, WithContext, WithChildren } from '@zup-it/beagle-backend-core'
 import { StyledDefaultComponent, WithStyle } from '../style/styled'
 import { WithAccessibility, WithTheme } from '../types'
+import { Container } from '.'
 
 interface SafeArea {
   /**
@@ -85,10 +86,9 @@ interface ScreenProps extends WithStyle, WithContext, Required<WithChildren> {
  */
 export const ScreenComponent: FC<ScreenProps> = ({ id, context, children, style, safeArea, ...props }) => {
   const finalSafeArea = safeArea === true ? { top: true, bottom: true, leading: true, trailing: true } : safeArea
-  const properties = { ...props, safeArea: finalSafeArea }
+  const child = Array.isArray(children) ? <Container>{children}</Container> : children
+  const properties = { ...props, child, safeArea: finalSafeArea }
   return (
-    <StyledDefaultComponent name="screencomponent" id={id} context={context} style={style} properties={properties}>
-      {children}
-    </StyledDefaultComponent>
+    <StyledDefaultComponent name="screencomponent" id={id} context={context} style={style} properties={properties} />
   )
 }

@@ -19,7 +19,7 @@ let fragmentFactory: FragmentFactory = (children) => {
       ],
     })
   }
-  return new Component({ namespace: 'beagle', name: 'container' })
+  return new Component({ namespace: 'beagle', name: 'container', children })
 }
 
 /**
