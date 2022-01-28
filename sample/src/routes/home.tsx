@@ -28,6 +28,7 @@ export const Home: Screen<AppRequest> = ({ request: { headers }, navigator }) =>
         >
           Check Order 001
         </Button>
+        <Button onPress={navigator.pushView(Order)}>Check Order 001 - TEST</Button>
       </Container>
     </UserInit>
   )

@@ -14,9 +14,7 @@ interface OrderRequest extends AppRequest {
   }
 }
 
-export const Order: Screen<OrderRequest> = (
-  { request: { headers }, navigationContext, navigator },
-) => {
+export const Order: Screen<OrderRequest> = ({ request: { headers }, navigationContext, navigator }) => {
   const order = createContext<OrderType>('order')
   const onInit = getOrderById(navigationContext.get('orderId'), {
     onSuccess: success => order.set(success.get('data')),

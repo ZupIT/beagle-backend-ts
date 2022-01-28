@@ -51,7 +51,7 @@ export interface ScreenRequest {
   /**
    * The type of the request body. If a JSON is expected, specify here the object interface.
    */
-  body: any,
+  body: unknown,
   /**
    * The type of the navigation context of this screen. If it's an order page and you expect to receive both the order
    * id and the address from the navigation context, this should be:
@@ -62,7 +62,7 @@ export interface ScreenRequest {
    * }
    * ```
    */
-  navigationContext: any,
+  navigationContext: unknown,
 }
 
 interface ScreenProps<T extends ScreenRequest> {

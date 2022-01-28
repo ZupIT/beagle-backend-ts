@@ -6,6 +6,7 @@ import {
 import { forEach } from 'lodash'
 import { RouteMap, RouteConfig } from './route'
 import { ScreenRequest, Screen, ScreenNavigation } from './screen'
+import { RequireWhenAnyPropRequired } from './utils/types'
 
 const navigationActions = { pushView, pushStack, popToView, popView, resetApplication, resetStack }
 
@@ -114,7 +115,7 @@ export class Navigator {
    * @param properties the data to send with this navigation (and analytics).
    * @returns an instance of Action.
    */
-  pushView = <T extends ScreenRequest>(screen: Screen<T>, properties?: PushView<T>) => (
+  pushView = <T extends ScreenRequest>(screen: Screen<T>, properties: RequireWhenAnyPropRequired<PushView<T>>) => (
     this.navigateRemote({ type: 'pushView', screen, properties })
   )
 
@@ -134,7 +135,7 @@ export class Navigator {
    * @param properties the data to send with this navigation (and analytics).
    * @returns an instance of Action.
    */
-  popToView = <T extends ScreenRequest>(screen: Screen<T>, properties?: PopToView<T>) => (
+  popToView = <T extends ScreenRequest>(screen: Screen<T>, properties: PopToView<T>) => (
     this.navigateRemote({ type: 'popToView', screen, properties })
   )
 
