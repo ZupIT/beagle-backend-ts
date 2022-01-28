@@ -9,7 +9,7 @@ interface PageViewProps extends WithChildren, WithContext {
   /**
    * The current page.
    */
-  currentPage?: Expression<number>,
+  currentPage?: number,
   /**
    * Whether or not to show page change arrows. Defaults to true.
    */
