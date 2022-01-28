@@ -1,4 +1,4 @@
-import { Actions, BeagleJSX, Expression, FC, WithChildren, WithContext } from '@zup-it/beagle-backend-core'
+import { Actions, BeagleJSX, FC, WithChildren, WithContext } from '@zup-it/beagle-backend-core'
 import { DefaultComponent } from '../default-component'
 
 interface PageViewProps extends WithChildren, WithContext {
