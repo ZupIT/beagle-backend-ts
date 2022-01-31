@@ -15,7 +15,7 @@ export const Loading: FC<Props> = ({ isLoading, children }) => (
       justifyContent: 'CENTER',
       display: condition(isLoading, 'FLEX', 'NONE'),
     }}>
-      <Spinner/>
+      <Spinner />
     </Container>
     <Container style={{ display: condition(isLoading, 'NONE', 'FLEX') }}>
       {children}
