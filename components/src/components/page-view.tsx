@@ -41,8 +41,8 @@ interface PageViewProps extends WithChildren, WithContext {
  * const currentPage = createContext('currentPage', 0)
  *
  * const Screen = () => (
- *   <Container>
- *     <PageView context={currentPage} currentPage={currentPage} onPageChange={currentPage.set}>
+ *   <Container context={currentPage}>
+ *     <PageView currentPage={currentPage} onPageChange={(page) => currentPage.set(page)}>
  *       <Text>Page 1</Text>
  *       <Text>Page 2</Text>
  *       <Text>Page 3</Text>
