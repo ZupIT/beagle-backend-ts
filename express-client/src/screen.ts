@@ -22,7 +22,7 @@ export interface ScreenRequest {
    * { 'session-token': string }
    * ```
    */
-  headers: Record<string, string>,
+  headers?: Record<string, string>,
   /**
    * The parameters expected in the route.
    *
@@ -34,7 +34,7 @@ export interface ScreenRequest {
    * }
    * ```
    */
-  routeParams: Record<string, string>,
+  routeParams?: Record<string, string>,
   /**
    * The query parameters expected in the route.
    *
@@ -47,11 +47,11 @@ export interface ScreenRequest {
    * }
    * ```
    */
-  query: Record<string, string>,
+  query?: Record<string, string>,
   /**
    * The type of the request body. If a JSON is expected, specify here the object interface.
    */
-  body: unknown,
+  body?: unknown,
   /**
    * The type of the navigation context of this screen. If it's an order page and you expect to receive both the order
    * id and the address from the navigation context, this should be:
@@ -62,7 +62,7 @@ export interface ScreenRequest {
    * }
    * ```
    */
-  navigationContext: unknown,
+  navigationContext?: unknown,
 }
 
 interface ScreenProps<T extends ScreenRequest> {

@@ -1,29 +1,28 @@
-type Optional<T, K extends keyof T> = Pick<Partial<T>, K> & Omit<T, K>
-
-type PickPropertyType<T, Prop extends keyof T> = T[Prop]
-
-type HasNonNullable = 'HAS_NON_NULLABLE'
-
-type UndefinedOrNever<T> = {
-  [P in keyof T]: undefined extends T[P] ? undefined : null extends T[P] ? undefined : HasNonNullable;
+type HasNonNullableProp = 'has_non_nullable_prop'
+type CheckTypeHasNonNullableProps<T> = {
+  [K in keyof T]: undefined extends T[K]
+  ? undefined
+  : null extends T[K]
+    ? undefined
+    : unknown extends T[K]
+      ? undefined
+      : HasNonNullableProp
 }[keyof T]
 
-export type RequirePropertyWhenRequired<T, K extends string> =
-  undefined extends PickPropertyType<T & Record<string, unknown>, K>
-  ? Optional<T & Record<string, unknown>, K>
-  : null extends PickPropertyType<T & Record<string, unknown>, K>
-    ? Optional<T & Record<string, unknown>, K> : T
+export type TypeHasNonNullableProps<T> = (
+  CheckTypeHasNonNullableProps<T> extends undefined
+  ? (CheckTypeHasNonNullableProps<T> extends HasNonNullableProp ? true : false)
+  : true
+)
 
-export type RequireWhenAnyPropRequired<T> = HasNonNullable extends UndefinedOrNever<T> ? T : T | undefined
+export type KeysOfType<O, T> = { [K in keyof O]: T extends O[K] ? K : never}[keyof O]
 
+export type OptionalKeys<T> = Partial<Pick<T, KeysOfType<T, undefined>>>
 
-type Omit<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>>
-type PartialBy<T, K extends keyof T> = Omit<T, K> & Partial<Pick<T, K>>
+export type RequiredKeys<T> = Omit<T, KeysOfType<T, undefined>>
 
-interface Person {
-  name: string,
-  hometown: string,
-  nickname: string,
-}
+export type UndefinedOptional<T> = OptionalKeys<T> & RequiredKeys<T>
 
-type MakePersonInput = PartialBy<Person, 'nickname'>
+export type Merge<T, N> = UndefinedOptional<{
+  [K in (keyof T | keyof N)]: K extends keyof T ? T[K] : K extends keyof N ? N[K] : never
+}>
