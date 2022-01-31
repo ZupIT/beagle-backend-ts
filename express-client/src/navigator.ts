@@ -1,14 +1,14 @@
 import { FC } from '@zup-it/beagle-backend-core'
 import {
-  pushView, pushStack, popToView, popView, resetApplication, resetStack, Route, PushStackParams, PushViewParams,
-  PopToViewParams, PopViewParams, ResetApplicationParams, ResetStackParams,
+  pushView, pushStack, popToView, popView, popStack, resetApplication, resetStack, Route, PushStackParams,
+  PushViewParams, PopToViewParams, PopViewParams, ResetApplicationParams, ResetStackParams, PopStackParams,
 } from '@zup-it/beagle-backend-core/actions'
 import { forEach } from 'lodash'
 import { NavigationProperties } from './model/navigation'
 import { RouteMap, RouteConfig } from './route'
 import { ScreenRequest, Screen, ScreenNavigation } from './screen'
 
-const navigationActions = { pushView, pushStack, popToView, popView, resetApplication, resetStack }
+const navigationActions = { pushView, pushStack, popToView, popView, resetApplication, resetStack, popStack }
 
 interface ControllerId {
   controllerId?: string,
@@ -25,6 +25,7 @@ the following issue for more details: https://github.com/microsoft/TypeScript/is
 type PushStack<T extends ScreenRequest> = ScreenNavigation<T, PushStackParams> & ControllerId
 type PushView<T extends ScreenRequest> = ScreenNavigation<T, PushViewParams>
 type PopView<T extends ScreenRequest> = Pick<ScreenNavigation<T, PopViewParams>, 'navigationContext' | 'analytics'>
+type PopStack<T extends ScreenRequest> = Pick<ScreenNavigation<T, PopStackParams>, 'navigationContext' | 'analytics'>
 type PopToView<T extends ScreenRequest> = Pick<ScreenNavigation<T, PopToViewParams>, 'navigationContext' | 'analytics'>
 type ResetStack<T extends ScreenRequest> = ScreenNavigation<T, ResetStackParams> & ControllerId
 type ResetApplication<T extends ScreenRequest> = ScreenNavigation<T, ResetApplicationParams> & ControllerId
@@ -69,7 +70,7 @@ export class Navigator {
   }
 
   private buildRoute({ type, screen, properties = {} }: GenericRemoteNavigation) {
-    if (type === 'popView') return undefined
+    if (type === 'popView' || type === 'popStack') return undefined
 
     const { routeParams, headers, body, shouldPrefetch, fallback } = properties
     const { path, method } = this.getPathAndMethod(screen!)
@@ -106,6 +107,16 @@ export class Navigator {
    */
   pushStack = <T extends ScreenRequest>(screen: Screen<T>, ...properties: NavigationProperties<T, PushStack<T>>) => (
     this.navigateRemote({ type: 'pushStack', screen, properties: properties as PushStack<T> })
+  )
+
+  /**
+   * Pops the current stack, going back to the last route of the previous stack.
+   *
+   * @param properties the navigation context to set and analytics.
+   * @returns an instance of Action.
+   */
+  popStack = <T extends ScreenRequest>(properties?: PopStack<T>) => (
+    this.navigateRemote({ type: 'popStack', properties })
   )
 
   /**
