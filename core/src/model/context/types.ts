@@ -40,7 +40,8 @@ export type ArrayContextNode<T> = PrimitiveContextNode<T> & {
  * This type helper correctly identifies the type of ContextNode<T> and returns the appropriate type of
  * {@link ContextNode}.
  */
-export type AnyContextNode<T> = T extends Primitive ? PrimitiveContextNode<T> : (
+// The brackets in the line below are important to prevent TS from applying a distributive operation.
+export type AnyContextNode<T> = [T] extends [Primitive] ? PrimitiveContextNode<T> : (
   T extends any[] ? ArrayContextNode<T> : MapContextNode<T>
 )
 

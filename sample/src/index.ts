@@ -1,7 +1,8 @@
 import express from 'express'
 import cors from 'cors'
 import { BeagleApp } from '@zup-it/beagle-backend-express'
-import { routes } from './routes'
+import { routes as beagleRoutes } from './beagle/screens'
+import { applyRoutes } from './routes'
 
 const port = 3000
 const expressApp = express()
@@ -12,4 +13,5 @@ expressApp.listen(port, () => {
   console.log(`App listening at http://localhost:${port}`)
 })
 
-export const app = new BeagleApp(expressApp, routes)
+applyRoutes(expressApp)
+new BeagleApp(expressApp, beagleRoutes, { basePath: '/beagle' })

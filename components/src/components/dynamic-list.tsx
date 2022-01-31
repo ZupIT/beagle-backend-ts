@@ -64,7 +64,7 @@ interface ListViewProps<T> extends WithContext, WithStyle, WithAccessibility {
    * Tells the frontend which property of the items in the dataset is able to identify them. This is useful for
    * rendering only what's necessary when the list changes. Set this property whenever possible to enhance performance.
    */
-  key?: string,
+  key?: keyof T,
   /**
    * A Template factory. It receives the implicit context corresponding to the current iteration. It must return a
    * Template or a list of Templates. No other component is acceptable.
