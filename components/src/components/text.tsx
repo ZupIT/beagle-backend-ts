@@ -1,8 +1,10 @@
-import { BeagleJSX, FC, Expression } from '@zup-it/beagle-backend-core'
+import { BeagleJSX, FC } from '@zup-it/beagle-backend-core'
 import { Color } from '../color'
 import { StyledDefaultComponent, WithStyle } from '../style/styled'
 import { WithAccessibility, WithTheme } from '../types'
 import { validateColor } from '../validations'
+import { InterpolatedText } from './types'
+import { childrenToInterpolatedText } from './utils'
 
 interface TextProps extends WithAccessibility, WithTheme, WithStyle {
   /**
@@ -17,7 +19,7 @@ interface TextProps extends WithAccessibility, WithTheme, WithStyle {
   /**
    * The text to print.
    */
-  children: Expression<string | number | boolean> | Expression<string | number | boolean>[],
+  children: InterpolatedText,
 }
 
 /**
@@ -30,6 +32,6 @@ interface TextProps extends WithAccessibility, WithTheme, WithStyle {
  */
 export const Text: FC<TextProps> = ({ id, style, children, ...props }) => {
   validateColor(props.textColor)
-  const text = Array.isArray(children) ? children.join('') : children
+  const text = childrenToInterpolatedText(children)
   return <StyledDefaultComponent name="text" id={id} style={style} properties={{ ...props, text }} />
 }
