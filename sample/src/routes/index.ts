@@ -1,14 +1,8 @@
-import { RouteMap } from '@zup-it/beagle-backend-express'
-import { Home } from './home'
-import { Order } from './order'
-import { Profile } from './profile'
-import { Test } from './test'
-import { Welcome } from './welcome'
+import { Express } from 'express'
+import { applyRoutes as applyOrderRoutes } from './order'
+import { applyRoutes as applyProductRoutes } from './product'
 
-export const routes: RouteMap = {
-  '/home': Home,
-  '/order': Order,
-  '/profile': Profile,
-  '/test': Test,
-  '/welcome': Welcome,
+export function applyRoutes(app: Express) {
+  applyOrderRoutes(app)
+  applyProductRoutes(app)
 }

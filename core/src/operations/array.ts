@@ -6,40 +6,42 @@ type Element<T> = T extends (number | string | boolean) ? Expression<T> : Dynami
 /**
  * Creates the Operation "insert", which adds an element to the array at the given index.
  *
+ * The array passed in the parameter is not changed, instead a new array is returned.
+ *
  * @param array the ContextNode or Operation referring to the array
  * @param element the new element to add
- * @param index the index to insert the element at. 0 if not provided.
+ * @param index the index to insert the element at. If not provided, the element is added to the end of the array.
  * @returns an instance of Operation<Array>, i.e. an operation that results in an Array when run by the frontend.
  */
-export const insert = <Type, ArrayType extends Type[], ExpressionType extends DynamicExpression<ArrayType>>(
-  array: ExpressionType,
-  element: Element<Type>,
-  index?: Expression<number>,
-) => new Operation<ArrayType>('insert', [array, element, index])
+export const insert = <T>(array: DynamicExpression<T[]>, element: Element<T>, index?: Expression<number>) => (
+  new Operation<T[]>('insert', [array, element, index])
+)
 
 /**
  * Removes an element from the array.
+ *
+ * The array passed in the parameter is not changed, instead a new array is returned.
  *
  * @param array the ContextNode or Operation referring to the array
  * @param element the element to remove
  * @returns an instance of Operation<Array>, i.e. an operation that results in an Array when run by the frontend.
  */
-export const remove = <Type, ArrayType extends Type[], ExpressionType extends DynamicExpression<ArrayType>>(
-  array: ExpressionType,
-  element: Element<Type>,
-) => new Operation<ArrayType>('remove', [array, element])
+export const remove = <T>(array: DynamicExpression<T[]>, element: Element<T>) => (
+  new Operation<T[]>('remove', [array, element])
+)
 
 /**
  * Removes the element of the array at the given index.
  *
+ * The array passed in the parameter is not changed, instead a new array is returned.
+ *
  * @param array the ContextNode or Operation referring to the array
- * @param index the position to remove
+ * @param index the position to remove. If not provided, the last element is removed.
  * @returns an instance of Operation<Array>, i.e. an operation that results in an Array when run by the frontend.
  */
-export const removeIndex = <ArrayType extends any[], ExpressionType extends DynamicExpression<ArrayType>>(
-  array: ExpressionType,
-  index?: Expression<number>,
-) => new Operation<ArrayType>('removeIndex', [array, index])
+export const removeIndex = <T>(array: DynamicExpression<T[]>, index?: Expression<number>) => (
+  new Operation<T[]>('removeIndex', [array, index])
+)
 
 /**
  * Checks if the array contains the given element.
@@ -48,10 +50,9 @@ export const removeIndex = <ArrayType extends any[], ExpressionType extends Dyna
  * @param element the element to look for
  * @returns an instance of Operation<boolean>, i.e. an operation that results in a boolean when run by the frontend.
  */
-export const contains = <Type, ArrayType extends Type[], ExpressionType extends DynamicExpression<ArrayType>>(
-  array: ExpressionType,
-  element: Element<Type>,
-) => new Operation<boolean>('contains', [array, element])
+export const contains = <T>(array: DynamicExpression<T[]>, element: Element<T>) => (
+  new Operation<boolean>('contains', [array, element])
+)
 
 /* The following function will always return any[] despite the type of the arrays passed as parameters. This is not
 ideal, but I'm not sure if it's possible to correctly type it. The difficult lies in the fact that it can receive
@@ -75,6 +76,8 @@ any number of arrays to unite. */
  * ```
  *
  * The screen created in the code above would print "[1, 2, 3, 4, 5, 6, 7, 8, 9]".
+ *
+ * The arrays passed in the parameters are not changed, instead a new array is returned.
  *
  * @param arrays the ContextNodes or Operations referring to the arrays.
  * @returns an instance of Operation<Array>, i.e. an operation that results in an Array when run by the frontend.

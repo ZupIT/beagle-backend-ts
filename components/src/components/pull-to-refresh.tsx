@@ -67,9 +67,5 @@ interface PullToRefreshProps extends WithAccessibility, WithStyle, Required<With
 export const PullToRefresh: FC<PullToRefreshProps> = ({ id, style, children, ...props }) => {
   // the frontend always expect a single child for the PullRoRefresh component
   const child = Array.isArray(children) ? <Container>{children}</Container> : children
-  return (
-    <StyledDefaultComponent name="pullToRefresh" id={id} style={style} properties={props}>
-      {child}
-    </StyledDefaultComponent>
-  )
+  return <StyledDefaultComponent name="pullToRefresh" id={id} style={style} properties={{ ...props, child }} />
 }
