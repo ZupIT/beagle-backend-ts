@@ -41,7 +41,7 @@ export const StyledComponent: FC<StyledComponentProps> = ({
       context={context}
       id={id}
       namespace={namespace}
-      properties={{ ...fromSimpleStyle(style), ...properties }}
+      properties={{ style: fromSimpleStyle(style), ...properties }}
     >
       {children}
     </component>
