@@ -1,5 +1,5 @@
-import { BeagleJSX, createContext, DynamicExpression } from '@zup-it/beagle-backend-core'
-import { Container, GridView, Template } from '@zup-it/beagle-backend-components'
+import { BeagleJSX, createContext } from '@zup-it/beagle-backend-core'
+import { colors, Container, GridView, ScreenComponent, Template } from '@zup-it/beagle-backend-components'
 import { Screen } from '@zup-it/beagle-backend-express'
 import { alert } from '@zup-it/beagle-backend-core/actions'
 import { insert } from '@zup-it/beagle-backend-core/operations'
@@ -9,6 +9,7 @@ import { ProductItem } from '../components/product-item'
 import { formatPrice } from '../operations'
 import { globalContext } from '../global-context'
 import { Loading } from '../fragments/loading'
+import { theme } from '../constants'
 
 interface ProductData {
   isLoading: boolean,
@@ -25,22 +26,25 @@ export const Products: Screen = () => {
   })
 
   return (
-    <Container context={products} onInit={onInit}>
-      <Loading isLoading={products.get('isLoading')}>
-        <GridView dataSource={products.get('data')} spanCount={2} key="id">
-          {item => (
-            <Template>
-              <ProductItem
-                productId={item.get('id')}
-                image={item.get('image')}
-                price={formatPrice(item.get('price'), 'BRL')}
-                title={item.get('title')}
-                onPress={cart.set(insert(cart, item))}
-              />
-            </Template>
-          )}
-        </GridView>
-      </Loading>
-    </Container>
+    <ScreenComponent safeArea={true} navigationBar={{ title: 'Products' }}>
+      <Container context={products} onInit={onInit} style={{ backgroundColor: theme.viewBackground }}>
+        <Loading isLoading={products.get('isLoading')}>
+          <GridView dataSource={products.get('data')} spanCount={2} key="id">
+            {item => (
+              <Template>
+                <ProductItem
+                  productId={item.get('id')}
+                  image={item.get('image')}
+                  price={formatPrice(item.get('price'), 'BRL')}
+                  title={item.get('title')}
+                  onPressBuy={cart.set(insert(cart, item))}
+                  onPressDetails={alert('To do')}
+                />
+              </Template>
+            )}
+          </GridView>
+        </Loading>
+      </Container>
+    </ScreenComponent>
   )
 }
