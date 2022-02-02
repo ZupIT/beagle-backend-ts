@@ -1,5 +1,5 @@
 export { Component, WithContext, WithChildren } from './model/component'
-export { Expression, HttpMethod, DynamicExpression } from './types'
+export { Expression, HttpMethod, DynamicExpression, DeepExpression } from './types'
 export { RootContext } from './model/context/root-context'
 export { coreNamespace } from './constants'
 export { Actions, WithAnalytics, createAction } from './model/action'

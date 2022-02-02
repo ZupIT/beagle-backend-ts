@@ -5,6 +5,7 @@ interface Props {
   image: Expression<string>,
   title: Expression<string>,
   price: Expression<string>,
+  inCart?: Expression<boolean>,
   onPressBuy: Actions,
   onPressDetails: Actions,
 }
