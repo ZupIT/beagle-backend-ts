@@ -58,7 +58,7 @@ const asActionCalls = (actions: Action<any> | Action<any>[]): ActionCall[] => (
 )
 
 const asContextDeclaration = (context: AnyRootContext<any>): ContextDeclaration => ({
-  id: context.toString(),
+  id: context.path,
   value: context.value,
 })
 
