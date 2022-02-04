@@ -4,7 +4,7 @@ export interface SetContextParams<T = any> {
   /**
    * The id of the context to change.
    */
-  id: string,
+  contextId: string,
   /**
    * The path of the property to change. If left blank, the entire structure will be changed.
    */
