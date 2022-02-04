@@ -61,7 +61,7 @@ function formatNavigationContext(data: any) {
   if (!data) return
   const keyParts: string[] = []
 
-  while (data && typeof data === 'object' && Object.keys(data).length === 1) {
+  while (data && !isDynamicExpression(data) && typeof data === 'object' && Object.keys(data).length === 1) {
     const currentKey = Object.keys(data)[0]
     keyParts.push(currentKey)
     data = data[currentKey]

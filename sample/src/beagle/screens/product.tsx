@@ -1,4 +1,4 @@
-import { Text } from '@zup-it/beagle-backend-components'
+import { ScreenComponent, Text } from '@zup-it/beagle-backend-components'
 import { BeagleJSX } from '@zup-it/beagle-backend-core'
 import { Screen, ScreenRequest } from '@zup-it/beagle-backend-express'
 import { Product as ProductModel } from '../../models/product'
@@ -10,5 +10,11 @@ interface Props extends ScreenRequest {
 }
 
 export const Product: Screen<Props> = ({ navigationContext }) => {
-  return <Text>to do</Text>
+  const product = navigationContext.get('product')
+  return (
+    <ScreenComponent navigationBar={{ title: 'Product description' }}>
+      <Text>{product.get('title')}</Text>
+      <Text>{product.get('description')}</Text>
+    </ScreenComponent>
+  )
 }

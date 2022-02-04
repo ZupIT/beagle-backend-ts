@@ -77,6 +77,11 @@ interface GridViewProps<T> extends ListViewProps<T> {
    * Maximum number of items in the axis opposite to the direction.
    */
   spanCount?: number,
+  /**
+   * Only valid for Flutter. This sets the aspect ratio of the items in the grid. If left in blank, the items will be
+   * squares (itemAspectRatio = 1). The Flutter GridView doesn't accept items with arbitrary size.
+   */
+  itemAspectRatio?: number,
 }
 
 type ListFC = <T>(props: ComponentProps<ListViewProps<T>>) => JSX.Element

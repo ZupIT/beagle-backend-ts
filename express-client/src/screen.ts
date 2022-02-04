@@ -1,5 +1,5 @@
 import { Request, Response } from 'express'
-import { WithAnalytics, AnyContextNode, Component } from '@zup-it/beagle-backend-core'
+import { WithAnalytics, AnyContextNode, Component, DeepExpression } from '@zup-it/beagle-backend-core'
 import { Navigator } from './navigator'
 
 export interface RequestWithCustomHeaders<RouteParams = any, Headers = any, Body = any, Query = any>
@@ -158,7 +158,7 @@ export interface ScreenNavigation<T extends ScreenRequest, Props> extends WithAn
   /**
    * The properties to set in the navigation context of the next screen (previous, if this is a pop navigation).
    */
-  navigationContext?: T['navigationContext'],
+  navigationContext?: DeepExpression<T['navigationContext']>,
   /**
    * When set to true, this screen will be fetched by the frontend as soon as possible instead of waiting any event to
    * trigger. This makes the navigation faster because when it actually happens, the page will already have been loaded.
