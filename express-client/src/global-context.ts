@@ -10,4 +10,4 @@ import { createContextNode } from '@zup-it/beagle-backend-core'
  *
  * @returns a reference to the Global Context.
  */
-export const getGlobalContext = <T>() => createContextNode<T>('globalContext')
+export const getGlobalContext = <T>() => createContextNode<T>('global')

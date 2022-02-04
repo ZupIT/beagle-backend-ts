@@ -1,0 +1,137 @@
+#Version : 0.1
+name: Security Pipeline
+
+on: 
+  push:
+    branches: [ main, master, qa ]
+  pull_request:
+    branches: [ main, master, qa ]
+ 
+jobs:
+  sast: 
+   name: SAST - Static application security testing 
+   runs-on: ubuntu-latest
+   steps:
+     - name: Checkout
+       uses: actions/checkout@master
+     
+     - name: Setup Snyk 
+       uses: snyk/actions/setup@master
+     
+     - name: Setup Python 
+       uses: actions/setup-python@v2
+       with:
+           python-version: '3.x'
+     
+     - name: Installing Python Dependencies
+       run: find . -maxdepth 5 -type f -not -path '*/\.*' -name 'requirements.txt' -exec pip install -r '{}' ';' 
+    
+     - name: Setup Node 
+       uses: actions/setup-node@v1
+     
+     - name: Installing Node Dependencies
+       run: |
+        find . -maxdepth 5 -type f -not -path '*/\.*' -name 'package.json' -exec sh -c 'echo $0 | sed -e "s/\<package.json\>//g"|xargs -n 3 npm install -g' '{}' \;
+     
+     - name: Setup Java
+       uses: actions/setup-java@v2
+       with:
+          java-version: '11'
+          distribution: 'adopt'
+     
+     - name: Create path report
+       run: mkdir -p reports
+
+     - name: Check file existence
+       id: check_files
+       uses: andstor/file-existence-action@v1
+       with:
+        files: ".gitignore"
+
+     - name: Running Snyk
+       id: step_snyk
+       if: steps.check_files.outputs.files_exists == 'true'
+       continue-on-error: true
+       run: | 
+        snyk test --all-projects --json > reports/snyk.json
+       env:
+          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+
+     - name: Running Horus Security
+       id: step_horusec
+       if: steps.check_files.outputs.files_exists == 'true'
+       continue-on-error: true
+       run: |
+        curl -fsSL https://raw.githubusercontent.com/ZupIT/horusec/main/deployments/scripts/install.sh | bash -s latest
+        horusec start -p ./ -o json -O "reports/horusec.json"
+
+     - uses: actions/upload-artifact@master 
+       with:
+         name: reports
+         path: reports
+
+  import_snyk:
+    name: Snyk import report
+    needs: sast
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/download-artifact@master
+        with:
+          name: reports
+          path: reports
+      
+      - name: Check exist report
+        id: check_files
+        uses: andstor/file-existence-action@v1
+        with:
+          files: "reports/snyk.json"
+      
+      - name: Get report tools
+        id: vars
+        continue-on-error: true
+        run: |
+         echo ::set-output name=snyk_report::$(cat reports/snyk.json)
+
+      - name: Import report
+        id: step_snyk
+        if: steps.check_files.outputs.files_exists == 'true'
+        continue-on-error: true
+        run: | 
+         curl -X POST "https://api.appsec.orangestack.com/report?tool=snyk&env=${{github.ref_name}}&repo=${{github.repository_owner}}/${{github.event.repository.name}}" \
+            -H 'Accept: */*' \
+            -H 'x-api-key: ${{ secrets.INTEGRATION_DEFECTDOJO }}' \
+            -H 'Content-Type: application/json' \
+            -d '${{ steps.vars.outputs.snyk_report }}'
+
+  import_horusec:
+    name: Horusec import report
+    needs: sast
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/download-artifact@master
+        with:
+          name: reports
+          path: reports
+      
+      - name: Check exist report
+        id: check_files
+        uses: andstor/file-existence-action@v1
+        with:
+          files: "reports/horusec.json"
+      
+      - name: Get report tools
+        id: vars
+        continue-on-error: true
+        run: |
+         echo ::set-output name=horusec_report::$(cat reports/horusec.json)
+
+      - name: Import report
+        id: step_horusec
+        if: steps.check_files.outputs.files_exists == 'true'
+        continue-on-error: true
+        run: |
+         curl -X POST "https://api.appsec.orangestack.com/report?tool=horusec&env=${{github.ref_name}}&repo=${{github.repository_owner}}/${{github.event.repository.name}}" \
+            -H 'Accept: */*' \
+            -H 'x-api-key: ${{ secrets.INTEGRATION_DEFECTDOJO }}' \
+            -H 'Content-Type: application/json' \
+            -d '${{ steps.vars.outputs.horusec_report }}'
