@@ -1,42 +1,11 @@
 import { Component } from '../model/component'
+import { beagleFragmentFactory } from './fragment'
+import { FragmentFactory } from './fragment/types'
 import { FC } from './types'
 
 const intrinsicComponentName = 'component'
 
-type FragmentFactory = (children: any[]) => Component
-
-const isStringableArray = (value: any[]): boolean => (
-  Array.isArray(value) && !value.some((item) => item instanceof Component)
-)
-
-const isText = (value: any) => typeof value === 'string' ||
-typeof value === 'number' ||
-typeof value === 'boolean'
-
-const toText = (value: any) => Array.isArray(value) ? value.join('') : [value].join('')
-
-const createFragmentChild = (name: string, children?: any[], properties?: Record<string, any>) => new Component({
-  namespace: 'beagle',
-  name,
-  ...(children && Array.isArray(children) ? { children } : {}),
-  ...(properties ? { properties } : {}),
-})
-
-const createContainerWithText = (children: any[]) => {
-  const textChild = createFragmentChild('text', [], { text: toText(children) })
-  return createFragmentChild('container', [textChild])
-}
-
-let fragmentFactory: FragmentFactory = (children) => {
-  if ((isText(children) || isStringableArray(children))) return createContainerWithText(children)
-
-  let containerChildren: any[] = children
-  if (Array.isArray(children)) {
-    containerChildren = children.map(c => isText(c) ? createFragmentChild('text', undefined, { text: c }) : c)
-  }
-
-  return new Component({ namespace: 'beagle', name: 'container', children: containerChildren })
-}
+let fragmentFactory: FragmentFactory = beagleFragmentFactory
 
 /**
  * By default, Beagle interprets a fragment as the components "beagle:text" or "beagle:container" depending if the
@@ -49,9 +18,7 @@ let fragmentFactory: FragmentFactory = (children) => {
  *
  * @param factory a function that receives the children and returns the JSX.Element that should be used
  */
-export const setFragmentFactory = (factory: FragmentFactory) => {
-  fragmentFactory = factory
-}
+export const setFragmentFactory = (factory: FragmentFactory) => { fragmentFactory = factory }
 
 /**
  * @param children the ...children arguments received by the createElement function
