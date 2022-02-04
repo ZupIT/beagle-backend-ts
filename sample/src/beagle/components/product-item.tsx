@@ -5,7 +5,9 @@ interface Props {
   image: Expression<string>,
   title: Expression<string>,
   price: Expression<string>,
-  onPress: Actions,
+  inCart?: Expression<boolean>,
+  onPressBuy: Actions,
+  onPressDetails: Actions,
 }
 
 export const ProductItem: FC<Props> = ({ id, ...props }) => (
