@@ -1,10 +1,12 @@
-import { Component } from '../..'
+import { Component, isDynamicExpression } from '../..'
 import { FragmentFactory } from './types'
 
 const stringable = (value: any) => !(value instanceof Component)
 const createContainer = (children: any[]) => new Component({ namespace: 'beagle', name: 'container', children })
 const createText = (text: string) => new Component({ namespace: 'beagle', name: 'text', properties: { text } })
-const formatTextUnit = (text: any) => ((text && typeof text === 'object') ? JSON.stringify(text) : text ?? '')
+const formatTextUnit = (text: any) => (
+  ((text && typeof text === 'object') && !isDynamicExpression(text)) ? JSON.stringify(text) : text
+)
 
 export const beagleFragmentFactory: FragmentFactory = (children: any[]) => {
   const iterableChildren = Array.isArray(children) ? children : [children]
