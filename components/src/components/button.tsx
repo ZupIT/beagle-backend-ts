@@ -1,6 +1,8 @@
-import { BeagleJSX, Actions, FC, Expression } from '@zup-it/beagle-backend-core'
+import { BeagleJSX, Actions, FC } from '@zup-it/beagle-backend-core'
 import { StyledDefaultComponent, WithStyle } from '../style/styled'
 import { WithAccessibility, WithTheme } from '../types'
+import { InterpolatedText } from './types'
+import { childrenToInterpolatedText } from './utils'
 
 interface ButtonProps extends WithAccessibility, WithTheme, WithStyle {
   /**
@@ -14,7 +16,7 @@ interface ButtonProps extends WithAccessibility, WithTheme, WithStyle {
   /**
    * The text that goes inside the button. This gets converted to the property "text" when serialized.
    */
-  children: Expression<string>,
+  children: InterpolatedText,
 }
 
 /**
@@ -25,6 +27,7 @@ interface ButtonProps extends WithAccessibility, WithTheme, WithStyle {
  * @param props {@link ButtonProps}.
  * @returns a JSX element, i.e an instance of Component.
  */
-export const Button: FC<ButtonProps> = ({ id, style, children, ...props }) => (
-  <StyledDefaultComponent name="button" id={id} style={style} properties={{ ...props, text: children }} />
-)
+export const Button: FC<ButtonProps> = ({ id, style, children, ...props }) => {
+  const text = childrenToInterpolatedText(children)
+  return <StyledDefaultComponent name="button" id={id} style={style} properties={{ ...props, text }} />
+}
