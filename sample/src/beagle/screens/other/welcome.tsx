@@ -17,6 +17,5 @@ export const Welcome: Screen = () => (
     <Text style={{ marginTop: 40 }}>Welcome to the Beagle Playground!</Text>
     <Text style={{ marginTop: 5 }}>Use the panel on the left to start coding!</Text>
     <Button style={{ marginTop: 40 }} onPress={pushView('/docs.json')}>Access the fast guide</Button>
-    <Text>Test</Text>
   </Container>
 )
