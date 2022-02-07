@@ -2,7 +2,7 @@ import { Button, Container, ListView, ScreenComponent, Template, Text } from '@z
 import { BeagleJSX } from '@zup-it/beagle-backend-core'
 import { Screen } from '@zup-it/beagle-backend-express'
 import { globalContext } from '../global-context'
-import { formatPrice, getCartTotal } from '../operations'
+import { formatPrice } from '../operations'
 import { Address } from './address'
 
 export const Cart: Screen = ({ navigator }) => {
@@ -40,26 +40,22 @@ export const Cart: Screen = ({ navigator }) => {
                 borderColor: '#000000',
                 borderWidth: 1
               }}>
-                <Text
-                  style={{
+                <Text style={{
                     width: {
                       value: 60,
                       type: 'PERCENT',
                     },
-                  }}
-                >
+                }}>
                   {item.get('title')}
                 </Text>
 
-                <Text
-                  style={{
+                <Text style={{
                     width: {
                       value: 30,
                       type: 'PERCENT',
 
                     }
-                  }}
-                >
+                }}>
                   {formatPrice(item.get('price'), 'BRL')}
                 </Text>
               </Container>
@@ -86,7 +82,8 @@ export const Cart: Screen = ({ navigator }) => {
               Total
             </Text>
             <Text>
-              {getCartTotal(cart)}
+              { /*TODO create operation that calculates cart total*/ }
+              2500
             </Text>
           </Container>
 
