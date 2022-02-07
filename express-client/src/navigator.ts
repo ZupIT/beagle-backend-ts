@@ -5,7 +5,7 @@ import {
 import { forEach } from 'lodash'
 import {
   ControllerId, PopStackAction, PopToViewAction, PopViewAction, PushStackAction,
-  PushViewAction, ResetApplicationAction, ResetStackAction
+  PushViewAction, ResetApplicationAction, ResetStackAction,
 } from './model/navigation'
 import { RouteMap, RouteConfig } from './route'
 import { ScreenNavigation } from './screen'
@@ -92,7 +92,8 @@ export class Navigator {
    * @param properties the data to send with this navigation (and analytics).
    * @returns an instance of Action.
    */
-  pushStack: PushStackAction = (screen, properties) => this.navigateRemote({ type: 'pushStack', screen, properties })
+  pushStack: PushStackAction = (...[screen, properties]) =>
+    this.navigateRemote({ type: 'pushStack', screen, properties })
 
   /**
    * Pops the current stack, going back to the last route of the previous stack.
@@ -109,7 +110,7 @@ export class Navigator {
    * @param properties the data to send with this navigation (and analytics).
    * @returns an instance of Action.
    */
-  pushView: PushViewAction = (screen, properties) => this.navigateRemote({ type: 'pushView', screen, properties })
+  pushView: PushViewAction = (...[screen, properties]) => this.navigateRemote({ type: 'pushView', screen, properties })
 
   /**
    * Goes back to the previous route.
@@ -127,7 +128,8 @@ export class Navigator {
    * @param properties the data to send with this navigation (and analytics).
    * @returns an instance of Action.
    */
-  popToView: PopToViewAction = (screen, properties) => this.navigateRemote({ type: 'popToView', screen, properties })
+  popToView: PopToViewAction = (...[screen, properties]) =>
+    this.navigateRemote({ type: 'popToView', screen, properties })
 
   /**
    * Removes the current navigation stack and adds a new one with the provided route.
@@ -136,7 +138,8 @@ export class Navigator {
    * @param properties the data to send with this navigation (and analytics).
    * @returns an instance of Action.
    */
-  resetStack: ResetStackAction = (screen, properties) => this.navigateRemote({ type: 'resetStack', screen, properties })
+  resetStack: ResetStackAction = (...[screen, properties]) =>
+    this.navigateRemote({ type: 'resetStack', screen, properties })
 
   /**
    * Removes all the navigation stacks and adds a new one with the provided route.
@@ -145,7 +148,7 @@ export class Navigator {
    * @param properties the data to send with this navigation (and analytics).
    * @returns an instance of Action.
    */
-  resetApplication: ResetApplicationAction = (screen, properties) => (
+  resetApplication: ResetApplicationAction = (...[screen, properties]) => (
     this.navigateRemote({ type: 'resetApplication', screen, properties })
   )
 }

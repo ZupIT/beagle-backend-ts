@@ -5,17 +5,14 @@ import {
 } from '@zup-it/beagle-backend-core/actions'
 import { Screen, ScreenRequest } from '..'
 import { ScreenNavigation } from '../screen'
-
-type IsRequired<T extends object, K extends keyof T> = T extends Record<K, T[K]> ? true : false
-export type HasRequiredProperty<T extends object> =
-  { [K in keyof T]: IsRequired<T, K> } extends Record<string, false> ? false : true
+import { HasRequiredProperty } from '../utils/types'
 
 export interface ControllerId {
   controllerId?: string,
 }
 
 type PushStack<T extends ScreenRequest> = ScreenNavigation<T, PushStackParams> & ControllerId
-type PushView<T extends ScreenRequest> = ScreenNavigation<T, PushViewParams>
+type PushView<T extends ScreenRequest> = ScreenNavigation<T, PushViewParams> & ControllerId
 type PopView<T extends ScreenRequest> = Pick<ScreenNavigation<T, PopViewParams>, 'navigationContext' | 'analytics'>
 type PopStack<T extends ScreenRequest> = Pick<ScreenNavigation<T, PopStackParams>, 'navigationContext' | 'analytics'>
 type PopToView<T extends ScreenRequest> = Pick<ScreenNavigation<T, PopToViewParams>, 'navigationContext' | 'analytics'>
@@ -26,7 +23,11 @@ type NavigationAction<T extends ScreenRequest, N> = HasRequiredProperty<T> exten
   ? [screen: Screen<T>, properties: N] : [screen: Screen<T>, properties?: N]
 
 export interface PushStackAction {
-  <T extends ScreenRequest>(...args: NavigationAction<T, PushStack<T>>): Actions,
+  <T extends ScreenRequest>(
+    ...args: HasRequiredProperty<T> extends true
+      ? [screen: Screen<T>, properties: PushStack<T>]
+      : [screen: Screen<T>, properties?: PushStack<T>]
+  ): Actions,
 }
 
 export interface PushViewAction {
