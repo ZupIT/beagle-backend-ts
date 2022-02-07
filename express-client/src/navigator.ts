@@ -1,35 +1,22 @@
 import { FC } from '@zup-it/beagle-backend-core'
 import {
-  pushView, pushStack, popToView, popView, popStack, resetApplication, resetStack, Route, PushStackParams,
-  PushViewParams, PopToViewParams, PopViewParams, ResetApplicationParams, ResetStackParams, PopStackParams,
+  pushView, pushStack, popToView, popView, popStack, resetApplication, resetStack, Route,
 } from '@zup-it/beagle-backend-core/actions'
 import { forEach } from 'lodash'
-import { NavigationProperties } from './model/navigation'
+import {
+  ControllerId, PopStackAction, PopToViewAction, PopViewAction, PushStackAction,
+  PushViewAction, ResetApplicationAction, ResetStackAction
+} from './model/navigation'
 import { RouteMap, RouteConfig } from './route'
-import { ScreenRequest, Screen, ScreenNavigation } from './screen'
+import { ScreenNavigation } from './screen'
 
 const navigationActions = { pushView, pushStack, popToView, popView, resetApplication, resetStack, popStack }
-
-interface ControllerId {
-  controllerId?: string,
-}
 
 interface GenericRemoteNavigation {
   type: keyof typeof navigationActions,
   screen?: FC<any>,
   properties?: ScreenNavigation<any, any> & ControllerId,
 }
-
-/* The following types need to be here instead of in the function bodies because TS complains a lot otherwise. See
-the following issue for more details: https://github.com/microsoft/TypeScript/issues/5711 */
-type PushStack<T extends ScreenRequest> = ScreenNavigation<T, PushStackParams> & ControllerId
-type PushView<T extends ScreenRequest> = ScreenNavigation<T, PushViewParams>
-type PopView<T extends ScreenRequest> = Pick<ScreenNavigation<T, PopViewParams>, 'navigationContext' | 'analytics'>
-type PopStack<T extends ScreenRequest> = Pick<ScreenNavigation<T, PopStackParams>, 'navigationContext' | 'analytics'>
-type PopToView<T extends ScreenRequest> = Pick<ScreenNavigation<T, PopToViewParams>, 'navigationContext' | 'analytics'>
-type ResetStack<T extends ScreenRequest> = ScreenNavigation<T, ResetStackParams> & ControllerId
-type ResetApplication<T extends ScreenRequest> = ScreenNavigation<T, ResetApplicationParams> & ControllerId
-
 
 /**
  * See the property `navigation` in the interface `ScreenProps` for a detailed description of the Navigator.
@@ -105,9 +92,7 @@ export class Navigator {
    * @param properties the data to send with this navigation (and analytics).
    * @returns an instance of Action.
    */
-  pushStack = <T extends ScreenRequest>(screen: Screen<T>, ...properties: NavigationProperties<T, PushStack<T>>) => (
-    this.navigateRemote({ type: 'pushStack', screen, properties: properties as PushStack<T> })
-  )
+  pushStack: PushStackAction = (screen, properties) => this.navigateRemote({ type: 'pushStack', screen, properties })
 
   /**
    * Pops the current stack, going back to the last route of the previous stack.
@@ -115,9 +100,7 @@ export class Navigator {
    * @param properties the navigation context to set and analytics.
    * @returns an instance of Action.
    */
-  popStack = <T extends ScreenRequest>(properties?: PopStack<T>) => (
-    this.navigateRemote({ type: 'popStack', properties })
-  )
+  popStack: PopStackAction = (properties) => this.navigateRemote({ type: 'popStack', properties })
 
   /**
    * Adds the provided route to the current navigation stack.
@@ -126,9 +109,7 @@ export class Navigator {
    * @param properties the data to send with this navigation (and analytics).
    * @returns an instance of Action.
    */
-  pushView = <T extends ScreenRequest>(screen: Screen<T>, ...properties: NavigationProperties<T, PushView<T>>) => (
-    this.navigateRemote({ type: 'pushView', screen, properties: properties as PushView<T> })
-  )
+  pushView: PushViewAction = (screen, properties) => this.navigateRemote({ type: 'pushView', screen, properties })
 
   /**
    * Goes back to the previous route.
@@ -136,9 +117,7 @@ export class Navigator {
    * @param properties the navigation context to set and analytics.
    * @returns an instance of Action.
    */
-  popView = <T extends ScreenRequest>(...properties: NavigationProperties<T, PopView<T>>) => (
-    this.navigateRemote({ type: 'popView', properties: properties as PopView<T> })
-  )
+  popView: PopViewAction = (properties) => this.navigateRemote({ type: 'popView', properties })
 
   /**
    * Goes back to the route identified by the string passed as parameter. If the route doesn't exist in the current
@@ -148,9 +127,7 @@ export class Navigator {
    * @param properties the data to send with this navigation (and analytics).
    * @returns an instance of Action.
    */
-  popToView = <T extends ScreenRequest>(screen: Screen<T>, ...properties: NavigationProperties<T, PopToView<T>>) => (
-    this.navigateRemote({ type: 'popToView', screen, properties: properties as PopToView<T> })
-  )
+  popToView: PopToViewAction = (screen, properties) => this.navigateRemote({ type: 'popToView', screen, properties })
 
   /**
    * Removes the current navigation stack and adds a new one with the provided route.
@@ -159,11 +136,7 @@ export class Navigator {
    * @param properties the data to send with this navigation (and analytics).
    * @returns an instance of Action.
    */
-  resetStack = <T extends ScreenRequest>(
-    screen: Screen<T>,
-    ...properties: NavigationProperties<T, ResetStack<T>>) => (
-    this.navigateRemote({ type: 'resetStack', screen, properties: properties as ResetStack<T> })
-  )
+  resetStack: ResetStackAction = (screen, properties) => this.navigateRemote({ type: 'resetStack', screen, properties })
 
   /**
    * Removes all the navigation stacks and adds a new one with the provided route.
@@ -172,8 +145,7 @@ export class Navigator {
    * @param properties the data to send with this navigation (and analytics).
    * @returns an instance of Action.
    */
-  resetApplication = <T extends ScreenRequest>(
-    screen: Screen<T>,
-    ...properties: NavigationProperties<T, ResetApplication<T>>
-  ) => (this.navigateRemote({ type: 'resetApplication', screen, properties: properties as ResetApplication<T> }))
+  resetApplication: ResetApplicationAction = (screen, properties) => (
+    this.navigateRemote({ type: 'resetApplication', screen, properties })
+  )
 }
