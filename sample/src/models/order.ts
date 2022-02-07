@@ -1,6 +1,6 @@
 import { Product } from './product'
 
-interface Address {
+export interface Address {
   zip: string,
   street: string,
   number: string,
