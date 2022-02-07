@@ -12,11 +12,3 @@ export interface Product {
   image: string,
   rating: Rating,
 }
-
-export interface Address {
-  cep: string,
-  street: string,
-  number: string,
-  city: string,
-  state: string,
-}
