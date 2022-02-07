@@ -12,11 +12,10 @@ export const beagleFragmentFactory: FragmentFactory = (children: any[]) => {
     const previousComponent = accumulator[accumulator.length - 1]
     if (index > 0 && previousComponent.name === 'text' && stringable(value)) {
       previousComponent!.properties!.text += formatTextUnit(value)
+      return accumulator
     }
-    else {
-      stringable(value) ? accumulator.push(createText(formatTextUnit(value))) : accumulator.push(value)
-    }
-    return accumulator
+    const newItem = stringable(value) ? createText(formatTextUnit(value)) : value
+    return [...accumulator, newItem]
   }, [])
 
   return childrenBuilt.length === 1 ? childrenBuilt[0] : createContainer(childrenBuilt)

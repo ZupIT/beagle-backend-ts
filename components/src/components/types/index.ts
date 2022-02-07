@@ -1,10 +1,11 @@
-import { Expression } from '@zup-it/beagle-backend-core'
+import { AnyContextNode, Operation } from '@zup-it/beagle-backend-core'
 
 type InterpolatedTextAcceptableTypes =
   string |
   number |
   boolean |
-  InterpolatedTextAcceptableTypes[] |
+  AnyContextNode<any> |
+  Operation<any> |
   { [K: string]: InterpolatedTextAcceptableTypes }
 
-export type InterpolatedText = Expression<InterpolatedTextAcceptableTypes>
+export type InterpolatedText = InterpolatedTextAcceptableTypes | InterpolatedTextAcceptableTypes[]
