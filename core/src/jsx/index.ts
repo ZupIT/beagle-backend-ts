@@ -1,26 +1,11 @@
 import { Component } from '../model/component'
+import { beagleFragmentFactory } from './fragment'
+import { FragmentFactory } from './fragment/types'
 import { FC } from './types'
 
 const intrinsicComponentName = 'component'
 
-type FragmentFactory = (children: any[]) => Component
-
-let fragmentFactory: FragmentFactory = (children) => {
-  if (typeof children === 'string') {
-    return new Component({
-      namespace: 'beagle',
-      name: 'container',
-      children: [
-        new Component({
-          namespace: 'beagle',
-          name: 'text',
-          children,
-        }),
-      ],
-    })
-  }
-  return new Component({ namespace: 'beagle', name: 'container', children })
-}
+let fragmentFactory: FragmentFactory = beagleFragmentFactory
 
 /**
  * By default, Beagle interprets a fragment as the components "beagle:text" or "beagle:container" depending if the
@@ -33,9 +18,7 @@ let fragmentFactory: FragmentFactory = (children) => {
  *
  * @param factory a function that receives the children and returns the JSX.Element that should be used
  */
-export const setFragmentFactory = (factory: FragmentFactory) => {
-  fragmentFactory = factory
-}
+export const setFragmentFactory = (factory: FragmentFactory) => { fragmentFactory = factory }
 
 /**
  * @param children the ...children arguments received by the createElement function
