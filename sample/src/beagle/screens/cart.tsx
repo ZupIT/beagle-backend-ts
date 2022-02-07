@@ -9,7 +9,7 @@ export const Cart: Screen = ({ navigator }) => {
   const cart = globalContext.get('cart')
   return (
     <ScreenComponent safeArea={true} navigationBar={{ title: 'Cart', showBackButton: true }}>
-      <Container context={cart} style={{
+      <Container style={{
         flexDirection: 'COLUMN',
         justifyContent: 'SPACE_BETWEEN'
       }}>
