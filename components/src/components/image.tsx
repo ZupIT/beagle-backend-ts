@@ -7,19 +7,19 @@ export interface Local {
   /**
    * Used only for web applications: path relative to the client.
    */
-  url?: string,
+  url?: Expression<string>,
   /**
    * Used only for mobile applications, it identifies an image resource in the DesignSystem (iOS and Android) or
    * BeagleTheme (Flutter).
    */
-  mobileId?: string,
+  mobileId?: Expression<string>,
 }
 
 interface Remote {
   /**
    * The URL to fetch the image from.
    */
-  url: string,
+  url: Expression<string>,
   /**
    * A local image to use while the remote image is not available. This doesn't work for web applications, since
    * every image in a web application can be considered remote.

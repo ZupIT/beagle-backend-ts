@@ -197,3 +197,5 @@ export type SimpleStyle = (
   & SimplePosition
   & SimpleFlex
 )
+
+export const createStyleMap = <K extends string>(map: Record<K, SimpleStyle>) => map
