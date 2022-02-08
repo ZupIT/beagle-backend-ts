@@ -85,69 +85,21 @@ export class Navigator {
     })
   }
 
-  /**
-   * Adds a new stack to the navigator with the provided route.
-   *
-   * @param screen the screen (functional component) to navigate to.
-   * @param properties the data to send with this navigation (and analytics).
-   * @returns an instance of Action.
-   */
   pushStack: PushStackAction = (...[screen, properties]) =>
     this.navigateRemote({ type: 'pushStack', screen, properties })
 
-  /**
-   * Pops the current stack, going back to the last route of the previous stack.
-   *
-   * @param properties the navigation context to set and analytics.
-   * @returns an instance of Action.
-   */
   popStack: PopStackAction = (properties) => this.navigateRemote({ type: 'popStack', properties })
 
-  /**
-   * Adds the provided route to the current navigation stack.
-   *
-   * @param screen the screen (functional component) to navigate to.
-   * @param properties the data to send with this navigation (and analytics).
-   * @returns an instance of Action.
-   */
   pushView: PushViewAction = (...[screen, properties]) => this.navigateRemote({ type: 'pushView', screen, properties })
 
-  /**
-   * Goes back to the previous route.
-   *
-   * @param properties the navigation context to set and analytics.
-   * @returns an instance of Action.
-   */
   popView: PopViewAction = (properties) => this.navigateRemote({ type: 'popView', properties })
 
-  /**
-   * Goes back to the route identified by the string passed as parameter. If the route doesn't exist in the current
-   * navigation stack, nothing happens.
-   *
-   * @param screen the screen (functional component) to go back to.
-   * @param properties the data to send with this navigation (and analytics).
-   * @returns an instance of Action.
-   */
   popToView: PopToViewAction = (...[screen, properties]) =>
     this.navigateRemote({ type: 'popToView', screen, properties })
 
-  /**
-   * Removes the current navigation stack and adds a new one with the provided route.
-   *
-   * @param screen the screen (functional component) to navigate to.
-   * @param properties the data to send with this navigation (and analytics).
-   * @returns an instance of Action.
-   */
   resetStack: ResetStackAction = (...[screen, properties]) =>
     this.navigateRemote({ type: 'resetStack', screen, properties })
 
-  /**
-   * Removes all the navigation stacks and adds a new one with the provided route.
-   *
-   * @param screen the screen (functional component) to navigate to.
-   * @param properties the data to send with this navigation (and analytics).
-   * @returns an instance of Action.
-   */
   resetApplication: ResetApplicationAction = (...[screen, properties]) => (
     this.navigateRemote({ type: 'resetApplication', screen, properties })
   )
