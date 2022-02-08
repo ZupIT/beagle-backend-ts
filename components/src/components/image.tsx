@@ -36,7 +36,7 @@ interface Remote {
 
 type ImageType = 'local' | 'remote'
 
-interface BaseImageProps<T extends ImageType> extends WithAccessibility, WithTheme, WithStyle {
+interface BaseImageProps<T extends ImageType = ImageType> extends WithAccessibility, WithTheme, WithStyle {
   /**
    * The image type: 'local' or 'remote'.
    */
@@ -58,19 +58,15 @@ interface BaseImageProps<T extends ImageType> extends WithAccessibility, WithThe
   mode?: 'FIT_XY' | 'FIT_CENTER' | 'CENTER_CROP' | 'CENTER',
 }
 
-type ImageProps<T extends ImageType> = BaseImageProps<T> & (T extends 'local' ? Local : Remote)
+interface ImageFC {
+  (props: ComponentProps<BaseImageProps<'remote'> & Remote>): Component,
+  (props: ComponentProps<BaseImageProps<'local'> & LocalRequiredUrl>): Component,
+  (props: ComponentProps<BaseImageProps<'local'> & LocalRequiredMobileId>): Component,
+}
 
-/**
- * All the properties accepted by an Image component.
- */
-export type AllProps<T extends ImageType> = ComponentProps<ImageProps<T>>
+type ImageProps = ComponentProps<BaseImageProps & Remote & LocalRequiredUrl & LocalRequiredMobileId>
 
-/**
- * A function that creates an Image component.
- */
-export type ImageFC = <T extends 'local' | 'remote'>(props: AllProps<T>) => Component
-
-const ImageComponent = ({ id, style, type, mode, ...path }: AllProps<'local' | 'remote'>) => (
+const ImageComponent = ({ id, style, type, mode, ...path }: ImageProps) => (
   <StyledDefaultComponent
     name="image"
     id={id}
