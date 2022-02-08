@@ -3,17 +3,24 @@ import { StyledDefaultComponent } from '../style/styled'
 import { WithStyle } from '../style/styled'
 import { WithAccessibility, WithTheme } from '../types'
 
-export interface Local {
+interface WithLocalUrl {
   /**
    * Used only for web applications: path relative to the client.
    */
-  url?: Expression<string>,
+  url: Expression<string>,
+}
+
+interface WithMobileId {
   /**
    * Used only for mobile applications, it identifies an image resource in the DesignSystem (iOS and Android) or
    * BeagleTheme (Flutter).
    */
-  mobileId?: Expression<string>,
+  mobileId: Expression<string>,
 }
+
+type LocalRequiredUrl = WithLocalUrl & Partial<WithMobileId>
+type LocalRequiredMobileId = Partial<WithLocalUrl> & WithMobileId
+export type Local = LocalRequiredUrl | LocalRequiredMobileId
 
 interface Remote {
   /**
@@ -29,16 +36,11 @@ interface Remote {
 
 type ImageType = 'local' | 'remote'
 
-interface ImageProps<T extends ImageType> extends WithAccessibility, WithTheme, WithStyle {
+interface BaseImageProps<T extends ImageType = ImageType> extends WithAccessibility, WithTheme, WithStyle {
   /**
    * The image type: 'local' or 'remote'.
    */
   type: T,
-  /**
-   * If the type is local, it expects an object containing url and mobileId ({@link Local}). Otherwise, it expects
-   * an object containing url and placeholder ({@link Remote}). This is used to address which image will be rendered.
-   */
-  path: Expression<T extends 'local' ? Local : Remote>,
   /**
    * The space available might be smaller or greater than the original image size. The mode tells how it's supposed
    * to display the image considering the space available. Default is 'FIT_CENTER'.
@@ -56,18 +58,21 @@ interface ImageProps<T extends ImageType> extends WithAccessibility, WithTheme, 
   mode?: 'FIT_XY' | 'FIT_CENTER' | 'CENTER_CROP' | 'CENTER',
 }
 
-/**
- * All the properties accepted by an Image component.
- */
-export type AllProps<T extends ImageType> = ComponentProps<ImageProps<T>>
+interface ImageFC {
+  (props: ComponentProps<BaseImageProps<'remote'> & Remote>): Component,
+  (props: ComponentProps<BaseImageProps<'local'> & LocalRequiredUrl>): Component,
+  (props: ComponentProps<BaseImageProps<'local'> & LocalRequiredMobileId>): Component,
+}
 
-/**
- * A function that creates an Image component.
- */
-export type ImageFC = <T extends 'local' | 'remote'>(props: AllProps<T>) => Component
+type ImageProps = ComponentProps<BaseImageProps & Remote & LocalRequiredUrl & LocalRequiredMobileId>
 
-const ImageComponent = ({ id, style, type, ...props }: AllProps<'local' | 'remote'>) => (
-  <StyledDefaultComponent name="image" id={id} style={style} properties={{ ...props, '_beagleImagePath_': type }} />
+const ImageComponent = ({ id, style, type, mode, ...path }: ImageProps) => (
+  <StyledDefaultComponent
+    name="image"
+    id={id}
+    style={style}
+    properties={{ '_beagleImagePath_': type, mode, path }}
+  />
 )
 
 /**

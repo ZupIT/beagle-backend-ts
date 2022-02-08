@@ -23,7 +23,7 @@ export const Cart: Screen = ({ navigator }) => {
             {(item) => (
               <Template>
                 <Container style={style.item}>
-                  <Image type="remote" path={{ url: item.get('image') }} style={style.image} mode="FIT_CENTER" />
+                  <Image type="remote" url={item.get('image')} style={style.image} mode="FIT_CENTER" />
                   <Text style={style.title}>{item.get('title')}</Text>
                   <Text>{formatPrice(item.get('price'), 'BRL')}</Text>
                 </Container>
