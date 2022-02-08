@@ -3,11 +3,14 @@ import { StyledDefaultComponent } from '../style/styled'
 import { WithStyle } from '../style/styled'
 import { WithAccessibility, WithTheme } from '../types'
 
-interface RequiredLocal {
+interface WithLocalUrl {
   /**
    * Used only for web applications: path relative to the client.
    */
   url: Expression<string>,
+}
+
+interface WithMobileId {
   /**
    * Used only for mobile applications, it identifies an image resource in the DesignSystem (iOS and Android) or
    * BeagleTheme (Flutter).
@@ -15,9 +18,9 @@ interface RequiredLocal {
   mobileId: Expression<string>,
 }
 
-type LocalA = Pick<RequiredLocal, 'url'> & Pick<Partial<RequiredLocal>, 'mobileId'>
-type LocalB = Pick<RequiredLocal, 'mobileId'> & Pick<Partial<RequiredLocal>, 'url'>
-export type Local = LocalA | LocalB
+type LocalRequiredUrl = WithLocalUrl & Partial<WithMobileId>
+type LocalRequiredMobileId = Partial<WithLocalUrl> & WithMobileId
+export type Local = LocalRequiredUrl | LocalRequiredMobileId
 
 interface Remote {
   /**
