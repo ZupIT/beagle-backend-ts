@@ -2,7 +2,7 @@ import {
   Button, colors, Container, Image, ListView, ScreenComponent, Template, Text,
 } from '@zup-it/beagle-backend-components'
 import { BeagleJSX } from '@zup-it/beagle-backend-core'
-import { condition, isEmpty } from '@zup-it/beagle-backend-core/operations'
+import { condition, isEmpty, not } from '@zup-it/beagle-backend-core/operations'
 import { Screen } from '@zup-it/beagle-backend-express'
 import { globalContext } from '../../global-context'
 import { formatPrice, sumProducts } from '../../operations'
@@ -37,7 +37,7 @@ export const Cart: Screen = ({ navigator }) => {
             <Text>Total</Text>
             <Text textColor={colors.green}>{formatPrice(sumProducts(cart), 'BRL')}</Text>
           </Container>
-          <Button onPress={navigator.pushView(Address)}>Buy</Button>
+          <Button enabled={not(isEmpty(cart))} onPress={navigator.pushView(Address)}>Buy</Button>
         </Container>
       </Container>
     </ScreenComponent>
