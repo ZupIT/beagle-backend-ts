@@ -23,11 +23,7 @@ type NavigationAction<T extends ScreenRequest, N> = HasRequiredProperty<T> exten
   ? [screen: Screen<T>, properties: N] : [screen: Screen<T>, properties?: N]
 
 export interface PushStackAction {
-  <T extends ScreenRequest>(
-    ...args: HasRequiredProperty<T> extends true
-      ? [screen: Screen<T>, properties: PushStack<T>]
-      : [screen: Screen<T>, properties?: PushStack<T>]
-  ): Actions,
+  <T extends ScreenRequest>(...args: NavigationAction<T, PushStack<T>>): Actions,
 }
 
 export interface PushViewAction {
