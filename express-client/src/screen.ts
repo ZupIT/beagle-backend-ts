@@ -1,6 +1,7 @@
 import { Request, Response } from 'express'
 import { WithAnalytics, AnyContextNode, Component, DeepExpression } from '@zup-it/beagle-backend-core'
 import { Navigator } from './navigator'
+import { IsRequired } from './utils/types'
 
 export interface RequestWithCustomHeaders<RouteParams = any, Headers = any, Body = any, Query = any>
   extends Request<RouteParams, any, Body, Query> {
@@ -22,7 +23,7 @@ export interface ScreenRequest {
    * { 'session-token': string }
    * ```
    */
-  headers: Record<string, string>,
+  headers?: Record<string, string>,
   /**
    * The parameters expected in the route.
    *
@@ -34,7 +35,7 @@ export interface ScreenRequest {
    * }
    * ```
    */
-  routeParams: Record<string, string>,
+  routeParams?: Record<string, string>,
   /**
    * The query parameters expected in the route.
    *
@@ -47,11 +48,11 @@ export interface ScreenRequest {
    * }
    * ```
    */
-  query: Record<string, string>,
+  query?: Record<string, string>,
   /**
    * The type of the request body. If a JSON is expected, specify here the object interface.
    */
-  body: any,
+  body?: unknown,
   /**
    * The type of the navigation context of this screen. If it's an order page and you expect to receive both the order
    * id and the address from the navigation context, this should be:
@@ -62,7 +63,7 @@ export interface ScreenRequest {
    * }
    * ```
    */
-  navigationContext: any,
+  navigationContext?: unknown,
 }
 
 interface ScreenProps<T extends ScreenRequest> {
@@ -131,34 +132,7 @@ interface ScreenProps<T extends ScreenRequest> {
  */
 export type Screen<T extends ScreenRequest = any> = (props: ScreenProps<T>) => JSX.Element
 
-/**
- * Type of the navigation parameters in the Navigator.
- */
-export interface ScreenNavigation<T extends ScreenRequest, Props> extends WithAnalytics<Props> {
-  /**
-   * The parameters for the url.
-   *
-   * Example: if the route is "/user/:userId/books/:bookId", this could be `{ userId: '1', bookId: '302' }`.
-   */
-  routeParams?: T['routeParams'],
-  /**
-   * The headers to send in the request.
-   */
-  headers?: T['headers'],
-  /**
-   * The request body. Invalid for "GET" requests.
-   */
-  body?: T['body'],
-  /**
-   * The properties in the url's query.
-   *
-   * Example: if you want the url to be "/list?page=1&limit=10", this should be `{ page: '1', limit: '10' }`.
-   */
-  query?: T['query'],
-  /**
-   * The properties to set in the navigation context of the next screen (previous, if this is a pop navigation).
-   */
-  navigationContext?: DeepExpression<T['navigationContext']>,
+interface BaseScreenNavigation<Props> extends WithAnalytics<Props> {
   /**
    * When set to true, this screen will be fetched by the frontend as soon as possible instead of waiting any event to
    * trigger. This makes the navigation faster because when it actually happens, the page will already have been loaded.
@@ -171,3 +145,54 @@ export interface ScreenNavigation<T extends ScreenRequest, Props> extends WithAn
    */
   fallback?: Component,
 }
+
+interface WithRouteParams<T> {
+  /**
+   * The parameters for the url.
+   *
+   * Example: if the route is "/user/:userId/books/:bookId", this could be `{ userId: '1', bookId: '302' }`.
+   */
+  routeParams: T,
+}
+
+interface WithHeaders<T> {
+  /**
+   * The headers to send in the request.
+   */
+  headers: T,
+}
+
+interface WithBody<T> {
+  /**
+   * The request body. Invalid for "GET" requests.
+   */
+  body: T,
+}
+
+interface WithQuery<T> {
+  /**
+   * The properties in the url's query.
+   *
+   * Example: if you want the url to be "/list?page=1&limit=10", this should be `{ page: '1', limit: '10' }`.
+   */
+  query: T,
+}
+
+interface WithNavigationContext<T> {
+  /**
+   * The properties to set in the navigation context of the next screen (previous, if this is a pop navigation).
+   */
+  navigationContext: DeepExpression<T>,
+}
+
+/**
+ * Type of the navigation parameters in the Navigator.
+ */
+export type ScreenNavigation<T extends ScreenRequest, Props> = BaseScreenNavigation<Props>
+  & (IsRequired<T, 'routeParams'> extends true
+    ? WithRouteParams<T['routeParams']> : Partial<WithRouteParams<T['routeParams']>>)
+  & (IsRequired<T, 'headers'> extends true ? WithHeaders<T['headers']> : Partial<WithHeaders<T['headers']>>)
+  & (IsRequired<T, 'body'> extends true ? WithBody<T['body']> : Partial<WithBody<T['body']>>)
+  & (IsRequired<T, 'query'> extends true ? WithQuery<T['query']> : Partial<WithQuery<T['query']>>)
+  & (IsRequired<T, 'navigationContext'> extends true
+    ? WithNavigationContext<T['navigationContext']> : Partial<WithNavigationContext<T['navigationContext']>>)
