@@ -1,4 +1,4 @@
-import { BeagleJSX, Actions, FC } from '@zup-it/beagle-backend-core'
+import { BeagleJSX, Actions, FC, Expression } from '@zup-it/beagle-backend-core'
 import { StyledDefaultComponent, WithStyle } from '../style/styled'
 import { WithAccessibility, WithTheme } from '../types'
 import { InterpolatedText } from './types'
@@ -12,7 +12,7 @@ interface ButtonProps extends WithAccessibility, WithTheme, WithStyle {
   /**
    * Whether the button should be enabled (true) or disabled (false). Default is enabled.
    */
-  enabled?: boolean,
+  enabled?: Expression<boolean>,
   /**
    * The text that goes inside the button. This gets converted to the property "text" when serialized.
    */

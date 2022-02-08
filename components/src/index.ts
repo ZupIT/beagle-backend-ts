@@ -1,5 +1,5 @@
 export { Color, colors } from './color'
 export * from './components'
 export { StyledComponent, WithStyle } from './style/styled'
-export { SimpleStyle as Style } from './style/simple-styles'
+export { SimpleStyle as Style, createStyleMap } from './style/simple-styles'
 export { submitForm } from './actions/submit-form'
