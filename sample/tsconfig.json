@@ -1,6 +1,7 @@
 {
   "extends": "../tsconfig.json",
   "compilerOptions": {
+    "strictNullChecks": true,
     "paths": {
       "@zup-it/beagle-backend-express": ["./express-client/src"],
       "@zup-it/beagle-backend-express/*": ["./express-client/src/*"],

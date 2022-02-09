@@ -134,7 +134,7 @@ interface BaseNavigationParams {
    *
    * By default, nothing is sent here.
    */
-  navigationContext?: any,
+  navigationContext?: unknown,
 }
 
 interface RouteNavigationParams<T extends (Route | string) = Route> extends BaseNavigationParams {

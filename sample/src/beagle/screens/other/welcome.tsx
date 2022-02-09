@@ -13,7 +13,7 @@ export const Welcome: Screen = () => (
       backgroundColor: colors.white,
     }}
   >
-    <Image type="remote" path={{ url: 'https://i.ibb.co/rvRN9kv/logo.png' }} style={{ width: 242, height: 225 }} />
+    <Image type="remote" url="https://i.ibb.co/rvRN9kv/logo.png" style={{ width: 242, height: 225 }} />
     <Text style={{ marginTop: 40 }}>Welcome to the Beagle Playground!</Text>
     <Text style={{ marginTop: 5 }}>Use the panel on the left to start coding!</Text>
     <Button style={{ marginTop: 40 }} onPress={pushView('/docs.json')}>Access the fast guide</Button>
