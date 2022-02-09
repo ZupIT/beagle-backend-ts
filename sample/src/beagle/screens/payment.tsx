@@ -1,7 +1,7 @@
 import { Button, Container, ScreenComponent, Style, TextInput } from '@zup-it/beagle-backend-components'
 import { BeagleJSX, createContext } from '@zup-it/beagle-backend-core'
 import { condition, openNativeRoute } from '@zup-it/beagle-backend-core/actions'
-import { condition as conditionOperation, isEmpty } from '@zup-it/beagle-backend-core/operations'
+import { isEmpty } from '@zup-it/beagle-backend-core/operations'
 import { Screen, ScreenRequest } from '@zup-it/beagle-backend-express'
 import { createOrder } from '../network/order'
 import {
@@ -10,6 +10,7 @@ import {
   Order as OrderModel,
  } from '../../models/order'
 import { globalContext } from '../global-context'
+import { sumProducts } from '../operations'
 
 interface Props extends ScreenRequest {
   navigationContext: {
@@ -25,11 +26,10 @@ export const Payment: Screen<Props> = ({ navigationContext }) => {
   const inputContainersMargin: Style = { marginVertical: 5, marginHorizontal: 5 }
   const onInit = [
     order.get('address').set(address),
-    order.get('products').set(cart)
+    order.get('products').set(cart),
+    order.get('total').set(sumProducts(cart)),
   ]
   const makeOrder = [
-    // TODO add caltulated total cart value
-    order.get('total').set(2500),
     condition({ condition: isEmpty(card.get('cvc')), onTrue: order.get('state').set('AWAITING_PAYMENT'), onFalse: order.get('state').set('PAYMENT_ACCEPTED')}),
     createOrder({
       data: order,
