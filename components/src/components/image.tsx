@@ -71,7 +71,7 @@ const ImageComponent = ({ id, style, type, mode, ...path }: ImageProps) => (
     name="image"
     id={id}
     style={style}
-    properties={{ '_beagleImagePath_': type, mode, path }}
+    properties={{ mode, path: { '_beagleImagePath_': type, ...path } }}
   />
 )
 
