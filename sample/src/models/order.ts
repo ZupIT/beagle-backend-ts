@@ -17,3 +17,9 @@ export interface Order {
   total: number,
   address: Address,
 }
+
+export interface PaymentCard {
+  number: string,
+  expirationDate: string,
+  cvc: string,
+}
