@@ -11,6 +11,7 @@ export const style = createStyleMap({
     flex: 1,
   },
   emptyCart: {
+    flex: 1,
     paddingHorizontal: '15%',
     justifyContent: 'CENTER',
     alignItems: 'CENTER'
