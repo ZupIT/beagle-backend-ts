@@ -2,7 +2,7 @@ import { forEach } from 'lodash'
 import { Express } from 'express'
 import { serialize, createContextNode } from '@zup-it/beagle-backend-core'
 import { RouteConfig, RouteMap } from './route'
-import { Screen } from './screen'
+import { RequestWithCustomHeaders, Screen } from './screen'
 import { Navigator } from './navigator'
 
 interface Options {
@@ -61,7 +61,7 @@ export class BeagleApp {
       res.type('application/json')
       forEach(this.responseHeaders, (key, value) => res.setHeader(key, value))
       const componentTree = screen({
-        request: req,
+        request: req as RequestWithCustomHeaders,
         response: res,
         navigationContext: this.navigationContext,
         navigator: this.navigator,

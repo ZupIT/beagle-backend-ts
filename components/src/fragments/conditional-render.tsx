@@ -1,11 +1,11 @@
 import { BeagleJSX, DynamicExpression, FC } from '@zup-it/beagle-backend-core'
 import { condition as conditionalOperation } from '@zup-it/beagle-backend-core/operations'
 import { set } from 'lodash'
-import { Container } from '..'
+import { Container, WithStyle } from '..'
 
-interface ParentProps {
+interface ParentProps extends WithStyle {
   condition: DynamicExpression<boolean>,
-  children: [JSX.Element, JSX.Element?],
+  children: JSX.Element | [JSX.Element, JSX.Element],
 }
 
 interface ChildrenProps {
@@ -30,7 +30,7 @@ const validateChild = (child?: JSX.Element) => {
  * Suppose `isLoading` is a Context and it stores a boolean value.
  *
  * ```
- * <If condition={isLoading}>
+ * <If id="if-component" style={{ margin: 5 }} condition={isLoading}>
  *   <Then><Text>Loading...</Text></Then>
  *   <Else><Text>Loading is completed!</Text></Else>
  * </If>
@@ -42,19 +42,40 @@ const validateChild = (child?: JSX.Element) => {
  * above is the equivalent of writing:
  *
  * ```
- * <Container>
+ * <Container id="if-component" style={{ margin: 5 }}>
  *   <Text style={{ display: condition(isLoading, 'FLEX', 'NONE') }}>Loading...</Text>
  *   <Text style={{ display: condition(isLoading, 'NONE', 'FLEX') }}>Loading is completed!</Text>
  * </Container>
  * ```
  *
+ * When `If` has only `Then` as a child, no enclosing Container is created and its id and style are used for rendering
+ * the child of `Then`. We will try to combine every property, but if there are clashes, the child of `Then` takes
+ * precedence. See the example below:
+ *
+ * ```
+ * <If id="if-component" style={{ margin: 5, backgroundColor: '#000000' }} condition={isLoading}>
+ *   <Then><Text id="text-component" style={{ padding: 10, backgroundColor: '#FFFFFF' }}>Loading...</Text></Then>
+ * </If>
+ * ```
+ *
+ * becomes:
+ * ```
+ * <Text
+ *   id="text-component"
+ *   style={{ display: condition(isLoading, 'FLEX', 'NONE'), margin: 5, padding: 10, backgroundColor: '#FFFFFF' }}
+ * >
+ *   Loading...
+ * </Text>
+ * ```
+ *
  * @param props {@link ParentProps}
  * @returns a Container with the child of Then and the child of Else with the proper style.display.
  */
-export const If: FC<ParentProps> = ({ id, condition, children }) => {
-  children.forEach(validateChild)
-  const thenComponent = children.find(c => c?.name === 'then')?.children as JSX.Element | undefined
-  const elseComponent = children.find(c => c?.name === 'else')?.children as JSX.Element | undefined
+export const If: FC<ParentProps> = ({ id, style, condition, children }) => {
+  const thenAndElse = Array.isArray(children) ? children : [children]
+  thenAndElse.forEach(validateChild)
+  const thenComponent = thenAndElse.find(c => c?.name === 'then')?.children as JSX.Element | undefined
+  const elseComponent = thenAndElse.find(c => c?.name === 'else')?.children as JSX.Element | undefined
 
   if (!thenComponent) throw Error('The If component must have the component Then as child')
   set(thenComponent, 'properties.style.display', conditionalOperation(condition, 'FLEX', 'NONE'))
@@ -62,13 +83,15 @@ export const If: FC<ParentProps> = ({ id, condition, children }) => {
   if (elseComponent) {
     set(elseComponent, 'properties.style.display', conditionalOperation(condition, 'NONE', 'FLEX'))
     return (
-      <Container id={id}>
+      <Container id={id} style={style}>
         {thenComponent}
         {elseComponent}
       </Container>
     )
   }
 
+  if (style) set(thenComponent, 'properties.style', { ...style, ...thenComponent.properties?.style })
+  if (id && !thenComponent.id) thenComponent.id = id
   return thenComponent
 }
 
