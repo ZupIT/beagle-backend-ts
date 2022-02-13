@@ -12,7 +12,7 @@ export class RootContext<T> extends ContextNode<T> {
   }
 
   /**
-   * This will always be true and is just an trick for ensuring type-safety in Typescript. The intent here is guarantee
+   * This will always be true and is just a trick for ensuring type-safety in Typescript. The intent here is guarantee
    * the type ContextNode is not assignable to RootContext.
    */
   isRoot = true
