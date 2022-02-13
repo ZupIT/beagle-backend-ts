@@ -129,7 +129,7 @@ const sendRequestAction = createCoreAction<SendRequestActionParams>('sendRequest
  * See {@link EnhancedSendRequestParams} and {@link BaseSendRequestParams} for more details.
  * @returns an instance of Action
  */
-export function sendRequest <SuccessResponse = any, ErrorResponse = any>(
+export function sendRequest<SuccessResponse = any, ErrorResponse = any>(
   { onError, onSuccess, ...other }: SendRequestParams<SuccessResponse, ErrorResponse>,
 ) {
   // fixme: remove as any and fix type

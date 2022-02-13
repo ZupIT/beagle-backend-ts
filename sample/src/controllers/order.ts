@@ -1,10 +1,22 @@
 import { Request, Response } from 'express'
-import { Order, PaymentCard } from '../models/order'
-import { createOrder, getOrderById } from '../services/order'
+import { createOrder, CreateOrderData, getOrderById } from '../services/order'
 
-export function createOrderController(request: Request<unknown, unknown, { order: Order, payment: PaymentCard }>, response: Response) {
-  const id = createOrder(request.body?.order || {})
-  response.status(201).send({ id })
+export function createOrderController(
+  request: Request<unknown, unknown, CreateOrderData>,
+  response: Response,
+) {
+  try {
+    const payload = request.body
+    if (!payload?.address || !payload?.payment || !payload?.products) {
+      throw Error(
+        `You need to send address, products and payment in the payload. Found: ${payload ? Object.keys(payload) : 'nothing'}.`
+      )
+    }
+    const id = createOrder(request.body || {})
+    response.status(201).send({ id })
+  } catch (err) {
+    response.status(500).send({ error: `${err}` })
+  }
 }
 
 export function getOrderController(request: Request<{ id: number }>, response: Response) {

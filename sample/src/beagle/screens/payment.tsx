@@ -1,18 +1,12 @@
-import { Button, Container, ScreenComponent, Style, TextInput } from '@zup-it/beagle-backend-components'
-import { BeagleJSX, createContext, Expression } from '@zup-it/beagle-backend-core'
-import { condition, openNativeRoute } from '@zup-it/beagle-backend-core/actions'
-import { isEmpty } from '@zup-it/beagle-backend-core/operations'
+import { Button, Container, ScreenComponent, Style, Text, TextInput } from '@zup-it/beagle-backend-components'
+import { BeagleJSX, createContext } from '@zup-it/beagle-backend-core'
+import { alert, openNativeRoute } from '@zup-it/beagle-backend-core/actions'
 import { Screen, ScreenRequest } from '@zup-it/beagle-backend-express'
 import { createOrder } from '../network/order'
-import {
-  Address,
-  PaymentCard as PaymentCardModel,
-  Order as OrderModel,
- } from '../../models/order'
+import { Address, PaymentCard } from '../../models/order'
 import { globalContext } from '../global-context'
-import { sumProducts } from '../operations'
-import { Action } from '@zup-it/beagle-backend-core/model/action'
-import { PrimitiveContextNode } from '@zup-it/beagle-backend-core/model/context/types'
+import { updateCartIndicator } from '../actions'
+import { localNavigator } from '../local-navigator'
 
 interface Props extends ScreenRequest {
   navigationContext: {
@@ -21,67 +15,45 @@ interface Props extends ScreenRequest {
 }
 
 export const Payment: Screen<Props> = ({ navigationContext }) => {
-  const order = createContext<OrderModel>('order')
-  const card = createContext<PaymentCardModel>('card')
   const cart = globalContext.get('cart')
-  const address = navigationContext.get('address')
-  const inputContainersMargin: Style = { margin: 5 }
-  const onInit = [
-    order.get('address').set(address),
-    order.get('products').set(cart),
-    order.get('total').set(sumProducts(cart)),
-  ]
-  const makeOrder = [
-    condition({ condition: isEmpty(card.get('cvc')), onTrue: order.get('state').set('AWAITING_PAYMENT'), onFalse: order.get('state').set('PAYMENT_ACCEPTED')}),
-    createOrder(order, card, {
-      onSuccess: (response) => openNativeRoute({ route: 'orders', data: { orderId: response.get('data').get('id').toString() } })
-    })
-  ]
+  const card = createContext<PaymentCard>('card')
+  const formItem: Style = { margin: 8 }
+  const makeOrder = createOrder(
+    {
+      data: {
+        products: cart,
+        address: navigationContext.get('address'),
+        payment: card,
+      },
+      onSuccess: response => [
+        cart.set([]),
+        updateCartIndicator({ numberOfElementsInCart: 0 }),
+        localNavigator.goToOrderDetails(response.get('data').get('id')),
+      ],
+      onError: response => alert(response.get('data').get('error'))
+    },
+  )
 
-  const renderInput = (
-    placeholder: Expression<string>,
-    value: Expression<string>,
-    onChange: (value: PrimitiveContextNode<string>)=> Action,
-    style?: Style,
-  ) => (
-    <Container style={style}>
-      <TextInput
-        value={value}
-        placeholder={placeholder}
-        onChange={onChange}
-      />
-    </Container>
+  const createInput = (placeholder: string, name: keyof PaymentCard, shouldExpand: boolean = true) => (
+    <TextInput
+      value={card.get(name)}
+      placeholder={placeholder}
+      onChange={value => card.get(name).set(value)}
+      style={{ flex: shouldExpand ? 1 : undefined, ...formItem }}
+    />
   )
 
   return (
-    <ScreenComponent navigationBar={{ title: 'Payment' }} context={order}>
-      <Container
-        style={{ flex: 1, justifyContent: 'SPACE_BETWEEN', marginHorizontal: 10 }}
-        context={card}
-        onInit={onInit}
-      >
+    <ScreenComponent navigationBar={{ title: 'Payment' }} context={card}>
+      <Container style={{ flex: 1, justifyContent: 'SPACE_BETWEEN', marginHorizontal: 10, marginTop: 10 }}>
         <Container>
-          {renderInput(
-            'Card number',
-            card.get('number'),
-            (value) => card.get('number').set(value),
-            {...inputContainersMargin}
-          )}
+          {createInput('Card number', 'number', false)}
           <Container style={{ flexDirection: 'ROW' }}>
-            {renderInput(
-              'MM/YY',
-              card.get('expirationDate'),
-              (value) => card.get('expirationDate').set(value),
-              {flex: 1, ...inputContainersMargin}
-            )}
-            {renderInput(
-              'CVC', card.get('cvc'),
-              (value) => card.get('cvc').set(value),
-              { flex: 1, ...inputContainersMargin }
-            )}
+            {createInput('MM/YY', 'expirationDate')}
+            {createInput('CVC', 'cvc')}
           </Container>
         </Container>
-        <Container style={{ flexDirection: 'ROW', justifyContent: 'FLEX_END', ...inputContainersMargin  }}>
+        <Container style={{ flexDirection: 'ROW', justifyContent: 'FLEX_END', ...formItem  }}>
           <Button onPress={makeOrder}>Buy</Button>
         </Container>
       </Container>
