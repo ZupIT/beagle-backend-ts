@@ -18,7 +18,7 @@ const validateChild = (child?: JSX.Element) => {
   const isValid = namespace === 'fake' && ['then', 'else'].includes(name)
   if (!isValid) {
     throw new Error(
-      `The If component must only have the components Then and Else as children. Received: ${namespace}${name}`,
+      `The If component must only have the components Then and Else as children. Received: ${namespace}:${name}.`,
     )
   }
 }
