@@ -30,7 +30,7 @@ const validateChild = (child?: JSX.Element) => {
  * Suppose `isLoading` is a Context and it stores a boolean value.
  *
  * ```
- * <If id="if-component" style={{ margin: 5 }} condition={isLoading}>
+ * <If condition={isLoading}>
  *   <Then><Text>Loading...</Text></Then>
  *   <Else><Text>Loading is completed!</Text></Else>
  * </If>
@@ -42,11 +42,13 @@ const validateChild = (child?: JSX.Element) => {
  * above is the equivalent of writing:
  *
  * ```
- * <Container id="if-component" style={{ margin: 5 }}>
+ * <Container>
  *   <Text style={{ display: condition(isLoading, 'FLEX', 'NONE') }}>Loading...</Text>
  *   <Text style={{ display: condition(isLoading, 'NONE', 'FLEX') }}>Loading is completed!</Text>
  * </Container>
  * ```
+ *
+ * If you pass `id` or `style` to the component `If`, they will end up in the enclosing container that will be created.
  *
  * When `If` has only `Then` as a child, no enclosing Container is created and its id and style are used for rendering
  * the child of `Then`. We will try to combine every property, but if there are clashes, the child of `Then` takes
@@ -69,7 +71,8 @@ const validateChild = (child?: JSX.Element) => {
  * ```
  *
  * @param props {@link ParentProps}
- * @returns a Container with the child of Then and the child of Else with the proper style.display.
+ * @returns a Container with the child of Then and the child of Else with the proper style.display. Or the child of
+ * Then, with no enclosing container, if no Else is provided.
  */
 export const If: FC<ParentProps> = ({ id, style, condition, children }) => {
   const thenAndElse = Array.isArray(children) ? children : [children]
