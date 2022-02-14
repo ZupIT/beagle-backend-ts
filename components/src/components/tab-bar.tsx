@@ -44,7 +44,7 @@ interface TabBarProps extends WithTheme {
  *
  * const MyScreen = () => (
  *   <Container context={currentTab}>
- *     <TabBar items={tabs} currentTab={currentTab} onTabSelection={currentTab.set} />
+ *     <TabBar items={tabs} currentTab={currentTab} onTabSelection={value => currentTab.set(value)} />
  *     <PageView currentPage={currentTab}>
  *       <Text>This is John</Text>
  *       <Text>This is Sophia</Text>
