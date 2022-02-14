@@ -75,7 +75,7 @@ interface InputEvent {
  *
  * const MyScreen = () => (
  *   <Container>
- *     <TextInput placeholder="name" value={name} onChange={name.set} />
+ *     <TextInput placeholder="name" value={name} onChange={value => name.set(value)} />
  *     <Text>{name}</Text>
  *   </Container>
  * )
