@@ -10,7 +10,7 @@ interface OpenNativeRouteParams {
   /**
    * The identifier of the route in mobile applications or the relative URL in web apps.
    */
-  route: string,
+  route: Expression<string>,
   /**
    * Removes all the navigation history if set to true.
    *
@@ -20,8 +20,11 @@ interface OpenNativeRouteParams {
   /**
    * A Map containing all the data needed by the route. It will become query parameters in web applications. It doesn't
    * do anything in Flutter applications.
+   *
+   * Warning: Beagle iOS and Beagle Android won't accept expression values in this map. While working with these
+   * platforms, you should interpret this type as `Record<string, string>`.
    */
-  data?: Record<string, string>,
+  data?: Record<string, Expression<string>>,
 }
 
 /**

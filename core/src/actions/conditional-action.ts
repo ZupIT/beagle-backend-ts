@@ -23,4 +23,4 @@ interface ConditionParams {
  * @param params the action parameters: condition, onTrue and onFalse. See {@link ConditionParams}.
  * @returns an instance of Action
  */
-export const condition = createCoreAction<ConditionParams>('condition')
+export const conditionalAction = createCoreAction<ConditionParams>('condition')

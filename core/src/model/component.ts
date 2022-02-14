@@ -3,6 +3,9 @@ import { AnyRootContext } from './context/types'
 export interface WithContext {
   /**
    * A Context that will be made available for this Component and its children.
+   *
+   * This must be a RootContext, created via the function `createContext`. Contexts like the global context, the
+   * navigation contexts or implicit contexts don't need to be declared and won't be accepted here.
    */
   context?: AnyRootContext<any>,
 }

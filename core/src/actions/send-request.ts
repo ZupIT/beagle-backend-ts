@@ -86,7 +86,7 @@ interface EnhancedSendRequestParams<SuccessResponse, ErrorResponse> extends Base
 }
 
 export type SendRequestParams<SuccessResponse = any, ErrorResponse = any> = (
-  ActionProps<BaseSendRequestParams> & EnhancedSendRequestParams<SuccessResponse, ErrorResponse>
+  ActionProps<BaseSendRequestParams & EnhancedSendRequestParams<SuccessResponse, ErrorResponse>>
 )
 
 const sendRequestAction = createCoreAction<SendRequestActionParams>('sendRequest')
@@ -129,10 +129,9 @@ const sendRequestAction = createCoreAction<SendRequestActionParams>('sendRequest
  * See {@link EnhancedSendRequestParams} and {@link BaseSendRequestParams} for more details.
  * @returns an instance of Action
  */
-export function sendRequest <SuccessResponse = any, ErrorResponse = any>(
+export function sendRequest<SuccessResponse = any, ErrorResponse = any>(
   { onError, onSuccess, ...other }: SendRequestParams<SuccessResponse, ErrorResponse>,
 ) {
-  // fixme: remove as any and fix type
   const onErrorResult = onError ? onError(createContextNode('onError')) : undefined
   const onSuccessResult = onSuccess ? onSuccess(createContextNode('onSuccess')) : undefined
   return sendRequestAction({ onError: onErrorResult, onSuccess: onSuccessResult, ...other })
