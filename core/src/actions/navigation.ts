@@ -1,5 +1,5 @@
 import { Expression, HttpMethod } from '../types'
-import { Action } from '../model/action'
+import { Action, WithAnalytics } from '../model/action'
 import { Component } from '../model/component'
 import { isDynamicExpression } from '../utils'
 import { createCoreAction } from './core-action'
@@ -38,15 +38,20 @@ interface OpenExternalUrlParams {
   /**
    * The URL of the web page.
    */
-  url: string,
+  url: Expression<string>,
 }
+
+const openExternalUrlAction = createCoreAction<OpenExternalUrlParams>('openExternalUrl')
 
 /**
  * Opens the browser with the provided URL.
  *
- * @param params the action parameters: url. See {@link OpenExternalUrlParams}.
+ * @param url the url to the web page to open.
+ * @param options additional options for this action.
  */
-export const openExternalUrl = createCoreAction<OpenExternalUrlParams>('openExternalUrl')
+export const openExternalUrl = (url: OpenExternalUrlParams['url'], options?: WithAnalytics<OpenExternalUrlParams>) => (
+  openExternalUrlAction({ url, ...options })
+)
 
 // Beagle Navigation
 
