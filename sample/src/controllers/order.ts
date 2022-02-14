@@ -1,9 +1,9 @@
 import { Request, Response } from 'express'
-import { Order } from '../models/order'
+import { Order, PaymentCard } from '../models/order'
 import { createOrder, getOrderById } from '../services/order'
 
-export function createOrderController(request: Request<unknown, unknown, Order>, response: Response) {
-  const id = createOrder(request.body)
+export function createOrderController(request: Request<unknown, unknown, { order: Order, payment: PaymentCard }>, response: Response) {
+  const id = createOrder(request.body?.order || {})
   response.status(201).send({ id })
 }
 
