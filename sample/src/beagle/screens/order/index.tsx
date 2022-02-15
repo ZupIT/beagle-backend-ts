@@ -18,7 +18,7 @@ export const Order: Screen<Props> = ({ request: { params } }) => {
     <ScreenComponent navigationBar={{ title: 'Order' }}>
       <Container style={{ padding: 10 }}>
         <Container style={style.container}>
-          <Text styleId={theme.text.price}>purchase status:</Text>
+          <Text styleId={theme.text.price}>Purchase status:</Text>
           <Text styleId={theme.text.paymentStatus}>{order!.state}</Text>
         </Container>
         <Text styleId={theme.text.price} style={{ marginTop: 10 }}>Products:</Text>
