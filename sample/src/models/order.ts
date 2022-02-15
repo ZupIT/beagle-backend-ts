@@ -13,7 +13,7 @@ export interface Address {
 export interface Order {
   id: string,
   state: 'AWAITING_PAYMENT' | 'PAYMENT_ACCEPTED' | 'PREPARING' | 'SENT' | 'COMPLETED' | 'CANCELED',
-  products: Pick<Product, 'title' | 'price'>[],
+  products: Pick<Product, 'title' | 'price' | 'image' | 'id' | 'description' | 'category'>[],
   total: number,
   address: Address,
 }
