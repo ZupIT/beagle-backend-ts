@@ -7,6 +7,9 @@ export const style = createStyleMap({
     justifyContent: 'SPACE_BETWEEN',
     backgroundColor: theme.viewBackground,
   },
+  cartContent: {
+    flex: 1,
+  },
   emptyCart: {
     flex: 1,
     paddingHorizontal: '15%',
@@ -14,7 +17,6 @@ export const style = createStyleMap({
     alignItems: 'CENTER'
   },
   list: {
-    flex: 1,
     paddingHorizontal: 15,
   },
   item: {

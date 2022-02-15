@@ -11,6 +11,11 @@ export class RootContext<T> extends ContextNode<T> {
     this.value = value
   }
 
+  /**
+   * This will always be true and is just a trick for ensuring type-safety in Typescript. The intent here is guarantee
+   * the type ContextNode is not assignable to RootContext.
+   */
+  isRoot = true
   readonly value?: T
 }
 

@@ -130,7 +130,7 @@ interface ScreenProps<T extends ScreenRequest> {
  * building it and when navigating to it, i.e. it tells the type of the headers, query, route parameters, body and
  * navigation context.
  */
-export type Screen<T extends ScreenRequest = any> = (props: ScreenProps<T>) => JSX.Element
+export type Screen<T extends ScreenRequest = ScreenRequest> = (props: ScreenProps<T>) => JSX.Element
 
 interface BaseScreenNavigation<Props> extends WithAnalytics<Props> {
   /**

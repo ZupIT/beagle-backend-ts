@@ -1,5 +1,5 @@
 import { Expression, HttpMethod } from '../types'
-import { Action } from '../model/action'
+import { Action, WithAnalytics } from '../model/action'
 import { Component } from '../model/component'
 import { isDynamicExpression } from '../utils'
 import { createCoreAction } from './core-action'
@@ -10,7 +10,7 @@ interface OpenNativeRouteParams {
   /**
    * The identifier of the route in mobile applications or the relative URL in web apps.
    */
-  route: string,
+  route: Expression<string>,
   /**
    * Removes all the navigation history if set to true.
    *
@@ -20,8 +20,11 @@ interface OpenNativeRouteParams {
   /**
    * A Map containing all the data needed by the route. It will become query parameters in web applications. It doesn't
    * do anything in Flutter applications.
+   *
+   * Warning: Beagle iOS and Beagle Android won't accept expression values in this map. While working with these
+   * platforms, you should interpret this type as `Record<string, string>`.
    */
-  data?: Record<string, string>,
+  data?: Record<string, Expression<string>>,
 }
 
 /**
@@ -35,15 +38,20 @@ interface OpenExternalUrlParams {
   /**
    * The URL of the web page.
    */
-  url: string,
+  url: Expression<string>,
 }
+
+const openExternalUrlAction = createCoreAction<OpenExternalUrlParams>('openExternalUrl')
 
 /**
  * Opens the browser with the provided URL.
  *
- * @param params the action parameters: url. See {@link OpenExternalUrlParams}.
+ * @param url the url to the web page to open.
+ * @param options additional options for this action.
  */
-export const openExternalUrl = createCoreAction<OpenExternalUrlParams>('openExternalUrl')
+export const openExternalUrl = (url: OpenExternalUrlParams['url'], options?: WithAnalytics<OpenExternalUrlParams>) => (
+  openExternalUrlAction({ url, ...options })
+)
 
 // Beagle Navigation
 

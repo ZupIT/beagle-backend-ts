@@ -11,9 +11,15 @@ export interface Address {
 }
 
 export interface Order {
-  id: number,
+  id: string,
   state: 'AWAITING_PAYMENT' | 'PAYMENT_ACCEPTED' | 'PREPARING' | 'SENT' | 'COMPLETED' | 'CANCELED',
   products: Pick<Product, 'title' | 'price'>[],
   total: number,
   address: Address,
+}
+
+export interface PaymentCard {
+  number: string,
+  expirationDate: string,
+  cvc: string,
 }

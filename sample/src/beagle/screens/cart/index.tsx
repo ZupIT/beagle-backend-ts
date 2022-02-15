@@ -1,8 +1,8 @@
 import {
-  Button, colors, Container, Image, ListView, ScreenComponent, Template, Text,
+  Button, colors, Container, Else, If, Image, ListView, ScreenComponent, Template, Text, Then,
 } from '@zup-it/beagle-backend-components'
 import { BeagleJSX } from '@zup-it/beagle-backend-core'
-import { condition, isEmpty, not } from '@zup-it/beagle-backend-core/operations'
+import { isEmpty, not } from '@zup-it/beagle-backend-core/operations'
 import { Screen } from '@zup-it/beagle-backend-express'
 import { globalContext } from '../../global-context'
 import { formatPrice, sumProducts } from '../../operations'
@@ -14,23 +14,28 @@ export const Cart: Screen = ({ navigator }) => {
   return (
     <ScreenComponent safeArea={true} navigationBar={{ title: 'Cart', showBackButton: true }}>
       <Container style={style.page}>
-        <Container style={{ display: condition(isEmpty(cart), 'FLEX', 'NONE'), ...style.emptyCart }}>
-          <Text alignment="CENTER">Your cart is empty. Go to the products page and add some products.</Text>
-        </Container>
-
-        <Container style={{ display: condition(isEmpty(cart), 'NONE', 'FLEX'), ...style.list }}>
-          <ListView dataSource={cart} key="id">
-            {(item) => (
-              <Template>
-                <Container style={style.item}>
-                  <Image type="remote" url={item.get('image')} style={style.image} mode="FIT_CENTER" />
-                  <Text style={style.title}>{item.get('title')}</Text>
-                  <Text>{formatPrice(item.get('price'), 'BRL')}</Text>
-                </Container>
-              </Template>
-            )}
-          </ListView>
-        </Container>
+        <If condition={isEmpty(cart)} style={style.cartContent}>
+          <Then>
+            <Container style={style.emptyCart}>
+              <Text alignment="CENTER">Your cart is empty. Go to the products page and add some products.</Text>
+            </Container>
+          </Then>
+          <Else>
+            <Container style={style.list}>
+              <ListView dataSource={cart} key="id">
+                {(item) => (
+                  <Template>
+                    <Container style={style.item}>
+                      <Image type="remote" url={item.get('image')} style={style.image} mode="FIT_CENTER" />
+                      <Text style={style.title}>{item.get('title')}</Text>
+                      <Text>{formatPrice(item.get('price'), 'BRL')}</Text>
+                    </Container>
+                  </Template>
+                )}
+              </ListView>
+            </Container>
+          </Else>
+        </If>
 
         <Container style={style.summaryBox}>
           <Container style={style.total}>

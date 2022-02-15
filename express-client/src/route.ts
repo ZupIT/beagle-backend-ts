@@ -28,4 +28,4 @@ interface RouteMapValue extends WithMethod {
  * 1. a functional component to create the screen;
  * 2. an object containing the HttpMethod for the route and functional component to create the screen.
  */
-export type RouteMap = Record<string, Screen | RouteMapValue>
+export type RouteMap = Record<string, Screen<any> | RouteMapValue>

@@ -7,7 +7,7 @@ import { applyRoutes } from './routes'
 const port = 3000
 const expressApp = express()
 
-expressApp.use(cors())
+expressApp.use(cors()).use(express.json())
 
 expressApp.listen(port, () => {
   console.log(`App listening at http://localhost:${port}`)
