@@ -32,7 +32,7 @@ export const Product: Screen<Props> = ({ navigationContext }) => {
           <Text styleId={theme.text.title} alignment="CENTER">{product.get('title')}</Text>
           <Container style={style.contentBox}>
             <Image type="remote" url={product.get('image')} mode="FIT_CENTER" style={style.productImage} />
-            <Text style={style.price} styleId={theme.text.price}>{formatPrice(product.get('price'), 'BRL')}</Text>
+            <Text style={style.price} styleId={theme.text.H4}>{formatPrice(product.get('price'), 'BRL')}</Text>
             <If condition={contains(cart, product)}>
               <Then>
                 <Container style={style.inCart}>

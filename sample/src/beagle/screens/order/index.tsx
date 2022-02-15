@@ -18,10 +18,10 @@ export const Order: Screen<Props> = ({ request: { params } }) => {
     <ScreenComponent navigationBar={{ title: 'Order' }}>
       <Container style={{ padding: 10 }}>
         <Container style={style.container}>
-          <Text styleId={theme.text.price}>Purchase status:</Text>
+          <Text styleId={theme.text.H4}>Purchase status:</Text>
           <Text styleId={theme.text.paymentStatus}>{order!.state}</Text>
         </Container>
-        <Text styleId={theme.text.price} style={{ marginTop: 10 }}>Products:</Text>
+        <Text styleId={theme.text.H4} style={{ marginTop: 10 }}>Products:</Text>
         <ListView dataSource={order!.products} key="id">
           {item => (
             <Template>
@@ -34,7 +34,7 @@ export const Order: Screen<Props> = ({ request: { params } }) => {
           )}
         </ListView>
         <Container style={style.Address}>
-          <Text styleId={theme.text.price}>Address:</Text>
+          <Text styleId={theme.text.H4}>Address:</Text>
           <Container style={{ flexDirection: 'ROW', margin: 10 }}>
             <Text style={style.title}>ZIP: {order!.address.zip}</Text>
             <Text style={style.title}>City: {order!.address.city}</Text>
@@ -46,8 +46,8 @@ export const Order: Screen<Props> = ({ request: { params } }) => {
           </Container>
         </Container>
         <Container style={style.container}>
-          <Text styleId={theme.text.price}>Total:</Text>
-          <Text styleId={theme.text.price}>{formatPrice(order!.total, 'BRL')}</Text>
+          <Text styleId={theme.text.H4}>Total:</Text>
+          <Text styleId={theme.text.H4}>{formatPrice(order!.total, 'BRL')}</Text>
         </Container>
       </Container>
     </ScreenComponent>
