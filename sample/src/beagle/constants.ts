@@ -7,6 +7,7 @@ export const theme = {
     price: 'price',
     inCart: 'inCart',
     title: 'title',
+    paymentStatus: 'paymentStatus',
   },
   image: {
     check: 'check',
