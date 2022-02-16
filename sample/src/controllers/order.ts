@@ -1,7 +1,7 @@
 import { Request, Response } from 'express'
 import { createOrder, CreateOrderData, getOrderById } from '../services/order'
 
-export function createOrderController(
+export async function createOrderController(
   request: Request<unknown, unknown, CreateOrderData>,
   response: Response,
 ) {
@@ -19,7 +19,8 @@ export function createOrderController(
   }
 }
 
-export function getOrderController(request: Request<{ id: number }>, response: Response) {
+export async function getOrderController(request: Request<{ id: number }>, response: Response) {
+  await new Promise(resolve => setTimeout(resolve, 500))
   const order = getOrderById(request.params.id)
   if (!order) {
     response.status(404).send()

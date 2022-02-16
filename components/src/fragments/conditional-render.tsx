@@ -1,10 +1,10 @@
-import { BeagleJSX, DynamicExpression, FC } from '@zup-it/beagle-backend-core'
+import { BeagleJSX, Expression, FC } from '@zup-it/beagle-backend-core'
 import { condition as conditionalOperation } from '@zup-it/beagle-backend-core/operations'
 import { set } from 'lodash'
 import { Container, WithStyle } from '..'
 
 interface ParentProps extends WithStyle {
-  condition: DynamicExpression<boolean>,
+  condition: Expression<boolean>,
   children: JSX.Element | [JSX.Element, JSX.Element],
 }
 

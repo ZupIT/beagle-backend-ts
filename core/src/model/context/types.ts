@@ -36,14 +36,18 @@ export type ArrayContextNode<T> = PrimitiveContextNode<T> & {
   at<I extends number>(index: I): T extends any[] ? AnyContextNode<T[I]> : never,
 }
 
+type AnyContextNodeWithoutUndefined<T> = [T] extends [Primitive] ? PrimitiveContextNode<T> : (
+  T extends any[] ? ArrayContextNode<T> : MapContextNode<T>
+)
+
+type RemoveUndefined<T> = T extends undefined ? never : T
+
 /**
  * This type helper correctly identifies the type of ContextNode<T> and returns the appropriate type of
  * {@link ContextNode}.
  */
 // The brackets in the line below are important to prevent TS from applying a distributive operation.
-export type AnyContextNode<T> = [T] extends [Primitive] ? PrimitiveContextNode<T> : (
-  T extends any[] ? ArrayContextNode<T> : MapContextNode<T>
-)
+export type AnyContextNode<T> = AnyContextNodeWithoutUndefined<RemoveUndefined<T>>
 
 // root node
 

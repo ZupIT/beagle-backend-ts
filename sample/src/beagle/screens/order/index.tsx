@@ -1,9 +1,12 @@
-import { Container, Image, ListView, ScreenComponent, ScrollView, Template, Text } from '@zup-it/beagle-backend-components'
-import { BeagleJSX } from '@zup-it/beagle-backend-core'
+import { Container, ListView, ScreenComponent, Template } from '@zup-it/beagle-backend-components'
+import { BeagleJSX, createContext } from '@zup-it/beagle-backend-core'
+import { alert } from '@zup-it/beagle-backend-core/actions'
 import { Screen, ScreenRequest } from '@zup-it/beagle-backend-express'
-import { getOrderById } from '../../../services/order'
-import { theme } from '../../constants'
+import { Order as OrderModel } from '../../../models/order'
+import { Loading } from '../../fragments/loading'
+import { getOrderById } from '../../network/order'
 import { formatPrice } from '../../operations'
+import { DefinitionItem, Section } from './fragments'
 import { style } from './style'
 
 interface Props extends ScreenRequest {
@@ -12,43 +15,53 @@ interface Props extends ScreenRequest {
   }
 }
 
+interface OrderContext {
+  isLoading: boolean,
+  data?: OrderModel,
+}
+
 export const Order: Screen<Props> = ({ request: { params } }) => {
-  const order = params.id === null ? getOrderById(Number(params.id)) : getOrderById(1)
+  const orderContext = createContext<OrderContext>('order', { isLoading: true })
+  const order = orderContext.get('data')
+  const address = order.get('address')
+  const loadOrder = getOrderById({
+    id: params.id,
+    onSuccess: response => order.set(response.get('data')),
+    onError: response => alert(`${response.get('status')}: ${response.get('message')}`),
+    onFinish: orderContext.get('isLoading').set(false),
+  })
+
   return (
     <ScreenComponent navigationBar={{ title: 'Order' }}>
-      <Container style={{ padding: 10 }}>
-        <Container style={style.container}>
-          <Text styleId={theme.text.H4}>Purchase status:</Text>
-          <Text styleId={theme.text.paymentStatus}>{order!.state}</Text>
-        </Container>
-        <Text styleId={theme.text.H4} style={{ marginTop: 10 }}>Products:</Text>
-        <ListView dataSource={order!.products} key="id">
-          {item => (
-            <Template>
-              <Container style={style.item}>
-                <Image type="remote" url={item.get('image')} mode="FIT_CENTER" style={style.image} />
-                <Text style={style.title}>{item.get('title')}</Text>
-                <Text>{formatPrice(item.get('price'), 'BRL')}</Text>
-              </Container>
-            </Template>
-          )}
-        </ListView>
-        <Container style={style.Address}>
-          <Text styleId={theme.text.H4}>Address:</Text>
-          <Container style={{ flexDirection: 'ROW', margin: 10 }}>
-            <Text style={style.title}>ZIP: {order!.address.zip}</Text>
-            <Text style={style.title}>City: {order!.address.city}</Text>
-          </Container>
-          <Container style={{ flexDirection: 'ROW', margin: 10 }}>
-            <Text style={style.title}>State: {order!.address.state}</Text>
-            <Text style={style.title}>Street: {order!.address.street}</Text>
-            <Text style={style.title}>Number: {order!.address.number}</Text>
-          </Container>
-        </Container>
-        <Container style={style.container}>
-          <Text styleId={theme.text.H4}>Total:</Text>
-          <Text styleId={theme.text.H4}>{formatPrice(order!.total, 'BRL')}</Text>
-        </Container>
+      <Container context={orderContext} onInit={loadOrder} style={style.page}>
+        <Loading isLoading={orderContext.get('isLoading')}>
+          <Section>
+            <DefinitionItem title="Id:" definition={order.get('id')} />
+            <DefinitionItem title="Status:" definition={order.get('state')} />
+          </Section>
+
+          <Section title="Products">
+            <ListView dataSource={order.get('products')} key="id">
+              {item => (
+                <Template>
+                  <DefinitionItem
+                    title={item.get('title')}
+                    definition={formatPrice(item.get('price'), 'BRL')}
+                    style={style.productTitle}
+                  />
+                </Template>
+              )}
+            </ListView>
+          </Section>
+
+          <Section title="Shipment">
+            <DefinitionItem title="Zip code:" definition={address.get('zip')} />
+            <DefinitionItem title="City:" definition={address.get('city')} />
+            <DefinitionItem title="State:" definition={address.get('state')} />
+            <DefinitionItem title="Street:" definition={address.get('street')} />
+            <DefinitionItem title="Number:" definition={address.get('number')} />
+          </Section>
+        </Loading>
       </Container>
     </ScreenComponent>
   )
