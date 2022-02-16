@@ -57,7 +57,7 @@ declare global {
        * )
        * ```
        *
-       * This JSX element is equivalent to the class {@link Component}. Read it's documentation for details on each
+       * This JSX element is equivalent to the class {@link Component}. Read its documentation for details on each
        * attribute.
        *
        * To see more examples of component declarations, please check the components implemented in the package

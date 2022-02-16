@@ -1,36 +1,29 @@
 import { colors, createStyleMap } from '@zup-it/beagle-backend-components'
+import { theme } from '../../../beagle/constants'
 
 export const style = createStyleMap({
-  item: {
-    flexDirection: 'ROW',
-    alignItems: 'CENTER',
+  page: {
+    backgroundColor: theme.viewBackground,
+    paddingVertical: 20,
+  },
+  sectionTitle: {
+    marginVertical: 12,
+  },
+  card: {
+    backgroundColor: colors.white,
     padding: 10,
     marginVertical: 10,
+    marginHorizontal: 15,
     borderColor: colors.lightgray,
     borderWidth: 1,
-    backgroundColor: colors.white,
     cornerRadius: 8,
   },
-  Address: {
+  definitionItem: {
+    flexDirection: 'ROW',
     justifyContent: 'SPACE_BETWEEN',
-    padding: 10,
-    marginVertical: 10,
-    borderColor: colors.lightgray,
-    borderWidth: 1,
-    backgroundColor: colors.white,
-    cornerRadius: 8,
+    paddingVertical: 5,
   },
-  image: {
-    width: 50,
-    height: 50,
-    marginRight: 15,
-  },
-  title: {
-    flex: 1,
-    marginRight: 15,
-  },
-  container: {
-    flexDirection: 'ROW',
-    justifyContent: 'SPACE_BETWEEN'
+  productTitle: {
+    width: '70%',
   },
 })
