@@ -1,3 +1,4 @@
+import {  pick } from 'lodash'
 import { Expression } from '../types'
 import { Actions, ActionProps } from '../model/action'
 import { createContextNode } from '../model/context/context-node'
@@ -135,4 +136,70 @@ export function sendRequest<SuccessResponse = any, ErrorResponse = any>(
   const onErrorResult = onError ? onError(createContextNode('onError')) : undefined
   const onSuccessResult = onSuccess ? onSuccess(createContextNode('onSuccess')) : undefined
   return sendRequestAction({ onError: onErrorResult, onSuccess: onSuccessResult, ...other })
+}
+
+interface ComposeRequest<SuccessResponse = any, ErrorResponse = any> {
+  <Options extends object, Curried extends Partial<SendRequestParams<SuccessResponse, ErrorResponse>>>(
+    fn: (options: Options) => Curried,
+  ): (
+    (options: Options & Omit<SendRequestParams<SuccessResponse, ErrorResponse>, keyof Curried>) =>
+      ReturnType<typeof sendRequest>
+  ),
+}
+
+const sendRequestKeys: (keyof SendRequestParams)[] = [
+  'analytics', 'data', 'headers', 'method', 'onError', 'onFinish', 'onSuccess', 'url',
+]
+
+/**
+ * This function can be used to compose a sendRequest action.
+ *
+ * Let's say we want function to fetch the product of id "prd-01". We generally don't wanna mix UI with network, so,
+ * instead of calling sendRequest directly with the url to the backend, we create a function called fetchProductById
+ * that receives the productId and the others options and create the send request action.
+ *
+ * The idea here is to let the developer compose a sendRequest action, instead of passing every parameter at once. In
+ * the example below, we set both the url and method options of the send request, so the final function (value of
+ * fetchProductById) only needs the remaining options.
+ *
+ * You can still say what's the response type and error with generics.
+ *
+ * ```
+ * interface Options {
+ *   id: string,
+ * }
+ *
+ * export const fetchProductById = request<Product>()
+ *  .compose(({ id }: Options) => ({ url: `https://myserver.com/products/${id}`, method: 'get' }))
+ * ```
+ *
+ * Now, in the UI code, `fetchProductById` can be used by only passing the id, no url or method are needed:
+ *
+ * ```
+ * const MyScreen = () => (
+ *   <Container onInit={fetchProductById({ id: 5, onSuccess: response => alert(product.title) })} />
+ * )
+ * ```
+ *
+ * @returns a composable request
+ */
+export function request<SuccessResponse = any, ErrorResponse = any>() {
+  const compose: ComposeRequest<SuccessResponse, ErrorResponse> = curryFn => (options) => {
+    const curryOptions = curryFn(options)
+    const allOptions = { ...options, ...curryOptions }
+    const sendRequestOptions = pick(allOptions, sendRequestKeys) as SendRequestParams
+    return sendRequest(sendRequestOptions)
+  }
+
+  return {
+    /**
+     * Use this function to compose a request.
+     *
+     * Please check {@link request} for more details.
+     *
+     * @param curryFn function to create the options for the sendRequest action
+     * @return a function to create a sendRequest action
+     */
+    compose,
+  }
 }
