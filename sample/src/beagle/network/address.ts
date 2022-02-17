@@ -1,5 +1,5 @@
 import { Expression } from '@zup-it/beagle-backend-core'
-import { sendRequest, SendRequestParams } from '@zup-it/beagle-backend-core/actions'
+import { request } from '@zup-it/beagle-backend-core/actions'
 
 interface CepApiResponse {
   cep: string,
@@ -14,6 +14,9 @@ interface CepApiResponse {
   siafi: string,
 }
 
-export const fetchCepAddress = (
-  { cep, ...options }: { cep: Expression<string> } & Omit<SendRequestParams<CepApiResponse>, 'url' | 'method'>,
-) => sendRequest<CepApiResponse>({ url: `https://viacep.com.br/ws/${cep}/json`, ...options })
+interface Options {
+  cep: Expression<string>
+}
+
+export const fetchCepAddress = request<CepApiResponse>()
+  .compose(({ cep }: Options) => ({ url: `https://viacep.com.br/ws/${cep}/json` }))
