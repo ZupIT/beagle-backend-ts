@@ -11,9 +11,9 @@
     "clean": "yarn del dist"
   },
   "dependencies": {
-    "@zup-it/beagle-backend-components": "1.0.0",
-    "@zup-it/beagle-backend-core": "1.0.0",
-    "@zup-it/beagle-backend-express": "1.0.0",
+    "@zup-it/beagle-backend-components": "1.0.0-beta.1",
+    "@zup-it/beagle-backend-core": "1.0.0-beta.1",
+    "@zup-it/beagle-backend-express": "1.0.0-beta.1",
     "cors": "^2.8.5",
     "express": "4.17.2"
   },
