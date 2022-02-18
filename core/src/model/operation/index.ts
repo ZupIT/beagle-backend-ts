@@ -46,11 +46,11 @@ export class Operation<ReturnType = void> {
   readonly name: string
   readonly args: ValidOperationAttribute[]
   /**
-   * The '_' variable was created for the ReturnType to be used, so the type passed to the Operation
-   * will be checked, the variable '_' has no other function and is not used anywhere.
+   * Reserved for internal lib usage. This ensures the correct type for the return value of an operation.
    */
+  // Please, don't change the "readonly" below to "private". It is necessary for production builds.
   //@ts-ignore
-  private _: ReturnType = null
+  readonly _: ReturnType = null
 
   private asString(includeDelimiters: boolean): string {
     const argumentsAsStrings = this.args.map(item => {
