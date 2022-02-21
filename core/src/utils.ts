@@ -9,3 +9,5 @@ import { Operation } from './model/operation'
  * @returns true if data is an instance of ContextNode or Operation. False otherwise.
  */
 export const isDynamicExpression = (data: any) => data instanceof ContextNode || data instanceof Operation
+
+export const isDevelopmentMode = () => process.env.NODE_ENV ?? 'development' === 'development'

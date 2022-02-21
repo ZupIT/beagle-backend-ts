@@ -6,6 +6,8 @@ import { AnyRootContext } from '../model/context/types'
 import { ContextNode } from '../model/context/context-node'
 import { Operation } from '../model/operation'
 import { ActionCall, BeagleNode, ContextDeclaration, SerializedAnalyticsConfig } from './types'
+import { componentValidation } from '..'
+import { isDevelopmentMode } from '../utils'
 
 /**
  * Transforms the format:
@@ -95,7 +97,18 @@ const asBeagleNode = (component: Component): BeagleNode => {
  * - References to contexts become: `"@{contextPath}"`.
  * - Operations become: `"@{operationName(arguments)}"`.
  *
+ * Attention: when in development mode, this function will also validate the component tree. To stop running the
+ * validations, set NODE_ENV to something different than 'development'. To add validations to your own components,
+ * use `componentValidation.add`.
+ *
+ * The validations are run after the JSX elements are translated to JS and before each component is serialized.
+ *
  * @param componentTree the component tree to serialize
  * @returns the JSON string
  */
-export const serialize = (componentTree: Component): string => JSON.stringify(asBeagleNode(componentTree))
+export const serialize = (componentTree: Component): string => {
+  if (isDevelopmentMode()) {
+    componentValidation.run(componentTree)
+  }
+  return JSON.stringify(asBeagleNode(componentTree))
+}
