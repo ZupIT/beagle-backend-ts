@@ -1,5 +1,3 @@
-import { logger } from '@zup-it/beagle-backend-core'
-
 /**
  * Validates if the argument represents a color, i.e., if it's a string in the formar #RGB, #RGBA, #RRGGBB or #RRGGBBAA.
  *
@@ -10,6 +8,8 @@ import { logger } from '@zup-it/beagle-backend-core'
 export function validateColor(color?: any) {
   if (typeof color !== 'string') return
   if (!color.match(/^#([\dA-Fa-f]{3}|[\dA-Fa-f]{4}|[\dA-Fa-f]{6}|[\dA-Fa-f]{8})$/)) {
-    logger.warning(`Invalid color provided: ${color}`)
+    throw new Error(
+      `Invalid color: ${color}. The expected formats are #RGB, #RGBA, #RRGGBB or #RRGGBBAA, where R, G, B and A are hexadecimal characters representing the amount of red, green, blue and opacity, respectively.`,
+    )
   }
 }

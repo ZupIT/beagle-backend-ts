@@ -8,11 +8,11 @@ export { createContextNode } from './model/context/context-node'
 export { createContext } from './model/context/root-context'
 export { serialize } from './serializer'
 export { FC, ComponentProps } from './jsx/types'
-export { logger } from './logger'
 export { isDynamicExpression } from './utils'
 export { Operation } from './model/operation'
 export { BeagleJSX, setFragmentFactory } from './jsx'
 import { Component } from './model/component'
+export { componentValidation } from './validation'
 
 declare global {
   // eslint-disable-next-line @typescript-eslint/no-namespace
