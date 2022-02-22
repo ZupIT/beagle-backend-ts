@@ -8,7 +8,8 @@
     "start": "nodemon src/index.ts -e ts,tsx",
     "start-once": "ts-node src/index.ts",
     "build": "yarn tsc --project tsconfig.prod.json",
-    "clean": "yarn del dist"
+    "clean": "yarn del dist",
+    "test": "yarn jest"
   },
   "dependencies": {
     "@zup-it/beagle-backend-components": "1.0.0-beta.1",
@@ -19,7 +20,9 @@
   },
   "devDependencies": {
     "@types/cors": "^2.8.12",
+    "@types/supertest": "^2.0.11",
     "nodemon": "^2.0.15",
+    "supertest": "^6.2.2",
     "ts-node": "^10.4.0"
   }
 }
