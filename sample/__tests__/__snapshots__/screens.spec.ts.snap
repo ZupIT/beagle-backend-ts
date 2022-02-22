@@ -1,0 +1,1398 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Verifies if the screens outputs match the snapshots should render the address screen 1`] = `
+Object {
+  "_beagleComponent_": "beagle:screencomponent",
+  "child": Object {
+    "_beagleComponent_": "beagle:container",
+    "children": Array [
+      Object {
+        "_beagleComponent_": "beagle:container",
+        "children": Array [
+          Object {
+            "_beagleComponent_": "beagle:textInput",
+            "onBlur": Array [
+              Object {
+                "_beagleAction_": "beagle:sendRequest",
+                "onSuccess": Array [
+                  Object {
+                    "_beagleAction_": "beagle:setContext",
+                    "contextId": "address",
+                    "path": "city",
+                    "value": "@{onSuccess.data.localidade}",
+                  },
+                  Object {
+                    "_beagleAction_": "beagle:setContext",
+                    "contextId": "address",
+                    "path": "neighborhood",
+                    "value": "@{onSuccess.data.bairro}",
+                  },
+                  Object {
+                    "_beagleAction_": "beagle:setContext",
+                    "contextId": "address",
+                    "path": "state",
+                    "value": "@{onSuccess.data.uf}",
+                  },
+                  Object {
+                    "_beagleAction_": "beagle:setContext",
+                    "contextId": "address",
+                    "path": "street",
+                    "value": "@{onSuccess.data.logradouro}",
+                  },
+                ],
+                "url": "https://viacep.com.br/ws/@{onBlur.value}/json",
+              },
+            ],
+            "onChange": Array [
+              Object {
+                "_beagleAction_": "beagle:setContext",
+                "contextId": "address",
+                "path": "zip",
+                "value": "@{onChange.value}",
+              },
+            ],
+            "placeholder": "Zip",
+            "style": Object {
+              "margin": Object {
+                "horizontal": Object {
+                  "type": "REAL",
+                  "value": 20,
+                },
+                "vertical": Object {
+                  "type": "REAL",
+                  "value": 10,
+                },
+              },
+            },
+            "value": "@{address.zip}",
+          },
+          Object {
+            "_beagleComponent_": "beagle:container",
+            "children": Array [
+              Object {
+                "_beagleComponent_": "beagle:textInput",
+                "onChange": Array [
+                  Object {
+                    "_beagleAction_": "beagle:setContext",
+                    "contextId": "address",
+                    "path": "street",
+                    "value": "@{onChange.value}",
+                  },
+                ],
+                "placeholder": "Street",
+                "style": Object {
+                  "flex": Object {
+                    "flex": 2,
+                  },
+                  "margin": Object {
+                    "horizontal": Object {
+                      "type": "REAL",
+                      "value": 20,
+                    },
+                    "vertical": Object {
+                      "type": "REAL",
+                      "value": 10,
+                    },
+                  },
+                },
+                "value": "@{address.street}",
+              },
+              Object {
+                "_beagleComponent_": "beagle:textInput",
+                "onChange": Array [
+                  Object {
+                    "_beagleAction_": "beagle:setContext",
+                    "contextId": "address",
+                    "path": "number",
+                    "value": "@{onChange.value}",
+                  },
+                ],
+                "placeholder": "Number",
+                "style": Object {
+                  "flex": Object {
+                    "flex": 1,
+                  },
+                  "margin": Object {
+                    "horizontal": Object {
+                      "type": "REAL",
+                      "value": 20,
+                    },
+                    "vertical": Object {
+                      "type": "REAL",
+                      "value": 10,
+                    },
+                  },
+                },
+                "value": "@{address.number}",
+              },
+            ],
+            "style": Object {
+              "flex": Object {
+                "flexDirection": "ROW",
+                "justifyContent": "SPACE_BETWEEN",
+              },
+            },
+          },
+          Object {
+            "_beagleComponent_": "beagle:container",
+            "children": Array [
+              Object {
+                "_beagleComponent_": "beagle:textInput",
+                "onChange": Array [
+                  Object {
+                    "_beagleAction_": "beagle:setContext",
+                    "contextId": "address",
+                    "path": "city",
+                    "value": "@{onChange.value}",
+                  },
+                ],
+                "placeholder": "City",
+                "style": Object {
+                  "flex": Object {
+                    "flex": 3,
+                  },
+                  "margin": Object {
+                    "horizontal": Object {
+                      "type": "REAL",
+                      "value": 20,
+                    },
+                    "vertical": Object {
+                      "type": "REAL",
+                      "value": 10,
+                    },
+                  },
+                },
+                "value": "@{address.city}",
+              },
+              Object {
+                "_beagleComponent_": "beagle:textInput",
+                "onChange": Array [
+                  Object {
+                    "_beagleAction_": "beagle:setContext",
+                    "contextId": "address",
+                    "path": "state",
+                    "value": "@{onChange.value}",
+                  },
+                ],
+                "placeholder": "State",
+                "style": Object {
+                  "flex": Object {
+                    "flex": 1,
+                  },
+                  "margin": Object {
+                    "horizontal": Object {
+                      "type": "REAL",
+                      "value": 20,
+                    },
+                    "vertical": Object {
+                      "type": "REAL",
+                      "value": 10,
+                    },
+                  },
+                },
+                "value": "@{address.state}",
+              },
+            ],
+            "style": Object {
+              "flex": Object {
+                "flexDirection": "ROW",
+                "justifyContent": "SPACE_BETWEEN",
+              },
+            },
+          },
+        ],
+        "style": Object {
+          "flex": Object {
+            "flex": 1,
+          },
+        },
+      },
+      Object {
+        "_beagleComponent_": "beagle:container",
+        "children": Array [
+          Object {
+            "_beagleComponent_": "beagle:button",
+            "onPress": Array [
+              Object {
+                "_beagleAction_": "beagle:popView",
+              },
+            ],
+            "style": Object {
+              "margin": Object {
+                "horizontal": Object {
+                  "type": "REAL",
+                  "value": 20,
+                },
+                "vertical": Object {
+                  "type": "REAL",
+                  "value": 10,
+                },
+              },
+            },
+            "text": "Cancel",
+          },
+          Object {
+            "_beagleComponent_": "beagle:button",
+            "onPress": Array [
+              Object {
+                "_beagleAction_": "beagle:pushView",
+                "navigationContext": Object {
+                  "path": "address",
+                  "value": "@{address}",
+                },
+                "route": Object {
+                  "url": "/payment",
+                },
+              },
+            ],
+            "style": Object {
+              "margin": Object {
+                "horizontal": Object {
+                  "type": "REAL",
+                  "value": 20,
+                },
+                "vertical": Object {
+                  "type": "REAL",
+                  "value": 10,
+                },
+              },
+            },
+            "text": "Next",
+          },
+        ],
+        "style": Object {
+          "flex": Object {
+            "flexDirection": "ROW",
+            "justifyContent": "SPACE_BETWEEN",
+          },
+        },
+      },
+    ],
+  },
+  "context": Object {
+    "id": "address",
+  },
+  "navigationBar": Object {
+    "title": "Address",
+  },
+  "safeArea": Object {
+    "bottom": true,
+    "leading": true,
+    "top": true,
+    "trailing": true,
+  },
+}
+`;
+
+exports[`Verifies if the screens outputs match the snapshots should render the cart screen 1`] = `
+Object {
+  "_beagleComponent_": "beagle:screencomponent",
+  "child": Object {
+    "_beagleComponent_": "beagle:container",
+    "children": Array [
+      Object {
+        "_beagleComponent_": "beagle:container",
+        "children": Array [
+          Object {
+            "_beagleComponent_": "beagle:container",
+            "children": Array [
+              Object {
+                "_beagleComponent_": "beagle:text",
+                "alignment": "CENTER",
+                "text": "Your cart is empty. Go to the products page and add some products.",
+              },
+            ],
+            "style": Object {
+              "display": "@{condition(isEmpty(global.cart), 'FLEX', 'NONE')}",
+              "flex": Object {
+                "alignItems": "CENTER",
+                "flex": 1,
+                "justifyContent": "CENTER",
+              },
+              "padding": Object {
+                "horizontal": Object {
+                  "type": "PERCENT",
+                  "value": 15,
+                },
+              },
+            },
+          },
+          Object {
+            "_beagleComponent_": "beagle:container",
+            "children": Array [
+              Object {
+                "_beagleComponent_": "beagle:listView",
+                "dataSource": "@{global.cart}",
+                "key": "id",
+                "templates": Array [
+                  Object {
+                    "view": Object {
+                      "_beagleComponent_": "beagle:container",
+                      "children": Array [
+                        Object {
+                          "_beagleComponent_": "beagle:image",
+                          "mode": "FIT_CENTER",
+                          "path": Object {
+                            "_beagleImagePath_": "remote",
+                            "url": "@{item.image}",
+                          },
+                          "style": Object {
+                            "margin": Object {
+                              "right": Object {
+                                "type": "REAL",
+                                "value": 15,
+                              },
+                            },
+                            "size": Object {
+                              "height": Object {
+                                "type": "REAL",
+                                "value": 50,
+                              },
+                              "width": Object {
+                                "type": "REAL",
+                                "value": 50,
+                              },
+                            },
+                          },
+                        },
+                        Object {
+                          "_beagleComponent_": "beagle:text",
+                          "style": Object {
+                            "flex": Object {
+                              "flex": 1,
+                            },
+                            "margin": Object {
+                              "right": Object {
+                                "type": "REAL",
+                                "value": 15,
+                              },
+                            },
+                          },
+                          "text": "@{item.title}",
+                        },
+                        Object {
+                          "_beagleComponent_": "beagle:text",
+                          "text": "@{formatPrice(item.price, 'BRL')}",
+                        },
+                      ],
+                      "style": Object {
+                        "backgroundColor": "#FFFFFF",
+                        "borderColor": "#D3D3D3",
+                        "borderWidth": 1,
+                        "cornerRadius": Object {
+                          "radius": 8,
+                        },
+                        "flex": Object {
+                          "alignItems": "CENTER",
+                          "flexDirection": "ROW",
+                        },
+                        "margin": Object {
+                          "vertical": Object {
+                            "type": "REAL",
+                            "value": 10,
+                          },
+                        },
+                        "padding": Object {
+                          "all": Object {
+                            "type": "REAL",
+                            "value": 10,
+                          },
+                        },
+                      },
+                    },
+                  },
+                ],
+              },
+            ],
+            "style": Object {
+              "display": "@{condition(isEmpty(global.cart), 'NONE', 'FLEX')}",
+              "padding": Object {
+                "horizontal": Object {
+                  "type": "REAL",
+                  "value": 15,
+                },
+              },
+            },
+          },
+        ],
+        "style": Object {
+          "flex": Object {
+            "flex": 1,
+          },
+        },
+      },
+      Object {
+        "_beagleComponent_": "beagle:container",
+        "children": Array [
+          Object {
+            "_beagleComponent_": "beagle:container",
+            "children": Array [
+              Object {
+                "_beagleComponent_": "beagle:text",
+                "text": "Total",
+              },
+              Object {
+                "_beagleComponent_": "beagle:text",
+                "text": "@{formatPrice(sumProducts(global.cart), 'BRL')}",
+                "textColor": "#008000",
+              },
+            ],
+            "style": Object {
+              "flex": Object {
+                "flexDirection": "COLUMN",
+              },
+            },
+          },
+          Object {
+            "_beagleComponent_": "beagle:button",
+            "enabled": "@{not(isEmpty(global.cart))}",
+            "onPress": Array [
+              Object {
+                "_beagleAction_": "beagle:pushView",
+                "route": Object {
+                  "url": "/address",
+                },
+              },
+            ],
+            "text": "Buy",
+          },
+        ],
+        "style": Object {
+          "backgroundColor": "#FFFFFF",
+          "flex": Object {
+            "alignItems": "CENTER",
+            "flexDirection": "ROW",
+            "justifyContent": "SPACE_BETWEEN",
+          },
+          "padding": Object {
+            "all": Object {
+              "type": "REAL",
+              "value": 10,
+            },
+          },
+          "size": Object {
+            "width": Object {
+              "type": "PERCENT",
+              "value": 100,
+            },
+          },
+        },
+      },
+    ],
+    "style": Object {
+      "backgroundColor": "#EEE",
+      "flex": Object {
+        "flexDirection": "COLUMN",
+        "justifyContent": "SPACE_BETWEEN",
+      },
+    },
+  },
+  "navigationBar": Object {
+    "showBackButton": true,
+    "title": "Cart",
+  },
+  "safeArea": Object {
+    "bottom": true,
+    "leading": true,
+    "top": true,
+    "trailing": true,
+  },
+}
+`;
+
+exports[`Verifies if the screens outputs match the snapshots should render the order screen 1`] = `
+Object {
+  "_beagleComponent_": "beagle:screencomponent",
+  "child": Object {
+    "_beagleComponent_": "beagle:container",
+    "children": Array [
+      Object {
+        "_beagleComponent_": "beagle:container",
+        "children": Array [
+          Object {
+            "_beagleComponent_": "custom:spinner",
+            "style": Object {
+              "display": "@{condition(order.isLoading, 'FLEX', 'NONE')}",
+              "size": Object {
+                "height": Object {
+                  "type": "PERCENT",
+                  "value": 100,
+                },
+              },
+            },
+          },
+          Object {
+            "_beagleComponent_": "beagle:container",
+            "children": Array [
+              Object {
+                "_beagleComponent_": "beagle:container",
+                "children": Array [
+                  Object {
+                    "_beagleComponent_": "beagle:container",
+                    "children": Array [
+                      Object {
+                        "_beagleComponent_": "beagle:text",
+                        "styleId": "bold",
+                        "text": "Id:",
+                      },
+                      Object {
+                        "_beagleComponent_": "beagle:text",
+                        "text": "@{order.data.id}",
+                      },
+                    ],
+                    "style": Object {
+                      "flex": Object {
+                        "flexDirection": "ROW",
+                        "justifyContent": "SPACE_BETWEEN",
+                      },
+                      "padding": Object {
+                        "vertical": Object {
+                          "type": "REAL",
+                          "value": 5,
+                        },
+                      },
+                    },
+                  },
+                  Object {
+                    "_beagleComponent_": "beagle:container",
+                    "children": Array [
+                      Object {
+                        "_beagleComponent_": "beagle:text",
+                        "styleId": "bold",
+                        "text": "Status:",
+                      },
+                      Object {
+                        "_beagleComponent_": "beagle:text",
+                        "text": "@{order.data.state}",
+                      },
+                    ],
+                    "style": Object {
+                      "flex": Object {
+                        "flexDirection": "ROW",
+                        "justifyContent": "SPACE_BETWEEN",
+                      },
+                      "padding": Object {
+                        "vertical": Object {
+                          "type": "REAL",
+                          "value": 5,
+                        },
+                      },
+                    },
+                  },
+                ],
+                "style": Object {
+                  "backgroundColor": "#FFFFFF",
+                  "borderColor": "#D3D3D3",
+                  "borderWidth": 1,
+                  "cornerRadius": Object {
+                    "radius": 8,
+                  },
+                  "margin": Object {
+                    "horizontal": Object {
+                      "type": "REAL",
+                      "value": 15,
+                    },
+                    "vertical": Object {
+                      "type": "REAL",
+                      "value": 10,
+                    },
+                  },
+                  "padding": Object {
+                    "all": Object {
+                      "type": "REAL",
+                      "value": 10,
+                    },
+                  },
+                },
+              },
+              Object {
+                "_beagleComponent_": "beagle:container",
+                "children": Array [
+                  Object {
+                    "_beagleComponent_": "beagle:text",
+                    "alignment": "CENTER",
+                    "style": Object {
+                      "margin": Object {
+                        "vertical": Object {
+                          "type": "REAL",
+                          "value": 12,
+                        },
+                      },
+                    },
+                    "styleId": "H4",
+                    "text": "Products",
+                  },
+                  Object {
+                    "_beagleComponent_": "beagle:container",
+                    "children": Array [
+                      Object {
+                        "_beagleComponent_": "beagle:listView",
+                        "dataSource": "@{order.data.products}",
+                        "key": "id",
+                        "templates": Array [
+                          Object {
+                            "view": Object {
+                              "_beagleComponent_": "beagle:container",
+                              "children": Array [
+                                Object {
+                                  "_beagleComponent_": "beagle:text",
+                                  "style": Object {
+                                    "size": Object {
+                                      "width": Object {
+                                        "type": "PERCENT",
+                                        "value": 70,
+                                      },
+                                    },
+                                  },
+                                  "styleId": "bold",
+                                  "text": "@{item.title}",
+                                },
+                                Object {
+                                  "_beagleComponent_": "beagle:text",
+                                  "text": "@{formatPrice(item.price, 'BRL')}",
+                                },
+                              ],
+                              "style": Object {
+                                "flex": Object {
+                                  "flexDirection": "ROW",
+                                  "justifyContent": "SPACE_BETWEEN",
+                                },
+                                "padding": Object {
+                                  "vertical": Object {
+                                    "type": "REAL",
+                                    "value": 5,
+                                  },
+                                },
+                              },
+                            },
+                          },
+                        ],
+                      },
+                    ],
+                    "style": Object {
+                      "backgroundColor": "#FFFFFF",
+                      "borderColor": "#D3D3D3",
+                      "borderWidth": 1,
+                      "cornerRadius": Object {
+                        "radius": 8,
+                      },
+                      "margin": Object {
+                        "horizontal": Object {
+                          "type": "REAL",
+                          "value": 15,
+                        },
+                        "vertical": Object {
+                          "type": "REAL",
+                          "value": 10,
+                        },
+                      },
+                      "padding": Object {
+                        "all": Object {
+                          "type": "REAL",
+                          "value": 10,
+                        },
+                      },
+                    },
+                  },
+                ],
+              },
+              Object {
+                "_beagleComponent_": "beagle:container",
+                "children": Array [
+                  Object {
+                    "_beagleComponent_": "beagle:text",
+                    "alignment": "CENTER",
+                    "style": Object {
+                      "margin": Object {
+                        "vertical": Object {
+                          "type": "REAL",
+                          "value": 12,
+                        },
+                      },
+                    },
+                    "styleId": "H4",
+                    "text": "Shipment",
+                  },
+                  Object {
+                    "_beagleComponent_": "beagle:container",
+                    "children": Array [
+                      Object {
+                        "_beagleComponent_": "beagle:container",
+                        "children": Array [
+                          Object {
+                            "_beagleComponent_": "beagle:text",
+                            "styleId": "bold",
+                            "text": "Zip code:",
+                          },
+                          Object {
+                            "_beagleComponent_": "beagle:text",
+                            "text": "@{order.data.address.zip}",
+                          },
+                        ],
+                        "style": Object {
+                          "flex": Object {
+                            "flexDirection": "ROW",
+                            "justifyContent": "SPACE_BETWEEN",
+                          },
+                          "padding": Object {
+                            "vertical": Object {
+                              "type": "REAL",
+                              "value": 5,
+                            },
+                          },
+                        },
+                      },
+                      Object {
+                        "_beagleComponent_": "beagle:container",
+                        "children": Array [
+                          Object {
+                            "_beagleComponent_": "beagle:text",
+                            "styleId": "bold",
+                            "text": "City:",
+                          },
+                          Object {
+                            "_beagleComponent_": "beagle:text",
+                            "text": "@{order.data.address.city}",
+                          },
+                        ],
+                        "style": Object {
+                          "flex": Object {
+                            "flexDirection": "ROW",
+                            "justifyContent": "SPACE_BETWEEN",
+                          },
+                          "padding": Object {
+                            "vertical": Object {
+                              "type": "REAL",
+                              "value": 5,
+                            },
+                          },
+                        },
+                      },
+                      Object {
+                        "_beagleComponent_": "beagle:container",
+                        "children": Array [
+                          Object {
+                            "_beagleComponent_": "beagle:text",
+                            "styleId": "bold",
+                            "text": "State:",
+                          },
+                          Object {
+                            "_beagleComponent_": "beagle:text",
+                            "text": "@{order.data.address.state}",
+                          },
+                        ],
+                        "style": Object {
+                          "flex": Object {
+                            "flexDirection": "ROW",
+                            "justifyContent": "SPACE_BETWEEN",
+                          },
+                          "padding": Object {
+                            "vertical": Object {
+                              "type": "REAL",
+                              "value": 5,
+                            },
+                          },
+                        },
+                      },
+                      Object {
+                        "_beagleComponent_": "beagle:container",
+                        "children": Array [
+                          Object {
+                            "_beagleComponent_": "beagle:text",
+                            "styleId": "bold",
+                            "text": "Street:",
+                          },
+                          Object {
+                            "_beagleComponent_": "beagle:text",
+                            "text": "@{order.data.address.street}",
+                          },
+                        ],
+                        "style": Object {
+                          "flex": Object {
+                            "flexDirection": "ROW",
+                            "justifyContent": "SPACE_BETWEEN",
+                          },
+                          "padding": Object {
+                            "vertical": Object {
+                              "type": "REAL",
+                              "value": 5,
+                            },
+                          },
+                        },
+                      },
+                      Object {
+                        "_beagleComponent_": "beagle:container",
+                        "children": Array [
+                          Object {
+                            "_beagleComponent_": "beagle:text",
+                            "styleId": "bold",
+                            "text": "Number:",
+                          },
+                          Object {
+                            "_beagleComponent_": "beagle:text",
+                            "text": "@{order.data.address.number}",
+                          },
+                        ],
+                        "style": Object {
+                          "flex": Object {
+                            "flexDirection": "ROW",
+                            "justifyContent": "SPACE_BETWEEN",
+                          },
+                          "padding": Object {
+                            "vertical": Object {
+                              "type": "REAL",
+                              "value": 5,
+                            },
+                          },
+                        },
+                      },
+                    ],
+                    "style": Object {
+                      "backgroundColor": "#FFFFFF",
+                      "borderColor": "#D3D3D3",
+                      "borderWidth": 1,
+                      "cornerRadius": Object {
+                        "radius": 8,
+                      },
+                      "margin": Object {
+                        "horizontal": Object {
+                          "type": "REAL",
+                          "value": 15,
+                        },
+                        "vertical": Object {
+                          "type": "REAL",
+                          "value": 10,
+                        },
+                      },
+                      "padding": Object {
+                        "all": Object {
+                          "type": "REAL",
+                          "value": 10,
+                        },
+                      },
+                    },
+                  },
+                ],
+              },
+            ],
+            "style": Object {
+              "display": "@{condition(order.isLoading, 'NONE', 'FLEX')}",
+            },
+          },
+        ],
+      },
+    ],
+    "context": Object {
+      "id": "order",
+      "value": Object {
+        "isLoading": true,
+      },
+    },
+    "onInit": Array [
+      Object {
+        "_beagleAction_": "beagle:sendRequest",
+        "onError": Array [
+          Object {
+            "_beagleAction_": "beagle:alert",
+            "message": "@{onError.status}: @{onError.message}",
+          },
+        ],
+        "onFinish": Array [
+          Object {
+            "_beagleAction_": "beagle:setContext",
+            "contextId": "order",
+            "path": "isLoading",
+            "value": false,
+          },
+        ],
+        "onSuccess": Array [
+          Object {
+            "_beagleAction_": "beagle:setContext",
+            "contextId": "order",
+            "path": "data",
+            "value": "@{onSuccess.data}",
+          },
+        ],
+        "url": "http://localhost:3000/order/1",
+      },
+    ],
+    "style": Object {
+      "backgroundColor": "#EEE",
+      "padding": Object {
+        "vertical": Object {
+          "type": "REAL",
+          "value": 20,
+        },
+      },
+    },
+  },
+  "navigationBar": Object {
+    "title": "Order",
+  },
+}
+`;
+
+exports[`Verifies if the screens outputs match the snapshots should render the payment screen 1`] = `
+Object {
+  "_beagleComponent_": "beagle:screencomponent",
+  "child": Object {
+    "_beagleComponent_": "beagle:container",
+    "children": Array [
+      Object {
+        "_beagleComponent_": "beagle:container",
+        "children": Array [
+          Object {
+            "_beagleComponent_": "beagle:textInput",
+            "onChange": Array [
+              Object {
+                "_beagleAction_": "beagle:setContext",
+                "contextId": "card",
+                "path": "number",
+                "value": "@{onChange.value}",
+              },
+            ],
+            "placeholder": "Card number",
+            "style": Object {
+              "margin": Object {
+                "all": Object {
+                  "type": "REAL",
+                  "value": 8,
+                },
+              },
+            },
+            "value": "@{card.number}",
+          },
+          Object {
+            "_beagleComponent_": "beagle:container",
+            "children": Array [
+              Object {
+                "_beagleComponent_": "beagle:textInput",
+                "onChange": Array [
+                  Object {
+                    "_beagleAction_": "beagle:setContext",
+                    "contextId": "card",
+                    "path": "expirationDate",
+                    "value": "@{onChange.value}",
+                  },
+                ],
+                "placeholder": "MM/YY",
+                "style": Object {
+                  "flex": Object {
+                    "flex": 1,
+                  },
+                  "margin": Object {
+                    "all": Object {
+                      "type": "REAL",
+                      "value": 8,
+                    },
+                  },
+                },
+                "value": "@{card.expirationDate}",
+              },
+              Object {
+                "_beagleComponent_": "beagle:textInput",
+                "onChange": Array [
+                  Object {
+                    "_beagleAction_": "beagle:setContext",
+                    "contextId": "card",
+                    "path": "cvc",
+                    "value": "@{onChange.value}",
+                  },
+                ],
+                "placeholder": "CVC",
+                "style": Object {
+                  "flex": Object {
+                    "flex": 1,
+                  },
+                  "margin": Object {
+                    "all": Object {
+                      "type": "REAL",
+                      "value": 8,
+                    },
+                  },
+                },
+                "value": "@{card.cvc}",
+              },
+            ],
+            "style": Object {
+              "flex": Object {
+                "flexDirection": "ROW",
+              },
+            },
+          },
+        ],
+      },
+      Object {
+        "_beagleComponent_": "beagle:container",
+        "children": Array [
+          Object {
+            "_beagleComponent_": "beagle:button",
+            "onPress": Array [
+              Object {
+                "_beagleAction_": "beagle:sendRequest",
+                "data": Object {
+                  "address": "@{navigationContext.address}",
+                  "payment": "@{card}",
+                  "products": "@{global.cart}",
+                },
+                "method": "post",
+                "onError": Array [
+                  Object {
+                    "_beagleAction_": "beagle:alert",
+                    "message": "@{onError.data.error}",
+                  },
+                ],
+                "onSuccess": Array [
+                  Object {
+                    "_beagleAction_": "beagle:setContext",
+                    "contextId": "global",
+                    "path": "cart",
+                    "value": Array [],
+                  },
+                  Object {
+                    "_beagleAction_": "custom:updateCartIndicator",
+                    "numberOfElementsInCart": 0,
+                  },
+                  Object {
+                    "_beagleAction_": "beagle:openNativeRoute",
+                    "data": Object {
+                      "orderId": "@{onSuccess.data.id}",
+                    },
+                    "route": "orders",
+                  },
+                ],
+                "url": "http://localhost:3000/order",
+              },
+            ],
+            "text": "Buy",
+          },
+        ],
+        "style": Object {
+          "flex": Object {
+            "flexDirection": "ROW",
+            "justifyContent": "FLEX_END",
+          },
+          "margin": Object {
+            "all": Object {
+              "type": "REAL",
+              "value": 8,
+            },
+          },
+        },
+      },
+    ],
+    "style": Object {
+      "flex": Object {
+        "flex": 1,
+        "justifyContent": "SPACE_BETWEEN",
+      },
+      "margin": Object {
+        "horizontal": Object {
+          "type": "REAL",
+          "value": 10,
+        },
+        "top": Object {
+          "type": "REAL",
+          "value": 10,
+        },
+      },
+    },
+  },
+  "context": Object {
+    "id": "card",
+  },
+  "navigationBar": Object {
+    "title": "Payment",
+  },
+}
+`;
+
+exports[`Verifies if the screens outputs match the snapshots should render the product screen 1`] = `
+Object {
+  "_beagleComponent_": "beagle:screencomponent",
+  "child": Object {
+    "_beagleComponent_": "beagle:scrollView",
+    "children": Array [
+      Object {
+        "_beagleComponent_": "beagle:container",
+        "children": Array [
+          Object {
+            "_beagleComponent_": "beagle:text",
+            "alignment": "CENTER",
+            "styleId": "title",
+            "text": "@{navigationContext.product.title}",
+          },
+          Object {
+            "_beagleComponent_": "beagle:container",
+            "children": Array [
+              Object {
+                "_beagleComponent_": "beagle:image",
+                "mode": "FIT_CENTER",
+                "path": Object {
+                  "_beagleImagePath_": "remote",
+                  "url": "@{navigationContext.product.image}",
+                },
+                "style": Object {
+                  "size": Object {
+                    "height": Object {
+                      "type": "REAL",
+                      "value": 260,
+                    },
+                    "width": Object {
+                      "type": "REAL",
+                      "value": 260,
+                    },
+                  },
+                },
+              },
+              Object {
+                "_beagleComponent_": "beagle:text",
+                "style": Object {
+                  "margin": Object {
+                    "vertical": Object {
+                      "type": "REAL",
+                      "value": 30,
+                    },
+                  },
+                },
+                "styleId": "H4",
+                "text": "@{formatPrice(navigationContext.product.price, 'BRL')}",
+              },
+              Object {
+                "_beagleComponent_": "beagle:container",
+                "children": Array [
+                  Object {
+                    "_beagleComponent_": "beagle:container",
+                    "children": Array [
+                      Object {
+                        "_beagleComponent_": "beagle:text",
+                        "styleId": "inCart",
+                        "text": "In cart",
+                      },
+                      Object {
+                        "_beagleComponent_": "beagle:image",
+                        "mode": "FIT_CENTER",
+                        "path": Object {
+                          "_beagleImagePath_": "local",
+                          "mobileId": "check",
+                        },
+                        "style": Object {
+                          "margin": Object {
+                            "left": Object {
+                              "type": "REAL",
+                              "value": 6,
+                            },
+                          },
+                          "size": Object {
+                            "height": Object {
+                              "type": "REAL",
+                              "value": 20,
+                            },
+                            "width": Object {
+                              "type": "REAL",
+                              "value": 20,
+                            },
+                          },
+                        },
+                      },
+                    ],
+                    "style": Object {
+                      "display": "@{condition(contains(global.cart, navigationContext.product), 'FLEX', 'NONE')}",
+                      "flex": Object {
+                        "alignItems": "CENTER",
+                        "flexDirection": "ROW",
+                        "justifyContent": "CENTER",
+                      },
+                      "margin": Object {
+                        "bottom": Object {
+                          "type": "REAL",
+                          "value": 20,
+                        },
+                      },
+                    },
+                  },
+                  Object {
+                    "_beagleComponent_": "beagle:button",
+                    "onPress": Array [
+                      Object {
+                        "_beagleAction_": "custom:updateCartIndicator",
+                        "numberOfElementsInCart": "@{sum(length(global.cart), 1)}",
+                      },
+                      Object {
+                        "_beagleAction_": "beagle:setContext",
+                        "contextId": "global",
+                        "path": "cart",
+                        "value": "@{insert(global.cart, navigationContext.product, null)}",
+                      },
+                    ],
+                    "style": Object {
+                      "display": "@{condition(contains(global.cart, navigationContext.product), 'NONE', 'FLEX')}",
+                    },
+                    "text": "Add to cart",
+                  },
+                ],
+              },
+            ],
+            "style": Object {
+              "flex": Object {
+                "alignItems": "CENTER",
+              },
+              "margin": Object {
+                "vertical": Object {
+                  "type": "REAL",
+                  "value": 20,
+                },
+              },
+            },
+          },
+          Object {
+            "_beagleComponent_": "beagle:text",
+            "text": "@{navigationContext.product.description}",
+          },
+        ],
+        "style": Object {
+          "flex": Object {
+            "alignItems": "CENTER",
+          },
+          "padding": Object {
+            "all": Object {
+              "type": "REAL",
+              "value": 10,
+            },
+          },
+          "size": Object {
+            "width": Object {
+              "type": "PERCENT",
+              "value": 100,
+            },
+          },
+        },
+      },
+    ],
+  },
+  "navigationBar": Object {
+    "title": "Product details",
+  },
+}
+`;
+
+exports[`Verifies if the screens outputs match the snapshots should render the products screen 1`] = `
+Object {
+  "_beagleComponent_": "beagle:screencomponent",
+  "child": Object {
+    "_beagleComponent_": "beagle:container",
+    "children": Array [
+      Object {
+        "_beagleComponent_": "beagle:container",
+        "children": Array [
+          Object {
+            "_beagleComponent_": "custom:spinner",
+            "style": Object {
+              "display": "@{condition(products.isLoading, 'FLEX', 'NONE')}",
+              "size": Object {
+                "height": Object {
+                  "type": "PERCENT",
+                  "value": 100,
+                },
+              },
+            },
+          },
+          Object {
+            "_beagleComponent_": "beagle:gridView",
+            "dataSource": "@{products.data}",
+            "itemAspectRatio": 0.6,
+            "key": "id",
+            "spanCount": 2,
+            "style": Object {
+              "display": "@{condition(products.isLoading, 'NONE', 'FLEX')}",
+            },
+            "templates": Array [
+              Object {
+                "view": Object {
+                  "_beagleComponent_": "custom:productItem",
+                  "image": "@{item.image}",
+                  "inCart": "@{contains(global.cart, item)}",
+                  "onPressBuy": Array [
+                    Object {
+                      "_beagleAction_": "custom:updateCartIndicator",
+                      "numberOfElementsInCart": "@{sum(length(global.cart), 1)}",
+                    },
+                    Object {
+                      "_beagleAction_": "beagle:setContext",
+                      "contextId": "global",
+                      "path": "cart",
+                      "value": "@{insert(global.cart, item, null)}",
+                    },
+                  ],
+                  "onPressDetails": Array [
+                    Object {
+                      "_beagleAction_": "beagle:pushView",
+                      "navigationContext": Object {
+                        "path": "product",
+                        "value": "@{item}",
+                      },
+                      "route": Object {
+                        "url": "/product",
+                      },
+                    },
+                  ],
+                  "price": "@{formatPrice(item.price, 'BRL')}",
+                  "productId": "@{item.id}",
+                  "title": "@{item.title}",
+                },
+              },
+            ],
+          },
+        ],
+      },
+    ],
+    "context": Object {
+      "id": "products",
+      "value": Object {
+        "data": Array [],
+        "isLoading": true,
+      },
+    },
+    "onInit": Array [
+      Object {
+        "_beagleAction_": "beagle:sendRequest",
+        "onError": Array [
+          Object {
+            "_beagleAction_": "beagle:alert",
+            "message": "@{onError.message}",
+          },
+        ],
+        "onFinish": Array [
+          Object {
+            "_beagleAction_": "beagle:setContext",
+            "contextId": "products",
+            "path": "isLoading",
+            "value": false,
+          },
+        ],
+        "onSuccess": Array [
+          Object {
+            "_beagleAction_": "beagle:setContext",
+            "contextId": "products",
+            "path": "data",
+            "value": "@{onSuccess.data}",
+          },
+        ],
+        "url": "http://localhost:3000/products",
+      },
+    ],
+    "style": Object {
+      "backgroundColor": "#EEE",
+    },
+  },
+  "navigationBar": Object {
+    "title": "Products",
+  },
+  "safeArea": Object {
+    "bottom": true,
+    "leading": true,
+    "top": true,
+    "trailing": true,
+  },
+}
+`;
