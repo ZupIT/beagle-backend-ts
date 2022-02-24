@@ -1,4 +1,4 @@
-import { createContextNode } from '@zup-it/beagle-backend-core'
+import { createContextNode } from './model/context/context-node'
 
 /**
  * The Global Context is a Beagle Context that doesn't need to be declared and is available for the entire lifetime of

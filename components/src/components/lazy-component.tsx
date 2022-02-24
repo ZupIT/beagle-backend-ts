@@ -20,7 +20,7 @@ interface LazyProps {
  * @param props {@link LazyProps}.
  * @returns JSX element, i.e an instance of Component.
  */
-export const Lazy: FC<LazyProps> = ({ id, ...props }) => {
+export const LazyComponent: FC<LazyProps> = ({ id, ...props }) => {
   props.initialState ??= <Container />
-  return <DefaultComponent name="lazy" id={id} properties={props} />
+  return <DefaultComponent name="lazycomponent" id={id} properties={props} />
 }

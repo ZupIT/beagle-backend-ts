@@ -1,4 +1,4 @@
-import { getGlobalContext } from '@zup-it/beagle-backend-express'
+import { getGlobalContext } from '@zup-it/beagle-backend-core'
 import { Product } from '../models/product'
 
 export interface GlobalContext {

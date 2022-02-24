@@ -13,6 +13,7 @@ export { Operation } from './model/operation'
 export { BeagleJSX, setFragmentFactory } from './jsx'
 import { Component } from './model/component'
 export { componentValidation } from './validation'
+export { getGlobalContext } from './global-context'
 
 declare global {
   // eslint-disable-next-line @typescript-eslint/no-namespace
