@@ -1,3 +1,7 @@
+/**
+ * @module @zup-it/beagle-backend-core/actions
+ */
+
 export { addChildren } from './add-children'
 export { alert } from './alert'
 export { conditionalAction } from './conditional-action'

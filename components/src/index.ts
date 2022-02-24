@@ -1,3 +1,7 @@
+/**
+ * @module @zup-it/beagle-backend-components
+ */
+
 export { Color, colors } from './color'
 export * from './components'
 export * from './fragments/conditional-render'

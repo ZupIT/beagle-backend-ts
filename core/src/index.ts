@@ -1,3 +1,7 @@
+/**
+ * @module @zup-it/beagle-backend-core
+ */
+
 export { Component, WithContext, WithChildren } from './model/component'
 export { Expression, HttpMethod, DynamicExpression, DeepExpression } from './types'
 export { RootContext } from './model/context/root-context'
