@@ -7,9 +7,9 @@
 1. [Keep reading](#keep-reading)
 
 ## The context structure
-The Context API in the Beagle Backend TS is a sugar syntax for creating Beagle Expressions, which are strings in the
-format `"@{expression}"`. This API is important because it's very hard and dangerous to work directly with strings,
-since we can't type it.
+The Context API in the Beagle Backend TS is its way of creating Beagle Expressions safely. Beagle Expressions are
+strings in the format `"@{expression}"`. This API is important because it's very hard and dangerous to work directly
+with strings, since we can't type them.
 
 A Context can be read, set or declared. For reading a context, beagle uses expressions like `"@{user.name}"` or
 `"@{user.documents[0]}"`. The important information we need to have about a Context is the string between "@{" and

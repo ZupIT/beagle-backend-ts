@@ -411,6 +411,7 @@ of the context. See the example below:
 
 ```tsx
 import { BeagleJSX, createContext } from '@zup-it/beagle-backend-core'
+import { sum } from '@zup-it/beagle-backend-core/operations'
 import { Button } from '@zup-it/beagle-backend-components'
 import { Screen } from '@zup-it/beagle-backend-express'
 
@@ -432,4 +433,4 @@ like injecting implicit contexts for your own components and actions, please rea
 ["Context" in the "Advanced topics" of this documentation](/advanced/context).
 
 ## Keep reading
-**Next topic: [Actions](/actions)**
+**Next topic: [Operations](/operations)**
