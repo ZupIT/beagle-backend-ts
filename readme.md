@@ -23,6 +23,8 @@ on how to use the Beagle Backend TS without Express, check [this topic](todo).
 - [Operations](todo)
 - [Actions](todo)
 - [Navigation](todo)
+- [Making requests](todo)
+- [Analytics](todo)
 - [Testing](todo)
 - [Suggested project structure](todo)
 - [Sample](todo)

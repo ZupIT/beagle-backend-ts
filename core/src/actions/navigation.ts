@@ -1,5 +1,5 @@
 import { Expression, HttpMethod } from '../types'
-import { Action, WithAnalytics } from '../model/action'
+import { Action } from '../model/action'
 import { Component } from '../model/component'
 import { isDynamicExpression } from '../utils'
 import { createCoreAction } from './core-action'
@@ -43,14 +43,25 @@ interface OpenExternalUrlParams {
 
 const openExternalUrlAction = createCoreAction<OpenExternalUrlParams>('openExternalUrl')
 
-/**
- * Opens the browser with the provided URL.
- *
- * @param url the url to the web page to open.
- * @param options additional options for this action.
- */
-export const openExternalUrl = (url: OpenExternalUrlParams['url'], options?: WithAnalytics<OpenExternalUrlParams>) => (
-  openExternalUrlAction({ url, ...options })
+interface OpenExternalUrl {
+  /**
+   * Opens the browser with the provided URL.
+   *
+   * @param url the url to the web page to open.
+   */
+  (url: OpenExternalUrlParams['url']): ReturnType<typeof openExternalUrlAction>,
+  /**
+   * Opens the browser with the provided URL.
+   *
+   * @param properties an object with the URL to navigate to and analytics.
+   */
+  (properties: Parameters<typeof openExternalUrlAction>[0]): ReturnType<typeof openExternalUrlAction>,
+}
+
+export const openExternalUrl: OpenExternalUrl = (urlOrOptions) => (
+  typeof urlOrOptions === 'string' || isDynamicExpression(urlOrOptions)
+    ? openExternalUrlAction({ url: urlOrOptions as Expression<string> })
+    : openExternalUrlAction(urlOrOptions as OpenExternalUrlParams)
 )
 
 // Beagle Navigation
@@ -81,15 +92,11 @@ function formatNavigationContext(data: any) {
   }
 }
 
-interface IdentifiableComponent extends Component {
-  id: string,
-}
-
 interface LocalView {
   /**
    * The component tree of this route. The root of this tree tree must have an id.
    */
-  screen: IdentifiableComponent,
+  screen: Component,
 }
 
 interface HttpAdditionalData {
