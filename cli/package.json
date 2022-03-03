@@ -2,17 +2,10 @@
   "name": "@zup-it/beagle-ts",
   "version": "1.0.0",
   "description": "CLI for Beagle Backend using TypeScript",
-  "main": "./dist/index.js",
-  "bin": {
-    "beagle-ts": "./dist/cli/index.js"
-  },
-  "files": [
-    "dist/**/*"
-  ],
   "scripts": {
     "start": "nodemon --watch 'src/**/*.ts' --exec npm run server",
-    "server": "ts-node src/cli/index.ts",
-    "build": "tsc --p tsconfig-cli.json && tsc --p tsconfig-lib.json",
+    "server": "ts-node src/index.ts",
+    "build": "tsc --p tsconfig.json",
     "build-old": "tsc -p ."
   },
   "author": "Arthur Bleil <arthur.bleil@zup.com.br>",
@@ -28,21 +21,27 @@
     "chalk": "^4.1.0",
     "clear": "^0.1.0",
     "commander": "^9.0.0",
-    "figlet": "^1.5.0"
+    "fs-extra": "^10.0.0"
   },
   "devDependencies": {
     "@tsconfig/node10": "^1.0.7",
     "@tsconfig/recommended": "^1.0.1",
     "@types/chalk": "^2.2.0",
     "@types/clear": "^0.1.1",
-    "@types/figlet": "^1.2.1",
+    "@types/fs-extra": "^9.0.13",
     "@types/node": "^15.0.2",
+    "@webpack-cli/generators": "^2.4.2",
+    "awesome-typescript-loader": "^5.2.1",
+    "copy-webpack-plugin": "^10.2.4",
     "cross-blob": "^2.0.0",
+    "generate-package-json-webpack-plugin": "^2.6.0",
     "isomorphic-fetch": "^3.0.0",
     "shebang-loader": "^0.0.1",
     "ts-node": "^9.1.1",
     "tslib": "^2.1.0",
     "tslint": "^6.1.3",
-    "typescript": "^4.2.4"
+    "typescript": "^4.2.4",
+    "webpack": "^5.69.1",
+    "webpack-node-externals": "^3.0.0"
   }
 }
