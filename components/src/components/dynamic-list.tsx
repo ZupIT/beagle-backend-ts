@@ -8,6 +8,7 @@ import {
   createContextNode,
   WithChildren,
   DynamicExpression,
+  componentValidation,
 } from '@zup-it/beagle-backend-core'
 import { DefaultComponent } from '../default-component'
 import { WithStyle } from '../style/styled'
@@ -228,3 +229,11 @@ export const GridView: GridFC = ({ id, context, children, ...props }) => (
     properties={{ ...props, templates: getTemplates(props.iteratorName, children) }}
   />
 )
+
+componentValidation.add((node) => {
+  if (node.namespace === 'pseudo' && node.name === 'template') {
+    throw new Error(
+      'The component "Template" must be a direct child of one of these components: "ListView", "GridView".',
+    )
+  }
+})

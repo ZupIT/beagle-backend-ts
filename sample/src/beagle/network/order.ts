@@ -1,19 +1,27 @@
-import { DeepExpression } from '@zup-it/beagle-backend-core'
-import { sendRequest, SendRequestParams } from '@zup-it/beagle-backend-core/actions'
+import { DeepExpression, Expression } from '@zup-it/beagle-backend-core'
+import { request } from '@zup-it/beagle-backend-core/actions'
+import { Order } from '../../models/order'
 import { CreateOrderData } from '../../services/order'
 import { baseUrl } from '../constants'
 
-interface OrderApiResponse {
+interface CreateOrderResponse {
   id: string,
 }
 
-interface OrderApiError {
+interface CreateOrderError {
   error: string,
 }
 
-type CreateOrderOptions = Omit<SendRequestParams<OrderApiResponse, OrderApiError>, 'url' | 'method' | 'data'>
-  & { data: DeepExpression<CreateOrderData> }
+interface CreateOptions {
+  data: DeepExpression<CreateOrderData>
+}
 
-export const createOrder = (
-  options: CreateOrderOptions,
-) => sendRequest({ url: `${baseUrl}/order`, method: 'post', ...options })
+interface GetByIdOptions {
+  id: Expression<string>,
+}
+
+export const createOrder = request<CreateOrderResponse, CreateOrderError>()
+  .compose(({ data }: CreateOptions) => ({ url: `${baseUrl}/order`, method: 'post', data }))
+
+export const getOrderById = request<Order>()
+  .compose(({ id }: GetByIdOptions) => ({ url: `${baseUrl}/order/${id}` }))

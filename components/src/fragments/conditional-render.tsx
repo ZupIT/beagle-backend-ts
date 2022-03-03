@@ -1,10 +1,10 @@
-import { BeagleJSX, DynamicExpression, FC } from '@zup-it/beagle-backend-core'
+import { BeagleJSX, componentValidation, Expression, FC } from '@zup-it/beagle-backend-core'
 import { condition as conditionalOperation } from '@zup-it/beagle-backend-core/operations'
 import { set } from 'lodash'
 import { Container, WithStyle } from '..'
 
 interface ParentProps extends WithStyle {
-  condition: DynamicExpression<boolean>,
+  condition: Expression<boolean>,
   children: JSX.Element | [JSX.Element, JSX.Element],
 }
 
@@ -15,7 +15,7 @@ interface ChildrenProps {
 const validateChild = (child?: JSX.Element) => {
   if (!child) return
   const { name, namespace } = child
-  const isValid = namespace === 'fake' && ['then', 'else'].includes(name)
+  const isValid = namespace === 'pseudo' && ['then', 'else'].includes(name)
   if (!isValid) {
     throw new Error(
       `The If component must only have the components Then and Else as children. Received: ${namespace}:${name}.`,
@@ -77,8 +77,12 @@ const validateChild = (child?: JSX.Element) => {
 export const If: FC<ParentProps> = ({ id, style, condition, children }) => {
   const thenAndElse = Array.isArray(children) ? children : [children]
   thenAndElse.forEach(validateChild)
-  const thenComponent = thenAndElse.find(c => c?.name === 'then')?.children as JSX.Element | undefined
-  const elseComponent = thenAndElse.find(c => c?.name === 'else')?.children as JSX.Element | undefined
+  const thenComponent = thenAndElse.find(
+    c => `${c?.namespace}:${c?.name}` === 'pseudo:then',
+  )?.children as JSX.Element | undefined
+  const elseComponent = thenAndElse.find(
+    c => `${c?.namespace}:${c?.name}` === 'pseudo:else',
+  )?.children as JSX.Element | undefined
 
   if (!thenComponent) throw Error('The If component must have the component Then as child')
   set(thenComponent, 'properties.style.display', conditionalOperation(condition, 'FLEX', 'NONE'))
@@ -104,7 +108,7 @@ export const If: FC<ParentProps> = ({ id, style, condition, children }) => {
  * @param props {@link ChildrenProps}
  * @returns a Component that won't be serialized with metadata to the parent If.
  */
-export const Then = ({ children }: ChildrenProps) => <component namespace="fake" name="then">{children}</component>
+export const Then = ({ children }: ChildrenProps) => <component namespace="pseudo" name="then">{children}</component>
 
 /**
  * Should only be used inside an If component. See {@link If} for more details.
@@ -112,4 +116,13 @@ export const Then = ({ children }: ChildrenProps) => <component namespace="fake"
  * @param props {@link ChildrenProps}
  * @returns a Component that won't be serialized with metadata to the parent If.
  */
-export const Else = ({ children }: ChildrenProps) => <component namespace="fake" name="else">{children}</component>
+export const Else = ({ children }: ChildrenProps) => <component namespace="pseudo" name="else">{children}</component>
+
+componentValidation.add((node) => {
+  if (node.namespace === 'pseudo' && node.name === 'then') {
+    throw new Error('The component "Then" must be a direct child of the component "If".')
+  }
+  if (node.namespace === 'pseudo' && node.name === 'else') {
+    throw new Error('The component "Else" must be a direct child of the component "If".')
+  }
+})
