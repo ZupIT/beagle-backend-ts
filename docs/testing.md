@@ -82,4 +82,4 @@ new BeagleApp(expressApp, beagleRoutes)
 ```
 
 ## Keep reading
-**Next topic: [Suggested project structure](/project-structure)**
+**Next topic: [Sample](/sample)**

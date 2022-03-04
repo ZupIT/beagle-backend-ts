@@ -4,7 +4,6 @@
 1. [The context structure](#the-context-structure)
 1. [The typing mechanism](#the-typing-mechanism)
 1. [Creating components or actions with implicit contexts](#creating-components-or-actions-with-implicit-contexts)
-1. [Keep reading](#keep-reading)
 
 ## The context structure
 The Context API in the Beagle Backend TS is its way of creating Beagle Expressions safely. Beagle Expressions are
@@ -117,6 +116,3 @@ recommend always naming it according to the event. For instance, if the event na
 should be `onChange`.
 
 The same is strategy can be used when creating actions that spawn implicit contexts.
-
-## Keep reading
-todo

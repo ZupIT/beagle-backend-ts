@@ -26,7 +26,6 @@ on how to use the Beagle Backend TS without Express, check [this topic](todo).
 - [Making requests](todo)
 - [Analytics](todo)
 - [Testing](todo)
-- [Suggested project structure](todo)
 - [Sample](todo)
-- [Using it without express](todo)
+- [Using the Beagle Backend Typescript without Express](todo)
 - [API](todo)
