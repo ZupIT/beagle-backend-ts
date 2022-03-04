@@ -12,7 +12,6 @@ to install nvm, you can also download node from [here](https://nodejs.org/en/).
 command `npm install yarn --global`.
 
 ## Installation
-
 1. install the cli tool Arthur is building (todo)
 
 2. document the CLI tool (todo)
