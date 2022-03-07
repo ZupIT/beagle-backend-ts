@@ -38,7 +38,7 @@ export interface TabBarProps extends WithTheme {
  * `currentTab={0}`. This index is also the value received by the function passed in `onTabSelection`.
  *
  * @example
- * ```
+ * ```tsx
  * const currentTab = createContext('tab', 0)
  * const tabs = [{ title: 'John' }, { title: 'Sophia' }, { title: 'Mark' }]
  *

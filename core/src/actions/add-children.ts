@@ -24,7 +24,7 @@ interface AddChildrenParams {
  * Modifies the current component tree by adding a set of elements to an existing node. A simple example would be to
  * add a new row to the interface whenever a button is clicked:
  *
- * ```
+ * ```tsx
  * <>
  *   <Container id="inputGroup">
  *     <TextInput placeholder="name" />

@@ -1,6 +1,5 @@
 import { Expression } from '@zup-it/beagle-backend-core'
-import { Flex, Style } from './original-styles'
-import { CornerRadius, Size, Position, UnitValue } from './original-styles'
+import { FullFlex, FullStyle, FullCornerRadius, FullSize, FullPosition, UnitValue } from './full-styles'
 
 /**
  * A SimpleUnitValue is used to express dimensions as absolute or percentage values. It can be:
@@ -8,166 +7,166 @@ import { CornerRadius, Size, Position, UnitValue } from './original-styles'
  * - a number or expression that yields a number, equivalent to `{ value: number, unit: 'REAL' }`;
  * - a string in the format '$number%', equivalent to `{ value: number, unit: 'PERCENT' }`;
  */
-export type SimpleUnitValue = Expression<number> | `${number}%` | UnitValue
+export type StyleValue = Expression<number> | `${number}%` | UnitValue
 
-export type SimpleSize = {
-  [K in keyof Size]: Size[K] extends (UnitValue | undefined) ? SimpleUnitValue : Size[K]
+export type Size = {
+  [K in keyof FullSize]: FullSize[K] extends (UnitValue | undefined) ? StyleValue : FullSize[K]
 }
 
-export type SimplePosition = {
-  [K in keyof Position]: SimpleUnitValue
+export type Position = {
+  [K in keyof FullPosition]: StyleValue
 }
 
-export type SimpleMargin = {
+export type Margin = {
   /**
    * Sets the top space between this component and the content around it.
    *
    * See: https://yogalayout.com/docs/margins-paddings-borders
    */
-  marginTop?: SimpleUnitValue,
+  marginTop?: StyleValue,
   /**
    * Sets the bottom space between this component and the content around it.
    *
    * See: https://yogalayout.com/docs/margins-paddings-borders
    */
-  marginBottom?: SimpleUnitValue,
+  marginBottom?: StyleValue,
   /**
    * Sets the top and bottom space between this component and the content around it, i.e. it sets both marginTop and
    * marginBottom at once.
    *
    * See: https://yogalayout.com/docs/margins-paddings-borders
    */
-  marginVertical?: SimpleUnitValue,
+  marginVertical?: StyleValue,
   /**
    * Sets the left space between this component and the content around it.
    *
    * See: https://yogalayout.com/docs/margins-paddings-borders
    */
-  marginLeft?: SimpleUnitValue,
+  marginLeft?: StyleValue,
   /**
    * Sets the right space between this component and the content around it.
    *
    * See: https://yogalayout.com/docs/margins-paddings-borders
    */
-  marginRight?: SimpleUnitValue,
+  marginRight?: StyleValue,
   /**
    * Sets the left and right space between this component and the content around it, i.e. it sets both marginLeft and
    * marginRight at once.
    *
    * See: https://yogalayout.com/docs/margins-paddings-borders
    */
-  marginHorizontal?: SimpleUnitValue,
+  marginHorizontal?: StyleValue,
   /**
    * This is useful for always putting a margin at the start of a text, despite the language.
    *
    * Equivalent to marginLeft for devices using languages that is read from left to right (LTR).
    * Equivalent to marginRight for devices using languages that is read from right to left (RTL).
    */
-  marginStart?: SimpleUnitValue,
+  marginStart?: StyleValue,
   /**
    * This is useful for always putting a margin at the end of a text, despite the language.
    *
    * Equivalent to marginRight for devices using languages that is read from left to right (LTR).
    * Equivalent to marginLeft for devices using languages that is read from right to left (RTL).
    */
-  marginEnd?: SimpleUnitValue,
+  marginEnd?: StyleValue,
   /**
    * Sets the space between this component and the content around it. This defines the margin for every side at once.
    *
    * See: https://yogalayout.com/docs/margins-paddings-borders
    */
-  margin?: SimpleUnitValue,
+  margin?: StyleValue,
 }
 
-export type SimplePadding = {
+export type Padding = {
   /**
    * Sets the space between the top of this component and its content.
    *
    * See: https://yogalayout.com/docs/margins-paddings-borders
    */
-  paddingTop?: SimpleUnitValue,
+  paddingTop?: StyleValue,
   /**
    * Sets the space between the bottom of this component and its content.
    *
    * See: https://yogalayout.com/docs/margins-paddings-borders
    */
-  paddingBottom?: SimpleUnitValue,
+  paddingBottom?: StyleValue,
   /**
    * Sets the space between the top and bottom of this component and its content., i.e. it sets both paddingTop and
    * paddingBottom at once.
    *
    * See: https://yogalayout.com/docs/margins-paddings-borders
    */
-  paddingVertical?: SimpleUnitValue,
+  paddingVertical?: StyleValue,
   /**
    * Sets the space between the left side of this component and its content.
    *
    * See: https://yogalayout.com/docs/margins-paddings-borders
    */
-  paddingLeft?: SimpleUnitValue,
+  paddingLeft?: StyleValue,
   /**
    * Sets the space between the right side of this component and its content.
    *
    * See: https://yogalayout.com/docs/margins-paddings-borders
    */
-  paddingRight?: SimpleUnitValue,
+  paddingRight?: StyleValue,
   /**
    * Sets the space between the left and right sides of this component and its content., i.e. it sets both paddingLeft
    * and paddingRight at once.
    *
    * See: https://yogalayout.com/docs/margins-paddings-borders
    */
-  paddingHorizontal?: SimpleUnitValue,
+  paddingHorizontal?: StyleValue,
   /**
    * This is useful for always putting a padding at the start of a text, despite the language.
    *
    * Equivalent to paddingLeft for devices using languages that is read from left to right (LTR).
    * Equivalent to paddingRight for devices using languages that is read from right to left (RTL).
    */
-  paddingStart?: SimpleUnitValue,
+  paddingStart?: StyleValue,
   /**
    * This is useful for always putting a padding at the end of a text, despite the language.
    *
    * Equivalent to paddingRight for devices using languages that is read from left to right (LTR).
    * Equivalent to paddingLeft for devices using languages that is read from right to left (RTL).
    */
-  paddingEnd?: SimpleUnitValue,
+  paddingEnd?: StyleValue,
   /**
    * Sets the space between this component and its content. This defines the padding for every side at once.
    *
    * See: https://yogalayout.com/docs/margins-paddings-borders
    */
-  padding?: SimpleUnitValue,
+  padding?: StyleValue,
 }
 
-export type EachCornerRadius = Omit<CornerRadius, 'radius'>
+export type EachCornerRadius = Omit<FullCornerRadius, 'radius'>
 
-export type SimpleCornerRadius = Expression<number> | EachCornerRadius
+export type CornerRadius = Expression<number> | EachCornerRadius
 
-export type SimpleFlex = Omit<Flex, 'basis' | 'grow' | 'shrink'> & {
+export type Flex = Omit<FullFlex, 'basis' | 'grow' | 'shrink'> & {
   /**
    * An axis-independent way of providing the default size of an item along the main axis. Defaults to 'AUTO'.
    *
    * See: https://yogalayout.com/docs/flex
    */
-  flexBasis?: SimpleUnitValue,
+  flexBasis?: StyleValue,
   /**
    * Describes how any space within a container should be distributed among its children along the main axis.
    *
    * See: https://yogalayout.com/docs/flex
    */
-  flexGrow?: Flex['grow'],
+  flexGrow?: FullFlex['grow'],
   /**
    * Describes how to shrink children along the main axis in the case that the total size of the children overflow the
    * size of the container on the main axis.
    *
    * See: https://yogalayout.com/docs/flex
    */
-  flexShrink?: Flex['shrink'],
+  flexShrink?: FullFlex['shrink'],
 }
 
-export type SimpleStyle = (
-  Pick<Style, 'backgroundColor' | 'display' | 'borderColor' | 'borderWidth'>
+export type Style = (
+  Pick<FullStyle, 'backgroundColor' | 'display' | 'borderColor' | 'borderWidth'>
   & {
     /**
      * Masks the corners of this element with circles to make rounded corners. The value expected here is
@@ -178,7 +177,7 @@ export type SimpleStyle = (
      * This properties expects a single value to set all corners at once or an object where each corner can be set
      * separately.
      */
-    cornerRadius?: SimpleCornerRadius,
+    cornerRadius?: CornerRadius,
     /**
      * Tells how the element should be positioned: 'ABSOLUTE' or 'RELATIVE'.
      *
@@ -189,13 +188,13 @@ export type SimpleStyle = (
      * on top of the previous elements. Adjust the element order to achieve the desired appearance, we have no
      * equivalent to the z-index property of web applications.
      */
-    position?: Style['positionType'],
+    position?: FullStyle['positionType'],
   }
-  & SimpleSize
-  & SimpleMargin
-  & SimplePadding
-  & SimplePosition
-  & SimpleFlex
+  & Size
+  & Margin
+  & Padding
+  & Position
+  & Flex
 )
 
-export const createStyleMap = <K extends string>(map: Record<K, SimpleStyle>) => map
+export const createStyleMap = <K extends string>(map: Record<K, Style>) => map

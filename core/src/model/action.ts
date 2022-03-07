@@ -12,7 +12,7 @@ export type AnalyticsConfig<Props> = false | {
   /**
    * Properties of this action to expose in the analytics record. Example, if this is a navigation action and we want
    * to expose the url and headers, `attributes` would be:
-   * ```
+   * ```typescript
    * {
    *   route: {
    *     url: true,
@@ -22,7 +22,7 @@ export type AnalyticsConfig<Props> = false | {
    * ```
    *
    * If you wanted to expose some particular headers:
-   * ```
+   * ```typescript
    * {
    *   route: {
    *     url: true,
@@ -35,7 +35,7 @@ export type AnalyticsConfig<Props> = false | {
    * ```
    *
    * If you wanted to expose all the properties under `route`:
-   * ```
+   * ```typescript
    * { route: true }
    * ```
    *
@@ -105,7 +105,7 @@ export type Actions = Action | Action[]
  * Some actions shipped with Beagle are: sendRequest, setContext, addChildren, alert, confirm and pushView.
  *
  * Example:
- * ```
+ * ```tsx
  * <Button
  *   onPress={new Action({
  *     name: 'alert',
@@ -120,12 +120,12 @@ export type Actions = Action | Action[]
  * This is not very nice and the type checking is quite bad. Instead of instantiating the action from within the
  * JSX, we create strictly typed functions that instantiate the actions for us. Check the example below:
  *
- * ```
+ * ```typescript
  * export const alert = (message: string) => new Action({ name: 'alert', namespace: 'beagle', properties: { message } })
  * ```
  *
  * Then, in our JSX code, we write:
- * ```
+ * ```tsx
  * <Button onPress={alert('Hello World!')}>Click me!</Button>
  * ```
  *
@@ -151,7 +151,7 @@ export class Action<Props = any> implements ActionInterface<Props> {
 
 /**
  * Creates an {@link Action} Factory based on the properties passed in the generic. See the example below:
- * ```
+ * ```typescript
  * interface MyAlert {
  *   title?: Expression<string>,
  *   message: Expression<string>,
@@ -164,7 +164,7 @@ export class Action<Props = any> implements ActionInterface<Props> {
  * This creates a correctly typed Action factory that generates Action instances for the custom action "my-alert". To
  * use it in your screen, just call `myAlert`:
  *
- * ```
+ * ```tsx
  * <Button onPress={myAlert({ title: 'Hi!', message: 'Welcome to my app!', icon: 'happy-face'})}>Click me!</Button>
  * ```
  *

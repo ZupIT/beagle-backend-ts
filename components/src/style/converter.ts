@@ -1,13 +1,10 @@
 import { Expression, isDynamicExpression } from '@zup-it/beagle-backend-core'
 import { mapValues } from 'lodash'
 import { hasAnyValue } from '../utils/map'
-import { CornerRadius, EdgeValue, Flex, Position, Size, Style, UnitValue } from './original-styles'
-import {
-  EachCornerRadius, SimpleCornerRadius, SimpleFlex, SimpleMargin, SimplePadding, SimplePosition, SimpleSize,
-  SimpleStyle, SimpleUnitValue,
-} from './simple-styles'
+import { FullCornerRadius, EdgeValue, FullFlex, FullPosition, FullSize, FullStyle, UnitValue } from './full-styles'
+import { EachCornerRadius, CornerRadius, Flex, Margin, Padding, Position, Size, Style, StyleValue } from './simple-styles'
 
-function fromSimpleCornerRadius(cornerRadius?: SimpleCornerRadius): CornerRadius | undefined {
+function fromSimpleCornerRadius(cornerRadius?: CornerRadius): FullCornerRadius | undefined {
   if (cornerRadius === undefined) return
   const each = cornerRadius as EachCornerRadius
   const isSingleRadius = typeof cornerRadius === 'number' || isDynamicExpression(cornerRadius)
@@ -20,7 +17,7 @@ function fromSimpleCornerRadius(cornerRadius?: SimpleCornerRadius): CornerRadius
   }
 }
 
-function fromSimpleUnitValue(value?: SimpleUnitValue): UnitValue | undefined {
+function fromSimpleUnitValue(value?: StyleValue): UnitValue | undefined {
   if (value === undefined) return
   if (typeof value === 'number' || isDynamicExpression(value)) {
     return { type: 'REAL', value: value as Expression<number> }
@@ -29,7 +26,7 @@ function fromSimpleUnitValue(value?: SimpleUnitValue): UnitValue | undefined {
   return value as UnitValue
 }
 
-function fromSimplePosition(position: SimplePosition): Position | undefined {
+function fromSimplePosition(position: Position): FullPosition | undefined {
   const hasAnyPosition = hasAnyValue(position)
   const { top, right, bottom, left } = position
   return hasAnyPosition ? {
@@ -42,10 +39,10 @@ function fromSimplePosition(position: SimplePosition): Position | undefined {
 
 function fromSimpleEdge<T extends 'margin' | 'padding'>(
   name: T,
-  edge: T extends 'margin' ? SimpleMargin : SimplePadding,
+  edge: T extends 'margin' ? Margin : Padding,
 ): EdgeValue | undefined {
   const hasAnyEdge = hasAnyValue(edge)
-  const anyEdge = edge as SimpleMargin & SimplePadding
+  const anyEdge = edge as Margin & Padding
   return hasAnyEdge ? {
     all: fromSimpleUnitValue(anyEdge[name]),
     top: fromSimpleUnitValue(anyEdge[`${name}Top`]),
@@ -59,7 +56,7 @@ function fromSimpleEdge<T extends 'margin' | 'padding'>(
   } : undefined
 }
 
-function fromSimpleFlex(flex: SimpleFlex): Flex | undefined {
+function fromSimpleFlex(flex: Flex): FullFlex | undefined {
   const hasAnyFlexProperty = hasAnyValue(flex)
   const {
     justifyContent, flexWrap, flexDirection, alignSelf, alignItems, flex: factor, alignContent, flexBasis, flexGrow,
@@ -79,7 +76,7 @@ function fromSimpleFlex(flex: SimpleFlex): Flex | undefined {
   } : undefined
 }
 
-function fromSimpleSize(size: SimpleSize): Size | undefined {
+function fromSimpleSize(size: Size): FullSize | undefined {
   const hasAnySize = hasAnyValue(size)
   const { aspectRatio, ...simpleUnitValueProps } = size
   const unitValueProps = mapValues(simpleUnitValueProps, fromSimpleUnitValue)
@@ -95,7 +92,7 @@ function fromSimpleSize(size: SimpleSize): Size | undefined {
  * @param style the simplified style.
  * @returns the style object expected by the frontend.
  */
-export function fromSimpleStyle(style?: SimpleStyle): Style | undefined {
+export function fromSimpleStyle(style?: Style): FullStyle | undefined {
   if (!style) return
   const {
     aspectRatio, backgroundColor, borderColor, borderWidth, bottom, cornerRadius, display, height, left, margin, flex,

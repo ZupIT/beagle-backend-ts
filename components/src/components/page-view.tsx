@@ -40,7 +40,7 @@ export interface PageViewProps extends WithChildren, WithContext {
  * with the most vibrant color represents the current page. See the example below:
  *
  * @example
- * ```
+ * ```tsx
  * const currentPage = createContext('currentPage', 0)
  *
  * const Screen = () => (

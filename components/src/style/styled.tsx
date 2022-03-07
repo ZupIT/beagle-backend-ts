@@ -1,16 +1,16 @@
 import { BeagleJSX, FC, coreNamespace, Component } from '@zup-it/beagle-backend-core'
 import { validateColor } from '../validations'
 import { fromSimpleStyle } from './converter'
-import { SimpleStyle } from './simple-styles'
+import { Style } from './simple-styles'
 
 export interface WithStyle {
   /**
    * The style for this component. Use it to customize the background, layout, borders, etc.
    */
-  style?: SimpleStyle,
+  style?: Style,
 }
 
-interface StyledComponentProps extends Component {
+export interface StyledComponentProps extends Component {
   /**
    * The style for this component. Use it to customize the background, layout, borders, etc.
    */
@@ -20,6 +20,7 @@ interface StyledComponentProps extends Component {
 /**
  * Use it to create components that supports the Beagle style protocol, based on the Yoga layout.
  *
+ * @category Components
  * @param props {@link StyledComponentProps}.
  * @returns JSX element, i.e an instance of Component.
  */

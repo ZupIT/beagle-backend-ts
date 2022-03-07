@@ -145,7 +145,7 @@ function getTemplates<T>(iteratorName = 'item', children: ListViewProps<T>['chil
  * exception at server runtime (not in the frontend).
  *
  * @example
- * ```
+ * ```tsx
  * const users = [{ name: 'John', age: 30 }, { name: 'Sophia', age: 32 }, { name: 'Rebeca', age: 5 }]
  *
  * const MyScreen = () => (
@@ -167,7 +167,7 @@ function getTemplates<T>(iteratorName = 'item', children: ListViewProps<T>['chil
  * More complex data sets might require different templates depending on the item. Let's say we have an array with
  * physical books and audio books and their templates should look a bit different from one another. See the example
  * below:
- * ```
+ * ```tsx
  * const books = [
  *   { title: 'Rhythm of war', length: 57.5, author: 'Brandon Sanderson', narrator: 'Michael Kramer and Kate Reading' },
  *   { title: 'A Game of Thrones', length: 819, author: 'George R.R. Martin' },

@@ -19,7 +19,7 @@ export interface SimpleFormProps extends WithAccessibility, WithTheme, WithStyle
  * To submit a form, use the action `submitForm`.
  *
  * @example
- * ```
+ * ```tsx
  * interface Address {
  *   zip: string,
  *   number: string,

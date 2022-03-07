@@ -19,7 +19,7 @@ export interface ScreenRequest {
    * The request headers expected to be in the request.
    *
    * Example: if you expect a header called "session-token", this should be:
-   * ```
+   * ```typescript
    * { 'session-token': string }
    * ```
    */
@@ -28,7 +28,7 @@ export interface ScreenRequest {
    * The parameters expected in the route.
    *
    * Example: if the route is "/user/:userId/books/:bookId", this should be:
-   * ```
+   * ```typescript
    * {
    *   userId: string,
    *   bookId: string,
@@ -40,7 +40,7 @@ export interface ScreenRequest {
    * The query parameters expected in the route.
    *
    * Example: if the route is "/list?order=crescent&page=1&limit=10", this should be:
-   * ```
+   * ```typescript
    * {
    *   order: 'crescent' | 'decrescent',
    *   page: `${number}`,
@@ -56,7 +56,7 @@ export interface ScreenRequest {
   /**
    * The type of the navigation context of this screen. If it's an order page and you expect to receive both the order
    * id and the address from the navigation context, this should be:
-   * ```
+   * ```typescript
    * {
    *   orderId: string,
    *   address: Address,
@@ -94,7 +94,7 @@ interface ScreenProps<T extends ScreenRequest> {
    * 3. and a token via headers.
    *
    * Considering we typed it correctly using the type `Screen`, a navigation to it could be written like this:
-   * ```
+   * ```typescript
    * // using the navigator
    * navigator.pushView(Order, {
    *   routeParams: { orderId: '1' },

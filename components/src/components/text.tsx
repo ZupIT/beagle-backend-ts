@@ -27,7 +27,10 @@ export interface TextProps extends WithAccessibility, WithTheme, WithStyle {
 /**
  * Renders a text. Each Text is a line.
  *
- * Example: `<Text>Hello World!</Text>`
+ * @example
+ * ```tsx
+ * <Text>Hello World!</Text>
+ * ```
  *
  * @category Component
  * @param props the component properties. See: {@link TextProps}.

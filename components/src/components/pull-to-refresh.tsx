@@ -29,7 +29,7 @@ export interface PullToRefreshProps extends WithAccessibility, WithStyle, Requir
  * a screen component or the root node of the UI tree.
  *
  * @example
- * ```
+ * ```tsx
  * interface Summary {
  *   balance: number,
  *   futureTransactions: number,

@@ -37,7 +37,7 @@ declare global {
        * building the screen, we advise creating a strictly typed functional component that is easier to use. See the
        * example below:
        *
-       * ```
+       * ```tsx
        * interface MyCustomTextProps {
        *   children: string,
        *   fontFamily: string,
@@ -56,7 +56,7 @@ declare global {
        * ```
        *
        * Then, when building your screen:
-       * ```
+       * ```tsx
        * const MyScreen = () => (
        *   <MyCustomText color="#000">Hello World</MyCustomText>
        * )

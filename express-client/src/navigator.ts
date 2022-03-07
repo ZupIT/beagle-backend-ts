@@ -24,7 +24,7 @@ interface GenericRemoteNavigation {
  * The instance of the current navigator is injected by the BeagleApplication for every registered Screen. See the
  * example below:
  *
- * ```
+ * ```tsx
  * const MyScreen: Screen<Type> = ({ navigator }) => {
  *   // ...
  * }

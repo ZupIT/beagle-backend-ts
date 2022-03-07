@@ -29,7 +29,7 @@ export class RootContext<T> extends ContextNode<T> {
  * children, i.e. it's not accessible by any component outside this scope.
  *
  * Example 1: a counter
- * ```
+ * ```tsx
  * const counter = createContext('counter', 0)
  *
  * const MyScreen = () => (
@@ -41,7 +41,7 @@ export class RootContext<T> extends ContextNode<T> {
  * ```
  *
  * Example 2: loading user data
- * ```
+ * ```tsx
  * interface User {
  *   name: string,
  *   address: { street: string, number: string },

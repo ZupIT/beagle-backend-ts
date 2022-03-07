@@ -7,7 +7,7 @@ import { ValidOperationAttribute } from './types'
  * functions. See the example below:
  *
  * Example:
- * ```
+ * ```tsx
  * const counter = createContext('counter', 1)
  *
  * const MyScreen = () => (
@@ -21,12 +21,12 @@ import { ValidOperationAttribute } from './types'
  *
  * This is not very intuitive writing, so, we generally create functions, which are strictly typed, that returns
  * instances of operations. See the example below:
- * ```
+ * ```typescript
  * const sum = (a: Expression<number>, b: Expression<number>) => new Operation<number>('sum', [a, b])
  * ```
  *
  * And then, in our JSX code, we write:
- * ```
+ * ```tsx
  * const MyScreen = () => (
  *   <Button onPress={counter.set(sum(counter, 1))}>
  * )
@@ -46,10 +46,11 @@ export class Operation<ReturnType = void> {
   readonly name: string
   readonly args: ValidOperationAttribute[]
   /**
+   * @ignore @internal
    * Reserved for internal lib usage. This ensures the correct type for the return value of an operation.
    */
   // Please, don't change the "readonly" below to "private". It is necessary for production builds.
-  //@ts-ignore
+  // @ts-ignore
   readonly _: ReturnType = null
 
   private asString(includeDelimiters: boolean): string {

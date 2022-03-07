@@ -49,7 +49,7 @@ export interface UnitValue {
   type: 'REAL' | 'PERCENT' | 'AUTO',
 }
 
-export interface Size {
+export interface FullSize {
   /**
    * The exact width of this component.
    *
@@ -95,7 +95,7 @@ export interface Size {
   aspectRatio?: number,
 }
 
-export interface Position {
+export interface FullPosition {
   /**
    * Most useful when the position is 'ABSOLUTE'. It defines where to start drawing considering the parent's left
    * position.
@@ -126,7 +126,7 @@ export interface Position {
   bottom?: UnitValue,
 }
 
-export interface EdgeValue extends Position {
+export interface EdgeValue extends FullPosition {
   start?: UnitValue,
   end?: UnitValue,
   horizontal?: UnitValue,
@@ -134,7 +134,7 @@ export interface EdgeValue extends Position {
   all?: UnitValue,
 }
 
-export interface Flex {
+export interface FullFlex {
   /**
    * The direction to place the children of this component.
    *
@@ -188,7 +188,7 @@ export interface Flex {
   shrink?: number,
 }
 
-export interface CornerRadius {
+export interface FullCornerRadius {
   radius?: Expression<number>,
   topLeft?: Expression<number>,
   topRight?: Expression<number>,
@@ -196,24 +196,24 @@ export interface CornerRadius {
   bottomRight?: Expression<number>,
 }
 
-export interface Style {
+export interface FullStyle {
   /**
    * The color for the background in the hex format: #RGB, #RGBA, #RRGGBB or #RRGGBBAA, where R is red, G is green, B is
    * blue and A is alpha (opacity). Defaults to transparent.
    */
   backgroundColor?: Expression<Color>,
-  cornerRadius?: CornerRadius,
-  flex?: Flex,
+  cornerRadius?: FullCornerRadius,
+  flex?: FullFlex,
   positionType?: FlexPosition,
   /**
    * Use 'FLEX' to display the element or 'NONE' to hide it. When hidden, the component doesn't occupy any space or
    * margin. Defaults to 'FLEX'.
    */
   display?: Expression<FlexDisplay>,
-  size?: Size,
+  size?: FullSize,
   margin?: EdgeValue,
   padding?: EdgeValue,
-  position?: Position,
+  position?: FullPosition,
   /**
    * The size of the border. Defaults to zero (no border).
    */
