@@ -6,14 +6,16 @@ import { validateColor } from '../validations'
 import { InterpolatedText } from './types'
 import { childrenToInterpolatedText } from './utils'
 
-interface TextProps extends WithAccessibility, WithTheme, WithStyle {
+export interface TextProps extends WithAccessibility, WithTheme, WithStyle {
   /**
    * The text color in the hex format: #RGB, #RGBA, #RRGGBB or #RRGGBBAA, where R is red, G is green, B is blue and
    * A is alpha (opacity).
    */
   textColor?: Color,
   /**
-   * The text alignment. Default is 'LEFT'.
+   * The text alignment.
+   *
+   * @default 'LEFT'
    */
   alignment?: 'LEFT' | 'CENTER' | 'RIGHT',
   /**
@@ -27,7 +29,8 @@ interface TextProps extends WithAccessibility, WithTheme, WithStyle {
  *
  * Example: `<Text>Hello World!</Text>`
  *
- * @param props {@link TextProps}.
+ * @category Component
+ * @param props the component properties. See: {@link TextProps}.
  * @returns JSX element, i.e an instance of Component.
  */
 export const Text: FC<TextProps> = ({ id, style, children, ...props }) => {

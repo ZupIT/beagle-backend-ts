@@ -1,7 +1,7 @@
 import { Actions, AnyContextNode, BeagleJSX, createContextNode, Expression, FC, WithChildren, WithContext } from '@zup-it/beagle-backend-core'
 import { DefaultComponent } from '../default-component'
 
-interface PageViewProps extends WithChildren, WithContext {
+export interface PageViewProps extends WithChildren, WithContext {
   /**
    * An Action factory. This function receives a reference to the new value for the current page
    * and should return the actions to run once the page changes.
@@ -12,8 +12,10 @@ interface PageViewProps extends WithChildren, WithContext {
    */
   currentPage?: Expression<number>,
   /**
-   * Whether or not to show arrows to change the current page in web platforms. Defaults to true.
-   * These arrows are never shown in mobile platforms.
+   * Whether or not to show arrows to change the current page in web platforms.
+   *
+   * @default true
+   * @remark these arrows are never shown in mobile platforms.
    */
   showArrow?: boolean,
 }
@@ -37,6 +39,7 @@ interface PageViewProps extends WithChildren, WithContext {
  * The PageView is often used with the PageIndicator, a set of bullet items equal to the number of pages where the one
  * with the most vibrant color represents the current page. See the example below:
  *
+ * @example
  * ```
  * const currentPage = createContext('currentPage', 0)
  *
@@ -52,7 +55,8 @@ interface PageViewProps extends WithChildren, WithContext {
  * )
  * ```
  *
- * @param props {@link PageViewProps}.
+ * @category Component
+ * @param props the component properties. See: {@link PageViewProps}.
  * @returns JSX element, i.e an instance of Component.
  */
 export const PageView: FC<PageViewProps> = ({ id, context, onPageChange, children, ...props }) => {

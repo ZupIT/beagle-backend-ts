@@ -3,26 +3,34 @@ import { StyledDefaultComponent, WithStyle } from '../style/styled'
 import { WithAccessibility, WithTheme } from '../types'
 import { Container } from '.'
 
-interface SafeArea {
+export interface SafeArea {
   /**
-   * Makes the top of the screen safe. Defaults to false.
+   * Makes the top of the screen safe.
+   *
+   * @default false
    */
   top?: boolean,
   /**
-   * Makes the bottom of the screen safe. Defaults to false.
+   * Makes the bottom of the screen safe.
+   *
+   * @default false
    */
   bottom?: boolean,
   /**
-   * Makes the left side of the screen safe. Defaults to false.
+   * Makes the left side of the screen safe.
+   *
+   * @default false
    */
   leading?: boolean,
   /**
-   * Makes the right side of the screen safe. Defaults to false.
+   * Makes the right side of the screen safe.
+   *
+   * @default false
    */
   trailing?: boolean,
 }
 
-interface NavigationBarItem extends WithAccessibility {
+export interface NavigationBarItem extends WithAccessibility {
   /**
    * An image to render in the menu item. This should be the mobileId of the Image. The mobileId is the resource
    * identifier registered in DesignSystem (for Android and iOS) or BeagleTheme (for Flutter).
@@ -42,13 +50,15 @@ interface NavigationBarItem extends WithAccessibility {
   id?: string,
 }
 
-interface NavigationBar extends WithTheme {
+export interface NavigationBar extends WithTheme {
   /**
    * The title of the current screen.
    */
   title: string,
   /**
-   * Whether or not to show a back button. Defaults to true.
+   * Whether or not to show a back button.
+   *
+   * @default true
    */
   showBackButton?: boolean,
   /**
@@ -61,7 +71,7 @@ interface NavigationBar extends WithTheme {
   backButtonAccessibility?: WithAccessibility['accessibility'],
 }
 
-interface ScreenProps extends WithStyle, WithContext, Required<WithChildren> {
+export interface ScreenProps extends WithStyle, WithContext, Required<WithChildren> {
   /**
    * Creates a safe area view for the contents of this screen, i.e. makes sure the content won't be rendered under
    * the display's notch. Valid only for iOS and Flutter.
@@ -81,7 +91,15 @@ interface ScreenProps extends WithStyle, WithContext, Required<WithChildren> {
  *
  * This component is used for creating a safe area view (iOS) and for setting up a navigation bar with title and menu.
  *
- * @param props {@link ScreenProps}.
+ * @example
+ * ```tsx
+ * <ScreenComponent navigationBar={{ title: 'Home' }} safeArea={true}>
+ *   <Text>Welcome!</Text>
+ * </ScreenComponent>
+ * ```
+ *
+ * @category Component
+ * @param props the component properties. See: {@link ScreenProps}.
  * @returns JSX element, i.e an instance of Component.
  */
 export const ScreenComponent: FC<ScreenProps> = ({ id, context, children, style, safeArea, ...props }) => {

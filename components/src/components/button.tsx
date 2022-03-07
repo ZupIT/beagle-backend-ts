@@ -4,7 +4,7 @@ import { WithAccessibility, WithTheme } from '../types'
 import { InterpolatedText } from './types'
 import { childrenToInterpolatedText } from './utils'
 
-interface ButtonProps extends WithAccessibility, WithTheme, WithStyle {
+export interface ButtonProps extends WithAccessibility, WithTheme, WithStyle {
   /**
    * Actions to run when the button is pressed.
    */
@@ -22,9 +22,13 @@ interface ButtonProps extends WithAccessibility, WithTheme, WithStyle {
 /**
  * A native button of the platform.
  *
- * Example: `<Button>Click me!</Button>`
+ * @example
+ * ```tsx
+ * <Button>Click me!</Button>
+ * ```
  *
- * @param props {@link ButtonProps}.
+ * @category Component
+ * @param props the properties for this component. See: {@link ButtonProps}.
  * @returns a JSX element, i.e an instance of Component.
  */
 export const Button: FC<ButtonProps> = ({ id, style, children, ...props }) => {
