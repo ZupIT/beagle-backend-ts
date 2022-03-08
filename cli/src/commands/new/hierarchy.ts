@@ -48,5 +48,18 @@ export const copyBoilerplateUpdatingFilesContent = async (newFolderName: string,
 export const createBeagleTsConfigFile = async (projectName: string, options: NewProjectOptions) => {
   const { port, basePath } = options
   const projectFolder = `${cwd()}/${projectName}`
-  await fsPromise.writeFile(`${projectFolder}/beagle-ts.json`, JSON.stringify({ projectName, port, basePath }, null, 2))
+  await fsPromise.writeFile(
+    `${projectFolder}/beagle-ts.json`,
+    JSON.stringify({
+      projectName,
+      port,
+      basePath,
+      screensFolderPath: 'src/beagle/screens',
+      routes: {
+        filePath: 'src/beagle/screens/index.ts',
+        varName: 'routes',
+      },
+    },
+    null, 2)
+  )
 }

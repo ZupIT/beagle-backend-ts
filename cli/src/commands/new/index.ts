@@ -1,5 +1,4 @@
 import { cwd, exit } from 'process'
-import clear from 'clear'
 import { execShellCommand, logger } from '../../utils'
 import { folderNameIsValid, pathExists } from '../utils'
 import { createFolder } from '../utils/path'
@@ -7,6 +6,7 @@ import { copyBoilerplateUpdatingFilesContent, createBeagleTsConfigFile } from '.
 import { NewProjectOptions } from './types'
 
 export const newProject = async (projectName: string, options: NewProjectOptions) => {
+  logger.info('Beagle TypeScript CLI: Creating New Project:')
   if (!folderNameIsValid(projectName)) {
     logger.error('The project name is not valid for a folder name!')
     exit(1)
@@ -25,9 +25,6 @@ export const newProject = async (projectName: string, options: NewProjectOptions
   logger.info('4 - Beagle: Installing dependencies...')
   await execShellCommand('npm install', { cwd: `${cwd()}/${projectName}` })
 
-  clear()
-
   logger.success(`Beagle: All done! The project was created under the folder: "${projectName}".`)
-
   exit()
 }

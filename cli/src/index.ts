@@ -29,6 +29,12 @@ program
   .option('-wb, --with-body', 'The screen will have a request body. Invalid for "GET" requests.')
   .option('-wq, --with-query', 'The screen will have properties in the urls query.')
   .option('-wnc, --with-navigation-context', 'The screen will have properties to be set in the navigation context.')
+  .option('-wctx, --with-context', 'A Context that will be made available for this Screen and its children.')
+  .option('-wc, --with-children', 'The children of this Screen.')
+  .option('-wac, --with-accessibility', 'The Screen will support accessibility properties.')
+  .option('-way, --with-analytics', 'The Screen will support analytics.')
+  .option('-ws, --with-style', 'The style for this Screen. Use it to customize the background, layout, borders, etc.')
+
   .action(generateScreen)
 
 program.parse(process.argv)
