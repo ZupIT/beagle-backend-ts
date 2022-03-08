@@ -2,7 +2,7 @@ import { Expression } from '..'
 import { Component } from '../model/component'
 import { createCoreAction } from './core-action'
 
-interface AddChildrenParams {
+export interface AddChildrenParams {
   /**
    * The id of the component to receive the new elements.
    */
@@ -35,6 +35,7 @@ interface AddChildrenParams {
  * </>
  * ```
  *
+ * @category Actions
  * @param params the parameters for the action: componentId, value and mode. See {@link AddChildrenParams}.
  * @returns an instance of Action
  */

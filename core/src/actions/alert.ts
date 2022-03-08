@@ -3,7 +3,7 @@ import { Actions, Action, ActionProps } from '../model/action'
 import { Expression } from '../types'
 import { createCoreAction } from './core-action'
 
-interface Alert {
+export interface AlertParams {
   /**
    * The title of the dialog. It doesn't work on web platforms.
    */
@@ -22,9 +22,9 @@ interface Alert {
   onPressOk?: Actions,
 }
 
-type AlertProps = ActionProps<Alert>
+type AlertProps = ActionProps<AlertParams>
 
-const alertAction = createCoreAction<Alert>('alert')
+const alertAction = createCoreAction<AlertParams>('alert')
 
 interface AlertFunction {
   /**
@@ -37,12 +37,13 @@ interface AlertFunction {
   /**
    * Opens up a system dialog box to show an alert message to the user.
    *
-   * @param options the options for the dialog box: title, message, labelOk and onPressOk. See {@link Alert}.
+   * @param options the options for the dialog box: title, message, labelOk and onPressOk. See {@link AlertParams}.
    * @returns an instance of Action
    */
   (options: AlertProps): Action,
 }
 
+/** @category Actions */
 export const alert: AlertFunction = args => (typeof args === 'string' || isDynamicExpression(args))
   ? alertAction({ message: args as Expression<string> })
-  : alertAction(args as ActionProps<Alert>)
+  : alertAction(args as ActionProps<AlertParams>)

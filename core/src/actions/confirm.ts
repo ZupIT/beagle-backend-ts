@@ -2,7 +2,7 @@ import { Expression, isDynamicExpression } from '..'
 import { Actions, Action, ActionProps } from '../model/action'
 import { createCoreAction } from './core-action'
 
-interface Confirm {
+export interface ConfirmParams {
   /**
    * The title of the dialog. It doesn't work on web platforms.
    */
@@ -29,9 +29,9 @@ interface Confirm {
   labelCancel?: string,
 }
 
-type ConfirmProps = ActionProps<Confirm>
+type ConfirmProps = ActionProps<ConfirmParams>
 
-const confirmAction = createCoreAction<Confirm>('confirm')
+const confirmAction = createCoreAction<ConfirmParams>('confirm')
 
 interface ConfirmFunction {
   /**
@@ -45,12 +45,13 @@ interface ConfirmFunction {
    * Opens up a system dialog box to show a confirmation message to the user.
    *
    *@param options the options for the dialog box: title, message, labelOk, onPressOk, labelCancel and onPressCancel.
-   * See {@link Confirm}.
+   * See {@link ConfirmParams}.
    * @returns an instance of Action
    */
   (options: ConfirmProps): Action,
 }
 
+/** @category Actions */
 export const confirm: ConfirmFunction = args => (typeof args === 'string' || isDynamicExpression(args))
   ? confirmAction({ message: args as Expression<string> })
-  : confirmAction(args as ActionProps<Confirm>)
+  : confirmAction(args as ActionProps<ConfirmParams>)

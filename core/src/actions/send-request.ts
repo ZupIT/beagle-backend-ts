@@ -6,20 +6,20 @@ import { AnyContextNode } from '../model/context/types'
 import { HttpMethod } from '../types'
 import { createCoreAction } from './core-action'
 
-interface ResponseContext<T> {
+export interface ResponseContext<T> {
   status: number,
   statusText: string,
   data: T,
 }
 
-interface ErrorContext<T> extends ResponseContext<T> {
+export interface ErrorContext<T> extends ResponseContext<T> {
   /**
    * The message in the exception thrown.
    */
   message: string,
 }
 
-interface BaseSendRequestParams {
+export interface BaseSendRequestParams {
   /**
    * The URL to send the request to.
    */
@@ -42,7 +42,7 @@ interface BaseSendRequestParams {
   onFinish?: Actions,
 }
 
-interface SendRequestActionParams extends BaseSendRequestParams {
+export interface SendRequestActionParams extends BaseSendRequestParams {
   /**
    * Actions to run when the request succeeds.
    */
@@ -53,7 +53,7 @@ interface SendRequestActionParams extends BaseSendRequestParams {
   onError?: Actions,
 }
 
-interface EnhancedSendRequestParams<SuccessResponse, ErrorResponse> extends BaseSendRequestParams {
+export interface EnhancedSendRequestParams<SuccessResponse, ErrorResponse> extends BaseSendRequestParams {
   /**
    * An action factory. This needs to return the actions to run once the request succeeds.
    *
@@ -126,6 +126,7 @@ const sendRequestAction = createCoreAction<SendRequestActionParams>('sendRequest
  * ]
  * ```
  *
+ * @category Actions
  * @param options the parameters of the sendRequest action: url, method, headers, data, onSuccess, onError and onFinish.
  * See {@link EnhancedSendRequestParams} and {@link BaseSendRequestParams} for more details.
  * @returns an instance of Action
