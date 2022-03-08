@@ -6,7 +6,7 @@ import { ValidOperationAttribute } from './types'
  * values in the context and, just like the Context is analogous to variables, the Operations are analogous to
  * functions. See the example below:
  *
- * Example:
+ * @example
  * ```tsx
  * const counter = createContext('counter', 1)
  *

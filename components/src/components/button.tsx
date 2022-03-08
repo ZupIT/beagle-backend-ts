@@ -10,7 +10,9 @@ export interface ButtonProps extends WithAccessibility, WithTheme, WithStyle {
    */
   onPress?: Actions,
   /**
-   * Whether the button should be enabled (true) or disabled (false). Default is enabled.
+   * Whether the button should be enabled (true) or disabled (false).
+   *
+   * @defaultValue `true`
    */
   enabled?: Expression<boolean>,
   /**

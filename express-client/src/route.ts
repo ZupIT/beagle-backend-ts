@@ -3,7 +3,9 @@ import { Screen } from './screen'
 
 interface WithMethod {
   /**
-   * The HttpMethod for the route. Defaults to "GET".
+   * The HttpMethod for the route.
+   *
+   * @defaultValue `'get'`
    */
   method?: HttpMethod,
 }

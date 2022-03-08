@@ -7,25 +7,25 @@ export interface SafeArea {
   /**
    * Makes the top of the screen safe.
    *
-   * @default false
+   * @defaultValue `false`
    */
   top?: boolean,
   /**
    * Makes the bottom of the screen safe.
    *
-   * @default false
+   * @defaultValue `false`
    */
   bottom?: boolean,
   /**
    * Makes the left side of the screen safe.
    *
-   * @default false
+   * @defaultValue `false`
    */
   leading?: boolean,
   /**
    * Makes the right side of the screen safe.
    *
-   * @default false
+   * @defaultValue `false`
    */
   trailing?: boolean,
 }
@@ -58,7 +58,7 @@ export interface NavigationBar extends WithTheme {
   /**
    * Whether or not to show a back button.
    *
-   * @default true
+   * @defaultValue `true`
    */
   showBackButton?: boolean,
   /**

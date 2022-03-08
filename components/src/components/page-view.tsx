@@ -14,7 +14,7 @@ export interface PageViewProps extends WithChildren, WithContext {
   /**
    * Whether or not to show arrows to change the current page in web platforms.
    *
-   * @default true
+   * @defaultValue `true`
    * @remark these arrows are never shown in mobile platforms.
    */
   showArrow?: boolean,

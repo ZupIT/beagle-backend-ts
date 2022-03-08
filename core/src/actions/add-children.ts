@@ -12,10 +12,13 @@ export interface AddChildrenParams {
    */
   value: Expression<Component[]>,
   /**
-   * The mode to attach the new nodes. The default value is APPEND.
+   * The mode to attach the new nodes.
+   *
    * - APPEND: adds the new nodes to the end of the list of children.
    * - PREPEND: adds the new nodes to the start of the list of children.
    * - REPLACE: replaces the entire array of children by the new nodes.
+   *
+   * @defaultValue `'APPEND'`
    */
   mode?: 'APPEND' | 'PREPEND' | 'REPLACE',
 }

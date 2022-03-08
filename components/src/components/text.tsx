@@ -15,7 +15,7 @@ export interface TextProps extends WithAccessibility, WithTheme, WithStyle {
   /**
    * The text alignment.
    *
-   * @default 'LEFT'
+   * @defaultValue `'LEFT'`
    */
   alignment?: 'LEFT' | 'CENTER' | 'RIGHT',
   /**

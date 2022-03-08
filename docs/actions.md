@@ -88,7 +88,9 @@ interface Notify extends WithAnalytics {
    */
   icon?: Expression<string>,
   /**
-   * The time in ms to the message disappear. Default is 300.
+   * The time in ms to the message disappear.
+   *
+   * @defaultValue `300`
    */
   duration?: Expression<number>,
   /**

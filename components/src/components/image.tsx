@@ -43,7 +43,7 @@ export interface BaseImageProps<T extends ImageType = ImageType> extends WithAcc
   type: T,
   /**
    * The space available might be smaller or greater than the original image size. The mode tells how it's supposed
-   * to display the image considering the space available. Default is 'FIT_CENTER'.
+   * to display the image considering the space available.
    *
    * - FIT_XY: stretches or shrinks the image both horizontally and vertically so it fits the space available. This can
    * alter the image proportions.
@@ -54,6 +54,8 @@ export interface BaseImageProps<T extends ImageType = ImageType> extends WithAcc
    * available and other overflows the space. The image is then cropped. No empty space is left and proportions are
    * kept.
    * - CENTER: places the image in the center and doesn't resize it.
+   *
+   * @defaultValue `'FIT_CENTER'`
    */
   mode?: 'FIT_XY' | 'FIT_CENTER' | 'CENTER_CROP' | 'CENTER',
 }

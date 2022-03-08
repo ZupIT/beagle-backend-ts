@@ -20,11 +20,15 @@ export interface ConfirmParams {
    */
   onPressCancel?: Actions,
   /**
-   * The label of the button to confirm. Default is "OK". It doesn't work on web platforms.
+   * The label of the button to confirm. It doesn't work on web platforms.
+   *
+   * @defaultValue `'OK'`
    */
   labelOk?: string,
   /**
-   * The label of the button to cancel. Default is "Cancel". It doesn't work on web platforms.
+   * The label of the button to cancel. It doesn't work on web platforms.
+   *
+   * @defaultValue `'Cancel'`
    */
   labelCancel?: string,
 }

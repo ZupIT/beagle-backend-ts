@@ -25,8 +25,9 @@ export interface TemplateProps extends WithChildren {
 
 export interface ListViewProps<T> extends WithContext, WithStyle, WithAccessibility {
   /**
-   * The direction of the list or grid. This indicates the direction it grows to when items are added. Default is
-   * 'VERTICAL'.
+   * The direction of the list or grid. This indicates the direction it grows to when items are added.
+   *
+   * @defaultValue `'VERTICAL'`
    */
   direction?: 'VERTICAL' | 'HORIZONTAL',
   /**
@@ -39,7 +40,9 @@ export interface ListViewProps<T> extends WithContext, WithStyle, WithAccessibil
    */
   dataSource: Expression<T[]>,
   /**
-   * Whether to show or not a scroll bar. Default is false.
+   * Whether to show or not a scroll bar.
+   *
+   * @defaultValue `false`
    */
   isScrollIndicatorVisible?: boolean,
   /**
@@ -53,7 +56,9 @@ export interface ListViewProps<T> extends WithContext, WithStyle, WithAccessibil
    */
   onScrollEnd?: Actions,
   /**
-   * The threshold for triggering `onScrollEnd`. Default is 80. Must be between 0 and 100.
+   * The threshold for triggering `onScrollEnd`. Must be between 0 and 100.
+   *
+   * @defaultValue `80`
    */
   scrollEndThreshold?: number,
   /**

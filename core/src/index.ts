@@ -34,9 +34,9 @@ declare global {
     interface IntrinsicElements {
       /**
        * `<component />` is used to reference a component in the frontend, but instead of using it directly when
-       * building the screen, we advise creating a strictly typed functional component that is easier to use. See the
-       * example below:
+       * building the screen, we advise creating a strictly typed functional component that is easier to use.
        *
+       * @example
        * ```tsx
        * interface MyCustomTextProps {
        *   children: string,

@@ -104,7 +104,7 @@ export type Actions = Action | Action[]
  *
  * Some actions shipped with Beagle are: sendRequest, setContext, addChildren, alert, confirm and pushView.
  *
- * Example:
+ * @example
  * ```tsx
  * <Button
  *   onPress={new Action({

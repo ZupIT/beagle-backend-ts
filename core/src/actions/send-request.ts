@@ -25,7 +25,9 @@ export interface BaseSendRequestParams {
    */
   url: Expression<string>,
   /**
-   * The method of the request. Default is "get".
+   * The method of the request.
+   *
+   * @defaultValue `'get'`
    */
   method?: Expression<HttpMethod>,
   /**
@@ -60,8 +62,8 @@ export interface EnhancedSendRequestParams<SuccessResponse, ErrorResponse> exten
    * This function receives as parameter the context for the onSuccess event, i.e. a context containing the status,
    * statusText and data of the response.
    *
-   * Example:
-   * ```
+   * @example
+   * ```typescript
    * sendRequest<User, Error>(
    *   // ...
    *   onSuccess: (response) => alert(`Username is ${response.get('data').get('name')}`)
@@ -75,8 +77,8 @@ export interface EnhancedSendRequestParams<SuccessResponse, ErrorResponse> exten
    * This function receives as parameter the context for the onError event, i.e. a context containing the status,
    * statusText and data of the response.
    *
-   * Example:
-   * ```
+   * @example
+   * ```typescript
    * sendRequest<User, string>(
    *   // ...
    *   onError: (response) => alert(`An error occurred. ${response.get('data')}`)
@@ -106,8 +108,8 @@ const sendRequestAction = createCoreAction<SendRequestActionParams>('sendRequest
  *
  * The onFinish event is not a function, the actions must be given directly, it should not depend on the result.
  *
- * Example:
- * ```
+ * @example:
+ * ```typescript
  * interface User {
  *   name: string,
  *   age: number,
@@ -165,7 +167,8 @@ const sendRequestKeys: (keyof SendRequestParams)[] = [
  *
  * You can still say what's the response type and error with generics.
  *
- * ```
+ * @example
+ * ```typescript
  * interface Options {
  *   id: string,
  * }

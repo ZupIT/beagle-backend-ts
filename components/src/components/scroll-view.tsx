@@ -5,13 +5,13 @@ export interface ScrollViewProps extends Required<WithChildren>, WithContext {
   /**
    * The direction of the scrolling.
    *
-   * @default 'VERTICAL'
+   * @defaultValue `'VERTICAL'`
    */
   scrollDirection?: 'HORIZONTAL' | 'VERTICAL',
   /**
    * Whether or not to show a scroll bar.
    *
-   * @default false
+   * @defaultValue `false`
    */
   scrollBarEnabled?: boolean,
 }

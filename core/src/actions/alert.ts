@@ -13,7 +13,9 @@ export interface AlertParams {
    */
   message: Expression<string>,
   /**
-   * The label of the button to close the dialog. Default is "OK". It doesn't work on web platforms.
+   * The label of the button to close the dialog. It doesn't work on web platforms.
+   *
+   * @defaultValue `'OK'`
    */
   labelOk?: string,
   /**

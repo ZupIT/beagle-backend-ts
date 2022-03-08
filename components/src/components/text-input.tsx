@@ -14,20 +14,20 @@ export interface TextInputProps extends WithAccessibility, WithTheme, WithStyle 
   /**
    * Whether to enable (true) or disable (false) the text input.
    *
-   * @default true
+   * @defaultValue `true`
    */
   enabled?: boolean,
   /**
    * When true, the text input is not editable.
    *
-   * @default false
+   * @defaultValue `false`
    */
   readOnly?: boolean,
   /**
    * Used for obscuring the content (PASSWORD), validating the entry (system's validation), choosing the appropriate
    * virtual keyboard or showing a system's Date Picker (DATE) in the platforms that support it.
    *
-   * @default 'TEXT'
+   * @defaultValue `'TEXT'`
    */
   type?: Expression<'DATE' | 'EMAIL' | 'NUMBER' | 'PASSWORD' | 'TEXT'>,
   /**
@@ -43,7 +43,7 @@ export interface TextInputProps extends WithAccessibility, WithTheme, WithStyle 
    * not shown. This is important because, in most cases, we only want to show the error if the user already interacted
    * with the input.
    *
-   * @default false
+   * @defaultValue `false`
    */
   showError?: Expression<boolean>,
   /**

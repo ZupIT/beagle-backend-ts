@@ -12,7 +12,7 @@ export interface PullToRefreshProps extends WithAccessibility, WithStyle, Requir
   /**
    * If true an animated spinner shows at the top of the screen.
    *
-   * @default false
+   * @defaultValue `false`
    */
   isRefreshing?: Expression<boolean>,
   /**

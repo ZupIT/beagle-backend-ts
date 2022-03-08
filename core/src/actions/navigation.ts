@@ -103,7 +103,9 @@ export interface LocalView {
 
 export interface HttpAdditionalData {
   /**
-   * The HTTP method to use when fetching the screen. Default is "get".
+   * The HTTP method to use when fetching the screen.
+   *
+   * @defaultValue `'get'`
    */
   method?: HttpMethod,
   /**

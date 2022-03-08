@@ -145,9 +145,11 @@ export type CornerRadius = Expression<number> | EachCornerRadius
 
 export type Flex = Omit<FullFlex, 'basis' | 'grow' | 'shrink'> & {
   /**
-   * An axis-independent way of providing the default size of an item along the main axis. Defaults to 'AUTO'.
+   * An axis-independent way of providing the default size of an item along the main axis.
    *
    * See: https://yogalayout.com/docs/flex
+   *
+   * @defaultValue `'AUTO'`
    */
   flexBasis?: StyleValue,
   /**
@@ -182,11 +184,13 @@ export type Style = (
      * Tells how the element should be positioned: 'ABSOLUTE' or 'RELATIVE'.
      *
      * Use 'ABSOLUTE' to make elements float in the screen. Use 'RELATIVE' to make element follow the layout of it's
-     * parent and siblings. Defaults to 'ABSOLUTE'.
+     * parent and siblings.
      *
      * Attention: when using 'ABSOLUTE' as the position, the last elements to appear in the component tree are rendered
      * on top of the previous elements. Adjust the element order to achieve the desired appearance, we have no
      * equivalent to the z-index property of web applications.
+     *
+     * @defaultValue `'ABSOLUTE'`
      */
     position?: FullStyle['positionType'],
   }
