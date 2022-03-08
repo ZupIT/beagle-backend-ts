@@ -92,7 +92,8 @@ referencing a variable of type `T` or an Operation that results in `T`.
 
 In many cases instead of using `T` for an attribute of your [component](/components) or [action](/actions), you'll
 actually want to use `Expression<T>`, which just means that it accepts anything that will end up as the type `T` in the
-frontend. See the example below for the custom component `Card`, first introduced [here](todo).
+frontend. See the example below for the custom component `Card`, first introduced
+[here](/components#creating-components).
 
 ```tsx
 import { BeagleJSX } from '@zup-it/beagle-backend-core'
@@ -403,7 +404,7 @@ primitive type, it won't accept neither `get` nor `at`.
 
 Tip: normally, to display the contents of an array, instead of accessing its indexes, we want to iterate over all of its
 items. To do so, you'd need a [ListView](todo) or a [GridView](todo). To format an array into a string, you'd need a
-[custom operation](todo).
+[custom operation](/operations).
 
 ## Writing to a Context
 To modify the content of a Context, we need an [Action](/actions). To create this action, we can call the method `set`

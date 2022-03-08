@@ -25,13 +25,14 @@ To make requests to REST APIs that communicates through JSON, you can use the de
 - headers: a map containing the headers to send with the request.
 - data: the data to send with the request. This will be serialized as a JSON and is invalid for `get` requests.
 - onSuccess: event that runs when the request succeeds. This must be an action factory, i.e. a function that returns
-actions. This function receives an [implicit context](todo) containing the status code (`statusCode`), status text
-(`statusText`) and body (`data`) of the response. The type of the property `data` will be `Success`, passed in the first
-generic.
+actions. This function receives an [implicit context](/context#implicit-contexts) containing the status code
+(`statusCode`), status text (`statusText`) and body (`data`) of the response. The type of the property `data` will be
+`Success`, passed in the first generic.
 - onError: event that runs when the request fails. This must be an action factory, i.e. a function that returns
-actions. This function receives an [implicit context](todo) containing the status code (`statusCode`), status text
-(`statusText`) and body (`data`) of the response. It also contains the message of the exception if one has been thrown
-(`message`). The type of the property `data` will be `Error`, passed in the second generic.
+actions. This function receives an [implicit context](/context#implicit-contexts) containing the status code
+(`statusCode`), status text (`statusText`) and body (`data`) of the response. It also contains the message of the
+exception if one has been thrown (`message`). The type of the property `data` will be `Error`, passed in the second
+generic.
 - onFinish: event that runs when the request finishes (after onSuccess and onError). This is not an action factory, it
 should receive the actions directly.
 

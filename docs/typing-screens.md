@@ -22,11 +22,11 @@ receive as parameter the following data:
 parameters, query, body, etc.
 - response: the response object from express for the current response. Use this to alter the status code of the
 response, headers, etc.
-- navigationContext: a reference to the current navigation context. Read the topic ["Context"](todo) to know more about
-this.
+- navigationContext: a reference to the current navigation context. Read the topic ["Context"](/context) to know more
+about this.
 - navigator: an instance of the class Navigator, which is a type-safe way of navigating from a screen to another. Always
 prefer using the navigator instead of the navigation actions directly from the backend-ts core. To know more about
-navigation, check [this topic](todo).
+navigation, check [this topic](/navigation#the-navigator).
 
 With these properties injected to your screen you can get lots of information from the request and also alter the
 response! But which route params should the screen expect? What about the query params? And what's the type of the

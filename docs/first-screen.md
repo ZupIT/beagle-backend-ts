@@ -24,7 +24,7 @@ are new to Beagle.
 
 An empty JSX tag (`<>` and `</>`) is also a valid tag, it's called a fragment. A fragment, by default, renders a
 `beagle:text` if you use a string as its child or a `beagle:container` if you use other components. To change the
-behavior of the fragment, check the section ["creating your own components"](todo).
+behavior of the fragment, check the section ["Components"](/components).
 
 To know more about JSX and TSX, please read the original documentation in
 [the React's docs](https://reactjs.org/docs/jsx-in-depth.html). Just notice that instead of importing `React`,
