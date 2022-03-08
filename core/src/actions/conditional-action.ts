@@ -2,7 +2,7 @@ import { Actions } from '../model/action'
 import { DynamicExpression } from '../types'
 import { createCoreAction } from './core-action'
 
-interface ConditionParams {
+export interface ConditionalActionParams {
   /**
    * The condition to verify.
    */
@@ -20,7 +20,8 @@ interface ConditionParams {
 /**
  * Runs a set of actions depending on the value of "condition", which is a value based on a Context or an Operation.
  *
- * @param params the action parameters: condition, onTrue and onFalse. See {@link ConditionParams}.
+ * @category Actions
+ * @param params the action parameters: condition, onTrue and onFalse. See {@link ConditionalActionParams}.
  * @returns an instance of Action
  */
-export const conditionalAction = createCoreAction<ConditionParams>('condition')
+export const conditionalAction = createCoreAction<ConditionalActionParams>('condition')

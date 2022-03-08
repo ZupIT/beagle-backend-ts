@@ -21,10 +21,10 @@ interface GenericRemoteNavigation {
 /**
  * See the property `navigation` in the interface `ScreenProps` for a detailed description of the Navigator.
  *
- * The instance of the current navigator is injected by the BeagleApplication for every registered Screen. See the
- * example below:
+ * The instance of the current navigator is injected by the BeagleApplication for every registered Screen.
  *
- * ```
+ * @example
+ * ```tsx
  * const MyScreen: Screen<Type> = ({ navigator }) => {
  *   // ...
  * }

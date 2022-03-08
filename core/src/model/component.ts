@@ -49,7 +49,7 @@ interface ComponentInterface extends WithContext, WithChildren {
  * never be used by the developer to instantiate a new component.
  *
  * To use a component, just use its JSX form:
- * ```
+ * ```tsx
  * <Container>
  *   <Text>Hello World!</Text>
  * <Container>
@@ -57,7 +57,7 @@ interface ComponentInterface extends WithContext, WithChildren {
  *
  * To define a new component, use the single intrinsic element: `<component />`:
  *
- * ```
+ * ```tsx
  * interface MyCustomTextProps {
  *   children: string,
  *   fontFamily: string,

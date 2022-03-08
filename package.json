@@ -17,7 +17,8 @@
     "build": "yarn core build && yarn express build && yarn components build",
     "clean": "yarn core clean && yarn express clean && yarn components clean && yarn sample clean",
     "lint": "yarn eslint ./",
-    "test": "yarn core test && yarn express test && yarn components test"
+    "test": "yarn core test && yarn express test && yarn components test",
+    "create-api-docs": "typedoc"
   },
   "devDependencies": {
     "@types/jest": "27.4.0",
@@ -32,6 +33,7 @@
     "ts-jest": "27.1.2",
     "del-cli": "4.0.1",
     "eslint-plugin-filenames": "1.3.2",
-    "typescript": "4.5.4"
+    "typescript": "4.5.4",
+    "typedoc": "0.22.12"
   }
 }

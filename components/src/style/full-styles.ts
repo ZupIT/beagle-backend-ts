@@ -49,7 +49,7 @@ export interface UnitValue {
   type: 'REAL' | 'PERCENT' | 'AUTO',
 }
 
-export interface Size {
+export interface FullSize {
   /**
    * The exact width of this component.
    *
@@ -63,27 +63,35 @@ export interface Size {
    */
   height?: UnitValue,
   /**
-   * The component must not be larger (width) than maxWidth. Defaults to infinite.
+   * The component must not be larger (width) than maxWidth.
    *
    * See: https://yogalayout.com/docs/min-max
+   *
+   * @defaultValue infinity
    */
   maxWidth?: UnitValue,
   /**
-   * The component must not be taller (height) than maxHeight. Defaults to infinite.
+   * The component must not be taller (height) than maxHeight.
    *
    * See: https://yogalayout.com/docs/min-max
+   *
+   * @defaultValue infinite
    */
   maxHeight?: UnitValue,
   /**
-   * The component must be at least as large (width) as `minWidth`. Defaults to 0.
+   * The component must be at least as large (width) as `minWidth`.
    *
    * See: https://yogalayout.com/docs/min-max
+   *
+   * @defaultValue `0`
    */
   minWidth?: UnitValue,
   /**
-   * The component must be at least as tall (height) as `minHeight`. Defaults to 0.
+   * The component must be at least as tall (height) as `minHeight`.
    *
    * See: https://yogalayout.com/docs/min-max
+   *
+   * @defaultValue `0`
    */
   minHeight?: UnitValue,
   /**
@@ -95,7 +103,7 @@ export interface Size {
   aspectRatio?: number,
 }
 
-export interface Position {
+export interface FullPosition {
   /**
    * Most useful when the position is 'ABSOLUTE'. It defines where to start drawing considering the parent's left
    * position.
@@ -126,7 +134,7 @@ export interface Position {
   bottom?: UnitValue,
 }
 
-export interface EdgeValue extends Position {
+export interface EdgeValue extends FullPosition {
   start?: UnitValue,
   end?: UnitValue,
   horizontal?: UnitValue,
@@ -134,7 +142,7 @@ export interface EdgeValue extends Position {
   all?: UnitValue,
 }
 
-export interface Flex {
+export interface FullFlex {
   /**
    * The direction to place the children of this component.
    *
@@ -149,28 +157,36 @@ export interface Flex {
    */
   flexWrap?: FlexWrap,
   /**
-   * Alignment of the children in the main axis (flex-direction). Defaults to 'FLEX_START'.
+   * Alignment of the children in the main axis (flex-direction).
    *
    * See: https://yogalayout.com/docs/justify-content/
+   *
+   * @defaultValue `'FLEX_START'`
    */
   justifyContent?: JustifyContent,
   /**
-   * Alignment of the children in the cross axis (opposite to the flex-direction). Defaults to 'STRETCH'.
+   * Alignment of the children in the cross axis (opposite to the flex-direction).
    *
    * See: https://yogalayout.com/docs/align-items/
+   *
+   * @defaultValue `'STRETCH'`
    */
   alignItems?: AlignItems,
   /**
-   * Cross axis alignment of this element in regards to its parent. Defaults to 'AUTO', i.e. to the parent's
+   * Cross axis alignment of this element in regards to its parent.
    * "alignItems".
    *
    * See: https://yogalayout.com/docs/align-items/
+   *
+   * @defaultValue `'AUTO'`, i.e. to the parent's
    */
   alignSelf?: AlignSelf,
   /**
-   * The distribution of lines along the cross-axis when the content wraps. Defaults to 'FLEX_START'.
+   * The distribution of lines along the cross-axis when the content wraps.
    *
    * See: https://yogalayout.com/docs/align-content/
+   *
+   * @defaultValue `'FLEX_START'`
    */
   alignContent?: AlignContent,
   basis?: UnitValue,
@@ -188,7 +204,7 @@ export interface Flex {
   shrink?: number,
 }
 
-export interface CornerRadius {
+export interface FullCornerRadius {
   radius?: Expression<number>,
   topLeft?: Expression<number>,
   topRight?: Expression<number>,
@@ -196,30 +212,38 @@ export interface CornerRadius {
   bottomRight?: Expression<number>,
 }
 
-export interface Style {
+export interface FullStyle {
   /**
    * The color for the background in the hex format: #RGB, #RGBA, #RRGGBB or #RRGGBBAA, where R is red, G is green, B is
-   * blue and A is alpha (opacity). Defaults to transparent.
+   * blue and A is alpha (opacity).
+   *
+   * @defaultValue transparent
    */
   backgroundColor?: Expression<Color>,
-  cornerRadius?: CornerRadius,
-  flex?: Flex,
+  cornerRadius?: FullCornerRadius,
+  flex?: FullFlex,
   positionType?: FlexPosition,
   /**
    * Use 'FLEX' to display the element or 'NONE' to hide it. When hidden, the component doesn't occupy any space or
-   * margin. Defaults to 'FLEX'.
+   * margin.
+   *
+   * @defaultValue `'FLEX'`
    */
   display?: Expression<FlexDisplay>,
-  size?: Size,
+  size?: FullSize,
   margin?: EdgeValue,
   padding?: EdgeValue,
-  position?: Position,
+  position?: FullPosition,
   /**
-   * The size of the border. Defaults to zero (no border).
+   * The size of the border.
+   *
+   * @defaultValue `0` (no border)
    */
   borderWidth?: Expression<number>,
   /**
-   * The color of the border. Defaults to black on every platform, but Android, where it defaults to transparent.
+   * The color of the border.
+   *
+   * @defaultValue black on every platform, but Android, where it defaults to transparent.
    */
   borderColor?: Expression<string>,
 }

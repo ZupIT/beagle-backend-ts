@@ -4,13 +4,15 @@ import { StyledDefaultComponent, WithStyle } from '../style/styled'
 import { WithAccessibility } from '../types'
 import { Container } from './container'
 
-interface PullToRefreshProps extends WithAccessibility, WithStyle, Required<WithChildren>, WithContext {
+export interface PullToRefreshProps extends WithAccessibility, WithStyle, Required<WithChildren>, WithContext {
   /**
    * Actions to run once the user makes the gesture to scroll up the screen and the scroll bar is already at the top.
    */
   onPull?: Actions,
   /**
    * If true an animated spinner shows at the top of the screen.
+   *
+   * @defaultValue `false`
    */
   isRefreshing?: Expression<boolean>,
   /**
@@ -26,8 +28,8 @@ interface PullToRefreshProps extends WithAccessibility, WithStyle, Required<With
  * This is generally used to refresh the contents of the screen. As a general rule, it should be the direct child of
  * a screen component or the root node of the UI tree.
  *
- * Example:
- * ```
+ * @example
+ * ```tsx
  * interface Summary {
  *   balance: number,
  *   futureTransactions: number,
@@ -61,7 +63,8 @@ interface PullToRefreshProps extends WithAccessibility, WithStyle, Required<With
  * In the example above we setup a behavior to refresh the bank account data every time the user makes the gesture
  * to pull down the screen.
  *
- * @param props {@link PullToRefreshProps}.
+ * @category Component
+ * @param props the component properties. See: {@link PullToRefreshProps}.
  * @returns JSX element, i.e an instance of Component.
  */
 export const PullToRefresh: FC<PullToRefreshProps> = ({ id, style, children, ...props }) => {

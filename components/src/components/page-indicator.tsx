@@ -2,7 +2,7 @@ import { BeagleJSX, FC, Expression } from '@zup-it/beagle-backend-core'
 import { DefaultComponent } from '../default-component'
 import { validateColor } from '../validations'
 
-interface PageIndicatorProps {
+export interface PageIndicatorProps {
   /**
    * Color to use for the current page.
    */
@@ -22,9 +22,10 @@ interface PageIndicatorProps {
 }
 
 /**
- * UI element to show the current page. General used inside a PageView.
+ * UI element to show the current page. General used inside a {@link PageView}.
  *
- * @param props {@link PageIndicatorProps}.
+ * @category Component
+ * @param props the component properties. See: {@link PageIndicatorProps}.
  * @returns JSX element, i.e an instance of Component.
  */
 export const PageIndicator: FC<PageIndicatorProps> = ({ id, ...props }) => {
