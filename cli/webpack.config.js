@@ -73,6 +73,7 @@ module.exports = {
     new CopyPlugin({
       patterns: [
         { from: './src/templates', to: 'templates' },
+        { from: './README.md', to: '' },
       ],
     }),
     new GeneratePackageJsonPlugin(distPackageJson),
