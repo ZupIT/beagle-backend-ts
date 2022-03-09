@@ -9,3 +9,5 @@ test-reports
 coverage.txt
 jest_html_reporters.html
 api-docs
+.vscode
+
