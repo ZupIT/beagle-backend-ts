@@ -3,14 +3,14 @@ import { StyledDefaultComponent } from '../style/styled'
 import { WithStyle } from '../style/styled'
 import { WithAccessibility, WithTheme } from '../types'
 
-interface WithLocalUrl {
+export interface WithLocalImageUrl {
   /**
    * Used only for web applications: path relative to the client.
    */
   url: Expression<string>,
 }
 
-interface WithMobileId {
+export interface WithMobileImageId {
   /**
    * Used only for mobile applications, it identifies an image resource in the DesignSystem (iOS and Android) or
    * BeagleTheme (Flutter).
@@ -18,11 +18,11 @@ interface WithMobileId {
   mobileId: Expression<string>,
 }
 
-type LocalRequiredUrl = WithLocalUrl & Partial<WithMobileId>
-type LocalRequiredMobileId = Partial<WithLocalUrl> & WithMobileId
-export type Local = LocalRequiredUrl | LocalRequiredMobileId
+export type LocalWebImage = WithLocalImageUrl & Partial<WithMobileImageId>
+export type LocalMobileImage = Partial<WithLocalImageUrl> & WithMobileImageId
+export type LocalImageProps = LocalWebImage | LocalMobileImage
 
-interface Remote {
+export interface RemoteImageProps {
   /**
    * The URL to fetch the image from.
    */
@@ -31,19 +31,19 @@ interface Remote {
    * A local image to use while the remote image is not available. This doesn't work for web applications, since
    * every image in a web application can be considered remote.
    */
-  placeholder?: Local,
+  placeholder?: LocalImageProps,
 }
 
-type ImageType = 'local' | 'remote'
+export type ImageType = 'local' | 'remote'
 
-interface BaseImageProps<T extends ImageType = ImageType> extends WithAccessibility, WithTheme, WithStyle {
+export interface BaseImageProps<T extends ImageType = ImageType> extends WithAccessibility, WithTheme, WithStyle {
   /**
    * The image type: 'local' or 'remote'.
    */
   type: T,
   /**
    * The space available might be smaller or greater than the original image size. The mode tells how it's supposed
-   * to display the image considering the space available. Default is 'FIT_CENTER'.
+   * to display the image considering the space available.
    *
    * - FIT_XY: stretches or shrinks the image both horizontally and vertically so it fits the space available. This can
    * alter the image proportions.
@@ -54,17 +54,19 @@ interface BaseImageProps<T extends ImageType = ImageType> extends WithAccessibil
    * available and other overflows the space. The image is then cropped. No empty space is left and proportions are
    * kept.
    * - CENTER: places the image in the center and doesn't resize it.
+   *
+   * @defaultValue `'FIT_CENTER'`
    */
   mode?: 'FIT_XY' | 'FIT_CENTER' | 'CENTER_CROP' | 'CENTER',
 }
 
 interface ImageFC {
-  (props: ComponentProps<BaseImageProps<'remote'> & Remote>): Component,
-  (props: ComponentProps<BaseImageProps<'local'> & LocalRequiredUrl>): Component,
-  (props: ComponentProps<BaseImageProps<'local'> & LocalRequiredMobileId>): Component,
+  (props: ComponentProps<BaseImageProps<'remote'> & RemoteImageProps>): Component,
+  (props: ComponentProps<BaseImageProps<'local'> & LocalWebImage>): Component,
+  (props: ComponentProps<BaseImageProps<'local'> & LocalMobileImage>): Component,
 }
 
-type ImageProps = ComponentProps<BaseImageProps & Remote & LocalRequiredUrl & LocalRequiredMobileId>
+export type ImageProps = ComponentProps<BaseImageProps & RemoteImageProps & LocalWebImage & LocalMobileImage>
 
 const ImageComponent = ({ id, style, type, mode, ...path }: ImageProps) => (
   <StyledDefaultComponent
@@ -87,7 +89,16 @@ const ImageComponent = ({ id, style, type, mode, ...path }: ImageProps) => (
  * Images based in urls are pretty straight forward. Images based on a mobileId look for the given id in the frontend.
  * These ids must be registered under a DesignSystem (iOS or Android) or a BeagleTheme (Flutter).
  *
- * @param props {@link ImageProps}.
+ * @example
+ * ```tsx
+ * <Container>
+ *   <Image type="remote" url="https://server.com/image.png" />
+ *   <Image type="local" url="/static/image.png" mobileId="image" />
+ * </Container>
+ * ```
+ *
+ * @category Component
+ * @param props the properties for this component. See:  {@link ImageProps}.
  * @returns JSX element, i.e an instance of Component.
  */
 export const Image = ImageComponent as ImageFC

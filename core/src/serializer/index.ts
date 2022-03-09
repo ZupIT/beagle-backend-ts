@@ -5,13 +5,13 @@ import { Action, AnalyticsConfig, AnalyticsAttributesMap } from '../model/action
 import { AnyRootContext } from '../model/context/types'
 import { ContextNode } from '../model/context/context-node'
 import { Operation } from '../model/operation'
-import { ActionCall, BeagleNode, ContextDeclaration, SerializedAnalyticsConfig } from './types'
 import { componentValidation } from '..'
 import { isDevelopmentMode } from '../utils'
+import { ActionCall, BeagleNode, ContextDeclaration, SerializedAnalyticsConfig } from './types'
 
 /**
  * Transforms the format:
- * ```
+ * ```typescript
  * {
  *   route: {
  *     url: true,
@@ -24,7 +24,7 @@ import { isDevelopmentMode } from '../utils'
  * ```
  *
  * into:
- * ```
+ * ```typescript
  * ['route.url', 'route.headers.content-type', 'route.headers.platform']
  * ```
  *

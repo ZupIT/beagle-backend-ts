@@ -1,9 +1,9 @@
 import { BeagleJSX, FC, Expression, Actions, AnyContextNode, createContextNode } from '@zup-it/beagle-backend-core'
 import { WithTheme } from '../types'
 import { DefaultComponent } from '../default-component'
-import { Local as LocalImagePath } from './image'
+import { LocalImageProps } from './image'
 
-interface TabBarItem {
+export interface TabBarItem {
   /**
    * The text inside the tab selector.
    */
@@ -12,10 +12,10 @@ interface TabBarItem {
    * The icon to put at the title's side. This must be the path for a local image, i.e. an object containing a url and
    * mobileId. Check the documentation for the Image component for more details.
    */
-  icon?: LocalImagePath,
+  icon?: LocalImageProps,
 }
 
-interface TabBarProps extends WithTheme {
+export interface TabBarProps extends WithTheme {
   /**
    * The tabs.
    */
@@ -37,8 +37,8 @@ interface TabBarProps extends WithTheme {
  * The tabs are identified by their index, which is zero-based, i.e. to tell the first tab is selected, use
  * `currentTab={0}`. This index is also the value received by the function passed in `onTabSelection`.
  *
- * Example:
- * ```
+ * @example
+ * ```tsx
  * const currentTab = createContext('tab', 0)
  * const tabs = [{ title: 'John' }, { title: 'Sophia' }, { title: 'Mark' }]
  *
@@ -56,7 +56,8 @@ interface TabBarProps extends WithTheme {
  *
  * The example above will render a tab selector that tells which child the Page View will show.
  *
- * @param props {@link TabBarProps}.
+ * @category Component
+ * @param props the component properties. See: {@link TabBarProps}.
  * @returns JSX element, i.e an instance of Component.
  */
 export const TabBar: FC<TabBarProps> = ({ id, onTabSelection, ...props }) => {

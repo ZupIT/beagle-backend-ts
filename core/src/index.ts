@@ -1,3 +1,7 @@
+/**
+ * @module @zup-it/beagle-backend-core
+ */
+
 export { Component, WithContext, WithChildren } from './model/component'
 export { Expression, HttpMethod, DynamicExpression, DeepExpression } from './types'
 export { RootContext } from './model/context/root-context'
@@ -13,6 +17,7 @@ export { Operation } from './model/operation'
 export { BeagleJSX, setFragmentFactory } from './jsx'
 import { Component } from './model/component'
 export { componentValidation } from './validation'
+export { getGlobalContext } from './global-context'
 
 declare global {
   // eslint-disable-next-line @typescript-eslint/no-namespace
@@ -29,10 +34,10 @@ declare global {
     interface IntrinsicElements {
       /**
        * `<component />` is used to reference a component in the frontend, but instead of using it directly when
-       * building the screen, we advise creating a strictly typed functional component that is easier to use. See the
-       * example below:
+       * building the screen, we advise creating a strictly typed functional component that is easier to use.
        *
-       * ```
+       * @example
+       * ```tsx
        * interface MyCustomTextProps {
        *   children: string,
        *   fontFamily: string,
@@ -51,7 +56,7 @@ declare global {
        * ```
        *
        * Then, when building your screen:
-       * ```
+       * ```tsx
        * const MyScreen = () => (
        *   <MyCustomText color="#000">Hello World</MyCustomText>
        * )

@@ -6,26 +6,28 @@ import { AnyContextNode } from '../model/context/types'
 import { HttpMethod } from '../types'
 import { createCoreAction } from './core-action'
 
-interface ResponseContext<T> {
+export interface ResponseContext<T> {
   status: number,
   statusText: string,
   data: T,
 }
 
-interface ErrorContext<T> extends ResponseContext<T> {
+export interface ErrorContext<T> extends ResponseContext<T> {
   /**
    * The message in the exception thrown.
    */
   message: string,
 }
 
-interface BaseSendRequestParams {
+export interface BaseSendRequestParams {
   /**
    * The URL to send the request to.
    */
   url: Expression<string>,
   /**
-   * The method of the request. Default is "get".
+   * The method of the request.
+   *
+   * @defaultValue `'get'`
    */
   method?: Expression<HttpMethod>,
   /**
@@ -42,7 +44,7 @@ interface BaseSendRequestParams {
   onFinish?: Actions,
 }
 
-interface SendRequestActionParams extends BaseSendRequestParams {
+export interface SendRequestActionParams extends BaseSendRequestParams {
   /**
    * Actions to run when the request succeeds.
    */
@@ -53,15 +55,15 @@ interface SendRequestActionParams extends BaseSendRequestParams {
   onError?: Actions,
 }
 
-interface EnhancedSendRequestParams<SuccessResponse, ErrorResponse> extends BaseSendRequestParams {
+export interface EnhancedSendRequestParams<SuccessResponse, ErrorResponse> extends BaseSendRequestParams {
   /**
    * An action factory. This needs to return the actions to run once the request succeeds.
    *
    * This function receives as parameter the context for the onSuccess event, i.e. a context containing the status,
    * statusText and data of the response.
    *
-   * Example:
-   * ```
+   * @example
+   * ```typescript
    * sendRequest<User, Error>(
    *   // ...
    *   onSuccess: (response) => alert(`Username is ${response.get('data').get('name')}`)
@@ -75,8 +77,8 @@ interface EnhancedSendRequestParams<SuccessResponse, ErrorResponse> extends Base
    * This function receives as parameter the context for the onError event, i.e. a context containing the status,
    * statusText and data of the response.
    *
-   * Example:
-   * ```
+   * @example
+   * ```typescript
    * sendRequest<User, string>(
    *   // ...
    *   onError: (response) => alert(`An error occurred. ${response.get('data')}`)
@@ -106,8 +108,8 @@ const sendRequestAction = createCoreAction<SendRequestActionParams>('sendRequest
  *
  * The onFinish event is not a function, the actions must be given directly, it should not depend on the result.
  *
- * Example:
- * ```
+ * @example:
+ * ```typescript
  * interface User {
  *   name: string,
  *   age: number,
@@ -126,6 +128,7 @@ const sendRequestAction = createCoreAction<SendRequestActionParams>('sendRequest
  * ]
  * ```
  *
+ * @category Actions
  * @param options the parameters of the sendRequest action: url, method, headers, data, onSuccess, onError and onFinish.
  * See {@link EnhancedSendRequestParams} and {@link BaseSendRequestParams} for more details.
  * @returns an instance of Action
@@ -164,7 +167,8 @@ const sendRequestKeys: (keyof SendRequestParams)[] = [
  *
  * You can still say what's the response type and error with generics.
  *
- * ```
+ * @example
+ * ```typescript
  * interface Options {
  *   id: string,
  * }

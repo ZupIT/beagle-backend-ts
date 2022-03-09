@@ -28,8 +28,9 @@ export class RootContext<T> extends ContextNode<T> {
  * the property "context" of a component. The scope of a context is only the component where it's declared and its
  * children, i.e. it's not accessible by any component outside this scope.
  *
+ * @example
  * Example 1: a counter
- * ```
+ * ```tsx
  * const counter = createContext('counter', 0)
  *
  * const MyScreen = () => (
@@ -41,7 +42,7 @@ export class RootContext<T> extends ContextNode<T> {
  * ```
  *
  * Example 2: loading user data
- * ```
+ * ```tsx
  * interface User {
  *   name: string,
  *   address: { street: string, number: string },
@@ -62,6 +63,7 @@ export class RootContext<T> extends ContextNode<T> {
  * )
  * ```
  *
+ * @remark
  * Attention: it is very important to specify the type of the context if no initial value is provided, i.e. `T` must
  * be set in `createContext<T>('id')`.
  *

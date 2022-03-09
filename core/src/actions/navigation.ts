@@ -1,12 +1,12 @@
 import { Expression, HttpMethod } from '../types'
-import { Action, WithAnalytics } from '../model/action'
+import { Action } from '../model/action'
 import { Component } from '../model/component'
 import { isDynamicExpression } from '../utils'
 import { createCoreAction } from './core-action'
 
 // App navigation
 
-interface OpenNativeRouteParams {
+export interface OpenNativeRouteParams {
   /**
    * The identifier of the route in mobile applications or the relative URL in web apps.
    */
@@ -30,11 +30,12 @@ interface OpenNativeRouteParams {
 /**
  * Navigates to a local native route.
  *
+ * @category Actions
  * @param params the action parameters: route, shouldResetApplication and data. See {@link OpenNativeRouteParams}.
  */
 export const openNativeRoute = createCoreAction<OpenNativeRouteParams>('openNativeRoute')
 
-interface OpenExternalUrlParams {
+export interface OpenExternalUrlParams {
   /**
    * The URL of the web page.
    */
@@ -43,14 +44,26 @@ interface OpenExternalUrlParams {
 
 const openExternalUrlAction = createCoreAction<OpenExternalUrlParams>('openExternalUrl')
 
-/**
- * Opens the browser with the provided URL.
- *
- * @param url the url to the web page to open.
- * @param options additional options for this action.
- */
-export const openExternalUrl = (url: OpenExternalUrlParams['url'], options?: WithAnalytics<OpenExternalUrlParams>) => (
-  openExternalUrlAction({ url, ...options })
+interface OpenExternalUrl {
+  /**
+   * Opens the browser with the provided URL.
+   *
+   * @param url the url to the web page to open.
+   */
+  (url: OpenExternalUrlParams['url']): ReturnType<typeof openExternalUrlAction>,
+  /**
+   * Opens the browser with the provided URL.
+   *
+   * @param properties an object with the URL to navigate to and analytics.
+   */
+  (properties: Parameters<typeof openExternalUrlAction>[0]): ReturnType<typeof openExternalUrlAction>,
+}
+
+/** @category Actions */
+export const openExternalUrl: OpenExternalUrl = (urlOrOptions) => (
+  typeof urlOrOptions === 'string' || isDynamicExpression(urlOrOptions)
+    ? openExternalUrlAction({ url: urlOrOptions as Expression<string> })
+    : openExternalUrlAction(urlOrOptions as OpenExternalUrlParams)
 )
 
 // Beagle Navigation
@@ -81,20 +94,18 @@ function formatNavigationContext(data: any) {
   }
 }
 
-interface IdentifiableComponent extends Component {
-  id: string,
-}
-
-interface LocalView {
+export interface LocalView {
   /**
    * The component tree of this route. The root of this tree tree must have an id.
    */
-  screen: IdentifiableComponent,
+  screen: Component,
 }
 
-interface HttpAdditionalData {
+export interface HttpAdditionalData {
   /**
-   * The HTTP method to use when fetching the screen. Default is "get".
+   * The HTTP method to use when fetching the screen.
+   *
+   * @defaultValue `'get'`
    */
   method?: HttpMethod,
   /**
@@ -107,7 +118,7 @@ interface HttpAdditionalData {
   body?: any,
 }
 
-interface RemoteView {
+export interface RemoteView {
   /**
    * The URL of the screen to fetch.
    */
@@ -129,7 +140,7 @@ interface RemoteView {
 
 export type Route = LocalView | RemoteView
 
-interface BaseNavigationParams {
+export interface BaseNavigationParams {
   /**
    * The navigation context to set in this navigation. Each route (screen) can have a navigation-scoped context and
    * this is the way to set it. For instance, once we click in a "Buy now" button, we may want to send the user to
@@ -145,7 +156,7 @@ interface BaseNavigationParams {
   navigationContext?: unknown,
 }
 
-interface RouteNavigationParams<T extends (Route | string) = Route> extends BaseNavigationParams {
+export interface RouteNavigationParams<T extends (Route | string) = Route> extends BaseNavigationParams {
   /**
    * The route to navigate to. It can be either a remote view, fetched from the backend, ou a local view, which is
    * just a new component tree. When it's local, the root of the tree must have an id, this will be used as the name
@@ -325,12 +336,19 @@ function getParams(options: any, isPopToView = false) {
   return { navigationContext: formatNavigationContext(navigationContext), ...other }
 }
 
+/** @category Actions */
 export const pushView: PushViewFunction = (options: any) => navigator.pushView(getParams(options))
+/** @category Actions */
 export const pushStack: PushStackFunction = (options: any) => navigator.pushStack(getParams(options))
+/** @category Actions */
 export const resetStack: ResetStackFunction = (options: any) => navigator.resetStack(getParams(options))
+/** @category Actions */
 export const resetApplication: ResetApplicationFunction = (options: any) => (
   navigator.resetApplication(getParams(options))
 )
+/** @category Actions */
 export const popToView: PopToViewFunction = (options: any) => navigator.popToView(getParams(options, true))
+/** @category Actions */
 export const popView: PopViewFunction = (options: any = {}) => navigator.popView(getParams(options))
+/** @category Actions */
 export const popStack: PopStackFunction = (options: any = {}) => navigator.popStack(getParams(options))

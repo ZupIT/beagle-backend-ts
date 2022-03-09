@@ -2,7 +2,7 @@ import { BeagleJSX, FC, Actions, WithChildren } from '@zup-it/beagle-backend-cor
 import { DefaultComponent } from '../default-component'
 import { Container } from './container'
 
-interface TouchableProps extends Required<WithChildren> {
+export interface TouchableProps extends Required<WithChildren> {
   /**
    * The actions to run when any of the child components are pressed or clicked.
    */
@@ -12,7 +12,15 @@ interface TouchableProps extends Required<WithChildren> {
 /**
  * Makes the children responsive for touch or click events. The behavior is similar to a Button.
  *
- * @param props {@link TouchableProps}.
+ * @example
+ * ```tsx
+ * <Touchable onPress={alert('Hello World!')}>
+ *   <Image type="remote" url="https://my-backend/my-image.png" />
+ * </Touchable>
+ * ```
+ *
+ * @category Component
+ * @param props the component properties. See: {@link TouchableProps}.
  * @returns JSX element, i.e an instance of Component.
  */
 export const Touchable: FC<TouchableProps> = ({ id, children, ...props }) => {

@@ -79,7 +79,7 @@ any number of arrays to unite. */
  * Concatenates a series of arrays in a single array.
  *
  * Example:
- * ```
+ * ```tsx
  * const myArrays = createContext('myArrays', {
  *   array1: [1, 2, 3],
  *   array2: [4, 5, 6],

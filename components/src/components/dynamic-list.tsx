@@ -15,7 +15,7 @@ import { WithStyle } from '../style/styled'
 import { WithAccessibility } from '../types'
 import { Container } from './container'
 
-interface TemplateProps extends WithChildren {
+export interface TemplateProps extends WithChildren {
   /**
    * If the expression resolves to true, this template will be used for the current iteration. When not set, the
    * template is considered to be the default.
@@ -23,10 +23,11 @@ interface TemplateProps extends WithChildren {
   case?: DynamicExpression<boolean>,
 }
 
-interface ListViewProps<T> extends WithContext, WithStyle, WithAccessibility {
+export interface ListViewProps<T> extends WithContext, WithStyle, WithAccessibility {
   /**
-   * The direction of the list or grid. This indicates the direction it grows to when items are added. Default is
-   * 'VERTICAL'.
+   * The direction of the list or grid. This indicates the direction it grows to when items are added.
+   *
+   * @defaultValue `'VERTICAL'`
    */
   direction?: 'VERTICAL' | 'HORIZONTAL',
   /**
@@ -39,7 +40,9 @@ interface ListViewProps<T> extends WithContext, WithStyle, WithAccessibility {
    */
   dataSource: Expression<T[]>,
   /**
-   * Whether to show or not a scroll bar. Default is false.
+   * Whether to show or not a scroll bar.
+   *
+   * @defaultValue `false`
    */
   isScrollIndicatorVisible?: boolean,
   /**
@@ -53,7 +56,9 @@ interface ListViewProps<T> extends WithContext, WithStyle, WithAccessibility {
    */
   onScrollEnd?: Actions,
   /**
-   * The threshold for triggering `onScrollEnd`. Default is 80. Must be between 0 and 100.
+   * The threshold for triggering `onScrollEnd`. Must be between 0 and 100.
+   *
+   * @defaultValue `80`
    */
   scrollEndThreshold?: number,
   /**
@@ -73,7 +78,7 @@ interface ListViewProps<T> extends WithContext, WithStyle, WithAccessibility {
   children: (item: AnyContextNode<T>) => JSX.Element | JSX.Element[],
 }
 
-interface GridViewProps<T> extends ListViewProps<T> {
+export interface GridViewProps<T> extends ListViewProps<T> {
   /**
    * Maximum number of items in the axis opposite to the direction.
    */
@@ -101,6 +106,7 @@ type GridFC = <T>(props: ComponentProps<GridViewProps<T>>) => JSX.Element
  *
  * Check the documentation for the {@link ListView} for examples.
  *
+ * @category Component
  * @param props {@link TemplateProps}.
  * @returns JSX element, i.e an instance of Component.
  */
@@ -143,8 +149,8 @@ function getTemplates<T>(iteratorName = 'item', children: ListViewProps<T>['chil
  * Furthermore, the children function, must return a JSX corresponding to a Template. Otherwise, it will raise an
  * exception at server runtime (not in the frontend).
  *
- * Example:
- * ```
+ * @example
+ * ```tsx
  * const users = [{ name: 'John', age: 30 }, { name: 'Sophia', age: 32 }, { name: 'Rebeca', age: 5 }]
  *
  * const MyScreen = () => (
@@ -166,7 +172,7 @@ function getTemplates<T>(iteratorName = 'item', children: ListViewProps<T>['chil
  * More complex data sets might require different templates depending on the item. Let's say we have an array with
  * physical books and audio books and their templates should look a bit different from one another. See the example
  * below:
- * ```
+ * ```tsx
  * const books = [
  *   { title: 'Rhythm of war', length: 57.5, author: 'Brandon Sanderson', narrator: 'Michael Kramer and Kate Reading' },
  *   { title: 'A Game of Thrones', length: 819, author: 'George R.R. Martin' },
@@ -197,9 +203,8 @@ function getTemplates<T>(iteratorName = 'item', children: ListViewProps<T>['chil
  * default template. If more than one default template is found, an exception is thrown at server runtime. If no
  * default template exists and an item doesn't match any of the conditions, it gets ignored.
  *
- * The ListView has many other features. To check them all, please check all of its properties at {@link ListViewProps}.
- *
- * @param props {@link ListViewProps}.
+ * @category Component
+ * @param props the properties for this component. See: {@link ListViewProps}.
  * @returns a JSX element, i.e an instance of Component.
  */
 export const ListView: ListFC = ({ id, context, children, ...props }) => (
@@ -218,7 +223,8 @@ export const ListView: ListFC = ({ id, context, children, ...props }) => (
  *
  * Please, check the documentation for the {@link ListView} for more details.
  *
- * @param props {@link GridViewProps}.
+ * @category Component
+ * @param props the properties for this component. See: {@link GridViewProps}.
  * @returns a JSX element, i.e an instance of Component.
  */
 export const GridView: GridFC = ({ id, context, children, ...props }) => (

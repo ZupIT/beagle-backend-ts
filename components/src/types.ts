@@ -9,7 +9,9 @@ export interface WithAccessibility {
      */
     accessibilityLabel?: string,
     /**
-     * When true, the accessibility software will interpret this as a header. Defaults to false.
+     * When true, the accessibility software will interpret this as a header.
+     *
+     * @defaultValue `false`
      */
     isHeader?: boolean,
   },

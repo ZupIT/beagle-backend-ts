@@ -3,12 +3,12 @@ import { condition as conditionalOperation } from '@zup-it/beagle-backend-core/o
 import { set } from 'lodash'
 import { Container, WithStyle } from '..'
 
-interface ParentProps extends WithStyle {
+export interface IfProps extends WithStyle {
   condition: Expression<boolean>,
   children: JSX.Element | [JSX.Element, JSX.Element],
 }
 
-interface ChildrenProps {
+export interface ThenElseProps {
   children: JSX.Element,
 }
 
@@ -29,7 +29,8 @@ const validateChild = (child?: JSX.Element) => {
  *
  * Suppose `isLoading` is a Context and it stores a boolean value.
  *
- * ```
+ * @example
+ * ```tsx
  * <If condition={isLoading}>
  *   <Then><Text>Loading...</Text></Then>
  *   <Else><Text>Loading is completed!</Text></Else>
@@ -41,7 +42,7 @@ const validateChild = (child?: JSX.Element) => {
  * This is a helper component because when serialized it doesn't turn into a real component in the tree. The example
  * above is the equivalent of writing:
  *
- * ```
+ * ```tsx
  * <Container>
  *   <Text style={{ display: condition(isLoading, 'FLEX', 'NONE') }}>Loading...</Text>
  *   <Text style={{ display: condition(isLoading, 'NONE', 'FLEX') }}>Loading is completed!</Text>
@@ -52,16 +53,16 @@ const validateChild = (child?: JSX.Element) => {
  *
  * When `If` has only `Then` as a child, no enclosing Container is created and its id and style are used for rendering
  * the child of `Then`. We will try to combine every property, but if there are clashes, the child of `Then` takes
- * precedence. See the example below:
+ * precedence.
  *
- * ```
+ * ```tsx
  * <If id="if-component" style={{ margin: 5, backgroundColor: '#000000' }} condition={isLoading}>
  *   <Then><Text id="text-component" style={{ padding: 10, backgroundColor: '#FFFFFF' }}>Loading...</Text></Then>
  * </If>
  * ```
  *
  * becomes:
- * ```
+ * ```tsx
  * <Text
  *   id="text-component"
  *   style={{ display: condition(isLoading, 'FLEX', 'NONE'), margin: 5, padding: 10, backgroundColor: '#FFFFFF' }}
@@ -70,11 +71,12 @@ const validateChild = (child?: JSX.Element) => {
  * </Text>
  * ```
  *
- * @param props {@link ParentProps}
+ * @category Component
+ * @param props the component properties. See: {@link IfProps}
  * @returns a Container with the child of Then and the child of Else with the proper style.display. Or the child of
  * Then, with no enclosing container, if no Else is provided.
  */
-export const If: FC<ParentProps> = ({ id, style, condition, children }) => {
+export const If: FC<IfProps> = ({ id, style, condition, children }) => {
   const thenAndElse = Array.isArray(children) ? children : [children]
   thenAndElse.forEach(validateChild)
   const thenComponent = thenAndElse.find(
@@ -105,18 +107,20 @@ export const If: FC<ParentProps> = ({ id, style, condition, children }) => {
 /**
  * Should only be used inside an If component. See {@link If} for more details.
  *
- * @param props {@link ChildrenProps}
+ * @category Component
+ * @param props the component properties. See: {@link ThenElseProps}
  * @returns a Component that won't be serialized with metadata to the parent If.
  */
-export const Then = ({ children }: ChildrenProps) => <component namespace="pseudo" name="then">{children}</component>
+export const Then = ({ children }: ThenElseProps) => <component namespace="pseudo" name="then">{children}</component>
 
 /**
  * Should only be used inside an If component. See {@link If} for more details.
  *
- * @param props {@link ChildrenProps}
+ * @category Component
+ * @param props the component properties. See: {@link ThenElseProps}
  * @returns a Component that won't be serialized with metadata to the parent If.
  */
-export const Else = ({ children }: ChildrenProps) => <component namespace="pseudo" name="else">{children}</component>
+export const Else = ({ children }: ThenElseProps) => <component namespace="pseudo" name="else">{children}</component>
 
 componentValidation.add((node) => {
   if (node.namespace === 'pseudo' && node.name === 'then') {

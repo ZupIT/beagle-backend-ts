@@ -1,13 +1,17 @@
 import { BeagleJSX, FC, WithChildren, WithContext } from '@zup-it/beagle-backend-core'
 import { DefaultComponent } from '../default-component'
 
-interface ScrollViewProps extends Required<WithChildren>, WithContext {
+export interface ScrollViewProps extends Required<WithChildren>, WithContext {
   /**
-   * The direction of the scrolling. Defaults to 'VERTICAL'.
+   * The direction of the scrolling.
+   *
+   * @defaultValue `'VERTICAL'`
    */
   scrollDirection?: 'HORIZONTAL' | 'VERTICAL',
   /**
-   * Whether or not to show a scroll bar. Defaults to true.
+   * Whether or not to show a scroll bar.
+   *
+   * @defaultValue `false`
    */
   scrollBarEnabled?: boolean,
 }
@@ -15,7 +19,15 @@ interface ScrollViewProps extends Required<WithChildren>, WithContext {
 /**
  * Creates a Container that can be scrolled when its content overflows the space available.
  *
- * @param props {@link ScrollViewProps}.
+ * @example
+ * ```tsx
+ * <ScrollView>
+ *   <>Long content</>
+ * </ScrollView>
+ * ```
+ *
+ * @category Component
+ * @param props the component properties. See: {@link ScrollViewProps}.
  * @returns JSX element, i.e an instance of Component.
  */
 export const ScrollView: FC<ScrollViewProps> = ({ id, context, children, ...props }) => (
