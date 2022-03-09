@@ -1,6 +1,6 @@
 {
-  "name": "@zup-it/beagle-ts",
-  "version": "1.0.0-beta.1",
+  "name": "@zup-it/beagle-backend-typescript-cli",
+  "version": "1.0.1-beta.1",
   "description": "CLI for Beagle Backend using TypeScript",
   "scripts": {
     "start": "nodemon --watch 'src/**/*.ts' --exec npm run server",
@@ -8,7 +8,32 @@
     "build": "tsc --p tsconfig.json",
     "build-old": "tsc -p ."
   },
+  "bin": {
+    "beagle-ts": "./index.js"
+  },
+  "repository": {
+    "url": "https://github.com/ZupIT/beagle-backend-ts/cli"
+  },
+  "bugs": {
+    "url": "https://github.com/ZupIT/beagle-backend-ts/issues"
+  },
+  "homepage": "https://github.com/ZupIT/beagle-backend-ts/",
+  "keywords": [
+    "beagle",
+    "backend",
+    "typescript",
+    "cli",
+    "server",
+    "driven",
+    "ui"
+  ],
   "author": "Arthur Bleil <arthur.bleil@zup.com.br>",
+  "contributors": [
+    {
+      "name": "Arthur Bleil",
+      "email": "arthur.bleil@zup.com.br"
+    }
+  ],
   "license": "Apache-2.0",
   "licenses": [
     {
@@ -34,7 +59,6 @@
     "awesome-typescript-loader": "^5.2.1",
     "copy-webpack-plugin": "^10.2.4",
     "cross-blob": "^2.0.0",
-    "generate-package-json-webpack-plugin": "^2.6.0",
     "isomorphic-fetch": "^3.0.0",
     "shebang-loader": "^0.0.1",
     "ts-node": "^9.1.1",

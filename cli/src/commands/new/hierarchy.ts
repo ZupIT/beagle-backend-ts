@@ -54,9 +54,9 @@ export const createBeagleTsConfigFile = async (projectName: string, options: New
       projectName,
       port,
       basePath,
-      screensFolderPath: 'src/beagle/screens',
+      screensFolderPath: 'src/screens',
       routes: {
-        filePath: 'src/beagle/screens/index.ts',
+        filePath: 'src/screens/index.ts',
         varName: 'routes',
       },
     },

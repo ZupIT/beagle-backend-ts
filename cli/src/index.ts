@@ -15,7 +15,7 @@ program
   .command('new')
   .description('Create a new Beagle Backend TypeScript project.')
   .argument('<project-name>', 'name of the project. eg. "name-of-my-project" (will be the name of the folder).')
-  .option('-bp, --base-path <string>', 'Base path that will be the root of the API.', 'beagle')
+  .option('-bp, --base-path <string>', 'Base path that will be the root of the API.', '')
   .option('-p, --port <number>', 'Port where the service will run.', '3000')
   .action(newProject)
 

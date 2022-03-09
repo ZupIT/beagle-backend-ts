@@ -3,32 +3,6 @@ const path = require('path')
 const webpack = require('webpack')
 const nodeExternals = require('webpack-node-externals')
 const CopyPlugin = require('copy-webpack-plugin')
-const GeneratePackageJsonPlugin = require('generate-package-json-webpack-plugin')
-
-const distPackageJson = {
-  name: '@zup-it/beagle-ts',
-  version: '1.0.0',
-  description: 'CLI for Beagle Backend using TypeScript',
-  main: './index.js',
-  bin: {
-    'beagle-ts': './index.js',
-  },
-  author: 'Arthur Bleil <arthur.bleil@zup.com.br>',
-  license: 'Apache-2.0',
-  licenses: [
-    {
-      type: 'Apache-2.0',
-      url: 'http://www.apache.org/licenses/LICENSE-2.0',
-    },
-  ],
-  private: false,
-  dependencies: {
-    'chalk': '^4.1.0',
-    'clear': '^0.1.0',
-    'commander': '^9.0.0',
-    'fs-extra': '^10.0.0',
-  },
-}
 
 module.exports = {
   entry: {
@@ -74,8 +48,8 @@ module.exports = {
       patterns: [
         { from: './src/templates', to: 'templates' },
         { from: './README.md', to: '' },
+        { from: './package.json', to: '' },
       ],
     }),
-    new GeneratePackageJsonPlugin(distPackageJson),
   ],
 }

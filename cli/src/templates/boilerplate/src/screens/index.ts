@@ -3,6 +3,6 @@ import { Home } from './home'
 import { Welcome } from './welcome'
 
 export const routes: RouteMap = {
-  '/': Welcome,
+  '': Welcome,
   '/home': Home,
 }

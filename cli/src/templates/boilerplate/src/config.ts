@@ -22,10 +22,10 @@ export const getBeagleTsConfig = async (): Promise<BeagleTsConfig> => {
     return {
       projectName: '',
       port: 3000,
-      basePath: 'beagle',
-      screensFolderPath: 'src/beagle/screens',
+      basePath: '',
+      screensFolderPath: 'src/screens',
       routes: {
-        filePath: 'src/beagle/screens/index.ts',
+        filePath: 'src/screens/index.ts',
         varName: 'routes',
       },
     }

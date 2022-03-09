@@ -11,7 +11,7 @@ The application will start running on port `beagle-ts-cli-port`.
 
 There are two routes available:
 
-- `http://localhost:beagle-ts-cli-port/beagle`: Welcome page
-- `http://localhost:beagle-ts-cli-port/beagle/home`: A test page to exemplify the navigation and global context.
+- `http://localhost:beagle-ts-cli-port`: Welcome page
+- `http://localhost:beagle-ts-cli-port/home`: A test page to exemplify the navigation and global context.
 
 You can modify this project as you want.

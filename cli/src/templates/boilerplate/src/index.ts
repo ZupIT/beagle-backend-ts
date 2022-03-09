@@ -1,7 +1,7 @@
 import express from 'express'
 import cors from 'cors'
 import { BeagleApp } from '@zup-it/beagle-backend-express'
-import { routes as beagleRoutes } from './beagle/screens'
+import { routes as beagleRoutes } from './screens'
 import { getBeagleTsConfig } from './config'
 
 getBeagleTsConfig()
@@ -10,5 +10,5 @@ getBeagleTsConfig()
     expressApp.use(cors()).use(express.json())
     expressApp.listen(port, () => console.log(`App listening at http://localhost:${port}`))
 
-    new BeagleApp(expressApp, beagleRoutes, { basePath: `/${basePath}` })
+    new BeagleApp(expressApp, beagleRoutes, { basePath })
   })
