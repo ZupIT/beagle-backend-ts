@@ -1,6 +1,6 @@
 {
-  "name": "@zup-it/beagle-backend-typescript-cli",
-  "version": "1.0.1-beta.1",
+  "name": "@zup-it/beagle-backend-cli",
+  "version": "1.0.2-beta.1",
   "description": "CLI for Beagle Backend using TypeScript",
   "scripts": {
     "start": "nodemon --watch 'src/**/*.ts' --exec npm run server",
