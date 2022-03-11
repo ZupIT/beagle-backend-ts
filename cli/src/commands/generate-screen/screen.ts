@@ -1,13 +1,13 @@
 import path from 'path'
 import fsPromise from 'fs/promises'
+import lodash from 'lodash'
 import { pathExists } from 'fs-extra'
-import { getCamelCaseName } from '../utils'
 import { logger } from '../../utils'
 import { BeagleTsConfig } from '../types'
 import { GenerateScreenOptions } from './types'
 
 export const generateScreenCodeFromBoilerplate = async (screenName: string, options: GenerateScreenOptions) => {
-  const formattedScreenName = getCamelCaseName(screenName)
+  const formattedScreenName = lodash.camelCase(screenName)
   const screenProps = {
     ...(options.withRouteParams ? { routeParams: { your: 'routeParams' } } : {}),
     ...(options.withHeaders ? { headers: { your: 'headers' } } : {}),
@@ -15,25 +15,9 @@ export const generateScreenCodeFromBoilerplate = async (screenName: string, opti
     ...(options.withQuery ? { query: { your: 'query' } } : {}),
     ...(options.withNavigationContext ? { navigationContext: { your: 'navigationContext' } } : {}),
   }
-  const screenPropsExtensions = [
-    ...(options.withContext ? ['WithContext'] : []),
-    ...(options.withChildren ? ['WithChildren'] : []),
-    ...(options.withAccessibility ? ['WithAccessibility'] : []),
-    ...(options.withAnalytics ? ['WithAnalytics'] : []),
-    ...(options.withStyle ? ['WithStyle'] : []),
-  ]
   const screenHasProps = Object.keys(screenProps).length > 0
   const screenPropsName = `${formattedScreenName}Props`
-  const screenPropsExtensionsCode = screenPropsExtensions && screenPropsExtensions.length
-    ? ` extends ${screenPropsExtensions.join(', ')} `
-    : ' '
   const expressionsToReplace = [
-    {
-      expression: 'import { BeagleJSX } from \'@zup-it/beagle-backend-core\'',
-      newText: screenPropsExtensions && screenPropsExtensions.length
-        ? `import { BeagleJSX, ${screenPropsExtensions.join(', ')} } from '@zup-it/beagle-backend-core'`
-        : 'import { BeagleJSX } from \'@zup-it/beagle-backend-core\'',
-    },
     {
       expression: '// [generated-screen-import-screen]',
       newText: screenHasProps ? 'import { Screen } from \'@zup-it/beagle-backend-express\'' : '',
@@ -41,7 +25,7 @@ export const generateScreenCodeFromBoilerplate = async (screenName: string, opti
     {
       expression: '// [generated-screen-props]',
       newText: screenHasProps
-        ? `\r\ninterface ${screenPropsName}${screenPropsExtensionsCode}${JSON.stringify(screenProps, null, 2)}\r\n`
+        ? `\r\ninterface ${screenPropsName}${JSON.stringify(screenProps, null, 2)}\r\n`
         : '',
     },
     {
@@ -87,7 +71,7 @@ const getUpdatedRoutesFileCode = (
   configs: BeagleTsConfig,
 ) => {
   const varCodeBlock = routesFileContent.match(new RegExp(`${configs.routes.varName}.*?{([\\s\\S]*?)}`, 'gm'))
-  const formattedName = getCamelCaseName(screenName)
+  const formattedName = lodash.camelCase(screenName)
 
   if (varCodeBlock && varCodeBlock.length) {
     const routes = varCodeBlock[0].match(/'.*?':.*?[,|\n]/gm)

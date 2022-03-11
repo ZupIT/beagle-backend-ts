@@ -10,11 +10,6 @@ const PORT_PLACEHOLDER = 'beagle-ts-cli-port'
 
 const projectFilesToChange: Array<ProjectFile> = [
   {
-    name: 'LICENSE',
-    action: (content: string, projectName: string) =>
-      content.replace(PROJECT_NAME_PLACEHOLDER, projectName),
-  },
-  {
     name: 'package.json',
     action: (content: string, projectName: string) =>
       content.replace(PROJECT_NAME_PLACEHOLDER, projectName),

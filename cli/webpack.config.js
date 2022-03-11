@@ -20,7 +20,7 @@ module.exports = {
         exclude: path.resolve(__dirname, 'node_modules'),
         use: [
           {
-            loader: 'awesome-typescript-loader',
+            loader: 'ts-loader',
           },
         ],
       },
