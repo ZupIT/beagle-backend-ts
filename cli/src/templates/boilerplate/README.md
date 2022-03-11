@@ -1,17 +1,15 @@
 # Beagle Backend TypeScript | beagle-ts-cli-project-name
 
-This is a sample application, also known as boilerplate, for Beagle Backend TypeScript.
+This is application has been created with @zup-it/beagle-backend-cli, a tool for initializing Beagle backend projects.
 
-After the installation, to run the application, please run:
+After installing, to run the application, run:
 ```npm run start```
 or, if you are using yarn:
 ```yarn start```
 
-The application will start running on port `beagle-ts-cli-port`.
+The application will start running on port `beagle-ts-cli-port` (3000, by default).
 
 There are two routes available:
 
 - `http://localhost:beagle-ts-cli-port`: Welcome page
 - `http://localhost:beagle-ts-cli-port/home`: A test page to exemplify the navigation and global context.
-
-You can modify this project as you want.

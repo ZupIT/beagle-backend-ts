@@ -1,6 +1,5 @@
 {
   "compilerOptions": {
-    "experimentalDecorators": true,
     "allowSyntheticDefaultImports": true,
     "module": "commonjs",
     "preserveConstEnums": true,

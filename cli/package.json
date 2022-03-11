@@ -4,9 +4,7 @@
   "description": "CLI for Beagle Backend using TypeScript",
   "scripts": {
     "start": "nodemon --watch 'src/**/*.ts' --exec npm run server",
-    "server": "ts-node src/index.ts",
-    "build": "tsc --p tsconfig.json",
-    "build-old": "tsc -p ."
+    "build": "webpack"
   },
   "bin": {
     "beagle-ts": "./index.js"
@@ -27,7 +25,7 @@
     "driven",
     "ui"
   ],
-  "author": "Arthur Bleil <arthur.bleil@zup.com.br>",
+  "author": "ZupIT",
   "contributors": [
     {
       "name": "Arthur Bleil",

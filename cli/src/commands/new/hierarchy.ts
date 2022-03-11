@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import path from 'path'
 import fsPromise from 'fs/promises'
 import { cwd } from 'process'
@@ -12,12 +11,12 @@ const PORT_PLACEHOLDER = 'beagle-ts-cli-port'
 const projectFilesToChange: Array<ProjectFile> = [
   {
     name: 'LICENSE',
-    action: (content: string, projectName: string, options: NewProjectOptions) =>
+    action: (content: string, projectName: string) =>
       content.replace(PROJECT_NAME_PLACEHOLDER, projectName),
   },
   {
     name: 'package.json',
-    action: (content: string, projectName: string, options: NewProjectOptions) =>
+    action: (content: string, projectName: string) =>
       content.replace(PROJECT_NAME_PLACEHOLDER, projectName),
   },
   {
