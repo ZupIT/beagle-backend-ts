@@ -1,6 +1,6 @@
 {
   "name": "@zup-it/beagle-backend-cli",
-  "version": "1.0.2-beta.1",
+  "version": "1.0.3-beta.1",
   "description": "CLI for Beagle Backend using TypeScript",
   "scripts": {
     "start": "nodemon --watch 'src/**/*.ts' --exec npm run server",
@@ -12,7 +12,7 @@
     "beagle-ts": "./index.js"
   },
   "repository": {
-    "url": "https://github.com/ZupIT/beagle-backend-ts/cli"
+    "url": "https://github.com/ZupIT/beagle-backend-ts/wiki/CLI"
   },
   "bugs": {
     "url": "https://github.com/ZupIT/beagle-backend-ts/issues"
