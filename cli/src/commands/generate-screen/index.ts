@@ -33,7 +33,7 @@ export const generateScreen = async (screenName: string, options: GenerateScreen
     await updateRouteFile(screenName, pathToCreate, configs)
   } catch (error) {
     logger.error(error)
-    exit(500)
+    exit(1)
   }
 
   logger.success(`Screen created under this location: "${pathToCreate}"`)

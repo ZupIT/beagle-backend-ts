@@ -13,7 +13,7 @@ export const newProject = async (projectName: string, options: NewProjectOptions
   }
   if (await pathExists(projectName)) {
     logger.error('There is already a folder with the same name!')
-    exit(2)
+    exit(1)
   }
 
   logger.info(`1 - Beagle: Preparing to create the project: "${projectName}"...`)
