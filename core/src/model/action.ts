@@ -4,7 +4,7 @@ export type AnalyticsAttributesMap<T> = T extends (number | string | boolean | a
   ? true
   : (T extends Record<string, any> ? { [K in keyof T]?: true | AnalyticsAttributesMap<T[K]> } : TrueMap)
 
-export type AnalyticsConfig<Props> = false | {
+export interface AnalyticsConfigObject<Props> {
   /**
    * Additional data to put in the analytics record. Example: `{ username: 'John', category: 'customer_level_6' }`.
    */
@@ -44,6 +44,8 @@ export type AnalyticsConfig<Props> = false | {
    */
   attributes?: AnalyticsAttributesMap<Props>,
 }
+
+export type AnalyticsConfig<Props> = false | AnalyticsConfigObject<Props>
 
 export interface WithAnalytics<Props = any> {
   /**
