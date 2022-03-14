@@ -25,12 +25,6 @@
     "driven",
     "ui"
   ],
-  "contributors": [
-    {
-      "name": "Arthur Bleil",
-      "email": "arthur.bleil@zup.com.br"
-    }
-  ],
   "license": "Apache-2.0",
   "licenses": [
     {
