@@ -3,5 +3,8 @@
   "typescript.preferences.quoteStyle": "single",
   "javascript.format.semicolons": "remove",
   "typescript.format.semicolons": "remove",
-  "typescript.preferences.importModuleSpecifier": "project-relative"
+  "typescript.preferences.importModuleSpecifier": "project-relative",
+  "cSpell.words": [
+    "wctx"
+  ]
 }

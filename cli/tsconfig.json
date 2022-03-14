@@ -1,0 +1,20 @@
+{
+  "compilerOptions": {
+    "experimentalDecorators": true,
+    "declaration": true,
+    "declarationDir": "./dist",
+    "noImplicitAny": true,
+    "target": "esnext",
+    "moduleResolution": "node",
+    "lib": ["esnext"],
+    "outDir": "./dist",
+    "module": "commonjs",
+    "isolatedModules": true,
+    "typeRoots": ["node_modules/@types"],
+    "skipLibCheck": true,
+    "esModuleInterop": true,
+  },
+  "assets":["src/templates/**/*"],
+  "include": ["src"],
+  "exclude": ["node_modules", "dist", "src/templates"],
+}
