@@ -5,7 +5,7 @@ import { FullFlex, FullStyle, FullCornerRadius, FullSize, FullPosition, UnitValu
  * A SimpleUnitValue is used to express dimensions as absolute or percentage values. It can be:
  * - an object containing the value and unit;
  * - a number or expression that yields a number, equivalent to `{ value: number, unit: 'REAL' }`;
- * - a string in the format '$number%', equivalent to `{ value: number, unit: 'PERCENT' }`;
+ * - a string in the format 'number%', equivalent to `{ value: number, unit: 'PERCENT' }`;
  */
 export type StyleValue = Expression<number> | `${number}%` | UnitValue
 

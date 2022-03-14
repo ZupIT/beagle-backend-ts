@@ -1,7 +1,7 @@
 {
   "out": "api-docs",
   "entryPoints": [
-    "core/src",
+    "core/src/api.ts",
     "core/src/actions",
     "core/src/operations",
     "components/src/api.ts",
