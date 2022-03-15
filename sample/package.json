@@ -7,7 +7,7 @@
   "scripts": {
     "start": "ts-node ../cli/src/index.ts start",
     "start-once": "ts-node src/index.ts",
-    "build": "NODE_ENV=production tsc --project tsconfig.prod.json",
+    "build": "tsc --project tsconfig.prod.json",
     "clean": "del dist",
     "test": "jest"
   },
