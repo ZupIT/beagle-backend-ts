@@ -5,7 +5,7 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "start": "ts-node hot-reloading/index.ts",
+    "start": "ts-node ../cli/src/index.ts start",
     "start-once": "ts-node src/index.ts",
     "build": "yarn tsc --project tsconfig.prod.json",
     "clean": "yarn del dist",
@@ -24,9 +24,6 @@
     "@types/ws": "^8.5.3",
     "@types/yargs": "^17.0.9",
     "supertest": "^6.2.2",
-    "ts-node": "^10.4.0",
-    "ts-node-dev": "^1.1.8",
-    "ws": "^8.5.0",
-    "yargs": "^17.3.1"
+    "ts-node": "^10.4.0"
   }
 }

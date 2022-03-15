@@ -11,6 +11,6 @@ export const genericNamespace = 'custom'
 /**
  * String expected by the hot reloading service (cli: start) for identifying a server restart.
  *
- * @privateRemarks this string must the same as the one declared in `cli/...`
+ * @privateRemarks this string must the same as the constant of same name declared in the module "cli".
  */
 export const hotReloadingString = '__[HOT RELOADING: SERVER_STARTED]__'

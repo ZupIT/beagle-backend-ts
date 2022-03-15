@@ -28,7 +28,7 @@ export const Products: Screen = ({ navigator }) => {
   })
 
   return (
-    <ScreenComponent safeArea={true} navigationBar={{ title: 'wfewn' }}>
+    <ScreenComponent safeArea={true} navigationBar={{ title: 'Products' }}>
       <Container context={products} onInit={onInit} style={{ backgroundColor: theme.viewBackground }}>
         <Loading isLoading={products.get('isLoading')}>
           <GridView dataSource={products.get('data')} spanCount={2} key="id" itemAspectRatio={0.6}>
