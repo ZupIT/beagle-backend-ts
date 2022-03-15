@@ -28,7 +28,7 @@ export async function startServer({ hotReloadingDisabled, hotReloadingPort, entr
 
   const tsNodeDev = spawn(
     'ts-node-dev',
-    ['--transpile-only', 'src/index.ts'],
+    ['--transpile-only', entrypoint],
     { env: { ...process.env, HOT_RELOADING: `${!hotReloadingDisabled}` } },
   )
 
