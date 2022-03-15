@@ -4,7 +4,7 @@ import { expressApp, expressListener } from '../src'
 function makeRequest(route: string) {
   return new Promise<Response>((resolve, reject) => {
     agent(expressApp)
-      .get(`/${route}`)
+      .get(route)
       .set('Accept', 'application/json')
       .expect('Content-Type', 'application/json; charset=utf-8')
       .expect(200)
