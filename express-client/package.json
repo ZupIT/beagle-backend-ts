@@ -4,9 +4,9 @@
   "license": "MIT",
   "main": "src/index.ts",
   "scripts": {
-    "build": "yarn tsc --project tsconfig.prod.json && node ../scripts/build-package.js",
-    "clean": "yarn del dist",
-    "test": "yarn jest"
+    "build": "tsc --project tsconfig.prod.json && node ../scripts/build-package.js",
+    "clean": "del dist",
+    "test": "jest"
   },
   "peerDependencies": {
     "@zup-it/beagle-backend-core": "1.0.0-beta.1",
