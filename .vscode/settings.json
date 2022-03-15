@@ -6,5 +6,6 @@
   "typescript.preferences.importModuleSpecifier": "project-relative",
   "cSpell.words": [
     "wctx"
-  ]
+  ],
+  "jest.jestCommandLine": "jest"
 }
