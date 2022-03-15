@@ -3,7 +3,7 @@ import {
   Actions,
   Expression,
   WithContext,
-  AnyContextNode,
+  Context,
   ComponentProps,
   createContextNode,
   WithChildren,
@@ -75,7 +75,7 @@ export interface ListViewProps<T> extends WithContext, WithStyle, WithAccessibil
    * A Template factory. It receives the implicit context corresponding to the current iteration. It must return a
    * Template or a list of Templates. No other component is acceptable.
    */
-  children: (item: AnyContextNode<T>) => JSX.Element | JSX.Element[],
+  children: (item: Context<T>) => JSX.Element | JSX.Element[],
 }
 
 export interface GridViewProps<T> extends ListViewProps<T> {

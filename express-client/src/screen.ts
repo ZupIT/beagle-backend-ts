@@ -1,5 +1,5 @@
 import { Request, Response } from 'express'
-import { WithAnalytics, AnyContextNode, Component, DeepExpression } from '@zup-it/beagle-backend-core'
+import { WithAnalytics, Context, Component, DeepExpression } from '@zup-it/beagle-backend-core'
 import { Navigator } from './navigator'
 import { IsRequired } from './utils/types'
 
@@ -70,7 +70,7 @@ interface ScreenProps<T extends ScreenRequest> {
   /**
    * The navigation context of this screen.
    */
-  navigationContext: AnyContextNode<T['navigationContext']>,
+  navigationContext: Context<T['navigationContext']>,
   /**
    * The request object from express.
    */

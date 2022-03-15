@@ -1,5 +1,5 @@
 import { ContextNode } from './context-node'
-import { AnyRootContext } from './types'
+import { LocalContext } from './types'
 
 /**
  * For better typing, you should use `createContext<T>()` instead of `new RootContext<T>()`. See
@@ -70,6 +70,6 @@ export class RootContext<T> extends ContextNode<T> {
  * @param id the id of the context, this is very important for debugging the application.
  * @returns an instance of RootContext
  */
-export function createContext<T>(id: string, value?: T): AnyRootContext<T> {
+export function createContext<T>(id: string, value?: T): LocalContext<T> {
   return new RootContext<T>(id, value) as any
 }

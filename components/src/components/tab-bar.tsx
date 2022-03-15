@@ -1,4 +1,4 @@
-import { BeagleJSX, FC, Expression, Actions, AnyContextNode, createContextNode } from '@zup-it/beagle-backend-core'
+import { BeagleJSX, FC, Expression, Actions, Context, createContextNode } from '@zup-it/beagle-backend-core'
 import { WithTheme } from '../types'
 import { DefaultComponent } from '../default-component'
 import { LocalImageProps } from './image'
@@ -28,7 +28,7 @@ export interface TabBarProps extends WithTheme {
    * An Action factory. This function receives a ContextNode referencing the index of the selected tab and must return
    * the actions to run when the tab changes.
    */
-  onTabSelection?: (index: AnyContextNode<number>) => Actions,
+  onTabSelection?: (index: Context<number>) => Actions,
 }
 
 /**

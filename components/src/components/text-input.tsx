@@ -1,4 +1,4 @@
-import { BeagleJSX, FC, Expression, Actions, AnyContextNode, createContextNode } from '@zup-it/beagle-backend-core'
+import { BeagleJSX, FC, Expression, Actions, Context, createContextNode } from '@zup-it/beagle-backend-core'
 import { StyledDefaultComponent, WithStyle } from '../style/styled'
 import { WithAccessibility, WithTheme } from '../types'
 
@@ -51,19 +51,19 @@ export interface TextInputProps extends WithAccessibility, WithTheme, WithStyle 
    * so Beagle can inject the ContextNode corresponding to the current value of the input, i.e., the single argument
    * received by this function is a context referring to the current content of the input.
    */
-  onFocus?: (value: AnyContextNode<string>) => Actions,
+  onFocus?: (value: Context<string>) => Actions,
   /**
    * An action factory. This function must return the actions to run when the user changes the input's text. This is a
    * function so Beagle can inject the ContextNode corresponding to the current value of the input, i.e., the single
    * argument received by this function is a context referring to the current content of the input.
    */
-  onChange?: (value: AnyContextNode<string>) => Actions,
+  onChange?: (value: Context<string>) => Actions,
   /**
    * An action factory. This function must return the actions to run when the input loses focus. This is a function
    * so Beagle can inject the ContextNode corresponding to the current value of the input, i.e., the single argument
    * received by this function is a context referring to the current content of the input.
    */
-  onBlur?: (value: AnyContextNode<string>) => Actions,
+  onBlur?: (value: Context<string>) => Actions,
 }
 
 interface InputEvent {
