@@ -16,4 +16,4 @@ export const expressListener = expressApp.listen(port, () => {
 })
 
 applyRoutes(expressApp)
-new BeagleApp(expressApp, beagleRoutes, { basePath: '/beagle' })
+new BeagleApp(expressApp, beagleRoutes, { basePath: '/' })

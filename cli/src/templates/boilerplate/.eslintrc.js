@@ -11,7 +11,7 @@ module.exports = {
     'plugin:@typescript-eslint/recommended',
   ],
   plugins: ['@typescript-eslint', 'import', 'filenames'],
-  ignorePatterns: ['**/node_modules/**', '**/dist/**', 'sample/**', 'scripts/**', '**/templates/**'],
+  ignorePatterns: ['**/node_modules/**', '**/dist/**', 'sample/**', 'scripts/**'],
   rules: {
     'max-len': ['error', { code: 120, ignorePattern: maxLengthIgnorePattern, ignoreComments: true }],
     'arrow-body-style': ['error', 'as-needed'],

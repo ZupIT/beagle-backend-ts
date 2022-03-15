@@ -14,7 +14,7 @@ export interface WithChildren {
   /**
    * The children of this Component. This must be a single Component or an array of Components.
    */
-  children?: Component | Component[],
+  children?: Component | Component[] | null,
 }
 
 interface ComponentInterface extends WithContext, WithChildren {
