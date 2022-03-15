@@ -4,7 +4,7 @@ import { expressApp, expressListener } from '../src'
 function makeRequest(route: string) {
   return new Promise<Response>((resolve, reject) => {
     agent(expressApp)
-      .get(route)
+      .get(`/${route}`)
       .set('Accept', 'application/json')
       .expect('Content-Type', 'application/json; charset=utf-8')
       .expect(200)
@@ -38,10 +38,8 @@ describe('Verifies if the screens outputs match the snapshots', () => {
   it('should only change the order id of the onInit when requesting another id in the order screen', async () => {
     const resp1 = await makeRequest('/order/1')
     const resp2 = await makeRequest('/order/2')
-
     const onInit1 = resp1.body.child.onInit[0]
     onInit1.url = onInit1.url.replace('/1', '/2')
-
     expect(resp1.body).toEqual(resp2.body)
   })
 })
