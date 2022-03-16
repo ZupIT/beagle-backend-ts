@@ -2,7 +2,7 @@ import { isEmpty } from 'lodash'
 import { setContext, SetContextParams } from '../../actions/set-context'
 import { Expression } from '../../types'
 import { AnalyticsConfig, Action } from '../action'
-import { AnyContextNode } from './types'
+import { Context } from './types'
 
 /**
  * For better typing, you should use `createContextNode<T>()` instead of `new ContextNode<T>()`. See
@@ -58,6 +58,6 @@ export class ContextNode<T> {
  * @param id the id of the context
  * @returns an instance of ContextNode
  */
-export function createContextNode<T>(id: string): AnyContextNode<T> {
+export function createContextNode<T>(id: string): Context<T> {
   return new ContextNode<T>(id) as any
 }

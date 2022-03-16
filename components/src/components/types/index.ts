@@ -1,10 +1,10 @@
-import { AnyContextNode, Operation } from '@zup-it/beagle-backend-core'
+import { Context, Operation } from '@zup-it/beagle-backend-core'
 
 type InterpolatedTextAcceptableTypes =
   string |
   number |
   boolean |
-  AnyContextNode<any> |
+  Context<any> |
   Operation<any> |
   { [K: string]: InterpolatedTextAcceptableTypes }
 

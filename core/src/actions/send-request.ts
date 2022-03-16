@@ -1,8 +1,8 @@
-import {  pick } from 'lodash'
+import { pick } from 'lodash'
 import { Expression } from '../types'
 import { Actions, ActionProps } from '../model/action'
 import { createContextNode } from '../model/context/context-node'
-import { AnyContextNode } from '../model/context/types'
+import { Context } from '../model/context/types'
 import { HttpMethod } from '../types'
 import { createCoreAction } from './core-action'
 
@@ -70,7 +70,7 @@ export interface EnhancedSendRequestParams<SuccessResponse, ErrorResponse> exten
    * )
    * ```
    */
-  onSuccess?: (response: AnyContextNode<ResponseContext<SuccessResponse>>) => Actions,
+  onSuccess?: (response: Context<ResponseContext<SuccessResponse>>) => Actions,
   /**
    * An action factory. This needs to return the actions to run once the request fails.
    *
@@ -85,7 +85,7 @@ export interface EnhancedSendRequestParams<SuccessResponse, ErrorResponse> exten
    * )
    * ```
    */
-  onError?: (response: AnyContextNode<ErrorContext<ErrorResponse>>) => Actions,
+  onError?: (response: Context<ErrorContext<ErrorResponse>>) => Actions,
 }
 
 export type SendRequestParams<SuccessResponse = any, ErrorResponse = any> = (

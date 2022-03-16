@@ -1,4 +1,13 @@
-import { Actions, AnyContextNode, BeagleJSX, createContextNode, Expression, FC, WithChildren, WithContext } from '@zup-it/beagle-backend-core'
+import {
+  Actions,
+  Context,
+  BeagleJSX,
+  createContextNode,
+  Expression,
+  FC,
+  WithChildren,
+  WithContext,
+} from '@zup-it/beagle-backend-core'
 import { DefaultComponent } from '../default-component'
 
 export interface PageViewProps extends WithChildren, WithContext {
@@ -6,7 +15,7 @@ export interface PageViewProps extends WithChildren, WithContext {
    * An Action factory. This function receives a reference to the new value for the current page
    * and should return the actions to run once the page changes.
    */
-  onPageChange?: (newCurrentPage: AnyContextNode<number>) => Actions,
+  onPageChange?: (newCurrentPage: Context<number>) => Actions,
   /**
    * The current page, i.e. the index of the child that should be displayed (0-based).
    */

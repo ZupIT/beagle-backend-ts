@@ -1,4 +1,4 @@
-import { AnyRootContext } from './context/types'
+import { LocalContext } from './context/types'
 
 export interface WithContext {
   /**
@@ -7,7 +7,7 @@ export interface WithContext {
    * This must be a RootContext, created via the function `createContext`. Contexts like the global context, the
    * navigation contexts or implicit contexts don't need to be declared and won't be accepted here.
    */
-  context?: AnyRootContext<any>,
+  context?: LocalContext<any>,
 }
 
 export interface WithChildren {

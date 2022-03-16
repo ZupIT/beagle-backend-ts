@@ -1,10 +1,10 @@
-import { AnyContextNode } from './model/context/types'
+import { Context } from './model/context/types'
 import { Operation } from './model/operation'
 
 /**
  * A ContextNode or Operation that results in a value of the given generic.
  */
-export type DynamicExpression<T> = AnyContextNode<T> | Operation<T>
+export type DynamicExpression<T> = Context<T> | Operation<T>
 
 /**
  * A ContextNode or Operation that results in a value of the given generic. It can also be the value itself.
@@ -16,7 +16,7 @@ export type Expression<T> = T | DynamicExpression<T>
  * recursively.
  *
  * Example: if `Name` is `{ first: string, last: string }` and `User` is `{ id: number, name: Name }`,
- * `Expression<User>` is `User | AnyContextNode<User> | Operation<User>`, while `DeepExpression<User>` is
+ * `Expression<User>` is `User | Context<User> | Operation<User>`, while `DeepExpression<User>` is
  * `Expression<User> | { id: Expression<number>, name: Expression<Name> | { first: Expression<string>,
  * last: Expression<string> } }`
  */

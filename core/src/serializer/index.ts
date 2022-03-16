@@ -2,7 +2,7 @@ import { isEmpty, mapValues, reduce } from 'lodash'
 import { genericNamespace } from '../constants'
 import { Component } from '../model/component'
 import { Action, AnalyticsConfig, AnalyticsAttributesMap } from '../model/action'
-import { AnyRootContext } from '../model/context/types'
+import { LocalContext } from '../model/context/types'
 import { ContextNode } from '../model/context/context-node'
 import { Operation } from '../model/operation'
 import { componentValidation } from '..'
@@ -59,7 +59,7 @@ const asActionCalls = (actions: Action<any> | Action<any>[]): ActionCall[] => (
   Array.isArray(actions) ? actions.map(asActionCall) : [asActionCall(actions)]
 )
 
-const asContextDeclaration = (context: AnyRootContext<any>): ContextDeclaration => ({
+const asContextDeclaration = (context: LocalContext<any>): ContextDeclaration => ({
   id: context.path,
   value: context.value,
 })

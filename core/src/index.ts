@@ -3,7 +3,7 @@ export { Expression, HttpMethod, DynamicExpression, DeepExpression } from './typ
 export { RootContext } from './model/context/root-context'
 export { coreNamespace } from './constants'
 export { Actions, WithAnalytics, createAction } from './model/action'
-export { AnyContextNode } from './model/context/types'
+export { Context } from './model/context/types'
 export { createContextNode } from './model/context/context-node'
 export { createContext } from './model/context/root-context'
 export { serialize } from './serializer'

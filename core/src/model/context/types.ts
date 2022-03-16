@@ -20,7 +20,7 @@ export type MapContextNode<T> = PrimitiveContextNode<T> & {
    * @param key the key of the property to get a reference to
    * @returns the ContextNode that refers to the value at the given key
    */
-  get<K extends keyof T>(key: K): AnyContextNode<T[K]>,
+  get<K extends keyof T>(key: K): Context<T[K]>,
 }
 
 /**
@@ -33,10 +33,10 @@ export type ArrayContextNode<T> = PrimitiveContextNode<T> & {
    * @param index the position in the array
    * @returns the ContextNode that refers to the position at index
    */
-  at<I extends number>(index: I): T extends any[] ? AnyContextNode<T[I]> : never,
+  at<I extends number>(index: I): T extends any[] ? Context<T[I]> : never,
 }
 
-type AnyContextNodeWithoutUndefined<T> = [T] extends [Primitive] ? PrimitiveContextNode<T> : (
+type ContextWithoutUndefined<T> = [T] extends [Primitive] ? PrimitiveContextNode<T> : (
   T extends any[] ? ArrayContextNode<T> : MapContextNode<T>
 )
 
@@ -47,7 +47,7 @@ type RemoveUndefined<T> = T extends undefined ? never : T
  * {@link ContextNode}.
  */
 // The brackets in the line below are important to prevent TS from applying a distributive operation.
-export type AnyContextNode<T> = AnyContextNodeWithoutUndefined<RemoveUndefined<T>>
+export type Context<T> = ContextWithoutUndefined<RemoveUndefined<T>>
 
 // root node
 
@@ -74,6 +74,6 @@ type ArrayRootContext<T> = PrimitiveRootContext<T> & {
  * This type helper correctly identifies the type of RootContext<T> and returns the appropriate type of
  * {@link RootContext}.
  */
-export type AnyRootContext<T> = T extends Primitive ? PrimitiveRootContext<T> : (
+export type LocalContext<T> = T extends Primitive ? PrimitiveRootContext<T> : (
   T extends any[] ? ArrayRootContext<T> : MapRootContext<T>
 )
