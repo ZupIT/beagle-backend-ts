@@ -16,8 +16,6 @@ interface Options {
   basePath?: string,
 }
 
-const now = Math.floor(Date.now() / 1000)
-
 /**
  * A Beagle application is a set of routes registered to the express instance provided in the constructor.
  *
@@ -46,7 +44,6 @@ export class BeagleApp {
     this.responseHeaders = options.responseHeaders ?? {}
     this.basePath = options.basePath ?? ''
     this.addRouteMap(routes)
-    this.createWatcherRoute()
     this.navigator = new Navigator(routes)
   }
 
@@ -68,13 +65,6 @@ export class BeagleApp {
       })
       res.send(serialize(componentTree))
     })
-  }
-
-  private createWatcherRoute() {
-    this.express.get(
-      `${this.basePath}/__watch`,
-      (_, res) => res.send(JSON.stringify({ time: now })),
-    )
   }
 
   private addRouteMap(routeMap: RouteMap) {

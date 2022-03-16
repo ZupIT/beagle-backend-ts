@@ -9,9 +9,9 @@
     "./*": "./src/*.ts"
   },
   "scripts": {
-    "build": "yarn tsc --project tsconfig.prod.json && node ../scripts/build-package.js",
-    "clean": "yarn del dist",
-    "test": "yarn jest"
+    "build": "tsc --project tsconfig.prod.json && node ../scripts/build-package.js",
+    "clean": "del dist",
+    "test": "jest"
   },
   "dependencies": {
     "lodash": "4.17.21"

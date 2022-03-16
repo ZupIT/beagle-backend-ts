@@ -1,6 +1,6 @@
 import clear from 'clear'
 import commander from 'commander'
-import { generateScreen, newProject } from './commands'
+import { generateScreen, newProject, startServer } from './commands'
 
 clear()
 
@@ -31,5 +31,13 @@ program
   .option('-wnc, --with-navigation-context', 'The screen will expect a navigation context.')
   .option('-wctx, --with-context', 'A Context that will be made available for this Screen and its children.')
   .action(generateScreen)
+
+program
+  .command('start')
+  .description('Starts the project and watches for file changes. It also starts a hot-reloading websocket server for front-ends to connect to.')
+  .option('-hrd, --hot-reloading-disabled', 'Disables the hot reloading websocket server.')
+  .option('-hrp, --hot-reloading-port', 'Changes the port for the hot reloading websocket server (3001 by default).')
+  .option('-e, --entrypoint', 'Changes the application entrypoint ("src/index.ts" by default).')
+  .action(startServer)
 
 program.parse(process.argv)

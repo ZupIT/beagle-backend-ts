@@ -5,11 +5,11 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "start": "nodemon src/index.ts -e ts,tsx",
+    "start": "ts-node ../cli/src/index.ts start",
     "start-once": "ts-node src/index.ts",
-    "build": "yarn tsc --project tsconfig.prod.json",
-    "clean": "yarn del dist",
-    "test": "yarn jest"
+    "build": "tsc --project tsconfig.prod.json",
+    "clean": "del dist",
+    "test": "jest"
   },
   "dependencies": {
     "@zup-it/beagle-backend-components": "1.0.0-beta.1",
@@ -21,7 +21,8 @@
   "devDependencies": {
     "@types/cors": "^2.8.12",
     "@types/supertest": "^2.0.11",
-    "nodemon": "^2.0.15",
+    "@types/ws": "^8.5.3",
+    "@types/yargs": "^17.0.9",
     "supertest": "^6.2.2",
     "ts-node": "^10.4.0"
   }
