@@ -1,3 +1,7 @@
+export interface BeagleHeaders {
+  'beagle-platform'?: 'WEB' | 'MOBILE',
+}
+
 export type IsRequired<T extends object, K extends keyof T> = T extends Record<K, T[K]> ? true : false
 
 export type HasRequiredProperty<T extends object> =

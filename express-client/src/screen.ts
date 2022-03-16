@@ -1,14 +1,14 @@
 import { Request, Response } from 'express'
 import { WithAnalytics, Context, Component, DeepExpression } from '@zup-it/beagle-backend-core'
 import { Navigator } from './navigator'
-import { IsRequired } from './utils/types'
+import { BeagleHeaders, IsRequired } from './utils/types'
 
 export interface RequestWithCustomHeaders<RouteParams = any, Headers = any, Body = any, Query = any>
   extends Request<RouteParams, any, Body, Query> {
   /**
    * The request headers of the request.
    */
-  headers: Request['headers'] & Headers,
+  headers: Request['headers'] & Headers & BeagleHeaders,
 }
 
 /**
