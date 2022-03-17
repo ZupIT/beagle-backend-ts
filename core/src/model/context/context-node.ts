@@ -27,7 +27,7 @@ export class ContextNode<T> {
    */
   set(value: Expression<T>, analytics?: AnalyticsConfig<SetContextParams<T>>): Action {
     const [, id, path] = this.path.match(/(\w+)\.?(.*)/) ?? []
-    if (isEmpty(id)) throw new Error("Can't set context because context path is empty.")
+    if (isEmpty(id)) throw new Error("Can't set context because context path is empty or invalid.")
     return setContext({ contextId: id, path, analytics, value })
   }
 
