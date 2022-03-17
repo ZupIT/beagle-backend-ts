@@ -1,3 +1,4 @@
+import { omitBy } from 'lodash'
 import { Action, createAction } from 'src/model/action'
 
 interface MyActionParams {
@@ -35,14 +36,14 @@ describe('Action', () => {
     })
   })
 
-  it('should create action without namespace', () => {
+  it('should create action with only a name', () => {
     const action = new Action<MyActionParams>({ name: 'myAction' })
-    expect(action.namespace).toBeUndefined()
+    expect(action).toEqual({ name: 'myAction' })
   })
 
-  it('should create action factory without namespace', () => {
+  it('should create action factory with only a name', () => {
     const factory = createAction<MyActionParams>('myAction')
     const action = factory({ message: 'test' })
-    expect(action.namespace).toBeUndefined()
+    expect(omitBy(action, p => !p)).toEqual({ name: 'myAction', properties: { message: 'test' } })
   })
 })
