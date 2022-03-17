@@ -14,7 +14,7 @@ type Element<T> = T extends (number | string | boolean) ? Expression<T> : Dynami
  * @returns an instance of Operation<Array>, i.e. an operation that results in an Array when run by the frontend.
  */
 export const insert = <T>(array: DynamicExpression<T[]>, element: Element<T>, index?: Expression<number>) => (
-  new Operation<T[]>('insert', [array, element, index])
+  new Operation<T[]>('insert', index == undefined ? [array, element] : [array, element, index])
 )
 
 /**
@@ -49,7 +49,7 @@ export const remove = <T>(array: DynamicExpression<T[]>, element: Element<T>) =>
  * @returns an instance of Operation<Array>, i.e. an operation that results in an Array when run by the frontend.
  */
 export const removeIndex = <T>(array: DynamicExpression<T[]>, index?: Expression<number>) => (
-  new Operation<T[]>('removeIndex', [array, index])
+  new Operation<T[]>('removeIndex', index == undefined ? [array] : [array, index])
 )
 
 /**
