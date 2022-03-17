@@ -1,11 +1,11 @@
-import { BeagleJSX } from 'src'
+import { Component } from 'src'
 import { AnalyticsConfig } from 'src/model/action'
 import { addChildren, AddChildrenParams } from 'src/actions'
 import { expectActionToBeCorrect } from './utils'
 
 const properties: AddChildrenParams = {
   componentId: 'test',
-  value: [<>Hello World</>],
+  value: [new Component({ name: 'test' })],
   mode: 'APPEND',
 }
 

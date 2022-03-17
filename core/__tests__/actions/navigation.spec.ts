@@ -1,4 +1,4 @@
-import { BeagleJSX } from 'src'
+import { Component } from 'src'
 import { AnalyticsConfig } from 'src/model/action'
 import { ContextNode } from 'src/model/context/context-node'
 import {
@@ -150,7 +150,7 @@ describe('Actions: navigation', () => {
     const properties: PushStackParams = {
       route: {
         url: new ContextNode<string>(''),
-        fallback: <>Fallback</>,
+        fallback: new Component({ name: 'fallback' }),
         httpAdditionalData: { headers: { test: 'test' } },
         shouldPrefetch: false,
       },
@@ -171,7 +171,7 @@ describe('Actions: navigation', () => {
     ))
 
     it('should create action with local route', () => {
-      const localRouteProps = { route: { screen: <>Screen</> } }
+      const localRouteProps = { route: { screen: new Component({ name: 'screen' }) } }
       expectActionToBeCorrect(pushStack(localRouteProps), 'pushStack', localRouteProps)
     })
 
@@ -186,7 +186,7 @@ describe('Actions: navigation', () => {
     const properties: PushViewParams = {
       route: {
         url: new ContextNode<string>(''),
-        fallback: <>Fallback</>,
+        fallback: new Component({ name: 'fallback' }),
         httpAdditionalData: { headers: { test: 'test' } },
         shouldPrefetch: false,
       },
@@ -206,7 +206,7 @@ describe('Actions: navigation', () => {
     ))
 
     it('should create action with local route', () => {
-      const localRouteProps = { route: { screen: <>Screen</> } }
+      const localRouteProps = { route: { screen: new Component({ name: 'screen' }) } }
       expectActionToBeCorrect(pushView(localRouteProps), 'pushView', localRouteProps)
     })
 
@@ -221,7 +221,7 @@ describe('Actions: navigation', () => {
     const properties: ResetApplicationParams = {
       route: {
         url: new ContextNode<string>(''),
-        fallback: <>Fallback</>,
+        fallback: new Component({ name: 'fallback' }),
         httpAdditionalData: { headers: { test: 'test' } },
         shouldPrefetch: false,
       },
@@ -242,7 +242,7 @@ describe('Actions: navigation', () => {
     ))
 
     it('should create action with local route', () => {
-      const localRouteProps = { route: { screen: <>Screen</> } }
+      const localRouteProps = { route: { screen: new Component({ name: 'screen' }) } }
       expectActionToBeCorrect(resetApplication(localRouteProps), 'resetApplication', localRouteProps)
     })
 
@@ -257,7 +257,7 @@ describe('Actions: navigation', () => {
     const properties: ResetStackParams = {
       route: {
         url: new ContextNode<string>(''),
-        fallback: <>Fallback</>,
+        fallback: new Component({ name: 'fallback' }),
         httpAdditionalData: { headers: { test: 'test' } },
         shouldPrefetch: false,
       },
@@ -278,7 +278,7 @@ describe('Actions: navigation', () => {
     ))
 
     it('should create action with local route', () => {
-      const localRouteProps = { route: { screen: <>Screen</> } }
+      const localRouteProps = { route: { screen: new Component({ name: 'screen' }) } }
       expectActionToBeCorrect(resetStack(localRouteProps), 'resetStack', localRouteProps)
     })
 
