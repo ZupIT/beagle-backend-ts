@@ -1,6 +1,7 @@
 {
   "compilerOptions": {
-    "experimentalDecorators": true,
+    "jsx": "react",
+    "reactNamespace": "BeagleJSX",
     "module": "commonjs",
     "target": "esnext",
     "moduleResolution": "node",
