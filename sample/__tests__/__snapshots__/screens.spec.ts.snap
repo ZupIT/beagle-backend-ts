@@ -1222,7 +1222,7 @@ Object {
                         "_beagleAction_": "beagle:setContext",
                         "contextId": "global",
                         "path": "cart",
-                        "value": "@{insert(global.cart, navigationContext.product, null)}",
+                        "value": "@{insert(global.cart, navigationContext.product)}",
                       },
                     ],
                     "style": Object {
@@ -1321,7 +1321,7 @@ Object {
                       "_beagleAction_": "beagle:setContext",
                       "contextId": "global",
                       "path": "cart",
-                      "value": "@{insert(global.cart, item, null)}",
+                      "value": "@{insert(global.cart, item)}",
                     },
                   ],
                   "onPressDetails": Array [
