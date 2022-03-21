@@ -12,7 +12,7 @@ export { isDynamicExpression, setupHotReloading } from './utils'
 export { Operation } from './model/operation'
 export { BeagleJSX, setFragmentFactory } from './jsx'
 import { Component } from './model/component'
-export { componentValidation } from './validation'
+export { componentValidation, ValidationFn, ValidationNode } from './validation'
 export { getGlobalContext } from './global-context'
 
 declare global {
