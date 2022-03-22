@@ -170,16 +170,23 @@ describe('Actions: navigation', () => {
       analytics,
     ))
 
-    it('should create action with local route', () => {
-      const localRouteProps = { route: { screen: new Component({ id: 'test-screen', name: 'screen' }) } }
-      expectActionToBeCorrect(pushStack(localRouteProps), 'pushStack', localRouteProps)
-    })
-
     it('should create action with only route', () => expectActionToBeCorrect(
       pushStack('test'),
       'pushStack',
       { route: { url: 'test' } },
     ))
+
+    describe('local route', () => {
+      it('should create action', () => {
+        const localRouteProps = { route: { screen: new Component({ id: 'test-screen', name: 'screen' }) } }
+        expectActionToBeCorrect(pushStack(localRouteProps), 'pushStack', localRouteProps)
+      })
+
+      it('should throw when an id is not provided', () => {
+        const localRouteProps = { route: { screen: new Component({ name: 'screen' }) } }
+        expect(() => pushStack(localRouteProps)).toThrow()
+      })
+    })
   })
 
   describe('pushView', () => {
@@ -205,16 +212,23 @@ describe('Actions: navigation', () => {
       analytics,
     ))
 
-    it('should create action with local route', () => {
-      const localRouteProps = { route: { screen: new Component({ id: 'test-screen', name: 'screen' }) } }
-      expectActionToBeCorrect(pushView(localRouteProps), 'pushView', localRouteProps)
-    })
-
     it('should create action with only route', () => expectActionToBeCorrect(
       pushView('test'),
       'pushView',
       { route: { url: 'test' } },
     ))
+
+    describe('local route', () => {
+      it('should create action with', () => {
+        const localRouteProps = { route: { screen: new Component({ id: 'test-screen', name: 'screen' }) } }
+        expectActionToBeCorrect(pushView(localRouteProps), 'pushView', localRouteProps)
+      })
+
+      it('should throw when an id is not provided', () => {
+        const localRouteProps = { route: { screen: new Component({ name: 'screen' }) } }
+        expect(() => pushView(localRouteProps)).toThrow()
+      })
+    })
   })
 
   describe('resetApplication', () => {
@@ -241,16 +255,23 @@ describe('Actions: navigation', () => {
       analytics,
     ))
 
-    it('should create action with local route', () => {
-      const localRouteProps = { route: { screen: new Component({ id: 'test-screen', name: 'screen' }) } }
-      expectActionToBeCorrect(resetApplication(localRouteProps), 'resetApplication', localRouteProps)
-    })
-
     it('should create action with only route', () => expectActionToBeCorrect(
       resetApplication('test'),
       'resetApplication',
       { route: { url: 'test' } },
     ))
+
+    describe('local route', () => {
+      it('should create action', () => {
+        const localRouteProps = { route: { screen: new Component({ id: 'test-screen', name: 'screen' }) } }
+        expectActionToBeCorrect(resetApplication(localRouteProps), 'resetApplication', localRouteProps)
+      })
+
+      it('should throw when an id is not provided', () => {
+        const localRouteProps = { route: { screen: new Component({ name: 'screen' }) } }
+        expect(() => resetApplication(localRouteProps)).toThrow()
+      })
+    })
   })
 
   describe('resetStack', () => {
@@ -277,15 +298,22 @@ describe('Actions: navigation', () => {
       analytics,
     ))
 
-    it('should create action with local route', () => {
-      const localRouteProps = { route: { screen: new Component({ id: 'test-screen', name: 'screen' }) } }
-      expectActionToBeCorrect(resetStack(localRouteProps), 'resetStack', localRouteProps)
-    })
-
     it('should create action with only route', () => expectActionToBeCorrect(
       resetStack('test'),
       'resetStack',
       { route: { url: 'test' } },
     ))
+
+    describe('local route', () => {
+      it('should create action with', () => {
+        const localRouteProps = { route: { screen: new Component({ id: 'test-screen', name: 'screen' }) } }
+        expectActionToBeCorrect(resetStack(localRouteProps), 'resetStack', localRouteProps)
+      })
+
+      it('should throw when an id is not provided', () => {
+        const localRouteProps = { route: { screen: new Component({ name: 'screen' }) } }
+        expect(() => resetStack(localRouteProps)).toThrow()
+      })
+    })
   })
 })
