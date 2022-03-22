@@ -1,10 +1,11 @@
+import { remove } from 'lodash'
 import { Component } from './model/component'
 
-interface ValidationNode extends Component {
+export interface ValidationNode extends Component {
   parent?: Component,
 }
 
-type ValidationFn = (node: ValidationNode) => void
+export type ValidationFn = (node: ValidationNode) => void
 
 class ComponentValidation {
   private validations: ValidationFn[] = []
@@ -19,9 +20,13 @@ class ComponentValidation {
    * A {@link ValidationNode} is a {@link Component} with one additional attribute: the parent that spawned the node.
    *
    * @param validation the validation function.
+   * @returns a function that, when called, removes the validation.
    */
-  add(validation: ValidationFn) {
+  add(validation: ValidationFn): () => void {
     this.validations.push(validation)
+    return () => {
+      remove(this.validations, v => v === validation)
+    }
   }
 
   private validateRecursive(node: Component, parent?: ValidationNode) {

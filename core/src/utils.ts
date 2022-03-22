@@ -16,7 +16,7 @@ export const isDynamicExpression = (data: any) => data instanceof ContextNode ||
  *
  * @returns true if `process.env.NODE_ENV` is unset or `"development"`
  */
-export const isDevelopmentMode = () => process.env.NODE_ENV ?? 'development' === 'development'
+export const isDevelopmentMode = () => (process.env.NODE_ENV ?? 'development') === 'development'
 
 /**
  * Enables hot reloading if the environment is development and if the program has started with the environment variable
