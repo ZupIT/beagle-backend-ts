@@ -2,7 +2,7 @@ import { FC } from '@zup-it/beagle-backend-core'
 import {
   pushView, pushStack, popToView, popView, popStack, resetApplication, resetStack, Route,
 } from '@zup-it/beagle-backend-core/actions'
-import { forEach } from 'lodash'
+import { forEach, isEmpty, map } from 'lodash'
 import {
   ControllerId, PopStackAction, PopToViewAction, PopViewAction, PushStackAction,
   PushViewAction, ResetApplicationAction, ResetStackAction,
@@ -35,7 +35,7 @@ export class Navigator {
    * @param routeMap the same routeMap received by BeagleApplication.
    * @param basePath the same basePath received by BeagleApplication options.
    */
-  constructor(routeMap: RouteMap, private basePath = '') {
+  constructor(routeMap: RouteMap) {
     this.screenMap = new Map()
     forEach(routeMap, (value, key) => this.screenMap.set(
       typeof value === 'function' ? value : value.screen,
@@ -47,21 +47,28 @@ export class Navigator {
 
   private getPathAndMethod(screen: FC<any>) {
     if (!this.screenMap.has(screen)) {
-      throw new Error(`Couldn't find any route corresponding to "${screen}". Are you sure you registered it via BeagleApp.addScreen?`)
+      throw new Error(
+        "Couldn't find any route corresponding to the provided screen. Are you sure you registered it in the route map provided to the BeagleApp?",
+      )
     }
     return this.screenMap.get(screen)!
   }
 
-  private buildUrl(path: string, routeParams: Record<string, string> = {}) {
-    return path.replace(/:(\w+)/g, (_, name) => name in routeParams ? routeParams[name] : `:${name}`)
+  private buildUrl(path: string, routeParams: Record<string, string> = {}, query?: Record<string, string>) {
+    const withRouteParams = path.replace(
+      /:(\w+)/g,
+      (_, name) => name in routeParams ? encodeURIComponent(routeParams[name]) : `:${name}`,
+    )
+    const queryParts = map(query, (value, key) => `${key}=${encodeURIComponent(value)}`)
+    return isEmpty(queryParts) ? withRouteParams : `${withRouteParams}?${queryParts.join('&')}`
   }
 
   private buildRoute({ type, screen, properties = {} }: GenericRemoteNavigation) {
     if (type === 'popView' || type === 'popStack') return undefined
 
-    const { routeParams, headers, body, shouldPrefetch, fallback } = properties
+    const { routeParams, headers, body, shouldPrefetch, fallback, query } = properties
     const { path, method } = this.getPathAndMethod(screen!)
-    const url = this.buildUrl(`${this.basePath}${path}`, routeParams ?? {})
+    const url = this.buildUrl(path, routeParams, query)
     if (type === 'popToView') return url
 
     const httpAdditionalData = method || headers || body ? { method, headers, body } : undefined
