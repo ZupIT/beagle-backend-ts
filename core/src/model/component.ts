@@ -55,7 +55,6 @@ export interface Component extends WithContext, WithChildren {
   /**
    * An optional id for this component.
    * This is important for debugging or for identifying it in structures like the Action addChildren.
-   * ATTENTION: this id property is REQUIRED to perform local navigations.
   */
   id?: string,
   /**

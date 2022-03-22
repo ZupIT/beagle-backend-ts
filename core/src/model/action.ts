@@ -61,23 +61,6 @@ export interface WithAnalytics<Props = any> {
   analytics?: AnalyticsConfig<Props>,
 }
 
-interface ActionInterface<Props = any> extends WithAnalytics<Props> {
-  /**
-   * The namespace for this action. Actions in beagle are identified by a string in the format "$namespace:$name", e.g
-   * "beagle:alert".
-   */
-  namespace?: string,
-  /**
-   * The name for this action. Actions in beagle are identified by a string in the format "$namespace:$name", e.g
-   * "beagle:alert".
-   */
-  name: string,
-  /**
-   * The properties for this action,
-   */
-  properties?: Props,
-}
-
 /**
  * Utility type to include the properties that should be included in every action.
  *
@@ -134,21 +117,32 @@ export type Actions = Action | Action[]
  * This is a very simple example and it omits many of the properties of an Alert action. To create an action factory
  * with all properties of an Action, check the helper method {@link createAction}.
  */
-export class Action<Props = any> implements ActionInterface<Props> {
+export interface Action<Props = any> extends WithAnalytics<Props> {
+  /**
+   * The namespace for this action. Actions in beagle are identified by a string in the format "$namespace:$name", e.g
+   * "beagle:alert".
+   */
+  namespace?: string,
+  /**
+   * The name for this action. Actions in beagle are identified by a string in the format "$namespace:$name", e.g
+   * "beagle:alert".
+   */
+  name: string,
+  /**
+   * The properties for this action,
+   */
+  properties?: Props,
+}
+export class Action<Props = any> {
   /**
    * @param options the action parameters: namespace, name, properties and analytics. See {@link ActionInterface}.
    */
-  constructor({ name, analytics, namespace, properties }: ActionInterface<Props>) {
+  constructor({ name, analytics, namespace, properties }: Action<Props>) {
     this.name = name
     this.namespace = namespace
     this.analytics = analytics
     this.properties = properties
   }
-
-  namespace?
-  name
-  properties?
-  analytics?
 }
 
 /**

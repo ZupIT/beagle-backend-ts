@@ -1,3 +1,4 @@
+import { has } from 'lodash'
 import { Expression, HttpMethod } from '../types'
 import { Action } from '../model/action'
 import { Component } from '../model/component'
@@ -206,7 +207,7 @@ interface PushViewFunction {
   /**
    * Adds the provided route to the current navigation stack.
    *
-   * @param props the parameters for  this navigation:
+   * @param props the parameters for this navigation:
    * - route the screen to load. A {@link LocalView} or a {@link RemoteView}.
    * - navigationContext: the Context for this navigation. See {@link BaseNavigationParams}.
    * @returns an instance of Action
@@ -337,31 +338,16 @@ interface ResetApplicationFunction {
   (...args: Parameters<typeof navigator.resetApplication>): ReturnType<typeof navigator.resetApplication>,
 }
 
-function validateLocalNavigationScreen(screen: Component | (() => Component)): void {
-  const component: Component = screen instanceof Component ? screen : screen()
-  if (!component.id) {
-    throw new Error(`The screen component must have an id, on the root component ("${component.namespace}:${component.name}"), to perform a local navigation.`)
-  }
-}
-
-function validateLocalNavigationOptions(options: any) {
-  if (!options.route) throw new Error('The "route" property is mandatory to perform a local navigation.')
-  if (typeof options.route === 'string' || options.route.url) return
-  if (!options.route.screen) throw new Error('The "route.screen" property is mandatory to perform a local navigation.')
-  if (options.route.screen instanceof Component || typeof options.route.screen === 'function') {
-    validateLocalNavigationScreen(options.route.screen)
-  }
-  else throw new Error('The "route.screen" property must be a Component or a RemoteView.')
-}
-
-type GetParamsOptions = { isPopToView?: boolean, routeless?: boolean }
-
-function getParams(props: any, options?: GetParamsOptions) {
+function getParams(props: any, isPopToView?: boolean) {
   const isParamASingleUrl = typeof props === 'string' || isDynamicExpression(props)
-  if (isParamASingleUrl) return { route: options?.isPopToView ? props : { url: props } }
-
+  if (isParamASingleUrl) return { route: isPopToView ? props : { url: props } }
+  if (props && has(props, ['route', 'screen']) && !props.route.screen.id) {
+    throw new Error(`
+      The screen component must have an id, to perform a local navigation.
+      Root component: "${props?.route?.screen?.namespace ?? 'namespace'}:${props?.route?.screen?.name ?? 'name'}".
+    `)
+  }
   const { navigationContext, ...other } = props
-  if (!options?.routeless) validateLocalNavigationOptions(props)
   return { navigationContext: formatNavigationContext(navigationContext), ...other }
 }
 
@@ -374,8 +360,8 @@ export const resetStack: ResetStackFunction = (props) => navigator.resetStack(ge
 /** @category Actions */
 export const resetApplication: ResetApplicationFunction = (props) => (navigator.resetApplication(getParams(props)))
 /** @category Actions */
-export const popToView: PopToViewFunction = (props) => navigator.popToView(getParams(props, { isPopToView: true }))
+export const popToView: PopToViewFunction = (props) => navigator.popToView(getParams(props, true))
 /** @category Actions */
-export const popView: PopViewFunction = (props = {}) => navigator.popView(getParams(props, { routeless: true }))
+export const popView: PopViewFunction = (props = {}) => navigator.popView(getParams(props))
 /** @category Actions */
-export const popStack: PopStackFunction = (props = {}) => navigator.popStack(getParams(props, { routeless: true }))
+export const popStack: PopStackFunction = (props = {}) => navigator.popStack(getParams(props))
