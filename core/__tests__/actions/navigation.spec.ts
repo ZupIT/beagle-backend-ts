@@ -171,7 +171,7 @@ describe('Actions: navigation', () => {
     ))
 
     it('should create action with local route', () => {
-      const localRouteProps = { route: { screen: new Component({ name: 'screen' }) } }
+      const localRouteProps = { route: { screen: new Component({ id: 'test-screen', name: 'screen' }) } }
       expectActionToBeCorrect(pushStack(localRouteProps), 'pushStack', localRouteProps)
     })
 
@@ -206,7 +206,7 @@ describe('Actions: navigation', () => {
     ))
 
     it('should create action with local route', () => {
-      const localRouteProps = { route: { screen: new Component({ name: 'screen' }) } }
+      const localRouteProps = { route: { screen: new Component({ id: 'test-screen', name: 'screen' }) } }
       expectActionToBeCorrect(pushView(localRouteProps), 'pushView', localRouteProps)
     })
 
@@ -242,7 +242,7 @@ describe('Actions: navigation', () => {
     ))
 
     it('should create action with local route', () => {
-      const localRouteProps = { route: { screen: new Component({ name: 'screen' }) } }
+      const localRouteProps = { route: { screen: new Component({ id: 'test-screen', name: 'screen' }) } }
       expectActionToBeCorrect(resetApplication(localRouteProps), 'resetApplication', localRouteProps)
     })
 
@@ -278,7 +278,7 @@ describe('Actions: navigation', () => {
     ))
 
     it('should create action with local route', () => {
-      const localRouteProps = { route: { screen: new Component({ name: 'screen' }) } }
+      const localRouteProps = { route: { screen: new Component({ id: 'test-screen', name: 'screen' }) } }
       expectActionToBeCorrect(resetStack(localRouteProps), 'resetStack', localRouteProps)
     })
 
