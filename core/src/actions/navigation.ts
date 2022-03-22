@@ -239,18 +239,19 @@ interface PopStackFunction {
   /**
    * Pops the current stack, going back to the last route of the previous stack.
    *
-   * @param props the parameters for this navigation:
-   * - navigationContext: the Context for this navigation. See {@link BaseNavigationParams}.
    * @returns an instance of Action
+   *
    */
-   (...args: Parameters<typeof navigator.popStack>): ReturnType<typeof navigator.popStack>,
+  (): Action,
 
   /**
    * Pops the current stack, going back to the last route of the previous stack.
    *
+   * @param props the parameters for this navigation:
+   * - navigationContext: the Context for this navigation. See {@link BaseNavigationParams}.
    * @returns an instance of Action
-   * */
-   (): Action,
+   */
+  (...args: Parameters<typeof navigator.popStack>): ReturnType<typeof navigator.popStack>,
 }
 
 interface PopToViewFunction {
@@ -299,6 +300,13 @@ interface ResetStackFunction {
 
 interface PopViewFunction {
   /**
+  * Goes back to the previous route.
+  *
+  * @returns an instance of Action
+  * */
+  (): Action,
+
+  /**
    * Goes back to the previous route.
    *
    * @param props the parameters for this navigation:
@@ -306,13 +314,6 @@ interface PopViewFunction {
    * @returns an instance of Action
    */
   (...args: Parameters<typeof navigator.popView>): ReturnType<typeof navigator.popView>,
-
-  /**
-   * Goes back to the previous route.
-   *
-   * @returns an instance of Action
-   * */
-  (): Action,
 }
 
 interface ResetApplicationFunction {
