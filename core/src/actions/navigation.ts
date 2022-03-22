@@ -1,4 +1,3 @@
-import { has } from 'lodash'
 import { Expression, HttpMethod } from '../types'
 import { Action } from '../model/action'
 import { Component } from '../model/component'
@@ -341,7 +340,7 @@ interface ResetApplicationFunction {
 function getParams(props: any, isPopToView?: boolean) {
   const isParamASingleUrl = typeof props === 'string' || isDynamicExpression(props)
   if (isParamASingleUrl) return { route: isPopToView ? props : { url: props } }
-  if (props && has(props, ['route', 'screen']) && !props.route.screen.id) {
+  if (props?.route?.screen && !props.route.screen.id) {
     throw new Error(`
       The screen component must have an id, to perform a local navigation.
       Root component: "${props?.route?.screen?.namespace ?? 'namespace'}:${props?.route?.screen?.name ?? 'name'}".
