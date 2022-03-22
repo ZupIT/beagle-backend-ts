@@ -13,7 +13,7 @@ export const beagleFragmentFactory: FragmentFactory = (children: any[]) => {
   const childrenBuilt = iterableChildren.reduce((accumulator: Component[], value: any, index: number) => {
     const previousComponent = accumulator[accumulator.length - 1]
     if (index > 0 && previousComponent.name === 'text' && stringable(value)) {
-      previousComponent!.properties!.text += formatTextUnit(value)
+      previousComponent!.properties!.text = `${previousComponent!.properties!.text}${formatTextUnit(value)}`
       return accumulator
     }
     const newItem = stringable(value) ? createText(formatTextUnit(value)) : value

@@ -72,7 +72,7 @@ export const openExternalUrl: OpenExternalUrl = (urlOrOptions) => (
  * Transforms anything into the navigation context expected by the frontend, i.e. an object with `path` and `value`.
  * `path` will be undefined if it's not possible to extract a common path from the argument `data`.
  *
- * Example: `{ user: { address: { position: { lat: 58.8, lng: -136.5 } } }` becomes
+ * Example: `{ user: { address: { position: { lat: 58.8, lng: -136.5 } } } }` becomes
  * `{ path: 'user.address.position', value: { lat: 58.8, lng: -136.5 } }`.
  *
  * @param data the data to transform into a navigation context
