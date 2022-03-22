@@ -202,7 +202,7 @@ export function request<SuccessResponse = any, ErrorResponse = any>() {
      * Please check {@link request} for more details.
      *
      * @param curryFn function to create the options for the sendRequest action
-     * @return a function to create a sendRequest action
+     * @returns a function to create a sendRequest action
      */
     compose,
   }

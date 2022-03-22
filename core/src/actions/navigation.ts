@@ -199,7 +199,7 @@ interface PushViewFunction {
    * Adds the provided route to the current navigation stack.
    *
    * @param url the url to the screen to load
-   * @return an instance of Action
+   * @returns an instance of Action
    */
   (url: Expression<string>): Action,
 
@@ -209,7 +209,7 @@ interface PushViewFunction {
    * @param props the parameters for  this navigation:
    * - route the screen to load. A {@link LocalView} or a {@link RemoteView}.
    * - navigationContext: the Context for this navigation. See {@link BaseNavigationParams}.
-   * @return an instance of Action
+   * @returns an instance of Action
    */
   (...args: Parameters<typeof navigator.pushView>): ReturnType<typeof navigator.pushView>,
 }
@@ -219,7 +219,7 @@ interface PushStackFunction {
    * Adds a new stack to the navigator with the provided route.
    *
    * @param url the url to the screen to load
-   * @return an instance of Action
+   * @returns an instance of Action
    */
    (url: Expression<string>): Action,
 
@@ -230,7 +230,7 @@ interface PushStackFunction {
    * - route: the screen to load. A {@link LocalView} or a {@link RemoteView}.
    * - controllerId: the id for the navigation controller to use. See {@link StackNavigationParams}.
    * - navigationContext: the Context for this navigation. See {@link BaseNavigationParams}.
-   * @return an instance of Action
+   * @returns an instance of Action
    */
   (...args: Parameters<typeof navigator.pushStack>): ReturnType<typeof navigator.pushStack>,
 }
@@ -241,14 +241,14 @@ interface PopStackFunction {
    *
    * @param props the parameters for this navigation:
    * - navigationContext: the Context for this navigation. See {@link BaseNavigationParams}.
-   * @return an instance of Action
+   * @returns an instance of Action
    */
    (...args: Parameters<typeof navigator.popStack>): ReturnType<typeof navigator.popStack>,
 
   /**
    * Pops the current stack, going back to the last route of the previous stack.
    *
-   * @return an instance of Action
+   * @returns an instance of Action
    * */
    (): Action,
 }
@@ -260,7 +260,7 @@ interface PopToViewFunction {
    *
    * @param routeId the identifier of the route to go back to. For RemoteViews, this identifier
    * will be the url. For LocalViews, it will the id of the root component.
-   * @return an instance of Action
+   * @returns an instance of Action
    */
    (routeId: Expression<string>): Action,
 
@@ -271,7 +271,7 @@ interface PopToViewFunction {
    * @param props the parameters for this navigation:
    * - route: the identifier for the screen to go back to.
    * - navigationContext: the Context for this navigation. See {@link BaseNavigationParams}.
-   * @return an instance of Action
+   * @returns an instance of Action
    */
   (...args: Parameters<typeof navigator.popToView>): ReturnType<typeof navigator.popToView>,
 }
@@ -281,7 +281,7 @@ interface ResetStackFunction {
    * Removes the current navigation stack and adds a new one with the provided route.
    *
    * @param url the url to the screen to load
-   * @return an instance of Action
+   * @returns an instance of Action
    */
   (url: Expression<string>): Action,
 
@@ -320,7 +320,7 @@ interface ResetApplicationFunction {
    * Removes all the navigation stacks and adds a new one with the provided route.
    *
    * @param url the url to the screen to load
-   * @return an instance of Action
+   * @returns an instance of Action
    */
    (url: Expression<string>): Action,
 
