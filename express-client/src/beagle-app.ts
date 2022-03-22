@@ -56,7 +56,7 @@ export class BeagleApp {
     const { method = 'get', path } = properties
     this.express[method](`${this.basePath}${path}`, (req, res) => {
       res.type('application/json')
-      forEach(this.responseHeaders, (key, value) => res.setHeader(key, value))
+      forEach(this.responseHeaders, (value, key) => res.setHeader(key, value))
       const componentTree = screen({
         request: req as RequestWithCustomHeaders,
         response: res,
@@ -70,7 +70,7 @@ export class BeagleApp {
   private addRouteMap(routeMap: RouteMap) {
     forEach(routeMap, (value, key) => {
       if (typeof value === 'function') this.addRoute(value, { path: key })
-      else this.addRoute(value.screen, { path: key })
+      else this.addRoute(value.screen, { path: key, method: value.method })
     })
   }
 }
