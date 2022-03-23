@@ -6,7 +6,8 @@
     "words": [
         "Clazz",
         "encodable",
-        "navigations"
+        "navigations",
+        "undefineds"
     ],
     "ignoreWords": [],
     "import": []
