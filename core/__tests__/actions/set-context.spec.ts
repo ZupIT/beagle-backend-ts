@@ -13,11 +13,13 @@ const analytics: AnalyticsConfig<SetContextParams> = {
   attributes: { contextId: true, value: true, path: true },
 }
 
-describe('Actions: setContext', () => {
-  it('should create action', () => expectActionToBeCorrect(
-    setContext({ ...properties, analytics }),
-    'setContext',
-    properties,
-    analytics,
-  ))
+describe('Actions', () => {
+  describe('setContext', () => {
+    it('should create action', () => expectActionToBeCorrect(
+      setContext({ ...properties, analytics }),
+      'setContext',
+      properties,
+      analytics,
+    ))
+  })
 })
