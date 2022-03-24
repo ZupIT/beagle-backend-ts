@@ -1,7 +1,9 @@
+import { createContextNode } from '@zup-it/beagle-backend-core'
 import { validateColor } from 'src/validations'
 
 describe('Validations', () => {
   describe('Color', () => {
+    it('should pass validation for expression', () => validateColor(createContextNode<string>('ctx')))
     it('should pass validation for #RGB', () => validateColor('#FFF'))
     it('should pass validation for #RGBA', () => validateColor('#0A19'))
     it('should pass validation for #RRGGBB', () => validateColor('#17ABEF'))
