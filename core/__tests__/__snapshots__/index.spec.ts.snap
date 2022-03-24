@@ -1,0 +1,20 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Core module should export 1`] = `
+Object {
+  "BeagleJSX": "object",
+  "Component": "function",
+  "Operation": "function",
+  "RootContext": "function",
+  "componentValidation": "object",
+  "coreNamespace": "string",
+  "createAction": "function",
+  "createContext": "function",
+  "createContextNode": "function",
+  "getGlobalContext": "function",
+  "isDynamicExpression": "function",
+  "serialize": "function",
+  "setFragmentFactory": "function",
+  "setupHotReloading": "function",
+}
+`;
