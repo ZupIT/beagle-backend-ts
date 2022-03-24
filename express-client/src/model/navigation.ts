@@ -12,7 +12,7 @@ export interface ControllerId {
 }
 
 type PushStack<T extends ScreenRequest> = ScreenNavigation<T, PushStackParams> & ControllerId
-type PushView<T extends ScreenRequest> = ScreenNavigation<T, PushViewParams> & ControllerId
+type PushView<T extends ScreenRequest> = ScreenNavigation<T, PushViewParams>
 type PopView<T extends ScreenRequest> = Pick<ScreenNavigation<T, PopViewParams>, 'navigationContext' | 'analytics'>
 type PopStack<T extends ScreenRequest> = Pick<ScreenNavigation<T, PopStackParams>, 'navigationContext' | 'analytics'>
 type PopToView<T extends ScreenRequest> = Pick<ScreenNavigation<T, PopToViewParams>, 'navigationContext' | 'analytics'>
