@@ -132,6 +132,10 @@ export interface Action<Props = any> extends WithAnalytics<Props> {
    * The properties for this action,
    */
   properties?: Props,
+  /**
+   * Don't use this. This property is here just to avoid the assignment of functions to this type.
+   */
+   call?: never,
 }
 export class Action<Props = any> {
   /**
