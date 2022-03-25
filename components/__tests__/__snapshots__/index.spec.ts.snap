@@ -1,0 +1,31 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Components module should export 1`] = `
+Object {
+  "Button": "function",
+  "Container": "function",
+  "Else": "function",
+  "GridView": "function",
+  "If": "function",
+  "Image": "function",
+  "LazyComponent": "function",
+  "ListView": "function",
+  "PageIndicator": "function",
+  "PageView": "function",
+  "PullToRefresh": "function",
+  "ScreenComponent": "function",
+  "ScrollView": "function",
+  "SimpleForm": "function",
+  "StyledComponent": "function",
+  "TabBar": "function",
+  "Template": "function",
+  "Text": "function",
+  "TextInput": "function",
+  "Then": "function",
+  "Touchable": "function",
+  "Webview": "function",
+  "colors": "object",
+  "createStyleMap": "function",
+  "submitForm": "function",
+}
+`;

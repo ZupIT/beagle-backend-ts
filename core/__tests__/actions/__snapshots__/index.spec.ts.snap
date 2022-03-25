@@ -1,0 +1,21 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Actions module should export 1`] = `
+Object {
+  "addChildren": "function",
+  "alert": "function",
+  "conditionalAction": "function",
+  "confirm": "function",
+  "openExternalUrl": "function",
+  "openNativeRoute": "function",
+  "popStack": "function",
+  "popToView": "function",
+  "popView": "function",
+  "pushStack": "function",
+  "pushView": "function",
+  "request": "function",
+  "resetApplication": "function",
+  "resetStack": "function",
+  "sendRequest": "function",
+}
+`;
