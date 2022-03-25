@@ -8,9 +8,10 @@ describe('Components', () => {
   describe('PageView', () => {
     const name = 'pageView'
     const id = 'test-page-view'
+    const context = createContext('page-view-context-id')
     const currentPage = createContext('currentPage', 0)
     const onPageChange: (newCurrentPage: Context<number>) => Actions = (page) => currentPage.set(page)
-    const properties: PageViewProps = {
+    const props: PageViewProps = {
       onPageChange: undefined,
       currentPage: 2,
       showArrow: true,
@@ -20,12 +21,13 @@ describe('Components', () => {
       expectComponentToBeCorrect(
         <PageView
           id={id}
-          currentPage={properties.currentPage}
-          showArrow={properties.showArrow}
+          currentPage={props.currentPage}
+          showArrow={props.showArrow}
+          context={context}
         >
         </PageView>,
         name,
-        { id, properties },
+        { id, properties: props, context },
       )
     })
 
@@ -35,13 +37,21 @@ describe('Components', () => {
           expectComponentToBeCorrect(
             <PageView
               id={id}
-              currentPage={properties.currentPage}
-              showArrow={properties.showArrow}
+              currentPage={props.currentPage}
+              showArrow={props.showArrow}
               onPageChange={onPageChange}
+              context={context}
             >
             </PageView>,
             name,
-            { id, properties: { ...properties, onPageChange: onPageChange(createContextNode('onPageChange')) } },
+            {
+              id,
+              context,
+              properties: {
+                ...props,
+                onPageChange: onPageChange(createContextNode('onPageChange')),
+              },
+            },
           )
         })
       })
@@ -55,13 +65,14 @@ describe('Components', () => {
         expectComponentToBeCorrect(
           <PageView
             id={id}
-            currentPage={properties.currentPage}
-            showArrow={properties.showArrow}
+            currentPage={props.currentPage}
+            showArrow={props.showArrow}
+            context={context}
           >
             {children}
           </PageView>,
           name,
-          { id, properties, children },
+          { id, properties: props, children, context },
         )
       })
 
@@ -71,9 +82,10 @@ describe('Components', () => {
             expectComponentToBeCorrect(
               <PageView
                 id={id}
-                currentPage={properties.currentPage}
-                showArrow={properties.showArrow}
+                currentPage={props.currentPage}
+                showArrow={props.showArrow}
                 onPageChange={onPageChange}
+                context={context}
               >
                 {children}
               </PageView>,
@@ -81,7 +93,8 @@ describe('Components', () => {
               {
                 id,
                 children,
-                properties: { ...properties, onPageChange: onPageChange(createContextNode('onPageChange')) },
+                properties: { ...props, onPageChange: onPageChange(createContextNode('onPageChange')) },
+                context,
               },
             )
           })

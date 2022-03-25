@@ -6,7 +6,7 @@ describe('Components', () => {
   describe('PageIndicator', () => {
     const name = 'pageIndicator'
     const id = 'test-page-indicator'
-    const properties: PageIndicatorProps = {
+    const props: PageIndicatorProps = {
       selectedColor: '#32b40a',
       unselectedColor: '#cf6807',
       numberOfPages: 10,
@@ -17,13 +17,13 @@ describe('Components', () => {
       expectComponentToBeCorrect(
         <PageIndicator
           id={id}
-          selectedColor={properties.selectedColor}
-          unselectedColor={properties.unselectedColor}
-          numberOfPages={properties.numberOfPages}
-          currentPage={properties.currentPage}
+          selectedColor={props.selectedColor}
+          unselectedColor={props.unselectedColor}
+          numberOfPages={props.numberOfPages}
+          currentPage={props.currentPage}
         />,
         name,
-        { id, properties },
+        { id, properties: props },
       )
     })
 

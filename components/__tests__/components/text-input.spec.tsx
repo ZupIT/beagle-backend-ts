@@ -1,4 +1,5 @@
 import { BeagleJSX, createContext, createContextNode } from '@zup-it/beagle-backend-core'
+import { fromSimpleStyle } from '../../src/style/converter'
 import { TextInput, TextInputProps } from '../../src/components/text-input'
 import { expectComponentToBeCorrect } from './utils'
 
@@ -7,7 +8,7 @@ describe('Components', () => {
     const name = 'textInput'
     const id = 'test-text-input'
     const testField = createContext('testField', '')
-    const properties: TextInputProps = {
+    const props: TextInputProps = {
       value: testField,
       placeholder: 'Test Text Input',
       enabled: true,
@@ -18,14 +19,26 @@ describe('Components', () => {
       onFocus: (value) => testField.set(value),
       onChange: (value) => testField.set(value),
       onBlur: (value) => testField.set(value),
+      styleId: 'test-text-input-style-id',
+      accessibility: {
+        accessible: true,
+        accessibilityLabel: 'TextInput Accessibility Label',
+        isHeader: false,
+      },
+      style: {
+        borderColor: '#000',
+        backgroundColor: '#fff',
+        padding: 10,
+      },
     }
     const options = {
       id,
       properties: {
-        ...properties,
-        onFocus: properties.onFocus!(createContextNode<{ value: string }>('onFocus').get('value')),
-        onChange: properties.onChange!(createContextNode<{ value: string }>('onChange').get('value')),
-        onBlur: properties.onBlur!(createContextNode<{ value: string }>('onBlur').get('value')),
+        ...props,
+        onFocus: props.onFocus!(createContextNode<{ value: string }>('onFocus').get('value')),
+        onChange: props.onChange!(createContextNode<{ value: string }>('onChange').get('value')),
+        onBlur: props.onBlur!(createContextNode<{ value: string }>('onBlur').get('value')),
+        style: fromSimpleStyle(props.style),
       },
     }
 
@@ -33,16 +46,19 @@ describe('Components', () => {
       expectComponentToBeCorrect(
         <TextInput
           id={id}
-          value={properties.value}
-          placeholder={properties.placeholder}
-          enabled={properties.enabled}
-          readOnly={properties.readOnly}
-          type={properties.type}
-          error={properties.error}
-          showError={properties.showError}
-          onFocus={properties.onFocus}
-          onChange={properties.onChange}
-          onBlur={properties.onBlur}
+          value={props.value}
+          placeholder={props.placeholder}
+          enabled={props.enabled}
+          readOnly={props.readOnly}
+          type={props.type}
+          error={props.error}
+          showError={props.showError}
+          onFocus={props.onFocus}
+          onChange={props.onChange}
+          onBlur={props.onBlur}
+          styleId={props.styleId}
+          accessibility={props.accessibility}
+          style={props.style}
         />,
         name,
         options

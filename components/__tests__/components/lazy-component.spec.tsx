@@ -7,16 +7,15 @@ describe('Components', () => {
   describe('LazyComponent', () => {
     const name = 'lazycomponent'
     const id = 'test-button'
-    const properties: LazyProps = {
-      children: undefined,
+    const props: Partial<LazyProps> = {
       path: '/lazy-screen',
     }
 
     it('should create component', () => {
       expectComponentToBeCorrect(
-        <LazyComponent id={id} path={properties.path}></LazyComponent>,
+        <LazyComponent id={id} path={props.path!}></LazyComponent>,
         name,
-        { properties, id },
+        { properties: props, id },
       )
     })
 
@@ -24,9 +23,9 @@ describe('Components', () => {
       it('should create component with children as initialState property', () => {
         const children = <Text>This is the children test case.</Text>
         expectComponentToBeCorrect(
-          <LazyComponent id={id} path={properties.path}>{children}</LazyComponent>,
+          <LazyComponent id={id} path={props.path!}>{children}</LazyComponent>,
           name,
-          { id, properties: { ...properties, initialState: children } },
+          { id, properties: { ...props, initialState: children } },
         )
       })
     })

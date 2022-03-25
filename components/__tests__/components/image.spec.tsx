@@ -1,4 +1,5 @@
 import { BeagleJSX, ComponentProps } from '@zup-it/beagle-backend-core'
+import { fromSimpleStyle } from '../../src/style/converter'
 import { BaseImageProps, Image, LocalMobileImage, LocalWebImage, RemoteImageProps } from '../../src/components/image'
 import { expectComponentToBeCorrect } from './utils'
 
@@ -9,31 +10,48 @@ describe('Components', () => {
 
     describe('Remote Image', () => {
       it('should create component', () => {
-        const properties: BaseImageProps<'remote'> & RemoteImageProps = {
+        const props: BaseImageProps<'remote'> & RemoteImageProps = {
           type: 'remote',
           url: 'https://server.com/image.png',
           placeholder: {
             mobileId: 'image-mobile-id',
           },
           mode: 'FIT_XY',
+          styleId: 'test-button-style-id',
+          accessibility: {
+            accessible: true,
+            accessibilityLabel: 'Button Accessibility Label',
+            isHeader: false,
+          },
+          style: {
+            borderColor: '#000',
+            backgroundColor: '#fff',
+            padding: 10,
+          },
         }
         expectComponentToBeCorrect(
           <Image
             id={id}
-            type={properties.type}
-            mode={properties.mode}
-            url={properties.url}
-            placeholder={properties.placeholder}
+            type={props.type}
+            mode={props.mode}
+            url={props.url}
+            placeholder={props.placeholder}
+            styleId={props.styleId}
+            accessibility={props.accessibility}
+            style={props.style}
           />,
           name,
           {
             id,
             properties: {
-              mode: properties.mode,
+              mode: props.mode,
+              style: fromSimpleStyle(props.style),
               path: {
-                '_beagleImagePath_': properties.type,
-                url: properties.url,
-                placeholder: properties.placeholder,
+                '_beagleImagePath_': props.type,
+                url: props.url,
+                placeholder: props.placeholder,
+                styleId: props.styleId,
+                accessibility: props.accessibility,
               },
             },
           },
@@ -43,21 +61,43 @@ describe('Components', () => {
 
     describe('Local Web Image', () => {
       it('should create component', () => {
-        const properties: ComponentProps<BaseImageProps<'local'> & LocalWebImage> = {
+        const props: ComponentProps<BaseImageProps<'local'> & LocalWebImage> = {
           url: 'https://server.com/image.png',
           type: 'local',
           mode: 'CENTER_CROP',
+          styleId: 'test-button-style-id',
+          accessibility: {
+            accessible: true,
+            accessibilityLabel: 'Button Accessibility Label',
+            isHeader: false,
+          },
+          style: {
+            borderColor: '#000',
+            backgroundColor: '#fff',
+            padding: 10,
+          },
         }
         expectComponentToBeCorrect(
-          <Image id={id} type={properties.type} url={properties.url} mode={properties.mode} />,
+          <Image
+            id={id}
+            type={props.type}
+            url={props.url}
+            mode={props.mode}
+            styleId={props.styleId}
+            accessibility={props.accessibility}
+            style={props.style}
+          />,
           name,
           {
             id,
             properties: {
-              mode: properties.mode,
+              mode: props.mode,
+              style: fromSimpleStyle(props.style),
               path: {
-                '_beagleImagePath_': properties.type,
-                url: properties.url,
+                '_beagleImagePath_': props.type,
+                url: props.url,
+                styleId: props.styleId,
+                accessibility: props.accessibility,
               },
             },
           },
@@ -66,21 +106,43 @@ describe('Components', () => {
     })
 
     describe('Local Mobile Image', () => {
-      const properties: ComponentProps<BaseImageProps<'local'> & LocalMobileImage> = {
+      const props: ComponentProps<BaseImageProps<'local'> & LocalMobileImage> = {
         mobileId: 'image-mobile-id',
         type: 'local',
         mode: 'FIT_CENTER',
+        styleId: 'test-button-style-id',
+        accessibility: {
+          accessible: true,
+          accessibilityLabel: 'Button Accessibility Label',
+          isHeader: false,
+        },
+        style: {
+          borderColor: '#000',
+          backgroundColor: '#fff',
+          padding: 10,
+        },
       }
       expectComponentToBeCorrect(
-        <Image id={id} type={properties.type} mobileId={properties.mobileId} mode={properties.mode} />,
+        <Image
+          id={id}
+          type={props.type}
+          mobileId={props.mobileId}
+          mode={props.mode}
+          styleId={props.styleId}
+          accessibility={props.accessibility}
+          style={props.style}
+        />,
         name,
         {
           id,
           properties: {
-            mode: properties.mode,
+            mode: props.mode,
+            style: fromSimpleStyle(props.style),
             path: {
-              '_beagleImagePath_': properties.type,
-              mobileId: properties.mobileId,
+              '_beagleImagePath_': props.type,
+              mobileId: props.mobileId,
+              styleId: props.styleId,
+              accessibility: props.accessibility,
             },
           },
         },
@@ -88,29 +150,46 @@ describe('Components', () => {
     })
 
     describe('Local Web & Mobile Image', () => {
-      const properties: ComponentProps<BaseImageProps<'local'> & LocalWebImage> = {
+      const props: ComponentProps<BaseImageProps<'local'> & LocalWebImage> = {
         url: 'https://server.com/image.png',
         mobileId: 'image-mobile-id',
         type: 'local',
         mode: undefined,
+        styleId: 'test-button-style-id',
+        accessibility: {
+          accessible: true,
+          accessibilityLabel: 'Button Accessibility Label',
+          isHeader: false,
+        },
+        style: {
+          borderColor: '#000',
+          backgroundColor: '#fff',
+          padding: 10,
+        },
       }
       expectComponentToBeCorrect(
         <Image
           id={id}
-          type={properties.type}
-          url={properties.url}
-          mobileId={properties.mobileId}
-          mode={properties.mode}
+          type={props.type}
+          url={props.url}
+          mobileId={props.mobileId}
+          mode={props.mode}
+          styleId={props.styleId}
+          accessibility={props.accessibility}
+          style={props.style}
         />,
         name,
         {
           id,
           properties: {
-            mode: properties.mode,
+            mode: props.mode,
+            style: fromSimpleStyle(props.style),
             path: {
-              '_beagleImagePath_': properties.type,
-              url: properties.url,
-              mobileId: properties.mobileId,
+              '_beagleImagePath_': props.type,
+              url: props.url,
+              mobileId: props.mobileId,
+              styleId: props.styleId,
+              accessibility: props.accessibility,
             },
           },
         },

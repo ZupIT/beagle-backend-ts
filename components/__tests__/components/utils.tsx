@@ -1,6 +1,7 @@
 import { BeagleJSX, Component, coreNamespace } from '@zup-it/beagle-backend-core'
 import { LocalContext } from '@zup-it/beagle-backend-core/model/context/types'
 import { Style } from '../../src/style/simple-styles'
+import { StyledComponentProps } from '../../src/style/styled'
 import { fromSimpleStyle } from '../../src/style/converter'
 
 type ComponentTestOptions<Props> = {
@@ -30,4 +31,19 @@ export function expectComponentToBeCorrect<Props>(
     </component>
   )
   expect(component).toEqual(expectedComponent)
+}
+
+export function mockStyledComponent() {
+  jest.mock('src/style/styled', () => ({
+    StyledComponent: ({ children, name, ...props }: StyledComponentProps) => (
+      <component
+        name={name}
+        context={props.context}
+        id={props.id}
+        namespace={props.namespace ?? coreNamespace}
+        properties={props}>
+        {children}
+      </component>
+    ),
+  }))
 }

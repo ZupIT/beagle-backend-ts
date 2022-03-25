@@ -1,10 +1,13 @@
 import { BeagleJSX, createContext } from '@zup-it/beagle-backend-core'
 import { alert, sendRequest } from '@zup-it/beagle-backend-core/actions'
-import { TextInput } from 'src/components'
+import { fromSimpleStyle } from '../../src/style/converter'
+import { TextInput } from '../../src/components'
 import { Button } from '../../src/components/button'
 import { SimpleForm, SimpleFormProps } from '../../src/components/simple-form'
 import { submitForm } from '../../src'
-import { expectComponentToBeCorrect } from './utils'
+import { expectComponentToBeCorrect, mockStyledComponent } from './utils'
+
+mockStyledComponent()
 
 interface Address {
   zip: string,
@@ -38,18 +41,44 @@ describe('Components', () => {
       <TextInput placeholder="Address reference" value={address.get('reference')} />,
       <Button onPress={submitForm({})}>Submit</Button>,
     ]
-    const properties: Partial<SimpleFormProps> = {
+    const props: Partial<SimpleFormProps> = {
       onSubmit: postAddress,
       onValidationError: errors.get('showAll').set(true),
+      styleId: 'test-simple-form-style-id',
+      accessibility: {
+        accessible: true,
+        accessibilityLabel: 'SimpleForm Accessibility Label',
+        isHeader: false,
+      },
+      style: {
+        borderColor: '#000',
+        backgroundColor: '#fff',
+        padding: 10,
+      },
+    }
+    const options = {
+      id,
+      children,
+      properties: {
+        ...props,
+        style: fromSimpleStyle(props.style),
+      },
     }
 
     it('should create component', () => {
       expectComponentToBeCorrect(
-        <SimpleForm id={id} onSubmit={postAddress} onValidationError={errors.get('showAll').set(true)}>
+        <SimpleForm
+          id={id}
+          onSubmit={postAddress}
+          onValidationError={props.onValidationError}
+          styleId={props.styleId}
+          accessibility={props.accessibility}
+          style={props.style}
+        >
           {children}
         </SimpleForm>,
         name,
-        { id, properties, children }
+        options,
       )
     })
 

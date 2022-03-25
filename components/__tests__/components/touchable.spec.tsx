@@ -14,36 +14,36 @@ describe('Components', () => {
       <Image type="remote" url="https://my-backend/my-image.png" />,
       <Text>This is the children test case.</Text>,
     ]
-    const properties: Partial<TouchableProps> = {
+    const props: Partial<TouchableProps> = {
       onPress: setContext({ contextId: 'test-context', value: 'test value' }),
     }
-    const options = { id, properties: { ...properties, child: <Container>{children}</Container> } }
+    const options = { id, properties: { ...props, child: <Container>{children}</Container> } }
 
     it('should create component', () => {
-      expectComponentToBeCorrect(<Touchable id={id} onPress={properties.onPress!}>{children}</Touchable>, name, options)
+      expectComponentToBeCorrect(<Touchable id={id} onPress={props.onPress!}>{children}</Touchable>, name, options)
     })
 
     describe('Children', () => {
       it ('should set the child as the Component passed, when children is a single child', () => {
         const overwrittenChildren = <Text>This is the children test case.</Text>
-        const overwrittenOptions = { id, properties: { ...properties, child: overwrittenChildren } }
+        const overwrittenOptions = { id, properties: { ...props, child: overwrittenChildren } }
         expectComponentToBeCorrect(
-          <Touchable id={id} onPress={properties.onPress!}>{overwrittenChildren}</Touchable>,
+          <Touchable id={id} onPress={props.onPress!}>{overwrittenChildren}</Touchable>,
           name,
           overwrittenOptions,
         )
       })
 
       it('should throw when no children is provided', () => {
-        expect(() => <Touchable id={id} onPress={properties.onPress!}>{}</Touchable>).toThrowError()
+        expect(() => <Touchable id={id} onPress={props.onPress!}>{}</Touchable>).toThrowError()
         expect(() =>
-          <Touchable id={id} onPress={properties.onPress!}>
+          <Touchable id={id} onPress={props.onPress!}>
           </Touchable>
         ).toThrowError()
       })
 
       it('should throw when no children is bypassed trough linter', () => {
-        expect(() => <Touchable id={id} onPress={properties.onPress!}>{[]}</Touchable>).toThrowError()
+        expect(() => <Touchable id={id} onPress={props.onPress!}>{[]}</Touchable>).toThrowError()
       })
     })
   })

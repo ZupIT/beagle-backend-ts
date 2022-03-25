@@ -68,7 +68,7 @@ export interface PullToRefreshProps extends WithAccessibility, WithStyle, Requir
  * @param props the component properties. See: {@link PullToRefreshProps}.
  * @returns JSX element, i.e an instance of Component.
  */
-export const PullToRefresh: FC<PullToRefreshProps> = ({ id, style, children, ...props }) => {
+export const PullToRefresh: FC<PullToRefreshProps> = ({ id, style, context, children, ...props }) => {
   if (!children || (Array.isArray(children) && !children.length)) {
     throw new Error('PullToRefresh: "children" is required')
   }
@@ -78,5 +78,11 @@ export const PullToRefresh: FC<PullToRefreshProps> = ({ id, style, children, ...
 
   // the frontend always expect a single child for the PullRoRefresh component
   const child = Array.isArray(children) ? <Container>{children}</Container> : children
-  return <StyledDefaultComponent name="pullToRefresh" id={id} style={style} properties={{ ...props, child }} />
+  return <StyledDefaultComponent
+    name="pullToRefresh"
+    id={id}
+    style={style}
+    context={context}
+    properties={{ ...props, child }}
+  />
 }

@@ -1,31 +1,68 @@
-import { BeagleJSX } from '@zup-it/beagle-backend-core'
+import { BeagleJSX, createContext } from '@zup-it/beagle-backend-core'
 import { alert } from '@zup-it/beagle-backend-core/actions'
 import { NavigationBar, ScreenComponent, ScreenProps } from '../../src/components/screen-component'
 import { Container } from '../../src/components/container'
 import { Text } from '../../src/components/text'
 import { Button } from '../../src/components/button'
-import { expectComponentToBeCorrect } from './utils'
+import { fromSimpleStyle } from '../../src/style/converter'
+import { expectComponentToBeCorrect, mockStyledComponent } from './utils'
+
+mockStyledComponent()
 
 describe('Components', () => {
-  describe('Container', () => {
+  describe('ScreenComponent', () => {
     const name = 'screencomponent'
     const id = 'test-screencomponent'
+    const context = createContext('screen-component-context-id')
     const children = [<Text>This is the child test case.</Text>, <Button>Click me</Button>]
-    const properties: Partial<ScreenProps> = {
+    const props: Partial<ScreenProps> = {
       safeArea: undefined,
       navigationBar: undefined,
+      style: {
+        borderColor: '#000',
+        backgroundColor: '#fff',
+        padding: 10,
+      },
     }
-    const options = { id, properties: { ...properties, child: <Container>{children}</Container> } }
+    const options = {
+      id,
+      context,
+      properties: {
+        ...props,
+        child: <Container>{children}</Container>,
+        style: fromSimpleStyle(props.style),
+      },
+    }
 
     it('should create component with its children under the "child" property', () => {
-      expectComponentToBeCorrect(<ScreenComponent id={id}>{children}</ScreenComponent>, name, options)
+      expectComponentToBeCorrect(
+        <ScreenComponent
+          id={id}
+          context={context}
+          safeArea={props.safeArea}
+          navigationBar={props.navigationBar}
+          style={props.style}
+        >
+          {children}
+        </ScreenComponent>,
+        name,
+        options,
+      )
     })
 
     describe('Children', () => {
       it('should set the child as the Component passed, when children is a single child', () => {
         const singleChild = <Text>This is the child test case.</Text>
         expectComponentToBeCorrect(
-          <ScreenComponent id={id}>{singleChild}</ScreenComponent>,
+          <ScreenComponent
+            id={id}
+            context={context}
+            safeArea={props.safeArea}
+            navigationBar={props.navigationBar}
+            style={props.style}
+          >
+            {singleChild}
+          </ScreenComponent>,
           name,
           { ...options, properties: { ...options.properties, child: singleChild } },
         )
@@ -54,7 +91,15 @@ describe('Components', () => {
         }
 
         expectComponentToBeCorrect(
-          <ScreenComponent id={id} safeArea={expectedSafeArea}>{children}</ScreenComponent>,
+          <ScreenComponent
+            id={id}
+            context={context}
+            safeArea={expectedSafeArea}
+            navigationBar={props.navigationBar}
+            style={props.style}
+          >
+            {children}
+          </ScreenComponent>,
           name,
           {
             ...options,
@@ -68,7 +113,15 @@ describe('Components', () => {
 
       it('should set all safeAre props as true when safeArea is true', () => {
         expectComponentToBeCorrect(
-          <ScreenComponent id={id} safeArea={true}>{children}</ScreenComponent>,
+          <ScreenComponent
+            id={id}
+            context={context}
+            safeArea={true}
+            navigationBar={props.navigationBar}
+            style={props.style}
+          >
+            {children}
+          </ScreenComponent>,
           name,
           {
             ...options,
@@ -101,7 +154,15 @@ describe('Components', () => {
 
       it('should pass the navigation bar as part of the set of properties of ScreenComponent', () => {
         expectComponentToBeCorrect(
-          <ScreenComponent id={id} navigationBar={navigationBar}>{children}</ScreenComponent>,
+          <ScreenComponent
+            id={id}
+            context={context}
+            safeArea={props.safeArea}
+            navigationBar={navigationBar}
+            style={props.style}
+          >
+            {children}
+          </ScreenComponent>,
           name,
           { ...options, properties: { ...options.properties, navigationBar } },
         )

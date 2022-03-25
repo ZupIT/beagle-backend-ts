@@ -1,4 +1,4 @@
-import { BeagleJSX } from '@zup-it/beagle-backend-core'
+import { BeagleJSX, createContext } from '@zup-it/beagle-backend-core'
 import { Button } from '../../src/components/button'
 import { ScrollView, ScrollViewProps } from '../../src/components/scroll-view'
 import { Text } from '../../src/components/text'
@@ -8,24 +8,25 @@ describe('Components', () => {
   describe('ScrollView', () => {
     const name = 'scrollView'
     const id = 'test-scroll-view'
+    const context = createContext('scroll-view-context-id')
     const children = [<Text>This is the child test case.</Text>, <Button>Click me</Button>]
-    const properties: Partial<ScrollViewProps> = {
+    const props: Partial<ScrollViewProps> = {
       scrollDirection: 'HORIZONTAL',
       scrollBarEnabled: true,
-      context: undefined,
     }
 
     it('should create component', () => {
       expectComponentToBeCorrect(
         <ScrollView
           id={id}
-          scrollDirection={properties.scrollDirection}
-          scrollBarEnabled={properties.scrollBarEnabled}
+          scrollDirection={props.scrollDirection}
+          scrollBarEnabled={props.scrollBarEnabled}
+          context={context}
         >
           {children}
         </ScrollView>,
         name,
-        { id, properties, children },
+        { id, context, properties: props, children },
       )
     })
 

@@ -1,5 +1,5 @@
 import { Actions, BeagleJSX, Context, createContext, createContextNode } from '@zup-it/beagle-backend-core'
-import { TabBar } from '../../src/components/tab-bar'
+import { TabBar, TabBarProps } from '../../src/components/tab-bar'
 import { expectComponentToBeCorrect } from './utils'
 
 describe('Components', () => {
@@ -8,23 +8,24 @@ describe('Components', () => {
     const id = 'test-tab-bar'
     const currentTab = createContext('tab', 0)
     const onTabSelection: (index: Context<number>) => Actions = (value) => currentTab.set(value)
-    const onTabSelectionActions = onTabSelection(createContextNode('onTabSelection'))
-    const properties: Record<string, any> = {
+    const props: Partial<TabBarProps> = {
       currentTab,
       items: [{ title: 'John' }, { title: 'Sophia' }, { title: 'Mark' }],
-      onTabSelection: onTabSelectionActions,
+      onTabSelection: onTabSelection,
+      styleId: 'test-tab-bar-style-id',
     }
 
     it('should create component', () => {
       expectComponentToBeCorrect(
         <TabBar
           id={id}
-          items={properties.items}
-          currentTab={properties.currentTab}
+          items={props.items!}
+          currentTab={props.currentTab}
           onTabSelection={(value) => currentTab.set(value)}
+          styleId={props.styleId}
         />,
         name,
-        { id, properties, children: undefined },
+        { id, properties: { ...props, onTabSelection: onTabSelection(createContextNode('onTabSelection')) } },
       )
     })
   })
