@@ -10,6 +10,7 @@ jest.mock('src/validation', () => ({
 
 describe('Serializer: validation', () => {
   beforeEach(() => (componentValidation.run as jest.Mock).mockClear())
+
   it('should validate when environment is development', () => {
     const env = process.env.NODE_ENV
     process.env.NODE_ENV = 'development'
