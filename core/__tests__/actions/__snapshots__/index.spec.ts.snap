@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Core module should export 1`] = `
+exports[`Actions module should export 1`] = `
 Object {
   "addChildren": "function",
   "alert": "function",
