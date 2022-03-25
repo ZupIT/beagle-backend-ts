@@ -10,8 +10,7 @@ import {
   DynamicExpression,
   componentValidation,
 } from '@zup-it/beagle-backend-core'
-import { DefaultComponent } from '../default-component'
-import { WithStyle } from '../style/styled'
+import { StyledDefaultComponent, WithStyle } from '../style/styled'
 import { WithAccessibility } from '../types'
 import { Container } from './container'
 
@@ -207,11 +206,12 @@ function getTemplates<T>(iteratorName = 'item', children: ListViewProps<T>['chil
  * @param props the properties for this component. See: {@link ListViewProps}.
  * @returns a JSX element, i.e an instance of Component.
  */
-export const ListView: ListFC = ({ id, context, children, ...props }) => (
-  <DefaultComponent
+export const ListView: ListFC = ({ id, context, children, style, ...props }) => (
+  <StyledDefaultComponent
     name="listView"
     id={id}
     context={context}
+    style={style}
     properties={{ ...props, templates: getTemplates(props.iteratorName, children) }}
   />
 )
@@ -227,11 +227,12 @@ export const ListView: ListFC = ({ id, context, children, ...props }) => (
  * @param props the properties for this component. See: {@link GridViewProps}.
  * @returns a JSX element, i.e an instance of Component.
  */
-export const GridView: GridFC = ({ id, context, children, ...props }) => (
-  <DefaultComponent
+export const GridView: GridFC = ({ id, context, children, style, ...props }) => (
+  <StyledDefaultComponent
     name="gridView"
     id={id}
     context={context}
+    style={style}
     properties={{ ...props, templates: getTemplates(props.iteratorName, children) }}
   />
 )
