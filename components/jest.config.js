@@ -3,7 +3,7 @@ module.exports = {
   collectCoverageFrom: ['src/**/*.ts'],
   testEnvironment: 'node',
   testMatch: [
-    '**/?(*.)+(spec).ts',
+    '**/?(*.)+(spec).ts?(x)',
   ],
   moduleNameMapper: {
     '^@zup-it/beagle-backend-core$': '<rootDir>../core/src',
