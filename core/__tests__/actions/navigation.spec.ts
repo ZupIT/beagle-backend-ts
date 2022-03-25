@@ -8,311 +8,313 @@ import {
 } from 'src/actions'
 import { expectActionToBeCorrect } from './utils'
 
-describe('Actions: navigation', () => {
-  describe('openExternalUrl', () => {
-    const properties: OpenExternalUrlParams = {
-      url: 'http://test.com',
-    }
-
-    it('should create action', () => expectActionToBeCorrect(
-      openExternalUrl({ ...properties, analytics: false }),
-      'openExternalUrl',
-      properties,
-      false,
-    ))
-
-    it('should create action with url only', () => expectActionToBeCorrect(
-      openExternalUrl(properties.url),
-      'openExternalUrl',
-      properties,
-    ))
-  })
-
-  describe('openNativeRoute', () => {
-    const properties: OpenNativeRouteParams = {
-      route: 'my-route',
-      data: { id: '01' },
-      shouldResetApplication: false,
-    }
-
-    const analytics: AnalyticsConfig<OpenNativeRouteParams> = {
-      additionalEntries: { test: 'test' },
-    }
-
-    it('should create action', () => expectActionToBeCorrect(
-      openNativeRoute({ ...properties, analytics }),
-      'openNativeRoute',
-      properties,
-      analytics,
-    ))
-  })
-
-  describe('popStack and navigation context', () => {
-    const analytics: AnalyticsConfig<PopStackParams> = {
-      additionalEntries: { test: 'test' },
-      attributes: { navigationContext: true },
-    }
-
-    it('should create action without properties', () => expectActionToBeCorrect(popStack(), 'popStack'))
-
-    it('should create action with simple navigation context', () => {
-      const properties: PopStackParams = {
-        navigationContext: { test: 'test-value' },
+describe('Actions', () => {
+  describe('navigation', () => {
+    describe('openExternalUrl', () => {
+      const properties: OpenExternalUrlParams = {
+        url: 'http://test.com',
       }
-      const processed = {
-        navigationContext: {
-          path: 'test',
-          value: 'test-value',
+
+      it('should create action', () => expectActionToBeCorrect(
+        openExternalUrl({ ...properties, analytics: false }),
+        'openExternalUrl',
+        properties,
+        false,
+      ))
+
+      it('should create action with url only', () => expectActionToBeCorrect(
+        openExternalUrl(properties.url),
+        'openExternalUrl',
+        properties,
+      ))
+    })
+
+    describe('openNativeRoute', () => {
+      const properties: OpenNativeRouteParams = {
+        route: 'my-route',
+        data: { id: '01' },
+        shouldResetApplication: false,
+      }
+
+      const analytics: AnalyticsConfig<OpenNativeRouteParams> = {
+        additionalEntries: { test: 'test' },
+      }
+
+      it('should create action', () => expectActionToBeCorrect(
+        openNativeRoute({ ...properties, analytics }),
+        'openNativeRoute',
+        properties,
+        analytics,
+      ))
+    })
+
+    describe('popStack and navigation context', () => {
+      const analytics: AnalyticsConfig<PopStackParams> = {
+        additionalEntries: { test: 'test' },
+        attributes: { navigationContext: true },
+      }
+
+      it('should create action without properties', () => expectActionToBeCorrect(popStack(), 'popStack'))
+
+      it('should create action with simple navigation context', () => {
+        const properties: PopStackParams = {
+          navigationContext: { test: 'test-value' },
+        }
+        const processed = {
+          navigationContext: {
+            path: 'test',
+            value: 'test-value',
+          },
+        }
+        expectActionToBeCorrect(
+          popStack({ ...properties, analytics }),
+          'popStack',
+          processed,
+          analytics,
+        )
+      })
+
+      it('should create action with complex navigation context', () => {
+        const properties: PopStackParams = {
+          navigationContext: { user: { address: { position: { lat: 58.8, lng: -136.5 } } } },
+        }
+        const processed = {
+          navigationContext: {
+            path: 'user.address.position',
+            value: { lat: 58.8, lng: -136.5 },
+          },
+        }
+        expectActionToBeCorrect(
+          popStack({ ...properties, analytics }),
+          'popStack',
+          processed,
+          analytics,
+        )
+      })
+
+      it('should create action with a navigation context without path if the context data is invalid', () => {
+        const properties: PopStackParams = {
+          navigationContext: { user: 'Mary', age: 30 },
+        }
+        const processed = {
+          navigationContext: { value: properties.navigationContext },
+        }
+        expectActionToBeCorrect(
+          popStack({ ...properties, analytics }),
+          'popStack',
+          processed,
+          analytics,
+        )
+      })
+    })
+
+    describe('popToView', () => {
+      const properties: PopToViewParams = {
+        route: 'test',
+        navigationContext: { test: 'test' },
+      }
+
+      const analytics: AnalyticsConfig<PopToViewParams> = {
+        additionalEntries: { test: 'test' },
+        attributes: { route: true },
+      }
+
+      it('should create action', () => expectActionToBeCorrect(
+        popToView({ ...properties, analytics }),
+        'popToView',
+        { ...properties, navigationContext: expect.any(Object) },
+        analytics,
+      ))
+
+      it('should create action with only route', () => expectActionToBeCorrect(
+        popToView('test'),
+        'popToView',
+        { route: 'test' },
+      ))
+    })
+
+    describe('popView', () => {
+      const properties: PopViewParams = {
+        navigationContext: { test: 'test' },
+      }
+
+      it('should create action', () => expectActionToBeCorrect(
+        popView(properties),
+        'popView',
+        { ...properties, navigationContext: expect.any(Object) },
+      ))
+
+      it('should create action without properties', () => expectActionToBeCorrect(popView(), 'popView'))
+    })
+
+    describe('pushStack', () => {
+      const properties: PushStackParams = {
+        route: {
+          url: new ContextNode<string>(''),
+          fallback: new Component({ name: 'fallback' }),
+          httpAdditionalData: { headers: { test: 'test' } },
+          shouldPrefetch: false,
         },
+        navigationContext: { test: 'test' },
+        controllerId: 'my-controller',
       }
-      expectActionToBeCorrect(
-        popStack({ ...properties, analytics }),
-        'popStack',
-        processed,
+
+      const analytics: AnalyticsConfig<PushStackParams> = {
+        additionalEntries: { test: 'test' },
+        attributes: { route: true },
+      }
+
+      it('should create action', () => expectActionToBeCorrect(
+        pushStack({ ...properties, analytics }),
+        'pushStack',
+        { ...properties, navigationContext: expect.any(Object) },
         analytics,
-      )
+      ))
+
+      it('should create action with only route', () => expectActionToBeCorrect(
+        pushStack('test'),
+        'pushStack',
+        { route: { url: 'test' } },
+      ))
+
+      describe('local route', () => {
+        it('should create action', () => {
+          const localRouteProps = { route: { screen: new Component({ id: 'test-screen', name: 'screen' }) } }
+          expectActionToBeCorrect(pushStack(localRouteProps), 'pushStack', localRouteProps)
+        })
+
+        it('should throw when an id is not provided', () => {
+          const localRouteProps = { route: { screen: new Component({ name: 'screen' }) } }
+          expect(() => pushStack(localRouteProps)).toThrow()
+        })
+      })
     })
 
-    it('should create action with complex navigation context', () => {
-      const properties: PopStackParams = {
-        navigationContext: { user: { address: { position: { lat: 58.8, lng: -136.5 } } } },
-      }
-      const processed = {
-        navigationContext: {
-          path: 'user.address.position',
-          value: { lat: 58.8, lng: -136.5 },
+    describe('pushView', () => {
+      const properties: PushViewParams = {
+        route: {
+          url: new ContextNode<string>(''),
+          fallback: new Component({ name: 'fallback' }),
+          httpAdditionalData: { headers: { test: 'test' } },
+          shouldPrefetch: false,
         },
+        navigationContext: { test: 'test' },
       }
-      expectActionToBeCorrect(
-        popStack({ ...properties, analytics }),
-        'popStack',
-        processed,
+
+      const analytics: AnalyticsConfig<PushViewParams> = {
+        additionalEntries: { test: 'test' },
+        attributes: { route: true },
+      }
+
+      it('should create action', () => expectActionToBeCorrect(
+        pushView({ ...properties, analytics }),
+        'pushView',
+        { ...properties, navigationContext: expect.any(Object) },
         analytics,
-      )
+      ))
+
+      it('should create action with only route', () => expectActionToBeCorrect(
+        pushView('test'),
+        'pushView',
+        { route: { url: 'test' } },
+      ))
+
+      describe('local route', () => {
+        it('should create action with', () => {
+          const localRouteProps = { route: { screen: new Component({ id: 'test-screen', name: 'screen' }) } }
+          expectActionToBeCorrect(pushView(localRouteProps), 'pushView', localRouteProps)
+        })
+
+        it('should throw when an id is not provided', () => {
+          const localRouteProps = { route: { screen: new Component({ name: 'screen' }) } }
+          expect(() => pushView(localRouteProps)).toThrow()
+        })
+      })
     })
 
-    it('should create action with a navigation context without path if the context data is invalid', () => {
-      const properties: PopStackParams = {
-        navigationContext: { user: 'Mary', age: 30 },
+    describe('resetApplication', () => {
+      const properties: ResetApplicationParams = {
+        route: {
+          url: new ContextNode<string>(''),
+          fallback: new Component({ name: 'fallback' }),
+          httpAdditionalData: { headers: { test: 'test' } },
+          shouldPrefetch: false,
+        },
+        controllerId: 'controller',
+        navigationContext: { test: 'test' },
       }
-      const processed = {
-        navigationContext: { value: properties.navigationContext },
+
+      const analytics: AnalyticsConfig<ResetApplicationParams> = {
+        additionalEntries: { test: 'test' },
+        attributes: { controllerId: true },
       }
-      expectActionToBeCorrect(
-        popStack({ ...properties, analytics }),
-        'popStack',
-        processed,
+
+      it('should create action', () => expectActionToBeCorrect(
+        resetApplication({ ...properties, analytics }),
+        'resetApplication',
+        { ...properties, navigationContext: expect.any(Object) },
         analytics,
-      )
-    })
-  })
+      ))
 
-  describe('popToView', () => {
-    const properties: PopToViewParams = {
-      route: 'test',
-      navigationContext: { test: 'test' },
-    }
+      it('should create action with only route', () => expectActionToBeCorrect(
+        resetApplication('test'),
+        'resetApplication',
+        { route: { url: 'test' } },
+      ))
 
-    const analytics: AnalyticsConfig<PopToViewParams> = {
-      additionalEntries: { test: 'test' },
-      attributes: { route: true },
-    }
+      describe('local route', () => {
+        it('should create action', () => {
+          const localRouteProps = { route: { screen: new Component({ id: 'test-screen', name: 'screen' }) } }
+          expectActionToBeCorrect(resetApplication(localRouteProps), 'resetApplication', localRouteProps)
+        })
 
-    it('should create action', () => expectActionToBeCorrect(
-      popToView({ ...properties, analytics }),
-      'popToView',
-      { ...properties, navigationContext: expect.any(Object) },
-      analytics,
-    ))
-
-    it('should create action with only route', () => expectActionToBeCorrect(
-      popToView('test'),
-      'popToView',
-      { route: 'test' },
-    ))
-  })
-
-  describe('popView', () => {
-    const properties: PopViewParams = {
-      navigationContext: { test: 'test' },
-    }
-
-    it('should create action', () => expectActionToBeCorrect(
-      popView(properties),
-      'popView',
-      { ...properties, navigationContext: expect.any(Object) },
-    ))
-
-    it('should create action without properties', () => expectActionToBeCorrect(popView(), 'popView'))
-  })
-
-  describe('pushStack', () => {
-    const properties: PushStackParams = {
-      route: {
-        url: new ContextNode<string>(''),
-        fallback: new Component({ name: 'fallback' }),
-        httpAdditionalData: { headers: { test: 'test' } },
-        shouldPrefetch: false,
-      },
-      navigationContext: { test: 'test' },
-      controllerId: 'my-controller',
-    }
-
-    const analytics: AnalyticsConfig<PushStackParams> = {
-      additionalEntries: { test: 'test' },
-      attributes: { route: true },
-    }
-
-    it('should create action', () => expectActionToBeCorrect(
-      pushStack({ ...properties, analytics }),
-      'pushStack',
-      { ...properties, navigationContext: expect.any(Object) },
-      analytics,
-    ))
-
-    it('should create action with only route', () => expectActionToBeCorrect(
-      pushStack('test'),
-      'pushStack',
-      { route: { url: 'test' } },
-    ))
-
-    describe('local route', () => {
-      it('should create action', () => {
-        const localRouteProps = { route: { screen: new Component({ id: 'test-screen', name: 'screen' }) } }
-        expectActionToBeCorrect(pushStack(localRouteProps), 'pushStack', localRouteProps)
-      })
-
-      it('should throw when an id is not provided', () => {
-        const localRouteProps = { route: { screen: new Component({ name: 'screen' }) } }
-        expect(() => pushStack(localRouteProps)).toThrow()
+        it('should throw when an id is not provided', () => {
+          const localRouteProps = { route: { screen: new Component({ name: 'screen' }) } }
+          expect(() => resetApplication(localRouteProps)).toThrow()
+        })
       })
     })
-  })
 
-  describe('pushView', () => {
-    const properties: PushViewParams = {
-      route: {
-        url: new ContextNode<string>(''),
-        fallback: new Component({ name: 'fallback' }),
-        httpAdditionalData: { headers: { test: 'test' } },
-        shouldPrefetch: false,
-      },
-      navigationContext: { test: 'test' },
-    }
+    describe('resetStack', () => {
+      const properties: ResetStackParams = {
+        route: {
+          url: new ContextNode<string>(''),
+          fallback: new Component({ name: 'fallback' }),
+          httpAdditionalData: { headers: { test: 'test' } },
+          shouldPrefetch: false,
+        },
+        controllerId: 'controller',
+        navigationContext: { test: 'test' },
+      }
 
-    const analytics: AnalyticsConfig<PushViewParams> = {
-      additionalEntries: { test: 'test' },
-      attributes: { route: true },
-    }
+      const analytics: AnalyticsConfig<ResetStackParams> = {
+        additionalEntries: { test: 'test' },
+        attributes: { controllerId: true },
+      }
 
-    it('should create action', () => expectActionToBeCorrect(
-      pushView({ ...properties, analytics }),
-      'pushView',
-      { ...properties, navigationContext: expect.any(Object) },
-      analytics,
-    ))
+      it('should create action', () => expectActionToBeCorrect(
+        resetStack({ ...properties, analytics }),
+        'resetStack',
+        { ...properties, navigationContext: expect.any(Object) },
+        analytics,
+      ))
 
-    it('should create action with only route', () => expectActionToBeCorrect(
-      pushView('test'),
-      'pushView',
-      { route: { url: 'test' } },
-    ))
+      it('should create action with only route', () => expectActionToBeCorrect(
+        resetStack('test'),
+        'resetStack',
+        { route: { url: 'test' } },
+      ))
 
-    describe('local route', () => {
-      it('should create action with', () => {
-        const localRouteProps = { route: { screen: new Component({ id: 'test-screen', name: 'screen' }) } }
-        expectActionToBeCorrect(pushView(localRouteProps), 'pushView', localRouteProps)
-      })
+      describe('local route', () => {
+        it('should create action with', () => {
+          const localRouteProps = { route: { screen: new Component({ id: 'test-screen', name: 'screen' }) } }
+          expectActionToBeCorrect(resetStack(localRouteProps), 'resetStack', localRouteProps)
+        })
 
-      it('should throw when an id is not provided', () => {
-        const localRouteProps = { route: { screen: new Component({ name: 'screen' }) } }
-        expect(() => pushView(localRouteProps)).toThrow()
-      })
-    })
-  })
-
-  describe('resetApplication', () => {
-    const properties: ResetApplicationParams = {
-      route: {
-        url: new ContextNode<string>(''),
-        fallback: new Component({ name: 'fallback' }),
-        httpAdditionalData: { headers: { test: 'test' } },
-        shouldPrefetch: false,
-      },
-      controllerId: 'controller',
-      navigationContext: { test: 'test' },
-    }
-
-    const analytics: AnalyticsConfig<ResetApplicationParams> = {
-      additionalEntries: { test: 'test' },
-      attributes: { controllerId: true },
-    }
-
-    it('should create action', () => expectActionToBeCorrect(
-      resetApplication({ ...properties, analytics }),
-      'resetApplication',
-      { ...properties, navigationContext: expect.any(Object) },
-      analytics,
-    ))
-
-    it('should create action with only route', () => expectActionToBeCorrect(
-      resetApplication('test'),
-      'resetApplication',
-      { route: { url: 'test' } },
-    ))
-
-    describe('local route', () => {
-      it('should create action', () => {
-        const localRouteProps = { route: { screen: new Component({ id: 'test-screen', name: 'screen' }) } }
-        expectActionToBeCorrect(resetApplication(localRouteProps), 'resetApplication', localRouteProps)
-      })
-
-      it('should throw when an id is not provided', () => {
-        const localRouteProps = { route: { screen: new Component({ name: 'screen' }) } }
-        expect(() => resetApplication(localRouteProps)).toThrow()
-      })
-    })
-  })
-
-  describe('resetStack', () => {
-    const properties: ResetStackParams = {
-      route: {
-        url: new ContextNode<string>(''),
-        fallback: new Component({ name: 'fallback' }),
-        httpAdditionalData: { headers: { test: 'test' } },
-        shouldPrefetch: false,
-      },
-      controllerId: 'controller',
-      navigationContext: { test: 'test' },
-    }
-
-    const analytics: AnalyticsConfig<ResetStackParams> = {
-      additionalEntries: { test: 'test' },
-      attributes: { controllerId: true },
-    }
-
-    it('should create action', () => expectActionToBeCorrect(
-      resetStack({ ...properties, analytics }),
-      'resetStack',
-      { ...properties, navigationContext: expect.any(Object) },
-      analytics,
-    ))
-
-    it('should create action with only route', () => expectActionToBeCorrect(
-      resetStack('test'),
-      'resetStack',
-      { route: { url: 'test' } },
-    ))
-
-    describe('local route', () => {
-      it('should create action with', () => {
-        const localRouteProps = { route: { screen: new Component({ id: 'test-screen', name: 'screen' }) } }
-        expectActionToBeCorrect(resetStack(localRouteProps), 'resetStack', localRouteProps)
-      })
-
-      it('should throw when an id is not provided', () => {
-        const localRouteProps = { route: { screen: new Component({ name: 'screen' }) } }
-        expect(() => resetStack(localRouteProps)).toThrow()
+        it('should throw when an id is not provided', () => {
+          const localRouteProps = { route: { screen: new Component({ name: 'screen' }) } }
+          expect(() => resetStack(localRouteProps)).toThrow()
+        })
       })
     })
   })

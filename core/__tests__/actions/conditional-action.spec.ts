@@ -14,11 +14,13 @@ const analytics: AnalyticsConfig<ConditionalActionParams> = {
   attributes: { condition: true },
 }
 
-describe('Actions: condition', () => {
-  it('should create action', () => expectActionToBeCorrect(
-    conditionalAction({ ...properties, analytics }),
-    'condition',
-    properties,
-    analytics,
-  ))
+describe('Actions', () => {
+  describe('condition', () => {
+    it('should create action', () => expectActionToBeCorrect(
+      conditionalAction({ ...properties, analytics }),
+      'condition',
+      properties,
+      analytics,
+    ))
+  })
 })

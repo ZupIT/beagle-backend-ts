@@ -16,17 +16,19 @@ const analytics: AnalyticsConfig<ConfirmParams> = {
   attributes: { message: true, title: true },
 }
 
-describe('Actions: confirm', () => {
-  it('should create action', () => expectActionToBeCorrect(
-    confirm({ ...properties, analytics }),
-    'confirm',
-    properties,
-    analytics,
-  ))
+describe('Actions', () => {
+  describe('confirm', () => {
+    it('should create action', () => expectActionToBeCorrect(
+      confirm({ ...properties, analytics }),
+      'confirm',
+      properties,
+      analytics,
+    ))
 
-  it('should create action with only a message', () => expectActionToBeCorrect(
-    confirm('test'),
-    'confirm',
-    { message: 'test' },
-  ))
+    it('should create action with only a message', () => expectActionToBeCorrect(
+      confirm('test'),
+      'confirm',
+      { message: 'test' },
+    ))
+  })
 })

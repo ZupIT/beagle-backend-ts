@@ -14,11 +14,13 @@ const analytics: AnalyticsConfig<AddChildrenParams> = {
   attributes: { componentId: true },
 }
 
-describe('Actions: addChildren', () => {
-  it('should create action', () => expectActionToBeCorrect(
-    addChildren({ ...properties, analytics }),
-    'addChildren',
-    properties,
-    analytics,
-  ))
+describe('Actions', () => {
+  describe('addChildren', () => {
+    it('should create action', () => expectActionToBeCorrect(
+      addChildren({ ...properties, analytics }),
+      'addChildren',
+      properties,
+      analytics,
+    ))
+  })
 })
