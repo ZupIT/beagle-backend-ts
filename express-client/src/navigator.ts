@@ -4,18 +4,20 @@ import {
 } from '@zup-it/beagle-backend-core/actions'
 import { forEach, isEmpty, map } from 'lodash'
 import {
-  ControllerId, PopStackAction, PopToViewAction, PopViewAction, PushStackAction,
-  PushViewAction, ResetApplicationAction, ResetStackAction,
+  ControllerId, PopStackAction, PopToViewAction, PopViewAction, PushStackAction, PushViewAction, ResetApplicationAction,
+  ResetStackAction,
 } from './model/navigation'
 import { RouteMap, RouteConfig } from './route'
 import { ScreenNavigation } from './screen'
 
 const navigationActions = { pushView, pushStack, popToView, popView, resetApplication, resetStack, popStack }
 
+interface GenericRemoteNavigationProperties extends ScreenNavigation<any, any>, Partial<ControllerId> {}
+
 interface GenericRemoteNavigation {
   type: keyof typeof navigationActions,
   screen?: FC<any>,
-  properties?: ScreenNavigation<any, any> & ControllerId,
+  properties?: GenericRemoteNavigationProperties,
 }
 
 /**

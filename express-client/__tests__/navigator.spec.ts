@@ -151,19 +151,23 @@ describe('Navigator', () => {
 
     it('should create action with query params', () => {
       const query = { a: 'hello world', b: '&?' }
+      const expectedUrl = expect.stringMatching(/\?((a=hello%20world&b=%26%3F)|(b=%26%3F&a=hello%20world))$/)
       testAllPushResetActions(
         { query },
-        { route: { url: expect.stringMatching(/\?((a=hello%20world&b=%26%3F)|(b=%26%3F&a=hello%20world))$/) },
+        { route: { url: expectedUrl },
       })
+      testActionWithOptions(screenA, navigator.popToView, { query }, popToView({ route: expectedUrl }))
     })
 
     it('should create action with route params', () => {
       const routeParams = { id: 'a & b', resource: 'test' }
+      const expectedUrl = 'my-screen-d/a%20%26%20b/test'
       testAllPushResetActions(
         { routeParams },
-        { route: { url: 'my-screen-d/a%20%26%20b/test' } },
+        { route: { url: expectedUrl } },
         { screen: screenD },
       )
+      testActionWithOptions(screenD, navigator.popToView, { routeParams }, popToView({ route: expectedUrl }))
     })
 
     it('should create action with shouldPrefetch', () => {
