@@ -51,25 +51,8 @@ const validateChild = (child?: JSX.Element) => {
  *
  * If you pass `id` or `style` to the component `If`, they will end up in the enclosing container that will be created.
  *
- * When `If` has only `Then` as a child, no enclosing Container is created and its id and style are used for rendering
- * the child of `Then`. We will try to combine every property, but if there are clashes, the child of `Then` takes
- * precedence.
- *
- * ```tsx
- * <If id="if-component" style={{ margin: 5, backgroundColor: '#000000' }} condition={isLoading}>
- *   <Then><Text id="text-component" style={{ padding: 10, backgroundColor: '#FFFFFF' }}>Loading...</Text></Then>
- * </If>
- * ```
- *
- * becomes:
- * ```tsx
- * <Text
- *   id="text-component"
- *   style={{ display: condition(isLoading, 'FLEX', 'NONE'), margin: 5, padding: 10, backgroundColor: '#FFFFFF' }}
- * >
- *   Loading...
- * </Text>
- * ```
+ * When `If` has only `Then` as a child, no enclosing Container is created and both the id and style of the If component
+ * are ignored.
  *
  * @category Component
  * @param props the component properties. See: {@link IfProps}
@@ -99,8 +82,6 @@ export const If: FC<IfProps> = ({ id, style, condition, children }) => {
     )
   }
 
-  if (style) set(thenComponent, 'properties.style', { ...style, ...thenComponent.properties?.style })
-  if (id && !thenComponent.id) thenComponent.id = id
   return thenComponent
 }
 
