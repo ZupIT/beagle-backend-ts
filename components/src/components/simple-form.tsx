@@ -31,12 +31,12 @@ export interface SimpleFormProps extends WithAccessibility, WithTheme, WithStyle
  *   showAll: false,
  *   show: {
  *     zip: false,
- *     reference?: false,
+ *     reference: false,
  *   }
  * })
  *
  * const postAddress = sendRequest({
- *   url: 'https://myapi.com/address'
+ *   url: 'https://myapi.com/address',
  *   method: 'post',
  *   data: address,
  *   onSuccess: () => alert('Address registered!'),
@@ -45,7 +45,7 @@ export interface SimpleFormProps extends WithAccessibility, WithTheme, WithStyle
  *
  * const MyScreen = () => (
  *   <Container context={address}>
- *     <SimpleForm context={errors} onSubmit={postAddress} onValidationError={errors.get('showAll').set(true)}>
+ *     <SimpleForm onSubmit={postAddress} onValidationError={errors.get('showAll').set(true)}>
  *       <TextInput
  *         placeholder="Zip code (required)"
  *         value={address.get('zip')}
@@ -73,8 +73,13 @@ export interface SimpleFormProps extends WithAccessibility, WithTheme, WithStyle
  * @param props the component properties. See: {@link SimpleFormProps}.
  * @returns JSX element, i.e an instance of Component.
  */
-export const SimpleForm: FC<SimpleFormProps> = ({ id, style, children, ...props }) => (
-  <StyledDefaultComponent name="simpleForm" id={id} style={style} properties={props}>
-    {children}
-  </StyledDefaultComponent>
-)
+export const SimpleForm: FC<SimpleFormProps> = ({ id, style, children, ...props }) => {
+  if (!children || (Array.isArray(children) && !children.length)) {
+    throw new Error('SimpleForm: "children" is required')
+  }
+  return (
+    <StyledDefaultComponent name="simpleForm" id={id} style={style} properties={props}>
+      {children}
+    </StyledDefaultComponent>
+  )
+}

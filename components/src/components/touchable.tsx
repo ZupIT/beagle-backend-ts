@@ -24,6 +24,10 @@ export interface TouchableProps extends Required<WithChildren> {
  * @returns JSX element, i.e an instance of Component.
  */
 export const Touchable: FC<TouchableProps> = ({ id, children, ...props }) => {
+  if (!children || (Array.isArray(children) && !children.length)) {
+    throw new Error('Touchable: "children" is required')
+  }
+
   // the frontend always expect a single child for the Touchable component
   const child = Array.isArray(children) ? <Container>{children}</Container> : children
   return <DefaultComponent name="touchable" id={id} properties={{ ...props, child }} />

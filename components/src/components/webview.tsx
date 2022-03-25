@@ -21,6 +21,6 @@ export interface WebViewProps extends WithStyle, WithAccessibility {
  * @param props the component properties. See: {@link WebViewProps}.
  * @returns JSX element, i.e an instance of Component.
  */
-export const Webview: FC<WebViewProps> = ({ id, style, ...props }) => (
+export const WebView: FC<WebViewProps> = ({ id, style, ...props }) => (
   <StyledDefaultComponent name="webview" id={id} style={style} properties={props} />
 )
