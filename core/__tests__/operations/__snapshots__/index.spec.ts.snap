@@ -1,0 +1,26 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Operations module should export 1`] = `
+Object {
+  "and": "function",
+  "condition": "function",
+  "contains": "function",
+  "divide": "function",
+  "gt": "function",
+  "gte": "function",
+  "insert": "function",
+  "isEmpty": "function",
+  "isNull": "function",
+  "length": "function",
+  "lt": "function",
+  "lte": "function",
+  "multiply": "function",
+  "not": "function",
+  "or": "function",
+  "remove": "function",
+  "removeIndex": "function",
+  "subtract": "function",
+  "sum": "function",
+  "union": "function",
+}
+`;

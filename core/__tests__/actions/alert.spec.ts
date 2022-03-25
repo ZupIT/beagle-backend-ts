@@ -14,17 +14,19 @@ const analytics: AnalyticsConfig<AlertParams> = {
   attributes: { message: true, title: true },
 }
 
-describe('Actions: alert', () => {
-  it('should create action', () => expectActionToBeCorrect(
-    alert({ ...properties, analytics }),
-    'alert',
-    properties,
-    analytics,
-  ))
+describe('Actions', () => {
+  describe('alert', () => {
+    it('should create action', () => expectActionToBeCorrect(
+      alert({ ...properties, analytics }),
+      'alert',
+      properties,
+      analytics,
+    ))
 
-  it('should create action with only a message', () => expectActionToBeCorrect(
-    alert('test'),
-    'alert',
-    { message: 'test' },
-  ))
+    it('should create action with only a message', () => expectActionToBeCorrect(
+      alert('test'),
+      'alert',
+      { message: 'test' },
+    ))
+  })
 })

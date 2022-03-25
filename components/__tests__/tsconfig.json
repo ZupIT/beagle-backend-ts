@@ -2,11 +2,11 @@
   "compilerOptions": {
     "jsx": "react",
     "experimentalDecorators": true,
+    "reactNamespace": "BeagleJSX",
     "module": "commonjs",
     "target": "esnext",
     "moduleResolution": "node",
     "strict": true,
-    "reactNamespace": "BeagleJSX",
     "esModuleInterop": true,
     "baseUrl": "../",
     "paths": {

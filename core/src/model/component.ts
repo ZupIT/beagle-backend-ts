@@ -50,7 +50,6 @@ export interface WithChildren {
  *
  * To know more about the properties of `<component />`, check {@link ComponentInterface}.
  */
-
 export interface Component extends WithContext, WithChildren {
   /**
    * An optional id for this component.
@@ -71,7 +70,12 @@ export interface Component extends WithContext, WithChildren {
    * "$namespace:$name". The Container, for instance is a "beagle:container".
    */
   namespace?: string,
+  /**
+   * Don't use this. This property is here just to avoid the assignment of functions to this type.
+   */
+  call?: never,
 }
+
 export class Component {
   /**
    * @param options the component parameters: properties, children, context, id, name and namespace. See
