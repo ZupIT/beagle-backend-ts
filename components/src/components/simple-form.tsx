@@ -73,13 +73,8 @@ export interface SimpleFormProps extends WithAccessibility, WithTheme, WithStyle
  * @param props the component properties. See: {@link SimpleFormProps}.
  * @returns JSX element, i.e an instance of Component.
  */
-export const SimpleForm: FC<SimpleFormProps> = ({ id, style, children, ...props }) => {
-  if (!children || (Array.isArray(children) && !children.length)) {
-    throw new Error('SimpleForm: "children" is required')
-  }
-  return (
-    <StyledDefaultComponent name="simpleForm" id={id} style={style} properties={props}>
-      {children}
-    </StyledDefaultComponent>
-  )
-}
+export const SimpleForm: FC<SimpleFormProps> = ({ id, style, children, ...props }) => (
+  <StyledDefaultComponent name="simpleForm" id={id} style={style} properties={props}>
+    {children}
+  </StyledDefaultComponent>
+)

@@ -30,13 +30,8 @@ export interface ScrollViewProps extends Required<WithChildren>, WithContext {
  * @param props the component properties. See: {@link ScrollViewProps}.
  * @returns JSX element, i.e an instance of Component.
  */
-export const ScrollView: FC<ScrollViewProps> = ({ id, context, children, ...props }) => {
-  if (!children || (Array.isArray(children) && !children.length)) {
-    throw new Error('ScrollView: "children" is required')
-  }
-  return (
-    <DefaultComponent name="scrollView" id={id} context={context} properties={props}>
-      {children}
-    </DefaultComponent>
-  )
-}
+export const ScrollView: FC<ScrollViewProps> = ({ id, context, children, ...props }) => (
+  <DefaultComponent name="scrollView" id={id} context={context} properties={props}>
+    {children}
+  </DefaultComponent>
+)
