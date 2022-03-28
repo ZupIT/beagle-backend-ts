@@ -1,34 +1,41 @@
-import { BeagleJSX, createContext, createContextNode } from '@zup-it/beagle-backend-core'
+import { BeagleJSX, Component, createContext, createContextNode } from '@zup-it/beagle-backend-core'
+import { omit } from 'lodash'
 import { alert } from '@zup-it/beagle-backend-core/actions'
 import { setContext } from '@zup-it/beagle-backend-core/actions/set-context'
 import { isNull, not } from '@zup-it/beagle-backend-core/operations'
 import { MapContextNode } from '@zup-it/beagle-backend-core/model/context/types'
-import { fromSimpleStyle } from '../../src/style/converter'
 import { Template, TemplateProps, Text, Container, ListViewProps, ListView, GridViewProps, GridView } from '../../src/components'
+import { StyledComponentMock } from '../__mocks__/styled-component'
 import { expectComponentToBeCorrect } from './utils'
+
+jest.mock('src/style/styled', () => ({
+  __esModule: true,
+  StyledComponent: (_: any) => StyledComponentMock(_),
+  StyledDefaultComponent: (_: any) => StyledComponentMock(_),
+}))
 
 describe('Components', () => {
   describe('DynamicList', () => {
     describe('Template', () => {
       const name = 'template'
       const itemContext = createContext('itemContext', { title: 'Test Book Title' })
-      const children = [
-        <Text>Audio book</Text>,
-        <Text>{itemContext.get('title')}</Text>,
-      ]
-      const props: Partial<TemplateProps> = {
+      const props: TemplateProps = {
         case: not(isNull(itemContext.get('title'))),
+        children: [
+          <Text>Audio book</Text>,
+          <Text>{itemContext.get('title')}</Text>,
+        ],
       }
       const options = {
         properties: {
-          ...props,
-          view: <Container>{children}</Container>,
+          ...omit(props, 'children'),
+          view: <Container>{props.children}</Container>,
         },
         namespace: 'pseudo',
       }
 
       it('should create component', () => {
-        expectComponentToBeCorrect(<Template case={props.case}>{children}</Template>, name, options)
+        expectComponentToBeCorrect(<Template case={props.case}>{props.children}</Template>, name, options)
       })
 
       it('should create component without wrapper when single child', () => {
@@ -36,7 +43,7 @@ describe('Components', () => {
         const overwrittenOptions = {
           ...options,
           properties: {
-            ...props,
+            ...omit(props, 'children'),
             view: overwrittenChildren,
           },
         }
@@ -68,7 +75,7 @@ describe('Components', () => {
           author: 'George R.R. Martin',
         },
       ]
-      const props: Partial<ListViewProps<Book>> = {
+      const props: ListViewProps<Book> = {
         accessibility: {
           accessible: true,
           accessibilityLabel: 'listView Accessibility Label',
@@ -87,28 +94,28 @@ describe('Components', () => {
           backgroundColor: '#fff',
           padding: 10,
         },
+        children: (item: MapContextNode<Book>) => [
+          <Template>
+            <Text>Audio book</Text>
+            <Text>
+              {`${item.get('title')} was written by ${item.get('author')} `}
+            </Text>
+          </Template>,
+          <Template case={isNull(item.get('narrator'))}>
+            <Text>Physical book</Text>
+            <Text>
+              {`${item.get('title')} was written by ${item.get('author')}. It has ${item.get('length')} pages.`}
+            </Text>
+          </Template>,
+        ],
+        context,
       }
-      const listViewChildren = (item: MapContextNode<Book>) => [
-        <Template>
-          <Text>Audio book</Text>
-          <Text>
-            {`${item.get('title')} was written by ${item.get('author')} `}
-          </Text>
-        </Template>,
-        <Template case={isNull(item.get('narrator'))}>
-          <Text>Physical book</Text>
-          <Text>
-            {`${item.get('title')} was written by ${item.get('author')}. It has ${item.get('length')} pages.`}
-          </Text>
-        </Template>,
-      ]
       const options = {
         id,
         context,
         properties: {
-          ...props,
-          style: fromSimpleStyle(props.style),
-          templates: listViewChildren(createContextNode(props.iteratorName!)).map(c => c.properties),
+          ...omit(props, ['context', 'children']),
+          templates: (props.children(createContextNode(props.iteratorName!)) as Component[]).map(c => c.properties),
         },
       }
 
@@ -126,9 +133,9 @@ describe('Components', () => {
             onScrollEnd={props.onScrollEnd}
             scrollEndThreshold={props.scrollEndThreshold}
             style={props.style}
-            context={context}
+            context={props.context}
           >
-            {listViewChildren}
+            {props.children}
           </ListView>,
           name,
           options,
@@ -208,28 +215,28 @@ describe('Components', () => {
           backgroundColor: '#fff',
           padding: 10,
         },
+        children: (item: MapContextNode<Book>) => [
+          <Template>
+            <Text>Audio book</Text>
+            <Text>
+              {`${item.get('title')} was written by ${item.get('author')} `}
+            </Text>
+          </Template>,
+          <Template case={isNull(item.get('narrator'))}>
+            <Text>Physical book</Text>
+            <Text>
+              {`${item.get('title')} was written by ${item.get('author')}. It has ${item.get('length')} pages.`}
+            </Text>
+          </Template>,
+        ],
+        context,
       }
-      const gridViewChildren = (item: MapContextNode<Book>) => [
-        <Template>
-          <Text>Audio book</Text>
-          <Text>
-            {`${item.get('title')} was written by ${item.get('author')} `}
-          </Text>
-        </Template>,
-        <Template case={isNull(item.get('narrator'))}>
-          <Text>Physical book</Text>
-          <Text>
-            {`${item.get('title')} was written by ${item.get('author')}. It has ${item.get('length')} pages.`}
-          </Text>
-        </Template>,
-      ]
       const options = {
         id,
         context,
         properties: {
-          ...props,
-          style: fromSimpleStyle(props.style),
-          templates: gridViewChildren(createContextNode(props.iteratorName!)).map(c => c.properties),
+          ...omit(props, ['context', 'children']),
+          templates: (props.children!(createContextNode(props.iteratorName!)) as Component[]).map(c => c.properties),
         },
       }
 
@@ -249,9 +256,9 @@ describe('Components', () => {
             style={props.style}
             itemAspectRatio={props.itemAspectRatio}
             spanCount={props.spanCount}
-            context={context}
+            context={props.context}
           >
-            {gridViewChildren}
+            {props.children!}
           </GridView>,
           name,
           options,
