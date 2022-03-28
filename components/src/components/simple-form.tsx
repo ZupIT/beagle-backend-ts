@@ -1,8 +1,8 @@
-import { BeagleJSX, FC, Actions, WithChildren } from '@zup-it/beagle-backend-core'
+import { BeagleJSX, FC, Actions, WithChildren, WithContext } from '@zup-it/beagle-backend-core'
 import { StyledDefaultComponent, WithStyle } from '../style/styled'
 import { WithAccessibility, WithTheme } from '../types'
 
-export interface SimpleFormProps extends WithAccessibility, WithTheme, WithStyle, Required<WithChildren> {
+export interface SimpleFormProps extends WithAccessibility, WithContext, WithTheme, WithStyle, Required<WithChildren> {
   /**
    * Actions to run when the form is submitted (submitForm action). These actions are not run if a TextInput, inside
    * the form, has a validation error, i.e. if the property `error` resolves to true.
@@ -45,7 +45,7 @@ export interface SimpleFormProps extends WithAccessibility, WithTheme, WithStyle
  *
  * const MyScreen = () => (
  *   <Container context={address}>
- *     <SimpleForm onSubmit={postAddress} onValidationError={errors.get('showAll').set(true)}>
+ *     <SimpleForm context={errors} onSubmit={postAddress} onValidationError={errors.get('showAll').set(true)}>
  *       <TextInput
  *         placeholder="Zip code (required)"
  *         value={address.get('zip')}
@@ -73,8 +73,8 @@ export interface SimpleFormProps extends WithAccessibility, WithTheme, WithStyle
  * @param props the component properties. See: {@link SimpleFormProps}.
  * @returns JSX element, i.e an instance of Component.
  */
-export const SimpleForm: FC<SimpleFormProps> = ({ id, style, children, ...props }) => (
-  <StyledDefaultComponent name="simpleForm" id={id} style={style} properties={props}>
+export const SimpleForm: FC<SimpleFormProps> = ({ id, context, style, children, ...props }) => (
+  <StyledDefaultComponent name="simpleForm" id={id} context={context} style={style} properties={props}>
     {children}
   </StyledDefaultComponent>
 )

@@ -1,12 +1,12 @@
 import { BeagleJSX, createContext } from '@zup-it/beagle-backend-core'
 import { alert, sendRequest } from '@zup-it/beagle-backend-core/actions'
+import { omit } from 'lodash'
 import { TextInput } from '../../src/components'
 import { Button } from '../../src/components/button'
 import { SimpleForm, SimpleFormProps } from '../../src/components/simple-form'
 import { submitForm } from '../../src'
 import { StyledComponentMock } from '../__mocks__/styled-component'
 import { expectComponentToBeCorrect } from './utils'
-import { omit } from 'lodash'
 
 jest.mock('src/style/styled', () => ({
   __esModule: true,
@@ -60,11 +60,13 @@ describe('Components', () => {
         <TextInput placeholder="Address reference" value={address.get('reference')} />,
         <Button onPress={submitForm({})}>Submit</Button>,
       ],
+      context: errors,
     }
     const options = {
       id,
+      context: errors,
       children: props.children,
-      properties: omit(props, 'children'),
+      properties: omit(props, ['context', 'children']),
     }
 
     it('should create component', () => {
@@ -76,6 +78,7 @@ describe('Components', () => {
           styleId={props.styleId}
           accessibility={props.accessibility}
           style={props.style}
+          context={props.context}
         >
           {props.children}
         </SimpleForm>,

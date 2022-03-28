@@ -7,7 +7,7 @@ export type ComponentTestOptions<Props = unknown> = {
   children?: Component | Component[] | null | undefined,
   id?: string,
   style?: Style,
-  context?: LocalContext<unknown>,
+  context?: LocalContext<any>,
   namespace?: string,
 }
 
