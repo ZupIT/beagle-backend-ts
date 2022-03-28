@@ -2,6 +2,7 @@ import { BeagleJSX, FC, Expression, Actions, WithChildren, WithContext } from '@
 import { Color } from '../color'
 import { StyledDefaultComponent, WithStyle } from '../style/styled'
 import { WithAccessibility } from '../types'
+import { validateColor } from '../validations'
 import { Container } from './container'
 
 export interface PullToRefreshProps extends WithAccessibility, WithStyle, Required<WithChildren>, WithContext {
@@ -67,8 +68,18 @@ export interface PullToRefreshProps extends WithAccessibility, WithStyle, Requir
  * @param props the component properties. See: {@link PullToRefreshProps}.
  * @returns JSX element, i.e an instance of Component.
  */
-export const PullToRefresh: FC<PullToRefreshProps> = ({ id, style, children, ...props }) => {
+export const PullToRefresh: FC<PullToRefreshProps> = ({ id, style, context, children, ...props }) => {
+  if (props.color) {
+    validateColor(props.color)
+  }
+
   // the frontend always expect a single child for the PullRoRefresh component
   const child = Array.isArray(children) ? <Container>{children}</Container> : children
-  return <StyledDefaultComponent name="pullToRefresh" id={id} style={style} properties={{ ...props, child }} />
+  return <StyledDefaultComponent
+    name="pullToRefresh"
+    id={id}
+    style={style}
+    context={context}
+    properties={{ ...props, child }}
+  />
 }
