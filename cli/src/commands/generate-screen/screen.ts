@@ -1,13 +1,13 @@
 import path from 'path'
 import fsPromise from 'fs/promises'
-import { camelCase } from 'lodash'
+import { upperFirst, camelCase } from 'lodash'
 import { pathExists } from 'fs-extra'
 import { logger } from '../../utils'
 import { BeagleTsConfig } from '../types'
 import { GenerateScreenOptions } from './types'
 
 export const generateScreenCodeFromBoilerplate = async (screenName: string, options: GenerateScreenOptions) => {
-  const formattedScreenName = camelCase(screenName)
+  const formattedScreenName = upperFirst(camelCase(screenName))
   const screenProps = {
     ...(options.withRouteParams ? { routeParams: { your: 'routeParams' } } : {}),
     ...(options.withHeaders ? { headers: { your: 'headers' } } : {}),
@@ -71,7 +71,7 @@ const getUpdatedRoutesFileCode = (
   configs: BeagleTsConfig,
 ) => {
   const varCodeBlock = routesFileContent.match(new RegExp(`${configs.routes.varName}.*?{([\\s\\S]*?)}`, 'gm'))
-  const formattedName = camelCase(screenName)
+  const formattedName = upperFirst(camelCase(screenName))
 
   if (varCodeBlock && varCodeBlock.length) {
     const routes = varCodeBlock[0].match(/'.*?':.*?[,|\n]/gm)
