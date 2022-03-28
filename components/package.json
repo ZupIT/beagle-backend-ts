@@ -1,6 +1,6 @@
 {
   "name": "@zup-it/beagle-backend-components",
-  "version": "1.0.0-beta.1",
+  "version": "1.0.0",
   "license": "MIT",
   "main": "src/index.ts",
   "scripts": {
@@ -9,9 +9,9 @@
     "test": "jest"
   },
   "peerDependencies": {
-    "@zup-it/beagle-backend-core": "1.0.0-beta.1"
+    "@zup-it/beagle-backend-core": "1.0.0"
   },
   "devDependencies": {
-    "@zup-it/beagle-backend-core": "1.0.0-beta.1"
+    "@zup-it/beagle-backend-core": "1.0.0"
   }
 }

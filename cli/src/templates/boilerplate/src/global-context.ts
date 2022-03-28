@@ -1,4 +1,4 @@
-import { getGlobalContext } from '@zup-it/beagle-backend-express'
+import { getGlobalContext } from '@zup-it/beagle-backend-core'
 
 export interface GlobalContext {
   message?: string,

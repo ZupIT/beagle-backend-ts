@@ -1,3 +1,4 @@
+
 import express from 'express'
 import cors from 'cors'
 import { BeagleApp } from '@zup-it/beagle-backend-express'
