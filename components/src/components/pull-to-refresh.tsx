@@ -69,9 +69,6 @@ export interface PullToRefreshProps extends WithAccessibility, WithStyle, Requir
  * @returns JSX element, i.e an instance of Component.
  */
 export const PullToRefresh: FC<PullToRefreshProps> = ({ id, style, context, children, ...props }) => {
-  if (!children || (Array.isArray(children) && !children.length)) {
-    throw new Error('PullToRefresh: "children" is required')
-  }
   if (props.color) {
     validateColor(props.color)
   }

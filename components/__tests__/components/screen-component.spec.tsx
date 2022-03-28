@@ -1,21 +1,25 @@
 import { BeagleJSX, createContext } from '@zup-it/beagle-backend-core'
+import { omit } from 'lodash'
 import { alert } from '@zup-it/beagle-backend-core/actions'
 import { NavigationBar, ScreenComponent, ScreenProps } from '../../src/components/screen-component'
 import { Container } from '../../src/components/container'
 import { Text } from '../../src/components/text'
 import { Button } from '../../src/components/button'
-import { fromSimpleStyle } from '../../src/style/converter'
-import { expectComponentToBeCorrect, mockStyledComponent } from './utils'
+import { StyledComponentMock } from '../__mocks__/styled-component'
+import { expectComponentToBeCorrect } from './utils'
 
-mockStyledComponent()
+jest.mock('src/style/styled', () => ({
+  __esModule: true,
+  StyledComponent: (_: any) => StyledComponentMock(_),
+  StyledDefaultComponent: (_: any) => StyledComponentMock(_),
+}))
 
 describe('Components', () => {
   describe('ScreenComponent', () => {
     const name = 'screencomponent'
     const id = 'test-screencomponent'
     const context = createContext('screen-component-context-id')
-    const children = [<Text>This is the child test case.</Text>, <Button>Click me</Button>]
-    const props: Partial<ScreenProps> = {
+    const props: ScreenProps = {
       safeArea: undefined,
       navigationBar: undefined,
       style: {
@@ -23,14 +27,16 @@ describe('Components', () => {
         backgroundColor: '#fff',
         padding: 10,
       },
+      children: [<Text>This is the child test case.</Text>, <Button>Click me</Button>],
+      context,
     }
     const options = {
       id,
       context,
       properties: {
-        ...props,
-        child: <Container>{children}</Container>,
-        style: fromSimpleStyle(props.style),
+        ...omit(props, ['context', 'children']),
+        child: <Container>{props.children}</Container>,
+        style: props.style,
       },
     }
 
@@ -38,12 +44,12 @@ describe('Components', () => {
       expectComponentToBeCorrect(
         <ScreenComponent
           id={id}
-          context={context}
+          context={props.context}
           safeArea={props.safeArea}
           navigationBar={props.navigationBar}
           style={props.style}
         >
-          {children}
+          {props.children}
         </ScreenComponent>,
         name,
         options,
@@ -56,7 +62,7 @@ describe('Components', () => {
         expectComponentToBeCorrect(
           <ScreenComponent
             id={id}
-            context={context}
+            context={props.context}
             safeArea={props.safeArea}
             navigationBar={props.navigationBar}
             style={props.style}
@@ -66,18 +72,6 @@ describe('Components', () => {
           name,
           { ...options, properties: { ...options.properties, child: singleChild } },
         )
-      })
-
-      it('should throw when no children is provided', () => {
-        expect(() => <ScreenComponent id={id}>{ }</ScreenComponent>).toThrowError()
-        expect(() =>
-          <ScreenComponent id={id}>
-          </ScreenComponent>
-        ).toThrowError()
-      })
-
-      it('should throw when no children is bypassed trough linter', () => {
-        expect(() => <ScreenComponent id={id}>{[]}</ScreenComponent>).toThrowError()
       })
     })
 
@@ -93,12 +87,12 @@ describe('Components', () => {
         expectComponentToBeCorrect(
           <ScreenComponent
             id={id}
-            context={context}
+            context={props.context}
             safeArea={expectedSafeArea}
             navigationBar={props.navigationBar}
             style={props.style}
           >
-            {children}
+            {props.children}
           </ScreenComponent>,
           name,
           {
@@ -115,12 +109,12 @@ describe('Components', () => {
         expectComponentToBeCorrect(
           <ScreenComponent
             id={id}
-            context={context}
+            context={props.context}
             safeArea={true}
             navigationBar={props.navigationBar}
             style={props.style}
           >
-            {children}
+            {props.children}
           </ScreenComponent>,
           name,
           {
@@ -156,12 +150,12 @@ describe('Components', () => {
         expectComponentToBeCorrect(
           <ScreenComponent
             id={id}
-            context={context}
+            context={props.context}
             safeArea={props.safeArea}
             navigationBar={navigationBar}
             style={props.style}
           >
-            {children}
+            {props.children}
           </ScreenComponent>,
           name,
           { ...options, properties: { ...options.properties, navigationBar } },

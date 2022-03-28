@@ -103,10 +103,6 @@ export interface ScreenProps extends WithStyle, WithContext, Required<WithChildr
  * @returns JSX element, i.e an instance of Component.
  */
 export const ScreenComponent: FC<ScreenProps> = ({ id, context, children, style, safeArea, ...props }) => {
-  if (!children || (Array.isArray(children) && !children.length)) {
-    throw new Error('ScreenComponent: "children" is required')
-  }
-
   const finalSafeArea = safeArea === true ? { top: true, bottom: true, leading: true, trailing: true } : safeArea
   const child = Array.isArray(children) ? <Container>{children}</Container> : children
   const properties = { ...props, child, safeArea: finalSafeArea }

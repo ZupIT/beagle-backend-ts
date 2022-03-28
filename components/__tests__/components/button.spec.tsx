@@ -1,16 +1,21 @@
 import { BeagleJSX } from '@zup-it/beagle-backend-core'
 import { alert } from '@zup-it/beagle-backend-core/actions'
-import { fromSimpleStyle } from '../../src/style/converter'
+import { omit } from 'lodash'
 import { Button, ButtonProps } from '../../src/components/button'
-import { expectComponentToBeCorrect, mockStyledComponent } from './utils'
+import { StyledComponentMock } from '../__mocks__/styled-component'
+import { ComponentTestOptions, expectComponentToBeCorrect } from './utils'
 
-mockStyledComponent()
+jest.mock('src/style/styled', () => ({
+  __esModule: true,
+  StyledComponent: (_: any) => StyledComponentMock(_),
+  StyledDefaultComponent: (_: any) => StyledComponentMock(_),
+}))
 
 describe('Components', () => {
   describe('Button', () => {
     const name = 'button'
     const id = 'test-button'
-    const props: Partial<ButtonProps> = {
+    const props: ButtonProps = {
       style: {
         borderColor: '#000',
         backgroundColor: '#fff',
@@ -24,6 +29,14 @@ describe('Components', () => {
         accessibilityLabel: 'Button Accessibility Label',
         isHeader: false,
       },
+      children: ['Click', ' ', 'me!'],
+    }
+    const options: ComponentTestOptions = {
+      id,
+      properties: {
+        ...omit(props, 'children'),
+        text: 'Click me!',
+      },
     }
 
     it('should create component with text as a property', () => {
@@ -36,10 +49,10 @@ describe('Components', () => {
           styleId={props.styleId}
           accessibility={props.accessibility}
         >
-          Click me!
+          {props.children}
         </Button>,
         name,
-        { properties: { ...props, text: 'Click me!', style: fromSimpleStyle(props.style) }, id }
+        options,
       )
     })
   })

@@ -1,7 +1,13 @@
 import { BeagleJSX } from '@zup-it/beagle-backend-core'
-import { fromSimpleStyle } from '../../src/style/converter'
 import { WebView, WebViewProps } from '../../src/components/webview'
+import { StyledComponentMock } from '../__mocks__/styled-component'
 import { expectComponentToBeCorrect } from './utils'
+
+jest.mock('src/style/styled', () => ({
+  __esModule: true,
+  StyledComponent: (_: any) => StyledComponentMock(_),
+  StyledDefaultComponent: (_: any) => StyledComponentMock(_),
+}))
 
 describe('Components', () => {
   describe('Webview', () => {
@@ -32,10 +38,7 @@ describe('Components', () => {
         name,
         {
           id,
-          properties: {
-            ...props,
-            style: fromSimpleStyle(props.style),
-          },
+          properties: props,
         },
       )
     })

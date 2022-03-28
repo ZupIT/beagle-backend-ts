@@ -1,14 +1,21 @@
 import { BeagleJSX } from '@zup-it/beagle-backend-core'
+import { omit } from 'lodash'
 import { colors } from 'src/color'
-import { fromSimpleStyle } from '../../src/style/converter'
 import { Text, TextProps } from '../../src/components/text'
+import { StyledComponentMock } from '../__mocks__/styled-component'
 import { expectComponentToBeCorrect } from './utils'
+
+jest.mock('src/style/styled', () => ({
+  __esModule: true,
+  StyledComponent: (_: any) => StyledComponentMock(_),
+  StyledDefaultComponent: (_: any) => StyledComponentMock(_),
+}))
 
 describe('Components', () => {
   describe('Text', () => {
     const name = 'text'
     const id = 'test-text'
-    const props: Partial<TextProps> = {
+    const props: TextProps = {
       textColor: colors.aqua,
       alignment: 'LEFT',
       styleId: 'test-text-style-id',
@@ -22,13 +29,13 @@ describe('Components', () => {
         backgroundColor: '#fff',
         padding: 10,
       },
+      children: ['Test', ' ', 'Text'],
     }
     const options = {
       id,
       properties: {
-        ...props,
+        ...omit(props, 'children'),
         text: 'Test Text',
-        style: fromSimpleStyle(props.style),
       },
     }
 
@@ -42,7 +49,7 @@ describe('Components', () => {
           accessibility={props.accessibility}
           style={props.style}
         >
-          Test Text
+          {props.children}
         </Text>,
         name,
         options,
@@ -61,7 +68,7 @@ describe('Components', () => {
               accessibility={props.accessibility}
               style={props.style}
             >
-              Test Text
+              {props.children}
             </Text>,
             name,
             options,
@@ -79,7 +86,7 @@ describe('Components', () => {
                 accessibility={props.accessibility}
                 style={props.style}
               >
-                Test Text
+                {props.children}
               </Text>,
               name,
               options,

@@ -1,7 +1,13 @@
 import { BeagleJSX, createContext, createContextNode } from '@zup-it/beagle-backend-core'
-import { fromSimpleStyle } from '../../src/style/converter'
 import { TextInput, TextInputProps } from '../../src/components/text-input'
+import { StyledComponentMock } from '../__mocks__/styled-component'
 import { expectComponentToBeCorrect } from './utils'
+
+jest.mock('src/style/styled', () => ({
+  __esModule: true,
+  StyledComponent: (_: any) => StyledComponentMock(_),
+  StyledDefaultComponent: (_: any) => StyledComponentMock(_),
+}))
 
 describe('Components', () => {
   describe('TextInput', () => {
@@ -38,7 +44,6 @@ describe('Components', () => {
         onFocus: props.onFocus!(createContextNode<{ value: string }>('onFocus').get('value')),
         onChange: props.onChange!(createContextNode<{ value: string }>('onChange').get('value')),
         onBlur: props.onBlur!(createContextNode<{ value: string }>('onBlur').get('value')),
-        style: fromSimpleStyle(props.style),
       },
     }
 

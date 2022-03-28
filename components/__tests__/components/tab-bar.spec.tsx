@@ -8,11 +8,18 @@ describe('Components', () => {
     const id = 'test-tab-bar'
     const currentTab = createContext('tab', 0)
     const onTabSelection: (index: Context<number>) => Actions = (value) => currentTab.set(value)
-    const props: Partial<TabBarProps> = {
+    const props: TabBarProps = {
       currentTab,
       items: [{ title: 'John' }, { title: 'Sophia' }, { title: 'Mark' }],
       onTabSelection: onTabSelection,
       styleId: 'test-tab-bar-style-id',
+    }
+    const options = {
+      id,
+      properties: {
+        ...props,
+        onTabSelection: onTabSelection(createContextNode('onTabSelection')),
+      },
     }
 
     it('should create component', () => {
@@ -25,7 +32,7 @@ describe('Components', () => {
           styleId={props.styleId}
         />,
         name,
-        { id, properties: { ...props, onTabSelection: onTabSelection(createContextNode('onTabSelection')) } },
+        options,
       )
     })
   })

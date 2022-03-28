@@ -23,7 +23,7 @@ Object {
   "TextInput": "function",
   "Then": "function",
   "Touchable": "function",
-  "Webview": "function",
+  "WebView": "function",
   "colors": "object",
   "createStyleMap": "function",
   "submitForm": "function",

@@ -1,13 +1,18 @@
 import { BeagleJSX, createContext } from '@zup-it/beagle-backend-core'
 import { alert, sendRequest } from '@zup-it/beagle-backend-core/actions'
-import { fromSimpleStyle } from '../../src/style/converter'
+import { omit } from 'lodash'
 import { TextInput } from '../../src/components'
 import { Button } from '../../src/components/button'
 import { SimpleForm, SimpleFormProps } from '../../src/components/simple-form'
 import { submitForm } from '../../src'
-import { expectComponentToBeCorrect, mockStyledComponent } from './utils'
+import { StyledComponentMock } from '../__mocks__/styled-component'
+import { expectComponentToBeCorrect } from './utils'
 
-mockStyledComponent()
+jest.mock('src/style/styled', () => ({
+  __esModule: true,
+  StyledComponent: (_: any) => StyledComponentMock(_),
+  StyledDefaultComponent: (_: any) => StyledComponentMock(_),
+}))
 
 interface Address {
   zip: string,
@@ -36,12 +41,7 @@ describe('Components', () => {
   describe('SimpleForm', () => {
     const name = 'simpleForm'
     const id = 'test-simple-form'
-    const children = [
-      <TextInput placeholder="Zip code (required)" value={address.get('zip')} />,
-      <TextInput placeholder="Address reference" value={address.get('reference')} />,
-      <Button onPress={submitForm({})}>Submit</Button>,
-    ]
-    const props: Partial<SimpleFormProps> = {
+    const props: SimpleFormProps = {
       onSubmit: postAddress,
       onValidationError: errors.get('showAll').set(true),
       styleId: 'test-simple-form-style-id',
@@ -55,14 +55,18 @@ describe('Components', () => {
         backgroundColor: '#fff',
         padding: 10,
       },
+      children: [
+        <TextInput placeholder="Zip code (required)" value={address.get('zip')} />,
+        <TextInput placeholder="Address reference" value={address.get('reference')} />,
+        <Button onPress={submitForm({})}>Submit</Button>,
+      ],
+      context: errors,
     }
     const options = {
       id,
-      children,
-      properties: {
-        ...props,
-        style: fromSimpleStyle(props.style),
-      },
+      context: errors,
+      children: props.children,
+      properties: omit(props, ['context', 'children']),
     }
 
     it('should create component', () => {
@@ -74,26 +78,13 @@ describe('Components', () => {
           styleId={props.styleId}
           accessibility={props.accessibility}
           style={props.style}
+          context={props.context}
         >
-          {children}
+          {props.children}
         </SimpleForm>,
         name,
         options,
       )
-    })
-
-    describe('Children', () => {
-      it('should throw when no children is provided', () => {
-        expect(() => <SimpleForm id={id} onSubmit={alert('Submitted')}>{ }</SimpleForm>).toThrowError()
-        expect(() =>
-          <SimpleForm id={id} onSubmit={alert('Submitted')}>
-          </SimpleForm>
-        ).toThrowError()
-      })
-
-      it('should throw when no children is bypassed trough linter', () => {
-        expect(() => <SimpleForm id={id} onSubmit={alert('Submitted')}>{[]}</SimpleForm>).toThrowError()
-      })
     })
   })
 })
