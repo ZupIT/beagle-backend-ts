@@ -115,7 +115,11 @@ describe('Components', () => {
         context,
         properties: {
           ...omit(props, ['context', 'children']),
-          templates: (props.children(createContextNode(props.iteratorName!)) as Component[]).map(c => c.properties),
+          templates: (
+            props.children(
+              createContextNode(props.iteratorName!),
+              createContextNode(props.indexName!)
+            ) as Component[]).map(c => c.properties),
         },
       }
 
@@ -236,7 +240,11 @@ describe('Components', () => {
         context,
         properties: {
           ...omit(props, ['context', 'children']),
-          templates: (props.children!(createContextNode(props.iteratorName!)) as Component[]).map(c => c.properties),
+          templates: (
+            props.children!(
+              createContextNode(props.iteratorName!),
+              createContextNode(props.indexName!)
+            ) as Component[]).map(c => c.properties),
         },
       }
 
