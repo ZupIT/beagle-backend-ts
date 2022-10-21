@@ -244,7 +244,8 @@ describe('Components', () => {
             props.children!(
               createContextNode(props.iteratorName!),
               createContextNode(props.indexName!)
-            ) as Component[]).map(c => c.properties),
+            ) as Component[])
+              .map(c => c.properties),
         },
       }
 
