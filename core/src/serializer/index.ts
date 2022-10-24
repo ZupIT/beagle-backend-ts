@@ -49,20 +49,17 @@ const asAnalyticsConfig = (analytics: AnalyticsConfig<any>): SerializedAnalytics
   attributes: analytics.attributes ? extractPaths(analytics.attributes) : undefined,
 }) : false
 
-const asActionCall = (action: Action<any>): ActionCall => ({
-  _beagleAction_: `${action.namespace ?? genericNamespace}:${action.name}`,
-  analytics: action.analytics === undefined ? undefined : asAnalyticsConfig(action.analytics),
-  ...transformExpressionsAndActions(action.properties),
+const asActionCall = ({ name, namespace, analytics, properties }: Action<any>): ActionCall => ({
+  _beagleAction_: `${namespace ?? genericNamespace}:${name}`,
+  analytics: analytics === undefined ? undefined : asAnalyticsConfig(analytics),
+  ...transformExpressionsAndActions(properties),
 })
 
 const asActionCalls = (actions: Action<any> | Action<any>[]): ActionCall[] => (
   Array.isArray(actions) ? actions.map(asActionCall) : [asActionCall(actions)]
 )
 
-const asContextDeclaration = (context: LocalContext<any>): ContextDeclaration => ({
-  id: context.path,
-  value: context.value,
-})
+const asContextDeclaration = ({ path, value }: LocalContext<any>): ContextDeclaration => ({ id: path, value })
 
 const transformExpressionsAndActions = (value: any): any => {
   const isActions = value instanceof Action || Array.isArray(value) && value[0] instanceof Action
@@ -74,16 +71,13 @@ const transformExpressionsAndActions = (value: any): any => {
   return value
 }
 
-const asBeagleNode = (component: Component): BeagleNode => {
-  const childrenArray = Array.isArray(component.children) || !component.children
-    ? component.children
-    : [component.children]
-
+const asBeagleNode = ({ id, namespace, name, context, children, properties }: Component): BeagleNode => {
+  const childrenArray = Array.isArray(children) || !children ? children : [children]
   return {
-    _beagleComponent_: `${component.namespace ?? genericNamespace}:${component.name}`,
-    context: component.context ? asContextDeclaration(component.context) : undefined,
-    id: component.id,
-    ...transformExpressionsAndActions(component.properties ?? {}),
+    _beagleComponent_: `${namespace ?? genericNamespace}:${name}`,
+    context: context ? asContextDeclaration(context) : undefined,
+    id,
+    ...transformExpressionsAndActions(properties ?? {}),
     children: isEmpty(childrenArray) ? undefined : childrenArray!.map(asBeagleNode),
   }
 }

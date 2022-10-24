@@ -66,6 +66,11 @@ export interface ListViewProps<T> extends WithContext, WithStyle, WithAccessibil
    */
   iteratorName?: string,
   /**
+   * The default id for the implicit context that refers to the current iteration index is "index". This property allows you
+   * to change this id. It's useful for preventing a context from being obscured by another.
+   */
+  indexName?: string,
+  /**
    * Tells the frontend which property of the items in the dataset is able to identify them. This is useful for
    * rendering only what's necessary when the list changes. Set this property whenever possible to enhance performance.
    */
@@ -74,7 +79,7 @@ export interface ListViewProps<T> extends WithContext, WithStyle, WithAccessibil
    * A Template factory. It receives the implicit context corresponding to the current iteration. It must return a
    * Template or a list of Templates. No other component is acceptable.
    */
-  children: (item: Context<T>) => JSX.Element | JSX.Element[],
+  children: (item: Context<T>, index: Context<number>) => JSX.Element | JSX.Element[],
 }
 
 export interface GridViewProps<T> extends ListViewProps<T> {
@@ -114,23 +119,23 @@ export const Template = (props: TemplateProps) => {
   return <component name="template" namespace="pseudo" properties={{ case: props.case, view: children }} />
 }
 
-function getTemplates<T>(iteratorName = 'item', children: ListViewProps<T>['children']) {
-  let templateComponents = children(createContextNode(iteratorName ?? 'item'))
+function getTemplates<T>(iteratorName = 'item', indexName = 'index', children: ListViewProps<T>['children']) {
+  let templateComponents = children(createContextNode(iteratorName ?? 'item'), createContextNode(indexName ?? 'index'))
+
+  // eslint-disable-next-line no-console
+  console.log(templateComponents)
+
   if (!Array.isArray(templateComponents)) templateComponents = [templateComponents]
   let hasDefaultTemplate = false
-  return templateComponents.map((templateComponent) => {
-    if (templateComponent.name !== 'template' || templateComponent.namespace !== 'pseudo') {
-      throw new Error(
-        `A ListView or GridView must only contain Template as children. Found ${templateComponent.namespace}:${templateComponent.name} instead.`,
-      )
+  return templateComponents.map(({ namespace, name, properties }) => {
+    if (name !== 'template' || namespace !== 'pseudo') {
+      throw new Error(`A ListView or GridView must only contain Template as children. Found ${namespace}:${name} instead.`)
     }
-    if (!templateComponent.properties?.case && hasDefaultTemplate) {
-      throw new Error(
-        'A ListView or GridView must contain zero or one default Template. Did you forget to set "case" for some of the Templates?',
-      )
+    if (!properties?.case && hasDefaultTemplate) {
+      throw new Error('A ListView or GridView must contain zero or one default Template. Did you forget to set "case" for some of the Templates?')
     }
-    hasDefaultTemplate = hasDefaultTemplate || !templateComponent.properties?.case
-    return templateComponent.properties
+    hasDefaultTemplate = hasDefaultTemplate || !properties?.case
+    return properties
   })
 }
 
@@ -212,7 +217,7 @@ export const ListView: ListFC = ({ id, context, children, style, ...props }) => 
     id={id}
     context={context}
     style={style}
-    properties={{ ...props, templates: getTemplates(props.iteratorName, children) }}
+    properties={{ ...props, templates: getTemplates(props.iteratorName, props.indexName, children) }}
   />
 )
 
@@ -233,7 +238,7 @@ export const GridView: GridFC = ({ id, context, children, style, ...props }) => 
     id={id}
     context={context}
     style={style}
-    properties={{ ...props, templates: getTemplates(props.iteratorName, children) }}
+    properties={{ ...props, templates: getTemplates(props.iteratorName, props.indexName, children) }}
   />
 )
 
