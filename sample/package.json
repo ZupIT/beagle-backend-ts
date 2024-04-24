@@ -16,7 +16,7 @@
     "@zup-it/beagle-backend-core": "1.2.0",
     "@zup-it/beagle-backend-express": "1.2.1",
     "cors": "^2.8.5",
-    "express": "4.17.2"
+    "express": "4.19.2"
   },
   "devDependencies": {
     "@types/cors": "^2.8.12",
