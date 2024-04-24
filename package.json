@@ -3,7 +3,8 @@
   "workspaces": [
     "core",
     "components",
-    "express-client"
+    "express-client",
+    "sample"
   ],
   "engines": {
     "node": ">=13.2"
